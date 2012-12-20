@@ -1,0 +1,191 @@
+*customer
+	- id_customer
+	- username
+	- password
+	- first_name
+	- last_name
+	- email
+	- phone
+	- created
+	- updated
+	- status (on, off, deleted)
+	- facebook_id
+	- twitter_id
+
+*address_book
+	- id_address
+	- id_customer
+	- id_country
+	- id_estate
+	- contact_first_name
+	- contact_last_name
+	- phone
+	- company
+	- rfc
+	- street
+	- between_streets
+	- colony
+	- city
+	- default_billing
+	- default_shipping
+
+*countries
+	- id_country
+	- name
+
+*states
+	- id_state
+	- id_country
+	- name
+
+*customer_promo
+	- id_promo
+	- id_customer
+	- link_facebook
+	- invit_facebook
+	- tweet
+	- feedback
+
+*coupons
+	- id_coupon
+	- name
+	- code
+	- amount
+	- uses_total
+	- date_start
+	- date_end
+	- created
+	- status
+
+*coupons_history
+	- id_history
+	- id_coupon
+	- id_customer
+	- id_order
+	- amount
+	- created
+
+*vouchers
+	- id_voucher
+	- name
+	- code
+	- amount
+	- uses_total
+	- date_start
+	- date_end
+	- created
+	- status
+
+*vouchers_history
+	- id_history
+	- id_voucher
+	- id_customer
+	- id_order
+	- amount
+	- created
+
+*newsletter
+	- id_news
+	- name
+	- last_name
+	- email
+
+*themes
+	- id_theme
+	- name
+	- background_img
+	- background_color
+	- text_color
+	- status
+
+*tags
+	- id_tag
+	- name
+
+*themes_tags
+	- id_tag
+	- id_theme
+
+*yuppics
+	- id_yuppic
+	- id_customer
+	- id_product
+	- title
+	- author
+	- quantity
+
+*yuppics_theme
+	- id_ytheme
+	- id_yuppic
+	- background_img
+	- background_color
+	- text_color
+
+*yuppics_photos
+	- id_photo
+	- id_yuppic
+	- url_img
+	- url_thumb
+
+*yuppics_pages
+	- id_ypage
+	- id_yuppic
+	- id_page
+	- num_pag
+
+*yuppics_pages_photos
+	- id_ypage
+	- id_photo
+	- id_page_img
+	- id_frame
+
+*accomodation_page
+	- id_page
+	- num_imgs
+	- url_preview
+
+*accomodation_imgs
+	- id_img
+	- width
+	- height
+
+*accomodation_page_imgs
+	- id_page_img
+	- id_page
+	- id_img
+	- coord_x
+	- coord_y
+
+*frames
+	- id_frame
+	- name
+	- url_preview
+
+*frames_imgs
+	- id_frame
+	- id_img
+	- url_frame
+
+*products
+	- id_product
+	- name
+	- price
+
+*orders
+	- id_order
+	- id_customer
+	- id_address_billing
+	- id_address_shipping
+	- total_shipping
+	- total_discount
+	- total
+	- created
+	- updated
+	- status (p:pendiente, a:autorizado, e:enviado, c:cancelado)
+	- comment
+	- guide_num
+
+*orders_yuppics
+	- id_order
+	- id_yuppic
+

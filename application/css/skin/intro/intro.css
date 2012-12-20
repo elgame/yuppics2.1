@@ -1,0 +1,22 @@
+
+.intro{
+	margin-top: 13%;
+}
+
+.btn.btn-intro{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#modal_ingreso{
+	left: 15%;
+}
+.vamodal{
+	padding-top: 5%;
+}
+
+
+.modal form{
+	padding: 0;
+	margin: 0;
+}

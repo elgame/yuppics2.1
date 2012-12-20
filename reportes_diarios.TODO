@@ -1,0 +1,59 @@
+26-11-2012:
+  ☐ Analisis de las APIs a utilizar dentro de yuppics2.0 y registro en algunas de ellas para obtener las APIS key. Revision de manera general los servicios a utilizar.
+
+27-11-2012:
+  ☐ integracion de aviary con codeigniter, realizacion de ejemplos y pruebas del funcionamiento de la libreria.
+  ☐ pruebas con filepicker.io, se analizo los pros y contras del servicio para ver si es viable implementarlo dentro del proyecto yuppics2.0. Como conclusion para el proyecto no es la mejor opcion debido a que se requiere que proporcione la URL directa de una imagen ejemplo (http://www.ejemplo.com/imagen.jpg) y proporciona un enlace el cual si se accede a el descarga la imagen y en este caso para poderla mostrar en el explorador se requiere utilizar una funcion proporcionada por filepicker.io y desde mi punto de vista se realizaria doble proceso. Otro punto es que no hay organizacion de los archivos en filepicker.io es decir si se guardan en el servidor de youppics se podria organizar como ejemplo de la siguiente manera:
+  - servidor
+     - cliente_id
+        - photobook_id 
+
+  Aviary trae soporte por si solo para las distintas plataformas, por lo que se podria integrar sin problemas.
+
+  ☐ Integracion de la libreria para la autenficacion con facebook, falto relizar el testeo.
+
+28-11-2012:
+
+  ☐ Integracion y correccion de la libreria mercadopago ya que no funcionaba en su totalidad, pruebas para obtener acceso a la API, crear usuarios, ejemplos para procesar la compra. (5hrs aprox)
+  ☐ Integracion de la libreria MailChimp (utilizada principalmente para el servicio de Newsletters) en el framework, se realizaron tests para probar los servicios para la creacion de campañas, listas y agregar usuarios a dichas listas. Se realizaron tests para comprobar que los usuarios si se suscribieran al Newsletter y les llegara la informacion de registro. (3hrs aprox)
+
+29-11-2012:
+  ☐ Termine de integrar la libreria de paypal y se realizaron pruebas para comprobar el buen funcionamiento utilizando la plataforma de pruebas de paypal (sandbox)
+  ☐ Realize mas pruebas con la API de mailchimp (crear campaña, crear templates, replicar campañas, eliminar campañas, programar y enviar campañas)
+  ☐ En mixpanel hice una revizada general de la API y vi la forma de integarlo al sitio web (muy parecido a analitycs)
+  ☐ Busque herramienta para crear UMLs (creately)
+
+30-11-2012:
+  ☐ Integracion y testeo de la API de twitter, pruebas de publicacion.
+  ☐ Integracion y testeo de la API de facebook, pruebas de autenticacion, obtener albums, obtener fotos, enviar invitaciones, hacer publicaciones.
+
+03-12-2012:
+  ☐ analisis de los requerimientos para la elaboracion de la primera revision de la base de datos.
+04-12-2012:
+  ☐ Se termino la primera version de la base de datos, lista para analizarla y realizar correciones
+  ☐ Se realizaron mas pruebas con la api de twitter para poder enviar un twitt o actualizar el status del usuario.
+05-12-2012:
+  ☐ Se paso la primera version de la base de datos a mysql, se crearon las tablas, las relaciones, se creo el diagrama entidad relacion(se subio a basecamp).
+  ☐ Se retomo twitter para poder realizar el envio de twitter ya que esta dando problemas la api.
+07-12-2012:
+  ☐ Se dedico tiempo para twitter nuevamente, se decidio mejor buscar una libreria para avanzar mas rapido.
+07-12-2012:
+  ☐ Se analizo la libreria de twitter que se escogio para utilizar y se adapto al framework codeigniter.
+  ☐ Se iniciaron con los diagramas de clase en la aplicacion creately (online).
+
+10-12-2012:
+  ☐ Continuacion con los diagramas uml funcionamiento de las clases.
+    Crear vista para mostrar visualmente los albums y fotos de la api de facebook.
+11-12-2012:
+  ☐ Revizion y correcion de la base de datos en base a la documentacion existente de yuppics2.0, storyboard, trello, basecamp, etc.
+    Se reanalizaron minuciosamente los documentos antes mencionados para tener ideas mas claras del funcionamiento de la app.
+    Se encontraron detalles en la base de datos y corrigieron.
+12-12-2012:
+  ☐ Se inicio con el template base del Login de yuppics2.0 sin diseño ya que no se tiene aun, se utilizo bootstrap como se tenia antes establecido.  Tambien se le adaptop lo de facebook para cuando se requiera loguear o crear la cuenta mediante esa opcion. Solamente parte visual, falta funcionamiento es decir crear la session, guardar en la bdd etc
+
+13-12-2012:
+  ☐ Se continuo con el template del registro manual en yuppics2.0, ya que este no se encuentra en el storyboard, se realizo en base a la base de datos solo como "formulario base" si se requiere de cambios se haran eso depende del diseño, se validaron campos.
+    **Sujeta a cambios
+
+14-12-2012:
+  ☐ Parte backend del login y registro, limpiar parametros, validaciones, operaciones con la base de datos.

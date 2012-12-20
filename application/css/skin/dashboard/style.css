@@ -1,0 +1,10 @@
+.navbar-inner.navinner{
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+}
+
+.modal form{
+	padding: 0;
+	margin: 0;
+}

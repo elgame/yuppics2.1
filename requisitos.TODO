@@ -1,0 +1,54 @@
+Requisitos:
+  Apache 2.2
+  PHP 5.2.8
+  Mysql 5.1
+  Codeigniter v2.1.3
+  Bootstrap v2.2.1 para el diseño responsivo
+
+  Facebool Graph API y SDK javascript
+  PayPal API v85 y libreria codeigniter
+  Mercadopago API y SDK para PHP
+  Twitter REST API v1.1
+  Mailchimp API v1.3 y libreria codeigniter (para el Newsleteer)
+
+  jQuery v1.8.3 y/o Angularjs v1.0.2
+  Aviary
+
+  basecam y mixpanel
+
+ Restricciones:
+   Compatibilidad de Aviary en los navegadores (IE)
+   Compatibilidad en los dialogos de Facebook para IE6/7
+   Algunas caracteristicas de Bootstrap (CSS3) no soportadas por algunos navegadores
+
+APIKEY AVIARY:
+  key: 2e63f9892
+  secret: 807f4a818
+
+
+SERVICIOS APIs:
+ 
+  ☐ Facebook
+    - authentication server-side (http://developers.facebook.com/docs/howtos/login/server-side-login/)
+    - Compartir enlace o invitar amigos (Dialogos -> http://developers.facebook.com/docs/reference/dialogs/requests/)
+    - Obtener los albums de un usuario y las fotos (http://developers.facebook.com/docs/reference/api/album/) (/PROFILE_ID/albums, /ALBUM_ID/photos)
+    - Obtener todas las fotos de un usuairo (http://developers.facebook.com/docs/reference/api/photo/) (/PROFILE_ID/photos)
+    - App test:
+        App ID:      447729658597880
+        App Secret:  84a20b6f73a3089b7dab5e536d946ce7
+ ☐ Twitter
+    - Authentication (https://dev.twitter.com/docs/auth/implementing-sign-twitter)
+    - Hacer una publicacion (https://dev.twitter.com/docs/api/1.1/post/statuses/update)
+    - App test:
+        Consumer key        GKuPKWHIFT23p4KVj0PA
+        Consumer secret     nuZ9TzCZ6pkBWQv2vqjon29849YfpqRgCLhU9LKKFM
+ ☐ Libreria PayPal integrada a codeigniter
+ ☐ Mercadopago
+   - API test:
+       Client_id:      7172967533334556
+       Client_secret:  omCwGHkRTK9PL1b2pskoCUaBIDtnhgy1
+       - Cliente
+         id: 129618607
+         nickname: TEST6876
+         password: qatest2157
+         site_status: active
