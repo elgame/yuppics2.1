@@ -30,7 +30,7 @@
 								</a>
 						</li>
 						<li>
-								<a class="ajax-link" href="<?php echo base_url('panel'); ?>">
+								<a href="#" class="ajax-link" id="contact" data-toggle="modal" data-target="#modal_contact">
 									<i class="icon-comment"></i><span class="hidden-tablet"> Contacto</span>
 								</a>
 						</li>

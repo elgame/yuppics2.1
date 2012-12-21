@@ -1,0 +1,1 @@
+$(function(){form_ajax.init();});

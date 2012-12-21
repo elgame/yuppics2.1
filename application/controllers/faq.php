@@ -24,6 +24,12 @@ class Faq extends MY_Controller {
 			array('skin/faq/faq.css'),
 		));
 
+		$this->carabiner->js(array(
+			array('libs/jquery.form.js'),
+			array('skin/contact.js'),
+			array('skin/form_ajax.js'),
+		));
+
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
 		$params['seo'] = array(
 			'titulo' => 'Modificar perfil - yuppics'

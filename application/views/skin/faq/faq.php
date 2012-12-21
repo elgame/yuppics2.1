@@ -16,7 +16,7 @@
 				<div class="hero-unit">
 					<h3>Lista de Preguntas y respuestas frecuentes</h3>
 					<p>Si tienes alguna duda contemplada que no venga dentro de esta lista de preguntas, puedes hacernos llegar un mensaje y ponerte en contacto con
-							nosotros mediante nuestro formulario de <a href="#" title="Contacto">contacto</a></p>
+							nosotros mediante nuestro formulario de <a href="#" title="Contacto" data-toggle="modal" data-target="#modal_contact">contacto</a></p>
 				</div>
 			</div>
 					

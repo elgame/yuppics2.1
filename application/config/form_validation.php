@@ -97,3 +97,14 @@ $config['address_book/update'] = array(
 							array('field' => 'id_state',
 								  'label' => 'Estado',
 								  'rules' => 'required|numeric'));
+
+$config['contact/send'] = array(
+							array('field' => 'name',
+								  'label' => 'Nombre',
+								  'rules' => 'required|max_length[80]'),
+							array('field' => 'email',
+								  'label' => 'Dirección de email',
+								  'rules' => 'required|valid_email|max_length[30]'),
+							array('field' => 'message',
+								  'label' => 'Mensaje/Comentario',
+								  'rules' => 'required'));

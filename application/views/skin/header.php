@@ -53,7 +53,7 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Perfil</a></li>
+						<li><a href="<?php echo base_url('customer/perfil/');?>">Perfil</a></li>
 						<li class="divider"></li>
 						<li><a href="<?php echo base_url('customer/logout'); ?>">Cerrar sesión</a></li>
 					</ul>

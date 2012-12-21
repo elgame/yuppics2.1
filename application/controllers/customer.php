@@ -25,6 +25,12 @@ class customer extends MY_Controller {
 			array('skin/dashboard/style.css', 'screen')
 		));
 
+		$this->carabiner->js(array(
+			array('libs/jquery.form.js'),
+			array('skin/form_ajax.js'),
+			array('skin/contact.js'),
+		));
+
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
 		$params['seo'] = array(
 			'titulo' => 'Dashboard - yuppics'
@@ -182,6 +188,7 @@ class customer extends MY_Controller {
 			array('libs/jquery.formautofill.min.js'),
 			array('general/msgbox.js'),
 			array('skin/perfil.js'),
+			// array('skin/contact.js'),
 			array('skin/form_ajax.js'),
 		));
 		
