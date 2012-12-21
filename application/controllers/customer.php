@@ -29,6 +29,7 @@ class customer extends MY_Controller {
 			array('libs/jquery.form.js'),
 			array('skin/form_ajax.js'),
 			array('skin/contact.js'),
+			array('skin/newsletter.js')
 		));
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
@@ -189,6 +190,7 @@ class customer extends MY_Controller {
 			array('general/msgbox.js'),
 			array('skin/perfil.js'),
 			// array('skin/contact.js'),
+			array('skin/newsletter.js'),
 			array('skin/form_ajax.js'),
 		));
 		

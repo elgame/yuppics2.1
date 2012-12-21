@@ -57,6 +57,8 @@ class address_book_model extends CI_Model{
 	 */
 	public function add_address()
 	{
+		$conta = $this->db->query("SELECT Count(*) AS num FROM address_book WHERE id_customer = ".$this->session->userdata('id_usuario'))->row();
+
 		$data = array('id_customer' => $this->session->userdata('id_usuario'),
 			'id_country'         => '1',
 			'id_state'           => $this->input->post('state'),
@@ -69,8 +71,8 @@ class address_book_model extends CI_Model{
 			'between_streets'    => $this->input->post('between_streets'),
 			'colony'             => $this->input->post('colony'),
 			'city'               => $this->input->post('city'),
-			'default_billing'    => ($this->input->post('default_billing')===false? '0': '1'),
-			'default_shipping'   => ($this->input->post('default_shipping')===false? '0': '1'),
+			'default_billing'    => (($this->input->post('default_billing')===false && $conta->num > 0)? '0': '1'),
+			'default_shipping'   => (($this->input->post('default_shipping')===false && $conta->num > 0)? '0': '1'),
 		);
 
 		if ($this->input->post('default_billing') !== false) {

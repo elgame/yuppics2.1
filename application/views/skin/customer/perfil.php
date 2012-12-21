@@ -129,13 +129,15 @@
 
 									<div class="control-group">
 								<?php 
-								foreach ($address_books['default'] as $key => $default) {
-									if($default->default_billing==1 && $default->default_shipping == 1)
-										echo '<strong>Direccion de facturacion y envio</strong>';
-									else if ($default->default_billing==1)
-										echo '<strong>Direccion de facturacion</strong>';
-									else if ($default->default_shipping == 1)
-										echo '<strong>Direccion de envio</strong>';
+								if (isset($address_books['default']))
+								{
+									foreach ($address_books['default'] as $key => $default) {
+										if($default->default_billing==1 && $default->default_shipping == 1)
+											echo '<strong>Direccion de facturacion y envio</strong>';
+										else if ($default->default_billing==1)
+											echo '<strong>Direccion de facturacion</strong>';
+										else if ($default->default_shipping == 1)
+											echo '<strong>Direccion de envio</strong>';
 								?>
 										<p>
 											<?php 
@@ -148,6 +150,7 @@
 											<br><a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a>
 										</p>
 								<?php 
+									} 
 								} ?>
 									</div>
 
@@ -160,7 +163,9 @@
 
 									<div class="control-group">
 									<?php 
-									foreach ($address_books['others'] as $key => $default) {
+									if (isset($address_books['others']))
+									{
+										foreach ($address_books['others'] as $key => $default) {
 									?>
 										<strong>Direccion <?php echo $key+1; ?></strong>
 											<p>
@@ -177,7 +182,8 @@
 													onclick="msb.confirm('Estas seguro de eliminar la direccion?', 'Libro de direcciones', this); return false;">Eliminar</a>
 											</p>
 									<?php 
-									} ?>
+										} 
+									}?>
 									</div>
 
 								</fieldset>

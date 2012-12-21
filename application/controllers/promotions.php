@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Faq extends MY_Controller {
+class Promotions extends MY_Controller {
 
 	/**
 	 * Evita la validacion (enfocado cuando se usa ajax). Ver mas en privilegios_model
@@ -25,21 +25,25 @@ class Faq extends MY_Controller {
 		));
 
 		$this->carabiner->js(array(
+			array('http://connect.facebook.net/en_US/all.js'),
 			array('libs/jquery.form.js'),
 			array('skin/form_ajax.js'),
 			array('skin/contact.js'),
 			array('skin/newsletter.js'),
+			array('skin/promotions.js')
 		));
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
 		$params['seo'] = array(
-			'titulo' => 'Modificar perfil - yuppics'
+			'titulo' => 'Promociones - yuppics'
 		);
 
+		$this->load->library('my_facebook');
+		$params['fb_app_id'] = $this->my_facebook->APP_ID;
 
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
-		$this->load->view('skin/faq/faq', $params);
+		$this->load->view('skin/promotions/yuppic', $params);
 		$this->load->view('skin/general/right-bar', $params);
 		$this->load->view('skin/footer');
 	}

@@ -18,7 +18,7 @@ class  my_facebook {
 	private $CI; // Instancia de Codeigniter
 
 	// Vars
-  private $APP_ID = '512075685472594'; // FACEBOOK APP ID
+  public $APP_ID = '512075685472594'; // FACEBOOK APP ID
 	private $APP_SECRET = 'c49714bb2f943ff53a2453099910bf25'; // FACEBOOK APP SECRET
   private $graph_url = 'https://graph.facebook.com/';
   

@@ -20,7 +20,7 @@
 								</a>
 						</li>
 						<li>
-								<a class="ajax-link" href="<?php echo base_url('panel'); ?>">
+								<a href="#" class="ajax-link" id="newsletterm" data-toggle="modal" data-target="#modal_newsletter">
 									<i class="icon-check"></i><span class="hidden-tablet"> Newsletter</span>
 								</a>
 						</li>
