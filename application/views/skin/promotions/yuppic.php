@@ -24,9 +24,14 @@
 			<div class="row-fluid">
 					<div class="span12">
 						
+						<div id="promo_alert" class="alert hide">
+							<button type="button" class="close">×</button>
+							<span></span>
+						</div>
+
 						<div style="background-color: #fff; padding: 3% 4% 1% 4%;">
 							<div class="progress">
-							  <div class="bar" style="width: 0%;"></div>
+							  <div class="bar" style="width: <?php echo (isset($status->progress)? $status->progress: '0'); ?>%;"></div>
 							</div>
 							<p class="muted pull-left">0%</p>
 							<p class="muted pull-left" style="margin-left: 48%;">50%</p>
@@ -38,38 +43,41 @@
 						<script type="text/javascript">
 							var fb_app_id = <?php echo $fb_app_id; ?>
 						</script>
-
-						<table class="table table-condensed">
-							<tr id="fb_comparte_link">
+	<?php if (isset($status->progress) || !isset($status->progress)) {
+					$status->progress = isset($status->progress)? $status->progress: 0;
+					if ($status->progress < 100) {
+	?>
+						<table class="table table-condensed table-promo">
+							<tr id="fb_comparte_link" class="<?php echo (isset($status->link_facebook)? ($status->link_facebook==1? 'disable': ''): ''); ?>">
 								<td>
-									<input type="checkbox" style="margin: 20px 0 0 20px;">
+									<input type="checkbox" disabled <?php echo (isset($status->link_facebook)? ($status->link_facebook==1? 'checked': ''): ''); ?>>
 								</td>
 								<td>
 									<h3 class="muted">Comparte nuestro enlace en tu muro!</h3>
 									<p>Comparte en enlace o direccion de nuestra app vía  facebook</p>
 								</td>
 							</tr>
-							<tr id="fb_invita_link">
+							<tr id="fb_invita_link" class="<?php echo (isset($status->invit_facebook)? ($status->invit_facebook==1? 'disable': ''): ''); ?>">
 								<td>
-									<input type="checkbox" style="margin: 20px 0 0 20px;">
+									<input type="checkbox" disabled <?php echo (isset($status->invit_facebook)? ($status->invit_facebook==1? 'checked': ''): ''); ?>>
 								</td>
 								<td>
 									<h3 class="muted">Invita a tus amigos a crear sus propios Photobooks</h3>
 									<p>Invita a tus amigos vía facebook a utilizar nuestra app</p>
 								</td>
 							</tr>
-							<tr>
+							<tr id="prom_tweetea" class="<?php echo (isset($status->tweet)? ($status->tweet==1? 'disable': ''): ''); ?>">
 								<td>
-									<input type="checkbox" style="margin: 20px 0 0 20px;">
+									<input type="checkbox" disabled <?php echo (isset($status->tweet)? ($status->tweet==1? 'checked': ''): ''); ?>>
 								</td>
 								<td>
 									<h3 class="muted">Tweetea tu amor por Yuppics</h3>
 									<p>Comparte tu amor por yuppics vía twitter</p>
 								</td>
 							</tr>
-							<tr>
+							<tr id="prom_feedback" class="<?php echo (isset($status->feedback)? ($status->feedback==1? 'disable': ''): ''); ?>">
 								<td>
-									<input type="checkbox" style="margin: 20px 0 0 20px;">
+									<input type="checkbox" disabled <?php echo (isset($status->feedback)? ($status->feedback==1? 'checked': ''): ''); ?>>
 								</td>
 								<td>
 									<h3 class="muted">Proporcionanos feedback</h3>
@@ -77,12 +85,64 @@
 								</td>
 							</tr>
 						</table>
+	<?php }
+		} ?>
 
 					</div><!--/span-->
 			</div><!--/row-->
+	<?php if (isset($status->progress)) {
+		if ($status->progress == 100) { 
+	?>
+			<div class="row-fluid">
+				<div style="background-color: #fff; padding: 3% 4% 1% 4%;">
+					<div class="span7">
+						<h4>Has ganado un cupón de descuento</h4>
+						<p class="muted">Con un valor de <?php echo String::formatoNumero($status->coupon->amount,2,''); ?>MXN valido en la compra de un yuppic.</p>
+					</div><!--/span-->
+
+					<div class="span5 cupon">
+						<div class="span6 tacenter cupon_left">
+							<span>100%</span>
+							<p>De descuento</p>
+						</div>
+						<div class="span6">
+							<div class="muted cupon_code">Codigo <?php echo $status->coupon->code; ?></div>
+							<p>Valor del Cupón <?php echo String::formatoNumero($status->coupon->amount,2,''); ?>MXN</p>
+						</div>
+					</div><!--/span-->
+					<div class="clearfix"></div>
+				</div>
+
+			</div><!--/row-->
+<?php }
+	} ?>
 
 	</div><!--/#content.span8-->
 
+
+	<div id="modal_feedback" class="modal hide fade"><!-- START modal contacto -->
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h2 id="myModalLabel3" style="display: inline;">Feedback</h2><span class="muted"> Envia tus comentarios, observaciones y/o sugerencias.</span>
+	  </div>
+	  <div class="modal-body">
+
+				<div class="control-group">
+					<div id="send_feedback_alert" class="alert hide">
+						<button type="button" class="close">×</button>
+						<span></span>
+					</div>
+				</div>
+
+				<div class="control-group">		
+					<textarea name="feedback_text" rows="7" cols="10" class="input-block-level" id="feedback_text" placeholder="comentarios, observaciones y/o sugerencias" required></textarea>
+				</div>
+				<div class="control-group">
+					<button type="submit" class="btn btn-primary btn-large input-xxlarge" id="btn-feedback">Enviar feedback</button>
+				</div>
+
+	  </div>
+	</div><!-- END modal contacto -->
 
 <!-- Bloque de alertas -->
 <?php if(isset($frm_errors)){

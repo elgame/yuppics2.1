@@ -122,3 +122,14 @@ $config['newsletter/send'] = array(
 							array('field' => 'newsletter',
 								  'label' => 'estado',
 								  'rules' => 'required'));
+
+$config['promotions/update_state'] = array(
+							array('field' => 'field',
+								  'label' => 'campo',
+								  'rules' => 'required|max_length[20]|callback_extra_valida'),
+							array('field' => 'value',
+								  'label' => 'Valor',
+								  'rules' => 'required|max_length[1]'),
+							array('field' => 'text',
+								  'label' => 'Mensaje feedback',
+								  'rules' => 'max_length[500]'));

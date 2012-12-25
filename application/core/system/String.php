@@ -94,7 +94,7 @@ class String{
 	}
 
 
-	public static function RandomString($length=10,$uc=TRUE,$n=TRUE,$sc=FALSE)
+	public static function RandomString($length=10,$uc=TRUE,$n=TRUE,$sc=TRUE)
 	{
 		$source = 'abcdefghijklmnopqrstuvwxyz';
 		if($uc==1) $source .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

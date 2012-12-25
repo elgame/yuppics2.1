@@ -1,0 +1,25 @@
+
+.table-promo tr:hover td{
+	cursor: pointer;
+}
+.table-promo tr.disable td{
+	background-color: #f5f5f5;
+	cursor: default;
+}
+
+.table-promo input[type="checkbox"]{
+	margin: 20px 0 0 20px;
+}
+
+.cupon{
+	background-color: #fff; 
+	padding: 3% 4% 1% 4%;
+	border: 1px #ccc solid;
+}
+.cupon_left span{
+	font-size: 2em;
+
+}
+.cupon_code{
+	border-bottom: 2px #ccc solid;
+}

@@ -15,13 +15,13 @@ class Promotions extends MY_Controller {
 
 			$this->{$method}();
 		}else
-			$this->{'index'}();
+			redirect(base_url());
 	}
 
 	public function index()
 	{
 		$this->carabiner->css(array(
-			array('skin/faq/faq.css'),
+			array('skin/promo/promo.css'),
 		));
 
 		$this->carabiner->js(array(
@@ -41,11 +41,109 @@ class Promotions extends MY_Controller {
 		$this->load->library('my_facebook');
 		$params['fb_app_id'] = $this->my_facebook->APP_ID;
 
+		$this->load->model('promotion_model');
+		$params['status'] = $this->promotion_model->getStates($this->session->userdata('id_usuario'));
+
+		if (isset($_GET['msg']) && isset($params['status']->progress) )
+			if($params['status']->progress < 100)
+				$params['frm_errors'] = $this->showMsgs($_GET['msg']);
+
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
 		$this->load->view('skin/promotions/yuppic', $params);
 		$this->load->view('skin/general/right-bar', $params);
 		$this->load->view('skin/footer');
+	}
+
+	public function update_state(){
+		$this->load->library('form_validation');
+		if ($this->form_validation->run() === FALSE)
+		{
+			$params['frm_errors'] = array(
+							'title' => '', 
+							'msg'   => preg_replace("[\n|\r|\n\r]", '', validation_errors()), 
+							'ico'   => 'error');
+		}
+		else
+		{
+			$this->load->model('promotion_model');
+
+			$data = $this->input->post('value');
+			if ($this->input->post('field') == 'feedback') {
+				$data = array($this->input->post('value'), $this->input->post('text') );
+			}
+			$params['status1'] = $this->promotion_model->updateState($this->session->userdata('id_usuario'), $this->input->post('field'), $data);
+
+			$params['frm_errors'] = array(
+							'title' => '',
+							'msg'   => 'Se actualizo correctamente.',
+							'ico'   => 'success');
+		}
+		echo json_encode($params);
+	}
+
+	public function twitter(){
+		$data_res = $this->db->query("SELECT tweet FROM customer_promo WHERE id_customer = ".$this->session->userdata('id_usuario'));
+		if ($data_res->num_rows() > 0) {
+			$data = $data_res->row();
+			$data_res->free_result();
+
+			if ($data->tweet == 0) {
+				$this->load->library('my_twitter');
+				$res = $this->my_twitter->oauth();
+				$result = $this->my_twitter->statuses_update('Amigos entren a http://localhost/yuppics2.1/ y crea tus photobooks, rapido y facil :)');
+
+				if (isset($result->text) && isset($result->id_str)) {
+					$this->load->model('promotion_model');
+					$this->promotion_model->updateState($this->session->userdata('id_usuario'), 'tweet', '1');
+
+					redirect(base_url('promotions?msg=3'));
+				}
+			}
+		}
+		
+	}
+
+
+
+	public function extra_valida(){
+		if (!preg_match("/[link_facebook|invit_facebook|tweet|feedback]/", $this->input->post('field'))) {
+			$this->form_validation->set_message('extra_valida', 'El campo especificado no es valido.');
+			return FALSE;
+		}
+
+		if (!preg_match("/[1|0]/", $this->input->post('value'))) {
+			$this->form_validation->set_message('extra_valida', 'El valor no es valido.');
+			return FALSE;
+		}
+
+		return true;
+	}
+
+
+	private function showMsgs($tipo, $msg='', $title='promociones')
+	{
+		switch($tipo){
+			case 1:
+				$txt = 'El campo ID es requerido.';
+				$icono = 'error';
+				break;
+			case 2: //Cuendo se valida con form_validation
+				$txt = $msg;
+				$icono = 'error';
+				break;
+			case 3:
+				$txt = 'Se publico el tweet correctamente.';
+				$objs = 'promo_alert';
+				$icono = 'success';
+				break;
+		}
+	
+		return array(
+				'title' => $title,
+				'objs' => $objs,
+				'msg' => $txt,
+				'ico' => $icono);
 	}
 
 }
