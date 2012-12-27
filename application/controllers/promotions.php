@@ -83,7 +83,7 @@ class Promotions extends MY_Controller {
 	}
 
 	public function twitter(){
-		$data_res = $this->db->query("SELECT tweet FROM customer_promo WHERE id_customer = ".$this->session->userdata('id_usuario'));
+		$data_res = $this->db->query("SELECT Count(tweet) AS tweet FROM customer_promo WHERE id_customer = ".$this->session->userdata('id_usuario'));
 		if ($data_res->num_rows() > 0) {
 			$data = $data_res->row();
 			$data_res->free_result();
@@ -102,6 +102,7 @@ class Promotions extends MY_Controller {
 			}
 		}
 		
+		redirect(base_url('promotions?msg=4'));
 	}
 
 
@@ -136,6 +137,11 @@ class Promotions extends MY_Controller {
 				$txt = 'Se publico el tweet correctamente.';
 				$objs = 'promo_alert';
 				$icono = 'success';
+				break;
+			case 4:
+				$txt = 'No se pudo realizar la publicacion en twitter, intentalo de nuevo.';
+				$objs = 'promo_alert';
+				$icono = 'error';
 				break;
 		}
 	
