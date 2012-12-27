@@ -40,7 +40,7 @@
 					<span class="icon-bar"></span>
 				</a>
 				
-				<a class="brand" href="<?php echo base_url('panel/home/'); ?>"> 
+				<a class="brand" href="<?php echo base_url(); ?>"> 
 					<img alt="logo" src="<?php echo base_url('application/images/logo.png'); ?>" width="67" height="67">
 					<span>Yuppics</span>
 				</a>

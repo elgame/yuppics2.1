@@ -264,12 +264,12 @@
     *width: 5.929714493544281%;
   }
   .row-fluid .offset12 {
-    margin-left: 105.12820512820512%;
-    *margin-left: 105.02182214948171%;
+    margin-left: 105.12820512820512% !important;
+    *margin-left: 105.02182214948171% !important;
   }
   .row-fluid .offset12:first-child {
-    margin-left: 102.56410256410257%;
-    *margin-left: 102.45771958537915%;
+    margin-left: 102.56410256410257% !important;
+    *margin-left: 102.45771958537915% !important;
   }
   .row-fluid .offset11 {
     margin-left: 96.58119658119658%;

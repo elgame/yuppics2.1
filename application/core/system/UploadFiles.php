@@ -1,6 +1,122 @@
 <?php
 
 class UploadFiles{
+
+	public static function mesToString($mes){
+		switch(floatval($mes)){
+			case 1: return 'ENERO'; break;
+			case 2: return 'FEBRERO'; break;
+			case 3: return 'MARZO'; break;
+			case 4: return 'ABRIL'; break;
+			case 5: return 'MAYO'; break;
+			case 6: return 'JUNIO'; break;
+			case 7: return 'JULIO'; break;
+			case 8: return 'AGOSTO'; break;
+			case 9: return 'SEPTIEMBRE'; break;
+			case 10: return 'OCTUBRE'; break;
+			case 11: return 'NOVIEMBRE'; break;
+			case 12: return 'DICIEMBRE'; break;
+		}
+	}
+
+	/**
+	 * Valida si el directorio espesificado existe o si no lo crea.
+	 */
+	public static function validaDir($dir, $path)
+	{
+		// $path = APPPATH.$dir.'articulos/'.$path;
+		// if($tipo=='anio'){
+		// 	$directorio = date("Y");
+		// }elseif($tipo == 'mes'){
+		// 	$directorio = self::mesToString(date("n"));
+		// }
+
+		if(!file_exists($path.$dir."/")){
+			self::crearFolder($path, $dir."/");
+		}
+		return $dir;
+	}
+
+/**
+	 * Crea un folder en el servidor.
+	 * @param $path_directorio: string. ruta donde se creara el directorio.
+	 * @param $nombre_directorio: string. nombre del folder a crear.
+	 */
+	public static function crearFolder($path_directorio, $nombre_directorio)
+	{
+		if($nombre_directorio != "" && file_exists($path_directorio)){
+			if(!file_exists($path_directorio.$nombre_directorio))
+				return mkdir($path_directorio.$nombre_directorio, 0777);
+			else
+				return true;
+		}else
+			return false;
+	}
+
+	public static function copyFile($source, $dest){
+		if(copy($source, $dest))
+			return true;
+		else
+			return false;
+	}
+
+
+  /*
+  |	Sube un archivo al servidor
+  */
+  public static function upload_file($file_field, $dir, $path)
+  {
+		$config = array(
+			'upload_path' 		=> APPPATH.$dir.'articulos/'.$path,
+			'allowed_types' 	=> '*',
+			'max_size' 				=> '2048',
+			'encrypt_name'		=> TRUE
+		);
+
+		$this->upload->initialize($config);
+		if($this->upload->do_upload($file_field) == FALSE)
+		{
+			// echo $this->upload->display_errors();
+			return array(FALSE, 'msg'=>'Error al intentar subir archivo, intentelo de nuevo.');
+		}
+		$file_data = $this->upload->data();
+
+		if ($file_data['is_image'])
+		{
+			$resize_res = $this->resize_image($config['upload_path'].$file_data['file_name']);
+			if (!$resize_res)
+				return array(FALSE, 'msg'=>'Error al intentar redimensionar imagen.');
+		}
+		return $file_data['file_name'];
+	}
+
+	/*
+	 |	Redimenciona una imagen
+	 */
+  public static function resize_image($img_path)
+  {
+  	$config = array('image_library' => 'gd2',
+										'source_image'  => $img_path,
+										'width'         => '348',
+										'height'        => '280',
+										'maintain_ratio' => FALSE);
+
+  	$this->image_lib->initialize($config);
+  	if (!$this->image_lib->resize())
+  	{
+  		$this->image_lib->clear();
+  		// echo $this->image_lib->display_errors();
+			return FALSE;
+		}
+
+		$this->image_lib->clear();
+		return TRUE;
+  }
+
+
+
+
+
 	
 	/**
 	 * Guarda la imagen de un empleado

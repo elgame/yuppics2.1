@@ -22,6 +22,7 @@ var get_yuppic = (function($){
 		});
 
 		if (!fb_comparte_link.is(".disable")){
+			// Paso 1, asigna eventos para compartir en facebook
 			fb_comparte_link.on("click", function(){
 				FB.ui({
 				   method: 'feed',
@@ -38,6 +39,7 @@ var get_yuppic = (function($){
 			});
 		}
 
+		// Paso 2, asigna eventos para invitar amigos
 		if (!fb_invita_link.is(".disable")){
 			fb_invita_link.on("click", function(){
 				FB.ui({method: 'apprequests',
@@ -46,12 +48,14 @@ var get_yuppic = (function($){
 			});
 		}
 
+		// Paso 3, redirigue al apartado para publicar en twitter
 		if (!prom_tweetea.is(".disable")){
 			prom_tweetea.on("click", function(){
 				window.location = base_url+"promotions/twitter";
 			});
 		}
 
+		// Paso 4, asigna eventos para el feedback
 		if (!prom_feedback.is(".disable")){
 			prom_feedback.on("click", function(){
 				$("#modal_feedback").modal("show");
@@ -102,6 +106,7 @@ var get_yuppic = (function($){
 		myalert(data.frm_errors.msg, data.frm_errors.ico);
 
 		if (data.frm_errors.ico == "success"){
+			// Paso 1, publicacion en facebook
 			if(data.status1.link_facebook == "1"){
 				var obj = $("#fb_comparte_link");
 				obj.addClass("disable").off('click');
@@ -109,6 +114,7 @@ var get_yuppic = (function($){
 			}else
 				$("#fb_comparte_link").removeClass("disable");
 
+			// Paso 2, invitar amigos en facebook
 			if(data.status1.invit_facebook == "1"){
 				var obj = $("#fb_invita_link");
 				obj.addClass("disable").off('click');
@@ -116,6 +122,7 @@ var get_yuppic = (function($){
 			}else
 				$("#fb_invita_link").removeClass("disable");
 
+			// Paso 4, enviar feedback
 			if(data.status1.feedback == "1"){
 				var obj = $("#prom_feedback");
 				obj.addClass("disable").off('click');
@@ -124,10 +131,12 @@ var get_yuppic = (function($){
 			}else
 				$("#prom_feedback").removeClass("disable");
 
+			// anima la barra de progreso
 			$(".progress .bar").animate({
 				width: data.status1.progress+"%"
 			}, 500);
 
+			// si se completaron todos los pasos redirecciona para generar le cupon
 			if (data.status1.progress == 100) {
 				setTimeout(function(){
 					window.location = base_url+"promotions";

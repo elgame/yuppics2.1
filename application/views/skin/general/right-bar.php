@@ -2,7 +2,7 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="well well-small center" style="background-color: #FFF;height: 150px;">
-					<button class="btn btn-primary btn-large mtop">Crear Yuppic</button><br>
+					<a href="<?php echo base_url('yuppics'); ?>" class="btn btn-primary btn-large mtop">Crear Yuppic</a><br>
 					<span>Aqui algo mas</span>
 					<a href="<?php echo base_url('promotions'); ?>" class="btn btn-info btn-small mtop">Invita a tus amigos</a><br>
 					<span>Y gana un Yuppic gratis!</span>

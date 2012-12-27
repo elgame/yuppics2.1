@@ -53,13 +53,16 @@ class coupons_model extends CI_Model{
 	}
 
 
-	private function getProduct(){
+	public function getProduct($all=false){
 		$resy = $this->db->query("SELECT * FROM products WHERE name = 'yuppics'");
 		if ($resy->num_rows() > 0) {
 			$data = $resy->row();
 			$resy->free_result();
 
-			return $data->price;
+			if($all)
+				return $data;
+			else
+				return $data->price;
 		}else
 			return 0;
 	}

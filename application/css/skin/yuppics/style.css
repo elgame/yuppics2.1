@@ -1,0 +1,38 @@
+
+.tema_barratop{
+	background-color: #999;
+	color: #fff;
+	padding: 5px 1% 0px 1%;
+}
+.tema_form-buscar{
+	margin: 0;
+}
+
+#tema_preview{
+	background-color: #fff;
+	padding: 2% 6% 2% 6%;
+	text-align: center;
+}
+.tema_prev_yuppic{
+	position: relative;
+	width: 70%;
+	height: 250px;
+	background-color: #ccc;
+	border: 1px #999 solid;
+	-webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+.tema_prev_yuppic .titulo{
+	width: 90%;
+	margin-top: 30%;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+.tema_prev_yuppic .autor{
+	width: 90%;
+}
+
+.colorpicker{
+	width: 195px;
+}
