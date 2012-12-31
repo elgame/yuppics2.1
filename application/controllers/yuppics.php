@@ -150,7 +150,115 @@ class yuppics extends MY_Controller {
 		return true;
 	}
 
+	public function photos()
+	{
+		// if (! $this->session->userdata('id_yuppics'))
+		// 	redirect(base_url('yuppics/'));
 
+		$access_token = $this->input->get('token');
+		if (!$access_token) {
+			$access_token = $this->fb_get_access_token();
+		}
+
+		$this->carabiner->css(array(
+			array('libs/jquery.jscrollpane.css', 'screen'),
+			array('libs/jquery.jPages.css', 'screen'),
+			array('skin/yuppics/style.css', 'screen'),
+		));
+
+		$this->carabiner->js(array(
+			array('libs/jquery.mousewheel.min.js'),
+			array('libs/jquery.jscrollpane.min.js'),
+			array('libs/jquery.form.js'),
+			array('libs/jquery.jPages.min.js'),
+			array('general/loader.js'),
+
+			array('skin/yuppics_photos.js'),
+		));
+
+		$params['status']->progress = '50';
+		$params['seo'] = array('titulo' => 'Yuppics - Seleccionar Fotografías');
+
+		$params['albums'] = $this->get_user_albums($access_token);
+		$params['access_token'] = $access_token;
+
+		$this->load->view('skin/header', $params);
+		$this->load->view('skin/yuppics/photos', $params);
+		$this->load->view('skin/footer', $params);
+	}
+
+	public function photos_save()
+	{
+		$this->load->library('form_validation');
+		if ($this->form_validation->run() === FALSE)
+		{
+			$params['frm_errors'] = array(
+									'title' => '',
+									'msg'   => 'Selecciona al menos una foto o imagen para continuar.',
+									'ico'   => 'error');
+		}
+		else
+		{
+			$this->load->model('photos_model');
+			$mdl_res = $this->photos_model->save_photos();
+
+			// $params['id_yuppic'] = $mdl_res;
+
+			$params['frm_errors'] = array(
+					'title' => '',
+					'msg'   => 'xxxxx',
+					'ico'   => 'success');
+		}
+
+		echo json_encode($params);
+	}
+
+	public function fb_get_access_token()
+	{
+		$this->load->library('my_facebook');
+		$config = array(
+					'redirect_uri' => base_url('yuppics/fb_get_access_token'),
+					'scope' => 'user_about_me, email, user_photos, friends_photos',
+					'display' => ''
+		);
+
+		$this->my_facebook->initialize($config);
+		$access_token = $this->my_facebook->oauth();
+		redirect(base_url('yuppics/photos?token='.$access_token));
+	}
+
+	public function get_user_photos($access_token = FALSE)
+	{
+		$this->load->library('my_facebook');
+
+		$access_token = ($access_token) ? $access_token : $_POST['access_token'];
+		$photos = $this->my_facebook->get_user_photos($access_token);
+		// var_dump('<pre>',$photos,'</pre>');
+
+		echo json_encode($photos->data);
+		// $this->load->view('facebook_photos', $params);
+	}
+
+	public function get_user_albums($access_token)
+	{
+		$this->load->library('my_facebook');
+		$albums = $this->my_facebook->get_user_albums($access_token);
+		// var_dump('<pre>', $albums, '</pre>');
+		// $params['access_token'] = $access_token;
+		return $albums->data;
+		// $this->load->view('facebook_photos', $params);
+	}
+
+	public function get_user_album_photos()
+	{
+		$this->load->library('my_facebook');
+		$album_photos = $this->my_facebook->get_user_album_photos($_POST['access_token'], $_POST['ida']);
+		// var_dump('<pre>', $album_photos->data, '</pre>');
+		// $album_photos->data[0]->images[0]->source
+		echo  json_encode($album_photos->data);
+		// $this->load->view('facebook_photos', $params);
+
+	}
 
 
 	private function showMsgs($tipo, $msg='', $title='Perfil')

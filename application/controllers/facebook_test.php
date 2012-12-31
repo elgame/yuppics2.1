@@ -41,9 +41,9 @@ class facebook_test extends MY_Controller {
 		$access_token = $this->my_facebook->oauth();
 		// echo $access_token.'<br>';
 
-		$this->get_user_about_me($access_token);
+		// $this->get_user_about_me($access_token);
 		// $this->get_user_photos($access_token);
-		// $this->get_user_albums($access_token);
+		$this->get_user_albums($access_token);
 
 	}
 

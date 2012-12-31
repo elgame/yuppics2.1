@@ -150,3 +150,8 @@ $config['yuppics/theme_save'] = array(
 							array('field' => 'text_color',
 								  'label' => 'Color de texto',
 								  'rules' => 'max_length[10]'));
+
+$config['yuppics/photos_save'] = array(
+							array('field' => 'photos[]',
+								  'label' => 'Fotos',
+								  'rules' => 'required'));
