@@ -57,8 +57,15 @@ class String{
 		$ci =& get_instance();
 		if(is_array($txt)){
 			foreach($txt as $key => $item){ 
-				$txt[$key] = addslashes(self::quitComillas(strip_tags(stripslashes(trim($item)))));
-				$txt[$key] = $ci->security->xss_clean(preg_replace("/select (.+) from|update (.+) set|delete from|drop table|where (.+)=(.+)/","", $txt[$key]));
+				if(is_array($item)){
+					foreach($item as $key2 => $item2){ 
+						$txt[$key][$key2] = addslashes(self::quitComillas(strip_tags(stripslashes(trim($item2)))));
+						$txt[$key][$key2] = $ci->security->xss_clean(preg_replace("/select (.+) from|update (.+) set|delete from|drop table|where (.+)=(.+)/","", $txt[$key][$key2]));
+					}
+				}else{
+					$txt[$key] = addslashes(self::quitComillas(strip_tags(stripslashes(trim($item)))));
+					$txt[$key] = $ci->security->xss_clean(preg_replace("/select (.+) from|update (.+) set|delete from|drop table|where (.+)=(.+)/","", $txt[$key]));
+				}
 			}
 			return $txt;
 		}else{

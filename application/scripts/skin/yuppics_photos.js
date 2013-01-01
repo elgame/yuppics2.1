@@ -159,7 +159,7 @@ function save_photos() {
 
 	$.post(base_url+"yuppics/photos_save", params, function(data){
 		if (data.frm_errors.ico === 'success') {
-			window.location = base_url+"yuppics/create";
+			window.location = base_url+"yuppics/book";
 		}else{
 			$(".modal-body", msg_modal).html(data.frm_errors.msg);
 			msg_modal.modal('show');
