@@ -1,29 +1,39 @@
 var msb = {
-	confirm: function(msg, title, obj, callback){
-		this.wrap_html(msg, title);
+	confirm: function(msg, title, obj, callback, callback_cancel){
+		this.wrap_html(msg, title, "confirm");
 
 		$('#myModal').modal().on('hidden', function(){
 			$(this).remove();
 		});
 		$('#myModal .btn-primary').on('click', function(){
-			if($.isFunction(callback))
+			if($.isFunction(callback)){
+				$('#myModal').modal("hide");
 				callback.call(this, obj);
-			else
+			}else
 				window.location = obj.href;
 		});
+		if ($.isFunction(callback_cancel)){
+			$('#myModal .cancel').on('click', function(){
+				callback_cancel.call(this, obj);
+			});
+		};
+
 		return false;
 	},
 
 	info: function(msg, title, obj, callback){
-		this.wrap_html(msg, title);
+		this.wrap_html(msg, title, "info");
 
 		$('#myModal').modal().on('hidden', function(){
 			$(this).remove();
 		});
 		$('#myModal .btn-primary').on('click', function(){
-			if($.isFunction(callback))
+			if($.isFunction(callback)){
+				$('#myModal').modal("hide");
 				callback.call(this, obj);
+			}
 		});
+		
 		return false;
 
 		$.msgbox(msg, {
@@ -49,23 +59,23 @@ var msb = {
 					  window.location = obj.href;*/
 			  }
 			});
-	}
+	},
 
 	wrap_html: function(msg, title, type){
 		var html="", footer="";
 
 		switch(type){
 			case 'confirm': 
-				html = '<a href="#" class="btn" data-dismiss="modal">No</a>'+
+				footer = '<a href="#" class="btn cancel" data-dismiss="modal">No</a>'+
 							 '<a href="#" class="btn btn-primary">Si</a>';
 			break;
 			case 'info': 
-				html = '<a href="#" class="btn btn-primary" data-dismiss="modal">Ok</a>';
+				footer = '<a href="#" class="btn btn-primary" data-dismiss="modal">Ok</a>';
 			break;
 		}
 
 		html = '<div class="modal hide fade" id="myModal">';
-		if (title) {
+		if (title && title != '') {
 			html += '	<div class="modal-header">'+
 			'		<button type="button" class="close" data-dismiss="modal">×</button>'+
 			'		<h3>'+title+'</h3>'+

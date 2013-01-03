@@ -289,6 +289,7 @@ class yuppics extends MY_Controller {
 			array('libs/jquery.jscrollpane.min.js'),
 			array('libs/jquery.form.js'),
 			array('libs/jquery.jPages.min.js'),
+			array('general/msgbox.js'),
 			array('general/loader.js'),
 			array('skin/yuppics_book.js')
 		));
@@ -304,6 +305,7 @@ class yuppics extends MY_Controller {
 		$params['frames'] = $this->frames_model->getFrames();
 		$params['pages']  = $this->pages_model->getPages();
 		$params['photos'] = $this->photos_model->getYuppicPhotos($this->session->userdata('id_yuppics'));
+		$params['page']   = $this->pages_model->getPage();
 
 		if($this->session->userdata('id_yuppics')){
 			// $params['theme_sel'] = $this->themes_model->getYuppicTheme($this->session->userdata('id_yuppics'));
@@ -331,8 +333,8 @@ class yuppics extends MY_Controller {
 	public function save_page(){
 		if ($this->input->post('id_page')!==false) {
 			$this->load->model('pages_model');
-			$this->pages_model->savePage();
-			$response['msg'] = $this->showMsgs(5, 'Se guardo la pagina correctamente.');
+			$response['page'] = $this->pages_model->savePage();
+			$response['msg']  = $this->showMsgs(5, 'Se guardo la pagina correctamente.');
 		}else{
 			$response['msg'] = $this->showMsgs(2, 'Parametros faltantes');
 		}
@@ -341,14 +343,36 @@ class yuppics extends MY_Controller {
 	}
 
 	public function load_page(){
-		if ($this->input->post('id_ypage')!==false) {
+		if ($this->input->get('num_pag')!==false) {
 			$this->load->model('pages_model');
-			$this->pages_model->getPage($this->input->post('id_ypage'));
-			$response['msg'] = $this->showMsgs(5, '');
+			$response['page'] = $this->pages_model->getPage($this->input->get('num_pag'));
+			$response['msg']  = $this->showMsgs(5, '');
 		}else{
-			$response['msg'] = $this->showMsgs(2, 'Espesifica la pagina');
+			$response['msg'] = $this->showMsgs(2, 'Especifica la pagina');
 		}
 
+		echo json_encode($response);
+	}
+
+	public function delete_page(){
+		if ($this->input->post('id_ypage')!==false) {
+			$this->load->model('pages_model');
+			$res = $this->pages_model->deletePage($this->input->post('id_ypage'));
+			$response['msg']  = $this->showMsgs(5, 'La página se elimino correctamente');
+		}else{
+			$response['msg'] = $this->showMsgs(2, 'Especifica la pagina');
+		}
+		echo json_encode($response);
+	}
+
+	public function magic_book(){
+		if ($this->input->get('id_page')!==false && $this->input->get('id_frame')!==false) {
+			$this->load->model('pages_model');
+			$res = $this->pages_model->magicBook();
+			$response['msg']  = $this->showMsgs(5, 'Se crearon las paginas correctamente');
+		}else{
+			$response['msg'] = $this->showMsgs(2, 'Especifica la página y el marco');
+		}
 		echo json_encode($response);
 	}
 

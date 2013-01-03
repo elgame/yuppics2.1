@@ -17,8 +17,14 @@
 					<span class="pull-left"><i class="icon-book"></i> Estilos marcos</span>
 				</div>
 				<div class="span8">
-					<div class="pull-left"><i class="icon-th"></i> Albums > <span id="barratop_album">Mostrar todas las fotos</span></div>
-					<div class="pull-right"><button class="btn btn-success" id="selectall">Seleccionar todo</button></div>
+					<div class="pull-left"><i class="icon-th"></i> Página: <span id="barratop_pagina"><?php echo ($page!==false? $page->num_pag: '') ?></span></div>
+					<div class="pull-right">
+						<button class="btn" id="magicBook">Magia Book</button>
+						<button class="btn" id="magicPage">Magia Página</button>
+
+						<button class="btn btn-danger" id="deletePage">Eliminar página</button>
+						<button class="btn btn-success" id="">Finalizar compara</button>
+					</div>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -46,7 +52,7 @@
 			</div>
 
 			<div class="yuppic_barratop">
-				Acomodación de imágenes
+				<i class="icon-book"></i> Acomodación de imágenes
 			</div>
 			<div class="scroll-pane frames">
 				<ul class="thumbnails">
@@ -72,15 +78,34 @@
 
 			<div class="row-fluid">
 				<div class="span12" style="position: relative">
-					<a id="" class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-					<input type="hidden" id="idpage" value="">
-					<input type="hidden" id="id_ypage" value="">
+					<a id="prev_page_save" class="carousel-control left hide" href="#myCarousel" data-page="<?php echo ($page!==false? $page->num_pag-1: '') ?>" data-slide="prev">&lsaquo;</a>
+					<input type="hidden" id="idpage" value="<?php echo ($page!==false? $page->id_page: '') ?>">
+					<input type="hidden" id="id_ypage" value="<?php echo ($page!==false? $page->id_ypage: '') ?>">
+					<input type="hidden" id="num_pag" value="<?php echo ($page!==false? $page->num_pag: '') ?>">
+
+					<input type="hidden" id="page_edited" value="false">
 
 					<div id="pag_active" class="well center">
-						
+						<?php 
+						if ($page !== false) {
+							foreach ($page->images as $key => $value) {
+								echo '<div class="img_in_page" style="top:'.$value->coord_y.'%;left:'.$value->coord_x.'%;width:'.$value->width.'%;height:'.$value->height.'%;" 
+									data-idimg="'.$value->id_img.'" data-idpagimg="'.$value->id_page_img.'" data-width="'.$value->width.'" data-height="'.$value->height.'"
+									data-idframe="'.$value->id_frame.'" data-idphoto="'.$value->id_photo.'">
+									<div class="photo">
+										<img src="'.base_url($value->url_img).'">
+									</div>
+									<div class="frame">
+										<img src="'.base_url($value->url_frame).'">
+									</div>
+									<span class="aviary"><i class="icon-picture"></i></span>
+								</div>';
+							}
+						}
+						 ?>
 					</div>
 
-					<a id="nav_page_save" class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+					<a id="next_page_save" class="carousel-control right" href="#myCarousel" data-page="<?php echo ($page!==false? $page->num_pag+1: '') ?>" data-slide="next">&rsaquo;</a>
 				</div>
 			</div>
 			
