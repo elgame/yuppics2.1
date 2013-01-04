@@ -40,11 +40,11 @@
 
 /******************* SELECCIONAR FOTOS ************************/
 
-.albums-list {max-height: 468px;}
+.albums-list {max-height: 468px; margin: 0px !important;}
 .albums-list .nav, .albums-list ul {margin-bottom: 0;}
 .albums-list .scroll-content {width: 100%;}
 
-.photos-list, .photos-select {padding: 10px 8px 0 0;}
+.photos-list, .photos-select {padding: 10px 0 0 0;}
 .photos-list .thumbnails .thumbnail, .photos-select .thumbnails .thumbnail{margin-bottom: 5px !important;}
 .photos-list .thumbnails > li, .photos-select .thumbnails > li {margin-bottom: 0;}
 .photos-list ul li:nth-child(6n+1) {margin-left: 0;}
@@ -110,6 +110,10 @@ button.close {
 .close:hover {
 	color: none;
 	opacity: 1;
+}
+
+.jspScrollable, .albums-list .jspContainer, .albums-list .jspPane{
+	width: 100% !important;
 }
 
 

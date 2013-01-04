@@ -19,11 +19,10 @@ class Photos_model extends CI_Model{
 			return false;
 	}
 
-	public function save_photos(){
-		$id_yuppic = '1';
-
+	public function save_photos()
+	{	
+			$id_yuppic = '1';
 		// if ($this->session->userdata('id_yuppics')) {
-
 			// $id_yuppic = $this->session->userdata('id_yuppics');
 			UploadFiles::validaDir($this->session->userdata('id_usuario'), APPPATH.'yuppics/');
 			UploadFiles::validaDir($id_yuppic, APPPATH.'yuppics/'.$this->session->userdata('id_usuario').'/');
@@ -48,6 +47,20 @@ class Photos_model extends CI_Model{
 
 			return $id_yuppic;
 		// }
+	}
+
+	public function photo_delete($id_photo = false)
+	{
+		$idp = ($id_photo) ? $id_photo : $_POST['idp'];
+		$res = $this->db->select('url_img, url_thumb')->from('yuppics_photos')->where('id_photo', $idp)->get();
+		$data_photo = $res->row();
+
+		UploadFiles::deleteFile($data_photo->url_img);
+		UploadFiles::deleteFile($data_photo->url_thumb);
+
+		$this->db->delete('yuppics_photos', array('id_photo'=>$idp));
+
+		return TRUE;
 	}
 
 }

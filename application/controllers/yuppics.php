@@ -91,7 +91,7 @@ class yuppics extends MY_Controller {
 
 		$this->my_upload->config_resize = $config_resize;
 		$data = $this->my_upload->do_upload('imagen_fondo');
-		
+
 		$a = explode('/', $data['full_path']);
 		$b = explode('.', $a[count($a)-1]);
 		$data['path'] = APPPATH.$path_imgs.$b[0].'.'.$b[1];
@@ -118,7 +118,7 @@ class yuppics extends MY_Controller {
 	 */
 	public function theme_save(){
 		$this->load->library('form_validation');
-		if ($this->form_validation->run() === FALSE) 
+		if ($this->form_validation->run() === FALSE)
 		{
 			$params['frm_errors'] = array(
 					'title' => '',
@@ -155,7 +155,7 @@ class yuppics extends MY_Controller {
 	/**
 	 ******************** Seccion guardar fotos ************************
 	 *******************************************************************
-	 * 
+	 *
 	 * @return [type] [description]
 	 */
 	public function photos()
@@ -180,7 +180,6 @@ class yuppics extends MY_Controller {
 			array('libs/jquery.form.js'),
 			array('libs/jquery.jPages.min.js'),
 			array('general/loader.js'),
-
 			array('skin/yuppics_photos.js'),
 		));
 
@@ -189,6 +188,15 @@ class yuppics extends MY_Controller {
 
 		$params['albums'] = $this->get_user_albums($access_token);
 		$params['access_token'] = $access_token;
+
+		$this->load->model('photos_model');
+		$res = $this->photos_model->getYuppicPhotos('1'); // $this->session->userdata('id_yuppics')
+		$params['totalp'] = 0;
+		if ($res){
+			$params['photos'] = $res;
+			$params['width'] = count($params['photos']) * 165;
+			$params['totalp'] = count($params['photos']);
+		}
 
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/yuppics/photos', $params);
@@ -221,6 +229,14 @@ class yuppics extends MY_Controller {
 		echo json_encode($params);
 	}
 
+	public function photo_delete()
+	{
+		$this->load->model('photos_model');
+		$res = $this->photos_model->photo_delete();
+
+		echo $res;
+	}
+
 	public function fb_get_access_token()
 	{
 		$this->load->library('my_facebook');
@@ -238,34 +254,23 @@ class yuppics extends MY_Controller {
 	public function get_user_photos($access_token = FALSE)
 	{
 		$this->load->library('my_facebook');
-
 		$access_token = ($access_token) ? $access_token : $_POST['access_token'];
 		$photos = $this->my_facebook->get_user_photos($access_token);
-		// var_dump('<pre>',$photos,'</pre>');
-
 		echo json_encode($photos->data);
-		// $this->load->view('facebook_photos', $params);
 	}
 
 	public function get_user_albums($access_token)
 	{
 		$this->load->library('my_facebook');
 		$albums = $this->my_facebook->get_user_albums($access_token);
-		// var_dump('<pre>', $albums, '</pre>');
-		// $params['access_token'] = $access_token;
 		return $albums->data;
-		// $this->load->view('facebook_photos', $params);
 	}
 
 	public function get_user_album_photos()
 	{
 		$this->load->library('my_facebook');
 		$album_photos = $this->my_facebook->get_user_album_photos($_POST['access_token'], $_POST['ida']);
-		// var_dump('<pre>', $album_photos->data, '</pre>');
-		// $album_photos->data[0]->images[0]->source
 		echo  json_encode($album_photos->data);
-		// $this->load->view('facebook_photos', $params);
-
 	}
 
 
@@ -273,7 +278,7 @@ class yuppics extends MY_Controller {
 	/**
 	 ******************* Seccion personaliza fotos, libro ******************
 	 ***********************************************************************
-	 * 
+	 *
 	 * @return [type] [description]
 	 */
 	public function book(){
@@ -441,7 +446,7 @@ class yuppics extends MY_Controller {
 				$icono = 'success';
 				break;
 		}
-	
+
 		return array(
 				'title' => $title,
 				'objs' => $objs,

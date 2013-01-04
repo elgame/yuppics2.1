@@ -36,14 +36,14 @@ var popupFb = (function($){
 		});
 	}
 	function popup(){
-		var width = 300, 
-			height = 300, 
-			xPosition = ($(window).width()-width) / 2, 
-			yPosition = ($(window).height()-height) / 2, 
+		var width = 300,
+			height = 300,
+			xPosition = ($(window).width()-width) / 2,
+			yPosition = ($(window).height()-height) / 2,
 			url = base_url + 'customer/login_facebook';
-		var win = window.open(url, 'Login Facebook', 'width=' + width + 
-													 ', height=' + height + 
-													 ', top=' + yPosition + 
+		var win = window.open(url, 'Login Facebook', 'width=' + width +
+													 ', height=' + height +
+													 ', top=' + yPosition +
 													 ', left=' + xPosition);
 	}
 	objr.init = initialize;
