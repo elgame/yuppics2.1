@@ -15,7 +15,7 @@
 								</a>
 						</li>
 						<li>
-								<a class="ajax-link" href="<?php echo base_url('panel'); ?>">
+								<a class="ajax-link" href="<?php echo base_url(); ?>">
 									<i class="icon-signal"></i><span class="hidden-tablet"> Historial</span>
 								</a>
 						</li>

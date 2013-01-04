@@ -177,6 +177,13 @@ $(function(){
 		});
 	});
 
+
+	$("#finalizarCompra").on("click", function(){
+		msb.confirm("Estas seguro de finalizar la compra?", "", this, function(){
+			window.location = base_url+"buy?y="+$("#id_yuppic").val();
+		});
+	});
+
 	redimPage();
 });
 
