@@ -91,12 +91,12 @@
 							foreach ($page->images as $key => $value) {
 								echo '<div class="img_in_page" style="top:'.$value->coord_y.'%;left:'.$value->coord_x.'%;width:'.$value->width.'%;height:'.$value->height.'%;" 
 									data-idimg="'.$value->id_img.'" data-idpagimg="'.$value->id_page_img.'" data-width="'.$value->width.'" data-height="'.$value->height.'"
-									data-idframe="'.$value->id_frame.'" data-idphoto="'.$value->id_photo.'">
+									'.(isset($value->id_frame)? 'data-idframe="'.$value->id_frame.'"': '').' '.(isset($value->id_frame)? 'data-idphoto="'.$value->id_photo.'"': '').'>
 									<div class="photo">
-										<img src="'.base_url($value->url_img).'">
+										'.(isset($value->url_img)? '<img src="'.base_url($value->url_img).'">': '').'
 									</div>
 									<div class="frame">
-										<img src="'.base_url($value->url_frame).'">
+										'.(isset($value->url_frame)? '<img src="'.base_url($value->url_frame).'">': '').'
 									</div>
 									<span class="aviary"><i class="icon-picture"></i></span>
 								</div>';
@@ -126,7 +126,7 @@
 				<div class="span12 photos-select" style="height:180px;">
 					<div class="scroll-pane horizontal-only">
 						<!-- 165px cada imagen agregada min-width: 822px; -->
-						<div style="width: 140%" id="content-selected-photos">
+						<div style="width: <?php echo (count($photos)*170); ?>px" id="content-selected-photos">
 							<ul class="thumbnails">
 						<?php 
 						if (isset($photos)) {

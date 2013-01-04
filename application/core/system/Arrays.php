@@ -4,7 +4,7 @@
  * Clase con funciones estaticas que realizan tareas especificas
  * En pocas palabras, es una librerÃ­a de funciones
  */
-class Sys{
+class Arrays{
 	/**
 	 * @var Boolean: Indica si todo el sistema estar? funcionando en modo <Depuraci?n> o en modo <Liberado>
 	 * Deshabilitarlo cuando el sistema se encuentre en optimas condiciones para ser liberado
@@ -386,8 +386,9 @@ class Sys{
 	
 		if(is_array($array)){
 			foreach($array as $key_item => $item){
-				if($item[$key] == $value){
-					$results[$key_item] = $item;
+				if($item->{$key} == $value){
+					// $results[$key_item] = $item;
+					return true;
 					break;
 				}
 			}

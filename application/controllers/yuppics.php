@@ -310,7 +310,7 @@ class yuppics extends MY_Controller {
 		$params['frames'] = $this->frames_model->getFrames();
 		$params['pages']  = $this->pages_model->getPages();
 		$params['photos'] = $this->photos_model->getYuppicPhotos($this->session->userdata('id_yuppics'));
-		$params['page']   = $this->pages_model->getPage();
+		$params['page']   = $this->pages_model->getPage($this->session->userdata('id_yuppics'));
 
 		if($this->session->userdata('id_yuppics')){
 			// $params['theme_sel'] = $this->themes_model->getYuppicTheme($this->session->userdata('id_yuppics'));
@@ -350,7 +350,7 @@ class yuppics extends MY_Controller {
 	public function load_page(){
 		if ($this->input->get('num_pag')!==false) {
 			$this->load->model('pages_model');
-			$response['page'] = $this->pages_model->getPage($this->input->get('num_pag'));
+			$response['page'] = $this->pages_model->getPage($this->session->userdata('id_yuppics'), $this->input->get('num_pag'));
 			$response['msg']  = $this->showMsgs(5, '');
 		}else{
 			$response['msg'] = $this->showMsgs(2, 'Especifica la pagina');
@@ -379,6 +379,35 @@ class yuppics extends MY_Controller {
 			$response['msg'] = $this->showMsgs(2, 'Especifica la página y el marco');
 		}
 		echo json_encode($response);
+	}
+
+	/**
+	 * Descarga el listado de cuentas por pagar en formato pdf
+	 */
+	public function genera_pdf(){
+		$this->load->model('book_model');
+		$this->load->library('FPDF');
+		// Creación del objeto de la clase heredada
+		$pdf = new FPDF('P', 'mm', 'Letter');
+
+		$yupic = $this->book_model->getYuppic($this->session->userdata('id_yuppics'));
+
+		//**************************************
+		// Portada del book
+		$pdf->AddPage();
+
+		$color = String::hex2rgb($yupic->background_color); 
+		$pdf->SetFillColor($color[0], $color[1], $color[2]); //color de fondo
+		$pdf->Rect(0, 0, $pdf->CurPageSize[0], $pdf->CurPageSize[1], 'F'); // rectangulo con color de fondo
+		$size = $pdf->getSizeImage($yupic->background_img, 0, 0);
+		$y = 0;
+		if ($size[1] < $pdf->CurPageSize[1]) // se centra la imagen a lo alto
+			$y = (($pdf->CurPageSize[1]-$size[1]) / 2);
+		$pdf->Image($yupic->background_img, 0, $y, 0); // se establece la imagen de fondo
+
+		// var_dump($pdf->CurPageSize);
+		
+		$pdf->Output('cuentas_x_pagar.pdf', 'I');
 	}
 
 
