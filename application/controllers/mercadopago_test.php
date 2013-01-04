@@ -7,10 +7,10 @@ class mercadopago_test extends CI_Controller {
 	 *
 	 * Maps to the following URL
 	 * 		http://example.com/index.php/welcome
-	 *	- or -  
+	 *	- or -
 	 * 		http://example.com/index.php/welcome/index
 	 *	- or -
-	 * Since this controller is set as the default controller in 
+	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
@@ -19,15 +19,15 @@ class mercadopago_test extends CI_Controller {
 	 */
 	public function index()
 	{
-		
+
 		$this->load->library('mp', array(
-			'client_id'     => '7172967533334556', 
+			'client_id'     => '7172967533334556',
 			'client_secret' => 'omCwGHkRTK9PL1b2pskoCUaBIDtnhgy1') );
 
 		$access = $this->mp->get_access_token();
 
 		//var_dump($this->mp->create_test_user());
-		
+
 		$preference = array(
 			'items' => array(
 				array(
@@ -60,7 +60,19 @@ class mercadopago_test extends CI_Controller {
 		$result = $this->mp->create_preference($preference);
 		header("Location: ".$result['response']['init_point']);
 	}
-	
+
+  public function create_test_user()
+  {
+    $this->load->library('mp', array(
+      'client_id'     => '7172967533334556',
+      'client_secret' => 'omCwGHkRTK9PL1b2pskoCUaBIDtnhgy1') );
+
+    $access = $this->mp->get_access_token();
+
+    $result = $this->mp->create_test_user();
+    var_dump($result);
+  }
+
 }
 
 /* End of file welcome.php */

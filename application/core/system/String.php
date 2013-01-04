@@ -1,7 +1,7 @@
 <?php
 
 class String{
-	
+
 	/**
 	 * Da formato numerico a una cadena
 	 * @param unknown_type $number
@@ -22,7 +22,7 @@ class String{
 		$number = str_replace(array('$', ','), '', $number);
 		return number_format($number, $decimales, '.', '');
 	}
-	
+
 	/**
 	 * Obtiene las variables get y las prepara para los links
 	 * @param unknown_type $quit
@@ -33,12 +33,12 @@ class String{
 			if(array_search($key, $quit) === false)
 				$vars .= '&'.$key.'='.$val;
 		}
-		
+
 		return substr($vars, 1);
 	}
-	
+
 	/**
-	 * Valida si una cadena es una fecha valida 
+	 * Valida si una cadena es una fecha valida
 	 * y regresa en formato correcto
 	 */
 	public static function isValidDate($str_fecha, $format='Y-m-d'){
@@ -47,7 +47,7 @@ class String{
 			return false;
 		return true;
 	}
-	
+
 	/**
 	 * Limpia una cadena
 	 * @param $txt. Texto a ser limpiado
@@ -56,9 +56,16 @@ class String{
 	public static function limpiarTexto($txt, $remove_q=true){
 		$ci =& get_instance();
 		if(is_array($txt)){
-			foreach($txt as $key => $item){ 
-				$txt[$key] = addslashes(self::quitComillas(strip_tags(stripslashes(trim($item)))));
-				$txt[$key] = $ci->security->xss_clean(preg_replace("/select (.+) from|update (.+) set|delete from|drop table|where (.+)=(.+)/","", $txt[$key]));
+			foreach($txt as $key => $item){
+				if(is_array($item)){
+					foreach($item as $key2 => $item2){
+						$txt[$key][$key2] = addslashes(self::quitComillas(strip_tags(stripslashes(trim($item2)))));
+						$txt[$key][$key2] = $ci->security->xss_clean(preg_replace("/select (.+) from|update (.+) set|delete from|drop table|where (.+)=(.+)/","", $txt[$key][$key2]));
+					}
+				}else{
+					$txt[$key] = addslashes(self::quitComillas(strip_tags(stripslashes(trim($item)))));
+					$txt[$key] = $ci->security->xss_clean(preg_replace("/select (.+) from|update (.+) set|delete from|drop table|where (.+)=(.+)/","", $txt[$key]));
+				}
 			}
 			return $txt;
 		}else{
@@ -67,8 +74,8 @@ class String{
 			return $txt;
 		}
 	}
-	
-	
+
+
 	/**
 	 * @param $txt. Texto al que se le eliminarÃ¡n las comillas
 	 * @return String. Texto sin comillas
@@ -76,7 +83,7 @@ class String{
 	public static function quitComillas($txt){
 		return str_replace("'","’", str_replace('"','”',$txt));
 	}
-	
+
 	/**
 	 * Crear textos con solo caracteres Ascii, sin espacion
 	 * para usar en urls
@@ -89,7 +96,7 @@ class String{
 		$clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
 		$clean = strtolower(trim($clean, '-'));
 		$clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
-	
+
 		return $clean;
 	}
 
@@ -112,9 +119,9 @@ class String{
 		}
 		return $rstr;
 	}
-	
-	
-	
+
+
+
 	/*!
 	 @function num2letras ()
 	@abstract Dado un n?mero lo devuelve escrito.
@@ -122,7 +129,7 @@ class String{
 	@param $fem bool - Forma femenina (true) o no (false).
 	@param $dec bool - Con decimales (true) o no (false).
 	@result string - Devuelve el n?mero escrito en letra.
-	
+
 	*/
 	public static function num2letras($num, $fem = false, $dec = true) {
 		$matuni[2]  = "dos";
@@ -152,7 +159,7 @@ class String{
 		$matunisub[7] = "sete";
 		$matunisub[8] = "ocho";
 		$matunisub[9] = "nove";
-	
+
 		$matdec[2] = "veint";
 		$matdec[3] = "treinta";
 		$matdec[4] = "cuarenta";
@@ -179,14 +186,14 @@ class String{
 		$matmil[14] = 'billones de trillones';
 		$matmil[15] = 'de billones de trillones';
 		$matmil[16] = 'millones de billones de trillones';
-	
+
 		//Zi hack
 		$float=explode('.',$num);
 		$num=$float[0];
-		
+
 		if(!isset($float[1]))
 			$float[1] = '00';
-	
+
 		$num = trim((string)@$num);
 		if ($num[0] == '-') {
 			$neg = 'menos ';
@@ -207,18 +214,18 @@ class String{
 					$punt = true;
 					continue;
 				}
-	
+
 			}elseif (! (strpos('0123456789', $n) === false)) {
 				if ($punt) {
 					if ($n != '0') $zeros = false;
 					$fra .= $n;
 				}else
-	
+
 					$ent .= $n;
 			}else
-	
+
 				break;
-	
+
 		}
 		$ent = '     ' . $ent;
 		if ($dec and $fra and ! $zeros) {
@@ -296,8 +303,8 @@ class String{
 		$end_num=ucfirst($tex).' pesos '.$float[1].'/100 M.N.';
 		return $end_num;
 	}
-	
-	
+
+
 	/**** FUNCIONES DE FECHA ****/
 	/**
 	 * Le suma ndias a una fecha dada regresandola en el formato que sea especificado
@@ -317,12 +324,12 @@ class String{
 	}
 
 	// Calcula el numero de dias entre dos fechas.
-	// Da igual el formato de las fechas (dd-mm-aaaa o aaaa-mm-dd), 
+	// Da igual el formato de las fechas (dd-mm-aaaa o aaaa-mm-dd),
 	// pero el caracter separador debe ser un guión.
 	public static function diasEntreFechas($fechainicio, $fechafin){
 	    return ((strtotime($fechafin)-strtotime($fechainicio))/86400);
 	}
-	
+
 	/**
 	 * mes()
 	 *
@@ -339,7 +346,7 @@ class String{
 		 **/
 		$meses = array('Error', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
 				'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
-	
+
 		/**
 		 * Si el número ingresado está entre 1 y 12 asignar la parte entera.
 		 * De lo contrario asignar "0"
@@ -347,7 +354,7 @@ class String{
 		$num_limpio = $num >= 1 && $num <= 12 ? intval($num) : 0;
 		return $meses[$num_limpio];
 	}
-	
+
 	/**
 	 * fechaATexto()
 	 *
@@ -358,7 +365,7 @@ class String{
 	 * @return  string  fecha_en_formato_texto
 	 */
 	public static function fechaATexto($fecha, $formato = 'c') {
-	
+
 		// Validamos que la cadena satisfaga el formato deseado y almacenamos las partes
 		if (preg_match("/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})/", $fecha, $partes)) {
 			// $partes[0] contiene la cadena original
@@ -372,13 +379,13 @@ class String{
 				$mes = strtolower($mes);
 			}
 			return $partes[3] . $mes . $partes[1];
-	
+
 		} else {
 			// Si hubo problemas en la validación, devolvemos false
 			return false;
 		}
 	}
-	
+
 	/**
 	 * timestampATexto()
 	 *
@@ -389,15 +396,15 @@ class String{
 	 * @return  string  fecha_en_formato_texto
 	 */
 	public static function timestampATexto($timestamp, $formato = 'c') {
-	
+
 		// Buscamos el espacio dentro de la cadena o salimos
 		if (strpos($timestamp, " ") === false){
 			return false;
 		}
-	
+
 		// Dividimos la cadena en el espacio separador
 		$timestamp = explode(" ", $timestamp);
-	
+
 		// Como la primera parte es una fecha, simplemente llamamos a self::fechaATexto()
 		if (self::fechaATexto($timestamp[0])) {
 			$conjuncion = ' a las ';
@@ -407,17 +414,17 @@ class String{
 			return self::fechaATexto($timestamp[0], $formato) . $conjuncion;
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	public static function obtenerSemanasDelAnio($anio=0,$todas=false,$mes=0,$dias_defasados=false){
 		$data = array();
-		if(intval($anio)<=0 && $dias_defasados==false) 
+		if(intval($anio)<=0 && $dias_defasados==false)
 			$anio = date('Y');
-	
+
 		$data[0] = self::obtenerPrimeraSemanaDelAnio($anio,$dias_defasados);
-			
+
 		$pos = 0;
 		while(
 				(
@@ -449,7 +456,7 @@ class String{
 	public static function obtenerPrimeraSemanaDelAnio($anio = 0, $dias_defasados=false){
 		if(intval($anio)==0 && $dias_defasados==false)
 			$anio = date('Y');
-			
+
 		$data = array();
 		if($dias_defasados==false){
 			$dia = 1;
@@ -465,7 +472,7 @@ class String{
 				++$dia;
 			}
 		}
-	
+
 		return $data;
 	}
 	public static function obtenerDiaSemana($fecha){
@@ -473,7 +480,7 @@ class String{
 		list($anio,$mes,$dia)=explode("-",$fecha);
 		return (((mktime ( 0, 0, 0, $mes, $dia, $anio) - mktime ( 0, 0, 0, 7, 17, 2006))/(60*60*24))+700000) % 7;
 	}
-	
+
 }
 
 

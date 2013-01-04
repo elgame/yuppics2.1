@@ -1,6 +1,6 @@
 		<div id="content" class="span8">
 			<!-- content starts -->
-			
+
 			<div>
 				<ul class="breadcrumb">
 					<li>
@@ -18,8 +18,8 @@
 					<p>Recuerda que es necesario que proporciones correctamente todos tus datos de envío y facturacion antes de realizar tu compra.</p>
 				</div>
 			</div>
-					
-			
+
+
 			<h2>Edita tus datos</h2>
 
 			<div class="row-fluid">
@@ -31,10 +31,10 @@
 							</div>
 						</div>
 						<div class="box-content">
-							<form action="<?php echo base_url('customer/update/')?>" method="POST" class="form-horizontal" data-sendajax="true" 
+							<form action="<?php echo base_url('customer/update/')?>" method="POST" class="form-horizontal" data-sendajax="true"
 								data-alert="register_alert" data-reset="false">
 								<input type="hidden" name="customer" value="<?php echo $this->session->userdata('id_usuario'); ?>">
-								
+
 								<div class="control-group">
 									<div id="register_alert" class="alert hide">
 										<button type="button" class="close">×</button>
@@ -101,7 +101,7 @@
 			</div><!--/row-->
 
 			<div class="row-fluid">
-				
+
 				<div class="box span12" id="address">
 					<div class="box-header well">
 						<h2><i class="icon-shopping-cart"></i> Libro de direcciones</h2>
@@ -118,8 +118,8 @@
 							</div>
 						</div>
 
-				<?php 
-					if ($address_books != false) 
+				<?php
+					if ($address_books != false)
 					{
 				?>
 						<div class="row-fluid">
@@ -128,7 +128,7 @@
 									<legend>Direccion predeterminada</legend>
 
 									<div class="control-group">
-								<?php 
+								<?php
 								if (isset($address_books['default']))
 								{
 									foreach ($address_books['default'] as $key => $default) {
@@ -140,7 +140,7 @@
 											echo '<strong>Direccion de envio</strong>';
 								?>
 										<p>
-											<?php 
+											<?php
 											echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
 												($default->company!=''? $default->company.'<br>': '').
 												($default->rfc!=''? $default->rfc.'<br>': '').
@@ -149,8 +149,8 @@
 											?>
 											<br><a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a>
 										</p>
-								<?php 
-									} 
+								<?php
+									}
 								} ?>
 									</div>
 
@@ -162,14 +162,14 @@
 									<legend>Otras direcciones</legend>
 
 									<div class="control-group">
-									<?php 
+									<?php
 									if (isset($address_books['others']))
 									{
 										foreach ($address_books['others'] as $key => $default) {
 									?>
 										<strong>Direccion <?php echo $key+1; ?></strong>
 											<p>
-												<?php 
+												<?php
 												echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
 													($default->company!=''? $default->company.'<br>': '').
 													($default->rfc!=''? $default->rfc.'<br>': '').
@@ -177,12 +177,12 @@
 													$default->city.', '.$default->state.', '.$default->country;
 												?>
 												<br>
-												<a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a> | 
-												<a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link" 
+												<a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a> |
+												<a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link"
 													onclick="msb.confirm('Estas seguro de eliminar la direccion?', 'Libro de direcciones', this); return false;">Eliminar</a>
 											</p>
-									<?php 
-										} 
+									<?php
+										}
 									}?>
 									</div>
 
@@ -205,19 +205,19 @@
 				</div><!--/span-->
 
 			</div><!--/row-->
-			  
 
-		  
-       
+
+
+
 					<!-- content ends -->
 	</div><!--/#content.span8-->
 
 
 
 	<div id="modal_addaddress" class="modal hide fade">
-		<form action="<?php echo base_url('address_book/add/')?>" method="POST" class="form-horizontal" data-sendajax="true" 
+		<form action="<?php echo base_url('address_book/add/')?>" method="POST" class="form-horizontal" data-sendajax="true"
 				data-alert="address_alert" data-callback="address_success">
-			
+
 			<div class="modal-body">
 
 				<div class="span12" style="text-align:center;">
@@ -288,7 +288,7 @@
 							<div class="controls">
 								<select name="state" id="state" required>
 									<option value=""></option>
-								<?php 
+								<?php
 								foreach ($states as $key => $value) {
 								?>
 									<option value="<?php echo $value->id_state ?>"><?php echo $value->name ?></option>
@@ -311,9 +311,9 @@
 								</label>
 							</div>
 						</div>
-					
+
 				</div>
-				
+
 
 			</div>
 			<div class="modal-footer">
@@ -324,9 +324,9 @@
 
 
 	<div id="modal_updateaddress" class="modal hide fade">
-		<form id="frm_updateaddress" action="<?php echo base_url('address_book/update/')?>" method="POST" class="form-horizontal" data-sendajax="true" 
+		<form id="frm_updateaddress" action="<?php echo base_url('address_book/update/')?>" method="POST" class="form-horizontal" data-sendajax="true"
 				data-alert="updateaddress_alert" data-callback="address_success">
-			
+
 			<div class="modal-body">
 
 				<div class="span12" style="text-align:center;">
@@ -398,7 +398,7 @@
 							<div class="controls">
 								<select name="id_state" id="id_state" required>
 									<option value=""></option>
-								<?php 
+								<?php
 								foreach ($states as $key => $value) {
 								?>
 									<option value="<?php echo $value->id_state ?>"><?php echo $value->name ?></option>
@@ -421,9 +421,9 @@
 								</label>
 							</div>
 						</div>
-					
+
 				</div>
-				
+
 
 			</div>
 			<div class="modal-footer">
@@ -436,12 +436,12 @@
 
 <!-- Bloque de alertas -->
 <?php if(isset($frm_errors)){
-	if($frm_errors['msg'] != ''){ 
+	if($frm_errors['msg'] != ''){
 ?>
 <script type="text/javascript" charset="UTF-8">
 	$(document).ready(function(){
 		var valert = $("#<?php echo $frm_errors['objs']; ?>");
-		
+
 		valert.addClass("alert-<?php echo $frm_errors['ico']; ?>").show(300);
 		$("span", valert).html("<?php echo $frm_errors['msg']; ?>");
 	});

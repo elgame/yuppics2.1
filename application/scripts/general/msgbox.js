@@ -1,46 +1,41 @@
 var msb = {
-	confirm: function(msg, title, obj, callback){
-		$("body").append('<div class="modal hide fade" id="myModal">'+
-			'	<div class="modal-header">'+
-			'		<button type="button" class="close" data-dismiss="modal">×</button>'+
-			'		<h3>'+title+'</h3>'+
-			'	</div>'+
-			'	<div class="modal-body">'+
-			'		<p>'+msg+'</p>'+
-			'	</div>'+
-			'	<div class="modal-footer">'+
-			'		<a href="#" class="btn" data-dismiss="modal">No</a>'+
-			'		<a href="#" class="btn btn-primary">Si</a>'+
-			'	</div>'+
-			'</div>');
+	confirm: function(msg, title, obj, callback, callback_cancel){
+		this.wrap_html(msg, title, "confirm");
 
 		$('#myModal').modal().on('hidden', function(){
 			$(this).remove();
 		});
 		$('#myModal .btn-primary').on('click', function(){
-			if($.isFunction(callback))
+			if($.isFunction(callback)){
+				$('#myModal').modal("hide");
 				callback.call(this, obj);
-			else
+			}else
 				window.location = obj.href;
 		});
+		if ($.isFunction(callback_cancel)){
+			$('#myModal .cancel').on('click', function(){
+				callback_cancel.call(this, obj);
+			});
+		};
+
 		return false;
-		/*$.msgbox(msg, {
-		  type: "confirm",
-		  buttons: [
-		    {type: "submit", value: "Si"},
-		    {type: "cancel", value: "No"}
-		  ]
-		}, function(result) {
-		  if (result) {
-			  if($.isFunction(callback))
-				  callback.call(this, obj);
-			  else
-				  window.location = obj.href;
-		  }
-		});*/
 	},
 
-	info: function(msg, obj, callback){
+	info: function(msg, title, obj, callback){
+		this.wrap_html(msg, title, "info");
+
+		$('#myModal').modal().on('hidden', function(){
+			$(this).remove();
+		});
+		$('#myModal .btn-primary').on('click', function(){
+			if($.isFunction(callback)){
+				$('#myModal').modal("hide");
+				callback.call(this, obj);
+			}
+		});
+		
+		return false;
+
 		$.msgbox(msg, {
 		  type: "info"
 		}, function(result) {
@@ -64,5 +59,37 @@ var msb = {
 					  window.location = obj.href;*/
 			  }
 			});
+	},
+
+	wrap_html: function(msg, title, type){
+		var html="", footer="";
+
+		switch(type){
+			case 'confirm': 
+				footer = '<a href="#" class="btn cancel" data-dismiss="modal">No</a>'+
+							 '<a href="#" class="btn btn-primary">Si</a>';
+			break;
+			case 'info': 
+				footer = '<a href="#" class="btn btn-primary" data-dismiss="modal">Ok</a>';
+			break;
+		}
+
+		html = '<div class="modal hide fade" id="myModal">';
+		if (title && title != '') {
+			html += '	<div class="modal-header">'+
+			'		<button type="button" class="close" data-dismiss="modal">×</button>'+
+			'		<h3>'+title+'</h3>'+
+			'	</div>';
+		}
+
+		html += '	<div class="modal-body">'+
+			'		<p>'+msg+'</p>'+
+			'	</div>'+
+			'	<div class="modal-footer">'+
+			footer+
+			'	</div>'+
+			'</div>';
+
+		$("body").append(html);
 	}
 };

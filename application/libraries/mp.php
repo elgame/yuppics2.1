@@ -2,25 +2,25 @@
 /**
  * MercadoPago Integration Library
  * Access MercadoPago for payments integration
- * 
+ *
  * @author hcasatti
  *
  */
- 
+
 $GLOBALS["LIB_LOCATION"] = dirname(__FILE__);
- 
+
 class MP {
 	const version = "0.1.5";
 
 	private $client_id;
 	private $client_secret;
 	private $access_data;
-	
+
 	function __construct ($params) {
 		$this->client_id = $params['client_id'];
 		$this->client_secret = $params['client_secret'];
 	}
-	
+
 	/**
 	 * Get Access Token for API use
 	 */
@@ -28,21 +28,21 @@ class MP {
 		$appClientValues = $this->build_query (
 			array(
 				'grant_type' => 'client_credentials',
-				'client_id' => $this->client_id, 
+				'client_id' => $this->client_id,
 				'client_secret' => $this->client_secret
 			));
-		
+
 		$access_data = MPRestClient::post("/oauth/token", $appClientValues, MPRestClient::MIME_FORM);
 
 		if(isset($access_data['response']['access_token']) && isset($access_data['response']['access_token'])) {
 			$this->access_data = $access_data['response'];
-		
+
 			return $this->access_data['access_token'];
 		} else {
 			throw new Exception(json_encode($access_data));
 		}
 	}
-	
+
 	/**
 	 * Get information for specific payment
 	 * @param int $id
@@ -54,11 +54,11 @@ class MP {
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
-		
+
 		$paymentInfo = MPRestClient::get ("/collections/notifications/".$id."?access_token=".$accessToken);
 		return $paymentInfo;
 	}
-	
+
 	/**
 	* Refund accredited payment
 	* @param int $id
@@ -112,16 +112,16 @@ class MP {
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
-		
+
 		$filters["offset"] = $offset;
 		$filters["limit"] = $limit;
-		
+
 		$filters = $this->build_query ($filters);
-		
+
 		$collectionResult = MPRestClient::get ("/collections/search?".$filters."&access_token=".$accessToken);
 		return $collectionResult;
 	}
-	
+
 	/**
 	 * Create a checkout preference
 	 * @param array $preference
@@ -133,11 +133,11 @@ class MP {
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
-		
+
 		$preferenceResult = MPRestClient::post ("/checkout/preferences?access_token=".$accessToken, $preference);
 		return $preferenceResult;
 	}
-	
+
 	/**
 	 * Update a checkout preference
 	 * @param string $id
@@ -150,11 +150,11 @@ class MP {
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
-		
+
 		$preferenceResult = MPRestClient::put ("/checkout/preferences/{$id}?access_token=".$accessToken, $preference);
 		return $preferenceResult;
 	}
-	
+
 	/**
 	 * Get a checkout preference
 	 * @param string $id
@@ -166,7 +166,7 @@ class MP {
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
-		
+
 		$preferenceResult = MPRestClient::get ("/checkout/preferences/{$id}?access_token=".$accessToken);
 		return $preferenceResult;
 	}
@@ -182,17 +182,17 @@ class MP {
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
-		
+
 		$preferenceResult = MPRestClient::post ("/users/test_user?access_token=".$accessToken, '{"site_id":"'.$site_id.'"}');
 		return $preferenceResult;
 	}
-	
+
 	/*******************************************************************************************/
 	private function build_query ($params) {
 		foreach ($params as $name=>$value) {
 			$elements[] = "{$name}=".urlencode($value);
 		}
-			
+
 		return implode ("&", $elements);
 	}
 }
@@ -204,7 +204,7 @@ class MPRestClient {
 	const API_BASE_URL = "https://api.mercadolibre.com";
 	const MIME_JSON = "application/json";
 	const MIME_FORM = "application/x-www-form-urlencoded";
-	
+
 	private static function getConnect ($uri, $method, $contentType) {
 		$connect = curl_init(self::API_BASE_URL.$uri);
 		curl_setopt($connect, CURLOPT_USERAGENT, "MercadoPago PHP SDK v".MP::version);
@@ -235,32 +235,32 @@ class MPRestClient {
 
 		curl_setopt($connect, CURLOPT_POSTFIELDS, $data);
 	}
-	
+
 	private static function exec ($method, $uri, $data, $contentType) {
 		$connect = self::getConnect($uri, $method, $contentType);
 		self::setData($connect, $data, $contentType);
-		
+
 		$apiResult = curl_exec($connect);
 		$apiHttpCode = curl_getinfo($connect, CURLINFO_HTTP_CODE);
-		
+
 		$response = array (
 			"status" => $apiHttpCode,
 			"response" => json_decode($apiResult, true)
 		);
-		
+
 		curl_close($connect);
-		
+
 		return $response;
 	}
-	
+
 	public static function get ($uri, $contentType=self::MIME_JSON) {
 		return self::exec("GET", $uri, null, $contentType);
 	}
-	
+
 	public static function post ($uri, $data, $contentType=self::MIME_JSON) {
 		return self::exec("POST", $uri, $data, $contentType);
 	}
-	
+
 	public static function put ($uri, $data, $contentType=self::MIME_JSON) {
 		return self::exec("PUT", $uri, $data, $contentType);
 	}

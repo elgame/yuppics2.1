@@ -60,7 +60,7 @@
 												<button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete">×</button>
 											</li>
 								<?php }}?>
-					        </ul> 
+					        </ul>
 					        <form id="form"></form>
 					    </div>
 					</div>
@@ -69,8 +69,6 @@
 		</div> <!-- END SPAN9 -->
 	</div> <!-- END ROW FLUID -->
 </div> <!-- END CONTAINER FLUID -->
-
-
 
 <div id="messajes_alerts" class="modal hide fade">
   <div class="modal-body">

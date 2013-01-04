@@ -87,7 +87,7 @@ function buildClonePhoto(obj) {
 
 	var html_input = '<input type="hidden" name="photos[]" value="'+photo_ori+'" id="'+photo_id+'" class="src-'+photo_id+' ori">',
 		html_input_thumb = '<input type="hidden" name="thumbs[]" value="'+photo_src+'" id="inpthumb-'+photo_id+'" class="src-'+photo_id+'">';
-	
+
 	$('#form').find('input').each(function(i, e) {
 		if ($(this).attr('id') === photo_id) {
 			exist = true;
@@ -109,7 +109,7 @@ function buildClonePhoto(obj) {
 		px = parseInt(obj_content_selected_photos.css('width')) + 165;
 
 		obj_content_selected_photos.css('width', px);
-		obj_content_selected_photos.find('.thumbnails').append(html_clone_photo);		
+		obj_content_selected_photos.find('.thumbnails').append(html_clone_photo);
 		obj.addClass('choose-photo').append('<div class="choosed" id="chossed"></div>');
 
 		$('#form').append(html_input+html_input_thumb);
@@ -137,7 +137,7 @@ function deleteClonePhoto(obj) {
 
   		var  obj_content_selected_photos = $('#content-selected-photos'),
 			 px = parseInt(obj_content_selected_photos.css('width')) - 165;
-		
+
 		obj_content_selected_photos.css('width', px);
 		var totalch = parseInt(objtotalch.html()) - 1;
 		objtotalch.html(totalch);

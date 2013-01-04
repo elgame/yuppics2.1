@@ -9,7 +9,7 @@ require_once(APPPATH.'libraries/paypal/paypal.class.php');
 class my_paypal{
 
 	private $sandbox                = true;
-	private $application_id         = ''; // Solamente requerida para pagos adaptativos. 
+	private $application_id         = ''; // Solamente requerida para pagos adaptativos.
 	private $api_version            = '85.0'; // Version de la api
 	private $api_username           = ''; // Username de la api
 	private $api_password           = ''; // Password de la api
@@ -107,18 +107,18 @@ class my_paypal{
 						'paymentaction'          => 'Sale', 					// How you want to obtain the payment.  When implementing parallel payments, this field is required and must be set to Order.
 						'paymentrequestid'       => '',  				// A unique identifier of the specific payment request, which is required for parallel payments.
 						'sellerpaypalaccountid'  => '',			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
-						);
+            );
 
 	function __construct($conf_sale=array(), $conf_payment=array() ){
-		
+
 		$this->application_id = $this->sandbox? 'APP-80W284485P519543T' : 'LIVE_APP_ID';
 		$this->api_username   = $this->sandbox? 'gamame_1325861557_biz_api1.gmail.com' : 'LIVE_API_USERNAME';
 		$this->api_password   = $this->sandbox? '1325861583' : 'LIVE_API_PASSWORD';
 		$this->api_signature  = $this->sandbox? 'AaCnRBnC4zIK4buj5ijEl0MKS62hAntLOpnfxKhwzSSDjTL1hGK5bORP' : 'LIVE_API_SIGNATURE';
 
-		$this->PayPalConfig   = array('Sandbox'      => $this->sandbox, 
-																	'APIUsername'  => $this->api_username, 
-																	'APIPassword'  => $this->api_password, 
+		$this->PayPalConfig   = array('Sandbox'      => $this->sandbox,
+																	'APIUsername'  => $this->api_username,
+																	'APIPassword'  => $this->api_password,
 																	'APISignature' => $this->api_signature
 																);
 		$this->PayPal         = new PayPal($this->PayPalConfig);

@@ -91,7 +91,7 @@ class customer extends MY_Controller {
 		}else{
 			$data = "email = '".$this->input->post('email')."' AND password = '".$this->input->post('password')."' AND status = 'on' ";
 			$mdl_res = $this->customer_model->setLogin($data);
-			if (count($mdl_res[0]) > 0) 
+			if (count($mdl_res[0]) > 0)
 			{
 				$params['frm_errors'] = array(
 					'title' => '',
@@ -123,7 +123,7 @@ class customer extends MY_Controller {
 
 		$this->my_facebook->initialize($config);
 		$access_token = $this->my_facebook->oauth();
-		
+
 
 		$user = $this->my_facebook->get_user_about_me($access_token);
 		$params = array(
@@ -153,7 +153,7 @@ class customer extends MY_Controller {
 	{
 
 		$this->load->library('form_validation');
-		if ($this->form_validation->run() === FALSE) 
+		if ($this->form_validation->run() === FALSE)
 		{
 			$params['frm_errors'] = array(
 					'title' => '',
@@ -172,7 +172,7 @@ class customer extends MY_Controller {
 
 		echo json_encode($params);
 	}
-	
+
 	/*
  	|	Muestra el Formulario para modificar un usuario
  	*/
@@ -193,21 +193,21 @@ class customer extends MY_Controller {
 			array('skin/newsletter.js'),
 			array('skin/form_ajax.js'),
 		));
-		
+
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
 		$params['seo'] = array(
 			'titulo' => 'Modificar perfil - yuppics'
 		);
-		
+
 		$this->load->model('address_book_model');
 		$this->load->model('states_model');
 		$params['address_books'] = $this->address_book_model->getAddressBooks($this->session->userdata('id_usuario'));
 		$params['states']        = $this->states_model->getStates(1);
-		
 
-		if (isset($_GET['msg'])) 
+
+		if (isset($_GET['msg']))
 			$params['frm_errors'] = $this->showMsgs($_GET['msg']);
-		
+
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
 		$this->load->view('skin/customer/perfil', $params);
@@ -218,7 +218,7 @@ class customer extends MY_Controller {
 	public function update()
 	{
 		$this->load->library('form_validation');
-		if ($this->form_validation->run() === FALSE) 
+		if ($this->form_validation->run() === FALSE)
 		{
 			$params['frm_errors'] = array(
 					'title' => '',
@@ -256,7 +256,7 @@ class customer extends MY_Controller {
 
 	public function valida_username($username)
 	{
-		if ($username != '') 
+		if ($username != '')
 		{
 			$result = $this->db->query("SELECT id_customer
 			                           FROM customers
@@ -289,7 +289,7 @@ class customer extends MY_Controller {
 				$icono = 'success';
 				break;
 		}
-	
+
 		return array(
 				'title' => $title,
 				'objs' => $objs,

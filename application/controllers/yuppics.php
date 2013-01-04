@@ -91,7 +91,7 @@ class yuppics extends MY_Controller {
 
 		$this->my_upload->config_resize = $config_resize;
 		$data = $this->my_upload->do_upload('imagen_fondo');
-		
+
 		$a = explode('/', $data['full_path']);
 		$b = explode('.', $a[count($a)-1]);
 		$data['path'] = APPPATH.$path_imgs.$b[0].'.'.$b[1];
@@ -118,7 +118,7 @@ class yuppics extends MY_Controller {
 	 */
 	public function theme_save(){
 		$this->load->library('form_validation');
-		if ($this->form_validation->run() === FALSE) 
+		if ($this->form_validation->run() === FALSE)
 		{
 			$params['frm_errors'] = array(
 					'title' => '',
@@ -150,6 +150,14 @@ class yuppics extends MY_Controller {
 		return true;
 	}
 
+
+
+	/**
+	 ******************** Seccion guardar fotos ************************
+	 *******************************************************************
+	 *
+	 * @return [type] [description]
+	 */
 	public function photos()
 	{
 		// if (! $this->session->userdata('id_yuppics'))
@@ -266,8 +274,118 @@ class yuppics extends MY_Controller {
 	}
 
 
-	private function showMsgs($tipo, $msg='', $title='Perfil')
+
+	/**
+	 ******************* Seccion personaliza fotos, libro ******************
+	 ***********************************************************************
+	 *
+	 * @return [type] [description]
+	 */
+	public function book(){
+		$this->carabiner->css(array(
+			array('libs/jquery.jscrollpane.css', 'screen'),
+			array('libs/jquery.jPages.css', 'screen'),
+			array('skin/dashboard/style.css', 'screen'),
+			array('skin/yuppics/style.css', 'screen')
+		));
+
+		$this->carabiner->js(array(
+			array('libs/jquery.mousewheel.min.js'),
+			array('libs/jquery.jscrollpane.min.js'),
+			array('libs/jquery.form.js'),
+			array('libs/jquery.jPages.min.js'),
+			array('general/msgbox.js'),
+			array('general/loader.js'),
+			array('skin/yuppics_book.js')
+		));
+
+		$params['info_customer'] = $this->info_empleado['info']; //info empleado
+		$params['seo'] = array(
+			'titulo' => 'Crear yuppic - yuppics'
+		);
+
+		$this->load->model('frames_model');
+		$this->load->model('pages_model');
+		$this->load->model('photos_model');
+		$params['frames'] = $this->frames_model->getFrames();
+		$params['pages']  = $this->pages_model->getPages();
+		$params['photos'] = $this->photos_model->getYuppicPhotos($this->session->userdata('id_yuppics'));
+		$params['page']   = $this->pages_model->getPage();
+
+		if($this->session->userdata('id_yuppics')){
+			// $params['theme_sel'] = $this->themes_model->getYuppicTheme($this->session->userdata('id_yuppics'));
+		}
+
+
+		// $params['themes'] = $this->load->view('skin/yuppics/themes_items', $params, true);
+		$this->load->view('skin/header', $params);
+		$this->load->view('skin/yuppics/book', $params);
+		$this->load->view('skin/footer');
+	}
+
+	public function getFrame(){
+		if ($this->input->get('id_frame')!==false && $this->input->get('id_img')!==false) {
+			$this->load->model('frames_model');
+			$response['marco'] = $this->frames_model->getFrame($this->input->get('id_frame'), $this->input->get('id_img'));
+			$response['msg']   = $this->showMsgs(5);
+		}else{
+			$response['msg'] = $this->showMsgs(4);
+		}
+
+		echo json_encode($response);
+	}
+
+	public function save_page(){
+		if ($this->input->post('id_page')!==false) {
+			$this->load->model('pages_model');
+			$response['page'] = $this->pages_model->savePage();
+			$response['msg']  = $this->showMsgs(5, 'Se guardo la pagina correctamente.');
+		}else{
+			$response['msg'] = $this->showMsgs(2, 'Parametros faltantes');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function load_page(){
+		if ($this->input->get('num_pag')!==false) {
+			$this->load->model('pages_model');
+			$response['page'] = $this->pages_model->getPage($this->input->get('num_pag'));
+			$response['msg']  = $this->showMsgs(5, '');
+		}else{
+			$response['msg'] = $this->showMsgs(2, 'Especifica la pagina');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function delete_page(){
+		if ($this->input->post('id_ypage')!==false) {
+			$this->load->model('pages_model');
+			$res = $this->pages_model->deletePage($this->input->post('id_ypage'));
+			$response['msg']  = $this->showMsgs(5, 'La página se elimino correctamente');
+		}else{
+			$response['msg'] = $this->showMsgs(2, 'Especifica la pagina');
+		}
+		echo json_encode($response);
+	}
+
+	public function magic_book(){
+		if ($this->input->get('id_page')!==false && $this->input->get('id_frame')!==false) {
+			$this->load->model('pages_model');
+			$res = $this->pages_model->magicBook();
+			$response['msg']  = $this->showMsgs(5, 'Se crearon las paginas correctamente');
+		}else{
+			$response['msg'] = $this->showMsgs(2, 'Especifica la página y el marco');
+		}
+		echo json_encode($response);
+	}
+
+
+
+	private function showMsgs($tipo, $msg='', $title='Yuppics')
 	{
+		$objs = '';
 		switch($tipo){
 			case 1:
 				$txt = 'El campo ID es requerido.';
@@ -282,8 +400,17 @@ class yuppics extends MY_Controller {
 				$objs = 'deleteaddress_alert';
 				$icono = 'success';
 				break;
+
+			case 4:
+				$txt = 'Selecciona la imagen y el marco a utilizar.';
+				$icono = 'error';
+				break;
+			case 5:
+				$txt = $msg;
+				$icono = 'success';
+				break;
 		}
-	
+
 		return array(
 				'title' => $title,
 				'objs' => $objs,
