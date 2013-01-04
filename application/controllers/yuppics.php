@@ -381,9 +381,9 @@ class yuppics extends MY_Controller {
 	 */
 	public function genera_pdf(){
 		$this->load->model('book_model');
-		$this->load->library('FPDF');
+		$this->load->library('MYpdfgeneral');
 		// Creación del objeto de la clase heredada
-		$pdf = new FPDF('P', 'mm', 'Letter');
+		$pdf = new MYpdfgeneral('P', 'mm', 'Letter');
 
 		$yupic = $this->book_model->getYuppic($this->session->userdata('id_yuppics'));
 
@@ -391,8 +391,10 @@ class yuppics extends MY_Controller {
 		// Portada del book
 		$pdf->AddPage();
 
-		$color = String::hex2rgb($yupic->background_color); 
+		$color = String::hex2rgb($yupic->background_color);
 		$pdf->SetFillColor($color[0], $color[1], $color[2]); //color de fondo
+		$color = String::hex2rgb($yupic->text_color);
+		$pdf->SetTextColor($color[0], $color[1], $color[2]); //color de texto
 		$pdf->Rect(0, 0, $pdf->CurPageSize[0], $pdf->CurPageSize[1], 'F'); // rectangulo con color de fondo
 		$size = $pdf->getSizeImage($yupic->background_img, 0, 0);
 		$y = 0;
@@ -400,6 +402,11 @@ class yuppics extends MY_Controller {
 			$y = (($pdf->CurPageSize[1]-$size[1]) / 2);
 		$pdf->Image($yupic->background_img, 0, $y, 0); // se establece la imagen de fondo
 
+		$pdf->SetFont('Arial', 'B', 30);
+		$pdf->SetXY(0, (($pdf->CurPageSize[1]-10) / 2));
+		$pdf->MultiCell(0,0, $yupic->title, 0, 'C');
+		$pdf->SetFontSize(18);
+		$pdf->MultiCell(0,0, $yupic->author, 0, 'C');
 		// var_dump($pdf->CurPageSize);
 		
 		$pdf->Output('cuentas_x_pagar.pdf', 'I');
