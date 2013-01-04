@@ -262,8 +262,8 @@ function build_load_page(data){
 			html += '<div class="img_in_page" style="top:'+data.page.images[i].coord_y+'%;left:'+data.page.images[i].coord_x+'%;width:'+data.page.images[i].width+'%;height:'+data.page.images[i].height+'%;" '+
 				'data-idimg="'+data.page.images[i].id_img+'" data-idpagimg="'+data.page.images[i].id_page_img+'" data-width="'+data.page.images[i].width+'" data-height="'+data.page.images[i].height+'" '+
 				'data-idframe="'+data.page.images[i].id_frame+'" data-idphoto="'+data.page.images[i].id_photo+'">'+
-				'	<div class="photo"><img src="'+base_url+data.page.images[i].url_img+'"></div>'+
-				'	<div class="frame"><img src="'+base_url+data.page.images[i].url_frame+'"></div>'+
+				'	<div class="photo">'+ (data.page.images[i].url_img? '<img src="'+base_url+data.page.images[i].url_img+'">': '') +'</div>'+
+				'	<div class="frame">'+ (data.page.images[i].url_frame? '<img src="'+base_url+data.page.images[i].url_frame+'">': '')+'</div>'+
 				'	<span class="aviary"><i class="icon-picture"></i></span>'+
 				'</div>';
 		};

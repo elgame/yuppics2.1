@@ -8,14 +8,18 @@ class pages_model extends CI_Model{
 
 
 	/**
-	 * Obtiene los tipos de paginas que se pueden asignar al yuppic
+	 * Obtiene los tipos de paginas que se pueden asignar al yuppic,
+	 * si se le espesifica el id, solo regresara la info de la pag
+	 * espesificada
 	 */
-	public function getPages(){
-		$res = $this->db
+	public function getPages($id_page=null){
+		$this->db
 			->select('id_page, num_imgs, url_preview')
-			->from('accomodation_page')
-			->order_by('id_page', 'asc')
-		->get();
+			->from('accomodation_page');
+		if ($id_page != null) {
+			$this->db->where('id_page = '.$id_page);
+		}
+		$res = $this->db->order_by('id_page', 'asc')->get();
 		if($res->num_rows() > 0){
 
 			$response = $res->result();
@@ -34,11 +38,17 @@ class pages_model extends CI_Model{
 			return false;
 	}
 
-	public function getPage($num_pag=1){
+	/**
+	 * Obtiene informacion de la pagina espesificada de un yuppic, si la pagina no tiene todas las
+	 * imagenes del diseño espesifico de pagina se le agregan las que falten sin info.
+	 * @param  integer $num_pag [description]
+	 * @return [type]           [description]
+	 */
+	public function getPage($id_yuppic, $num_pag=1){
 		$res = $this->db
 			->select('id_ypage, id_yuppic, id_page, num_pag')
 			->from('yuppics_pages')
-			->where("id_yuppic = ".$this->session->userdata('id_yuppics')." AND num_pag = ".$num_pag)
+			->where("id_yuppic = ".$id_yuppic." AND num_pag = ".$num_pag)
 		->get();
 		if($res->num_rows() > 0){
 
@@ -53,6 +63,13 @@ class pages_model extends CI_Model{
 					INNER JOIN accomodation_imgs AS ai ON ai.id_img = api.id_img 
 					INNER JOIN frames_imgs AS fi ON (fi.id_frame = ypp.id_frame AND ai.id_img = fi.id_img)
 				WHERE ypp.id_ypage = ".$response->id_ypage)->result();
+
+			$pag_inf = $this->getPages($response->id_page);
+			foreach ($pag_inf[0]->images as $key => $value) {
+				if( is_array(Arrays::buscarArray($response->images, 'id_page_img', $value->id_page_img)) ){
+					$response->images[] = $value;
+				}
+			}
 			
 			return $response;
 		}else

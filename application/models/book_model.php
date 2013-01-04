@@ -10,24 +10,55 @@ class book_model extends CI_Model{
 	/**
 	 * Obtiene la informacion de un cupon
 	 */
-	public function getFrames($search=null){
-		$this->db
-			->select('id_frame, name, url_preview')
-			->from('frames')
-			->order_by('name', 'asc')
-		->get();
-		if($res->num_rows() > 0){
-			if($exist){
-				$res->free_result();
-				return true;
-			}
+	// public function getFrames($search=null){
+	// 	$this->db
+	// 		->select('id_frame, name, url_preview')
+	// 		->from('frames')
+	// 		->order_by('name', 'asc')
+	// 	->get();
+	// 	if($res->num_rows() > 0){
+	// 		if($exist){
+	// 			$res->free_result();
+	// 			return true;
+	// 		}
 
-			$response = $res->result();
-			$res->free_result();
+	// 		$response = $res->result();
+	// 		$res->free_result();
 			
+	// 		return $response;
+	// 	}else
+	// 		return false;
+	// }
+	
+	public function getYuppic($id_yuppic){
+		$res_yuppic = $this->db->query("SELECT y.id_yuppic, y.id_customer, y.id_product, y.title, y.author, 
+				yt.background_img, yt.background_color, yt.text_color 
+			FROM yuppics AS y INNER JOIN yuppics_theme AS yt ON y.id_yuppic = yt.id_yuppic
+			WHERE y.id_yuppic = ".$id_yuppic);
+		if ($res_yuppic->num_rows() > 0) {
+			$response = $res_yuppic->row();
+			$res_yuppic->free_result();
+
+			$res = $this->db
+				->select('id_ypage, id_yuppic, id_page, num_pag')
+				->from('yuppics_pages')
+				->where("id_yuppic = ".$id_yuppic)
+			->get();
+			foreach ($res->result() as $key => $value) {
+				$response->pages[$key] = $value;
+				$response->pages[$key]->images = $this->db->query("SELECT ypp.id_ypage, yp.id_photo, yp.url_img, api.id_page_img, api.id_img, 
+						ai.width, ai.height, api.coord_x, api.coord_y, fi.url_frame, fi.id_frame
+					FROM yuppics_pages_photos AS ypp 
+						INNER JOIN yuppics_photos as yp ON yp.id_photo = ypp.id_photo
+						INNER JOIN accomodation_page_imgs AS api ON ypp.id_page_img = api.id_page_img
+						INNER JOIN accomodation_imgs AS ai ON ai.id_img = api.id_img 
+						INNER JOIN frames_imgs AS fi ON (fi.id_frame = ypp.id_frame AND ai.id_img = fi.id_img)
+					WHERE ypp.id_ypage = ".$value->id_ypage)->result(); 
+			}
+			$res->free_result();
 			return $response;
-		}else
-			return false;
+		}
+		return false;
 	}
 
 	public function getYuppicTheme($id_yuppic){
