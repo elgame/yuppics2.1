@@ -39,7 +39,6 @@
         </div>
         <div class="row-fluid">
           <address>
-            <?php //var_dump($info_customer) ?>
             <?php if (!empty($info_customer->username)) {?> <strong>Username: </strong><?php echo $info_customer->username?><br><?php } ?>
             <strong>Nombre: </strong><?php echo $info_customer->first_name.' '.$info_customer->last_name ?><br>
             <strong>Email: </strong><a href="mailto:#"><?php echo $info_customer->email?></a><br>
@@ -213,10 +212,13 @@
                       $ttotal += $subtotal;
                   ?>
                       <tr>
-                        <td><?php echo $yuppic->title; ?><input type="hidden" name="ytitle[]" value="<?php echo $yuppic->title; ?>"></td>
-                        <td><?php echo $yuppic->price; ?><input type="hidden" name="yprice[]" value="<?php echo $yuppic->price; ?>"></td>
-                        <td><?php echo $yuppic->quantity ?><input type="hidden" name="yqty[]" value="<?php echo $yuppic->quantity; ?>"></td>
-                        <td><?php echo String::formatoNumero($subtotal) ?>MXN</td>
+                        <td><?php echo $yuppic->title; ?>
+                            <input type="hidden" name="yids[]" value="<?php echo $yuppic->id_yuppic; ?>">
+                            <input type="hidden" name="ytitle[]" value="<?php echo $yuppic->title; ?>" data-id="<?php echo $yuppic->id_yuppic?>"></td>
+                        <td><?php echo $yuppic->price; ?>
+                            <input type="hidden" name="yprice[]" value="<?php echo $yuppic->price; ?>" data-id="<?php echo $yuppic->id_yuppic?>"></td>
+                        <td><input type="number" name="yqty[]" value="<?php echo $yuppic->quantity ?>" id="yqty" min="1" data-id="<?php echo $yuppic->id_yuppic?>"></td>
+                        <td id="<?php echo $yuppic->id_yuppic?>"><?php echo String::formatoNumero($subtotal) ?>MXN</td>
                       </tr>
                   <?php } ?>
                 </tbody>

@@ -73,25 +73,37 @@ class Buy_model extends CI_Model {
   public function valid_code()
   {
     $table = ($_POST['type'] === 'coupon') ? 'coupons' : 'vouchers';
-    $id_field = ($_POST['type'] === 'coupon') ? 'id_coupon as id' : 'id_voucher as id';
+    $id_field = ($_POST['type'] === 'coupon') ? 'id_coupon' : 'id_voucher';
 
-    $query = $this->db->select('count(id_history) as total')->from('coupons_history')->where('id_coupon',$_POST['code'])->get();
-    $uses_total = $query->row()->total;
+    $query = $this->db->select($id_field.' as id, date_start, date_end')->from($table)->where('code', $_POST['code'])->get();
 
-    $query->free_result();
-    $query = $this->db->select($id_field . ', amount')->
-                              from($table)->
-                              where('code = "'.$_POST['code'].'" AND uses_total >='.(intval($uses_total) + 1).' AND date_start < NOW() AND date_end > NOW()')->
-                              get();
-
-    $query_res = $query->row();
-    if (count($query_res) > 0)
+    if ($query->num_rows() > 0)
     {
-      $query_res->type = $table;
-      return $query_res;
+      $couvau = $query->row();
+
+      $query->free_result();
+      $query = $this->db->select('count(id_history) as total')->from('coupons_history')->where('id_coupon', $couvau->id)->get();
+      $uses_total = $query->row()->total;
+
+      $date_start = ($couvau->date_start === NULL) ? '' : ' AND date_start < NOW()';
+      $date_end   = ($couvau->date_end === NULL) ? '' : ' AND date_end > NOW()';
+
+      $query->free_result();
+      $query = $this->db->select($id_field . ' as id, amount')->
+                                from($table)->
+                                where('code = "'.$_POST['code'].'" AND uses_total >='.(intval($uses_total) + 1).$date_start.$date_end)->
+                                get();
+
+      if ($query->num_rows() > 0)
+      {
+        $query_res = $query->row();
+        $query_res->type = $table;
+        return $query_res;
+      }
+      else return FALSE;
     }
-    else
-      return FALSE;
+    else return FALSE;
+
   }
 
   public function pay()
@@ -107,23 +119,21 @@ class Buy_model extends CI_Model {
           'created'             => date('Y-m-d H:m:i'),
           'status'              => 'p'
     );
-
     $this->db->insert('orders', $data_order);
     $id_order = $this->db->insert_id();
 
-    $yuppics = explode(',', $_GET['y']);
     $data_ids_yuppics = array();
-    foreach ($yuppics as $id)
-      $data_ids_yuppics[] = array('id_order'=>$id_order, 'id_yuppics'=>$id);
-
+    foreach($_POST['yids'] as $k => $v)
+    {
+      $data_ids_yuppics[] = array('id_order' => $id_order, 'id_yuppics' => $v);
+      $this->db->update('yuppics', array('quantity' => $_POST['yqty'][$k]), array('id_yuppic' => $v));
+    }
     $this->db->insert_batch('orders_yuppics', $data_ids_yuppics);
 
     $type_discount = $this->input->post('type_discount');
     $type_discount_id = $this->input->post('type_discount_id');
-
     if (!empty($type_discount) && !empty($type_discount_id))
     {
-
       $data_discount = array(
             'id_customer' => $id_customer,
             'id_order'    => $id_order,
@@ -149,9 +159,7 @@ class Buy_model extends CI_Model {
         $max_uses = $cres2->row()->uses_total;
 
         if (floatval($max_uses) == floatval($total_used))
-        {
           $this->db->update('coupons', array('status' => 1), array('id_coupon' => $type_discount_id));
-        }
       }
       else
       {
@@ -172,21 +180,15 @@ class Buy_model extends CI_Model {
         $max_uses = $vres2->row()->uses_total;
 
         if (floatval($max_uses) === floatval($total_used))
-        {
           $this->db->update('vouchers', array('status' => 1), array('id_voucher' => $type_discount_id));
-        }
       }
     }
 
     // Valida el tipo de metodo de pago para hacerlo por Paypal o MercadoPago
     if ($this->input->post('payMethod') === 'pp')
-    {
       $this->payByPaypal($id_order);
-    }
     else
-    {
       $this->payByMercadoPago($id_order);
-    }
 
   }
 
@@ -206,8 +208,6 @@ class Buy_model extends CI_Model {
       'currencycode' => 'MXN',
       'desc'         => 'Pago Yuppics',
       'shippingamt'  => 0,
-      // 'discount'     => 0,
-      // 'taxamt'       => $_POST['tdiscount'],
       'discount_amount_cart' => $_POST['tdiscount']
     ));
 
@@ -232,7 +232,6 @@ class Buy_model extends CI_Model {
 
     $this->my_paypal->add_products($products);
     $this->my_paypal->send_checkout();
-
   }
 
   public function payByMercadoPago($id_order)
@@ -252,11 +251,8 @@ class Buy_model extends CI_Model {
       )
     );
 
-    $products = array();
-
     $discount = floatval($_POST['tdiscount']);
     $exis_discount = ($discount > 0 ) ? TRUE : FALSE;
-    $applied_discount = FALSE;
     $total = 0;
 
     foreach ($_POST['ytitle'] as $k => $v)

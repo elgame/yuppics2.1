@@ -8,7 +8,7 @@ class Photos_model extends CI_Model{
 
 	public function getYuppicPhotos($id_yuppic)
 	{
-		$res = $this->db->query("SELECT 
+		$res = $this->db->query("SELECT
 				yp.id_photo, yp.id_yuppic, yp.url_img, yp.url_thumb
 			FROM yuppics_photos AS yp
 			WHERE yp.id_yuppic = ". $id_yuppic);
@@ -20,17 +20,18 @@ class Photos_model extends CI_Model{
 	}
 
 	public function save_photos()
-	{	
-			$id_yuppic = '1';
-		// if ($this->session->userdata('id_yuppics')) {
-			// $id_yuppic = $this->session->userdata('id_yuppics');
+	{
+		if ($this->session->userdata('id_yuppics'))
+    {
+			$id_yuppic = $this->session->userdata('id_yuppics');
 			UploadFiles::validaDir($this->session->userdata('id_usuario'), APPPATH.'yuppics/');
 			UploadFiles::validaDir($id_yuppic, APPPATH.'yuppics/'.$this->session->userdata('id_usuario').'/');
 			UploadFiles::validaDir('PHOTOS', APPPATH.'yuppics/'.$this->session->userdata('id_usuario').'/'.$id_yuppic.'/');
 
 			$data_photos = array();
 
-			foreach ($_POST['photos'] as $k => $url_photo) {
+			foreach ($_POST['photos'] as $k => $url_photo)
+      {
 				$a = explode('/', $url_photo);
 				$b = explode('.', $a[count($a)-1]);
 
@@ -46,7 +47,7 @@ class Photos_model extends CI_Model{
 			$this->db->insert_batch('yuppics_photos', $data_photos);
 
 			return $id_yuppic;
-		// }
+    }
 	}
 
 	public function photo_delete($id_photo = false)

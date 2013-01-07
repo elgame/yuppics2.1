@@ -44,6 +44,13 @@ $(function(){
     else
       objbtn.attr('disabled', 'disabled');
   });
+
+  $('input#yqty').on('change', function(e) {
+      var obj = $(this);
+      calcSubtotal();
+      calcTotal($('#tdiscount').val());
+  });
+
 });
 
 function calcTotal(discount) {
@@ -58,6 +65,18 @@ function calcTotal(discount) {
 
   $('#tdiscount-format').html(util.darFormatoNum(disc) + 'MXN');
   $('#ttotal-format').html(util.darFormatoNum(ttotal) + 'MXN');
+}
+
+function calcSubtotal() {
+  var subtotal = 0;
+  $('input[type="number"]#yqty').each(function(i, e){
+    var obj = $(this),
+        sub = parseFloat(obj.val()) * parseFloat($('input[name="yprice[]"][data-id="'+obj.attr('data-id')+'"]').val());
+    $('td#'+obj.attr('data-id')).html(util.darFormatoNum(sub) + 'MXN');
+    subtotal += sub;
+  });
+
+  $('#tsubtotal').val(subtotal);
 }
 
 function address_success_shop() {

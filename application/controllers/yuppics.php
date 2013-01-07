@@ -160,8 +160,8 @@ class yuppics extends MY_Controller {
 	 */
 	public function photos()
 	{
-		// if (! $this->session->userdata('id_yuppics'))
-		// 	redirect(base_url('yuppics/'));
+		if (! $this->session->userdata('id_yuppics'))
+			redirect(base_url('yuppics/'));
 
 		$access_token = $this->input->get('token');
 		if (!$access_token) {
@@ -190,7 +190,7 @@ class yuppics extends MY_Controller {
 		$params['access_token'] = $access_token;
 
 		$this->load->model('photos_model');
-		$res = $this->photos_model->getYuppicPhotos('1'); // $this->session->userdata('id_yuppics')
+		$res = $this->photos_model->getYuppicPhotos($this->session->userdata('id_yuppics'));
 		$params['totalp'] = 0;
 		if ($res){
 			$params['photos'] = $res;
@@ -218,7 +218,7 @@ class yuppics extends MY_Controller {
 			$this->load->model('photos_model');
 			$mdl_res = $this->photos_model->save_photos();
 
-			// $params['id_yuppic'] = $mdl_res;
+			$params['id_yuppic'] = $mdl_res;
 
 			$params['frm_errors'] = array(
 					'title' => '',
@@ -396,7 +396,7 @@ class yuppics extends MY_Controller {
 		// Portada del book
 		$pdf->AddPage();
 
-		$color = String::hex2rgb($yupic->background_color); 
+		$color = String::hex2rgb($yupic->background_color);
 		$pdf->SetFillColor($color[0], $color[1], $color[2]); //color de fondo
 		$pdf->Rect(0, 0, $pdf->CurPageSize[0], $pdf->CurPageSize[1], 'F'); // rectangulo con color de fondo
 		$size = $pdf->getSizeImage($yupic->background_img, 0, 0);
@@ -406,7 +406,7 @@ class yuppics extends MY_Controller {
 		$pdf->Image($yupic->background_img, 0, $y, 0); // se establece la imagen de fondo
 
 		// var_dump($pdf->CurPageSize);
-		
+
 		$pdf->Output('cuentas_x_pagar.pdf', 'I');
 	}
 
