@@ -386,9 +386,9 @@ class yuppics extends MY_Controller {
 	 */
 	public function genera_pdf(){
 		$this->load->model('book_model');
-		$this->load->library('FPDF');
+		$this->load->library('MYpdfgeneral');
 		// Creación del objeto de la clase heredada
-		$pdf = new FPDF('P', 'mm', 'Letter');
+		$pdf = new MYpdfgeneral('P', 'mm', 'Letter');
 
 		$yupic = $this->book_model->getYuppic($this->session->userdata('id_yuppics'));
 
@@ -398,6 +398,8 @@ class yuppics extends MY_Controller {
 
 		$color = String::hex2rgb($yupic->background_color);
 		$pdf->SetFillColor($color[0], $color[1], $color[2]); //color de fondo
+		$color = String::hex2rgb($yupic->text_color);
+		$pdf->SetTextColor($color[0], $color[1], $color[2]); //color de texto
 		$pdf->Rect(0, 0, $pdf->CurPageSize[0], $pdf->CurPageSize[1], 'F'); // rectangulo con color de fondo
 		$size = $pdf->getSizeImage($yupic->background_img, 0, 0);
 		$y = 0;
@@ -405,9 +407,61 @@ class yuppics extends MY_Controller {
 			$y = (($pdf->CurPageSize[1]-$size[1]) / 2);
 		$pdf->Image($yupic->background_img, 0, $y, 0); // se establece la imagen de fondo
 
-		// var_dump($pdf->CurPageSize);
+		$pdf->SetFont('Arial', 'B', 30);
+		$pdf->SetXY(0, (($pdf->CurPageSize[1]-20) / 2));
+
+		$pdf->SetAligns(array('C'));
+		$pdf->SetWidths(array(0));
+		$pdf->Row(array($yupic->title), false, false);
+		$pdf->SetFontSize(18);
+		$pdf->Row(array($yupic->author), false, false);
+
+
+		//**************************************
+		// paginas del book
+		foreach ($yupic->pages as $key => $page) {
+			$pdf->AddPage();
+
+			foreach ($page->images as $key2 => $photo) {
+				$info = array(
+					'x' => ($photo->coord_x*$pdf->CurPageSize[0]/100),
+					'y' => ($photo->coord_y*$pdf->CurPageSize[1]/100),
+					'w' => ($photo->width*$pdf->CurPageSize[0]/100),
+					'h' => ($photo->height*$pdf->CurPageSize[1]/100)
+					);
+				$pdf->SetFillColor(204, 204, 204);
+				$pdf->Rect($info['x'], $info['y'], $info['w'], $info['h'], 'F');
+
+				$size = $pdf->getSizeImage($photo->url_img, 0, 0);
+				$size = $this->redimImgPhoto($size, $info);
+				$pdf->Image($photo->url_img, $info['x'], $info['y'], $size['w'], $size['h']); // foto
+
+				$pdf->Image($photo->url_frame, $info['x'], $info['y'], $info['w'], $info['h']); // marco
+
+				$pdf->SetFillColor(255, 255, 255);
+				$pdf->Rect( ($info['x']+$info['w']), ($info['y']-.5), $pdf->CurPageSize[0], ($info['h']+1), 'F');
+			}
+		}
 
 		$pdf->Output('cuentas_x_pagar.pdf', 'I');
+	}
+
+	function redimImgPhoto($size, $info){
+		$diff_pix = 0; 
+		$resize   = array('w'=>0, 'h'=>0);
+
+		if ($info['w'] > $info['h']) {
+			$diff_pix = $info['w'] / $size[0];
+
+			$resize['w'] = $info['w'];
+			$resize['h'] = ($diff_pix * $size[1]);
+		} else {
+			$diff_pix = $info['h'] / $size[1];
+
+			$resize['w'] = ($diff_pix * $size[0]);
+			$resize['h'] = $info['h'];
+		}
+		return $resize;
 	}
 
 

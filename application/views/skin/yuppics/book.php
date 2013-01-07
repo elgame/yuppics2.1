@@ -23,7 +23,7 @@
 						<button class="btn" id="magicPage">Magia Página</button>
 
 						<button class="btn btn-danger" id="deletePage">Eliminar página</button>
-						<button class="btn btn-success" id="">Finalizar compara</button>
+						<button class="btn btn-success" id="finalizarCompra">Finalizar compra</button>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -82,6 +82,8 @@
 					<input type="hidden" id="idpage" value="<?php echo ($page!==false? $page->id_page: '') ?>">
 					<input type="hidden" id="id_ypage" value="<?php echo ($page!==false? $page->id_ypage: '') ?>">
 					<input type="hidden" id="num_pag" value="<?php echo ($page!==false? $page->num_pag: '') ?>">
+
+					<input type="hidden" id="id_yuppic" value="<?php echo $this->session->userdata('id_yuppics'); ?>">
 
 					<input type="hidden" id="page_edited" value="false">
 
