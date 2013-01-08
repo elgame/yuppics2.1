@@ -63,3 +63,8 @@ img.center, span.center{
 .mleft0{
   margin-left: 0px !important;
 }
+
+
+.dropdown-menu.carrito_compra{
+  width: 250px;
+}

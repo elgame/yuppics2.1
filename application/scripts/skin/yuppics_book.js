@@ -37,7 +37,7 @@ $(function(){
 				'data-idimg="'+info[i].id_img+'" data-idpagimg="'+info[i].id_page_img+'" data-width="'+info[i].width+'" data-height="'+info[i].height+'">'+
 				'	<div class="photo"></div>'+
 				'	<div class="frame"></div>'+
-				'	<span class="aviary"><i class="icon-picture"></i></span>'+
+				'	<span class="live_aviary"><i class="icon-picture"></i></span>'+
 				'</div>';
 		};
 		pag_active.html(html);
@@ -88,16 +88,20 @@ $(function(){
 		var vthis = $(this), info = $.parseJSON(vthis.attr("data-info")),
 			img_sel = $(".img_in_page.active"),
 			img_sel_width = parseInt(img_sel.css('width')),
-			img_sel_height = parseInt(img_sel.css('height'));
+			img_sel_height = parseInt(img_sel.css('height')),
+			attr_img;
 
 		if (img_sel.length > 0) {
 			loader.create();
+
+			attr_img = 'img_'+img_sel.attr("data-idimg")+img_sel.attr("data-idpagimg");
+			$(".live_aviary", img_sel).attr("data-id", attr_img);
+
 			// asigna la imagen y se redimenciona
 			img_sel.attr("data-idphoto", info.id_photo);
-			$(".photo", img_sel).html('<img src="'+base_url+info.url_img+'">');
+			$(".photo", img_sel).html('<img id="'+attr_img+'" src="'+base_url+info.url_img+'">');
 			$(".photo img", img_sel).load(function(){
 				redimImgPhoto(this, img_sel_width, img_sel_height);
-
 				loader.close();
 			});
 
@@ -184,6 +188,9 @@ $(function(){
 		});
 	});
 
+	// Evento para asignar el plug aviary
+	launchEditor();
+
 	redimPage();
 });
 
@@ -269,9 +276,9 @@ function build_load_page(data){
 			html += '<div class="img_in_page" style="top:'+data.page.images[i].coord_y+'%;left:'+data.page.images[i].coord_x+'%;width:'+data.page.images[i].width+'%;height:'+data.page.images[i].height+'%;" '+
 				'data-idimg="'+data.page.images[i].id_img+'" data-idpagimg="'+data.page.images[i].id_page_img+'" data-width="'+data.page.images[i].width+'" data-height="'+data.page.images[i].height+'" '+
 				'data-idframe="'+data.page.images[i].id_frame+'" data-idphoto="'+data.page.images[i].id_photo+'">'+
-				'	<div class="photo">'+ (data.page.images[i].url_img? '<img src="'+base_url+data.page.images[i].url_img+'">': '') +'</div>'+
+				'	<div class="photo">'+ (data.page.images[i].url_img? '<img id="img_'+data.page.images[i].id_img+data.page.images[i].id_page_img+'" src="'+base_url+data.page.images[i].url_img+'">': '') +'</div>'+
 				'	<div class="frame">'+ (data.page.images[i].url_frame? '<img src="'+base_url+data.page.images[i].url_frame+'">': '')+'</div>'+
-				'	<span class="aviary"><i class="icon-picture"></i></span>'+
+				'	<span class="live_aviary" data-id="img_'+data.page.images[i].id_img+data.page.images[i].id_page_img+'"><i class="icon-picture"></i></span>'+
 				'</div>';
 		};
 		
@@ -313,6 +320,47 @@ function redimImgFrame(vthis, img_sel){
 	vthis.width = img_sel.width();
 	vthis.height = img_sel.height();
 }
+
+
+var featherEditor;
+
+function launchEditor() {
+	featherEditor = new Aviary.Feather({
+		apiKey: '2e63f9892',
+		apiVersion: 2,
+		tools: 'all',
+		appendTo: '',
+		onSave: function(imageID, newURL) {
+			var img = $("#"+imageID);
+			img.attr("src", img.attr("src"));
+		},
+		postUrl: base_url+'yuppics/save_aviary/'
+	});
+
+	$(document).on("click", ".live_aviary", function(){
+		var vthis = $(this), imgsel;
+
+		if (vthis.attr('data-id') != '') {
+			imgsel = $("#"+vthis.attr('data-id'));
+
+			featherEditor.launch({
+				image: imgsel.attr("id"),
+				url: imgsel.attr("src"),
+				postData: imgsel.attr("src").replace(base_url, "")
+			});
+		}
+	
+	});
+	return false;
+}
+
+
+
+
+
+
+
+
 
 var yuppic_book = (function($){
 	var objr = {};

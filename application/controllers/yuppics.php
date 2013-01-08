@@ -10,7 +10,10 @@ class yuppics extends MY_Controller {
 
 	public function _remap($method){
 		$this->load->model("customer_model");
-		if($this->customer_model->checkSession()){
+
+		if ($method == 'save_aviary') {
+			$this->{$method}();
+		}else if($this->customer_model->checkSession()){
 			$this->info_empleado = $this->customer_model->getInfoCustomer($this->session->userdata('id_usuario'), true);
 
 			$this->{$method}();
@@ -23,6 +26,7 @@ class yuppics extends MY_Controller {
 	 * @return [type] [description]
 	 */
 	public function index(){
+		// $this->session->set_userdata('id_yuppics', 2);
 		$this->carabiner->css(array(
 			array('libs/jquery.colorpicker.css', 'screen'),
 			array('libs/jquery.jPages.css', 'screen'),
@@ -42,6 +46,10 @@ class yuppics extends MY_Controller {
 		$params['seo'] = array(
 			'titulo' => 'Crear yuppic, Seleccionar tema - yuppics'
 		);
+
+		// Carrito de compras
+		$this->load->model('book_model');
+		$params['carrito_compra'] = $this->book_model->getShoppingCart();
 
 		$this->load->model('themes_model');
 		$params['themes'] = $this->themes_model->getThemes();
@@ -183,6 +191,10 @@ class yuppics extends MY_Controller {
 			array('skin/yuppics_photos.js'),
 		));
 
+		// Carrito de compras
+		$this->load->model('book_model');
+		$params['carrito_compra'] = $this->book_model->getShoppingCart();
+
 		$params['status']->progress = '50';
 		$params['seo'] = array('titulo' => 'Yuppics - Seleccionar Fotografías');
 
@@ -294,6 +306,7 @@ class yuppics extends MY_Controller {
 			array('libs/jquery.jscrollpane.min.js'),
 			array('libs/jquery.form.js'),
 			array('libs/jquery.jPages.min.js'),
+			array('http://feather.aviary.com/js/feather.js'),
 			array('general/msgbox.js'),
 			array('general/loader.js'),
 			array('skin/yuppics_book.js')
@@ -303,6 +316,10 @@ class yuppics extends MY_Controller {
 		$params['seo'] = array(
 			'titulo' => 'Crear yuppic - yuppics'
 		);
+
+		// Carrito de compras
+		$this->load->model('book_model');
+		$params['carrito_compra'] = $this->book_model->getShoppingCart();
 
 		$this->load->model('frames_model');
 		$this->load->model('pages_model');
@@ -379,6 +396,11 @@ class yuppics extends MY_Controller {
 			$response['msg'] = $this->showMsgs(2, 'Especifica la página y el marco');
 		}
 		echo json_encode($response);
+	}
+
+	public function save_aviary(){
+		$image_data = file_get_contents($_REQUEST['url']);
+		file_put_contents($_REQUEST['postdata'], $image_data);
 	}
 
 	/**
@@ -464,6 +486,33 @@ class yuppics extends MY_Controller {
 		return $resize;
 	}
 
+	/**
+	 * Asigna el id del yuppic en la session del usuairo para modificarlo
+	 * en el apartado de crear yuppic
+	 */
+	public function set_yuppic(){
+		if (isset($_GET['yuppic']))
+			$this->session->set_userdata('id_yuppics', $_GET['yuppic']);
+
+		redirect(base_url('yuppics'));
+	}
+
+	public function shop_car(){
+		if (is_array($this->input->post('yupics')) && is_array($this->input->post('quantity')) ) {
+			$car_items = '';
+			foreach ($this->input->post('yupics') as $key => $value) {
+				$this->db->update('yuppics', array('quantity' => $_POST['quantity'][$key]), "id_yuppic = ".$value);
+				$car_items .= ','.$value;
+			}
+
+			$response['items'] = substr($car_items, 1);
+
+			$response['msg']  = $this->showMsgs(5, '');
+		}else{
+			$response['msg'] = $this->showMsgs(2, 'El carro de compras esta vacio');
+		}
+		echo json_encode($response);
+	}
 
 
 	private function showMsgs($tipo, $msg='', $title='Yuppics')

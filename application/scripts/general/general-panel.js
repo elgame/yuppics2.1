@@ -1,6 +1,72 @@
 $(function(){
 	panel.init();
+
+	carro_compras.init();
 });
+
+var carro_compras = (function($){
+	var objr = {};
+
+	function init(){
+		var menu_carrito_compra = $("#menu_carrito_compra");
+		$("#menu_carrito_compra .btn.dropdown-toggle").on("click", function(){
+			if (menu_carrito_compra.is('.open')) {
+				menu_carrito_compra.removeClass("open");
+			}else
+				menu_carrito_compra.addClass("open");
+		});
+
+		$(".car_quantity").on('change', function(){
+			calculaTotal();
+		});
+
+		$("#car_btn_comprar").on("click", enviar_carro);
+	}
+
+	function enviar_carro(){
+		var params = {
+			yupics: [],
+			quantity: []
+		};
+		$(".carrito_compra .car_item").each(function(){
+			var vthis = $(this), item = $(".car_quantity", vthis),
+			importe = ( parseInt(item.val())*parseFloat(item.attr("data-price")) );
+			
+			params.yupics.push(item.attr("data-yuppic"));
+			params.quantity.push(item.val());
+		});
+
+		if (params.yupics.length > 0 && params.yupics.length == params.quantity.length) {
+			loader.create();
+			$.post(base_url+"yuppics/shop_car", params, 
+				function(data){
+					if (data.msg.ico == "success") {
+						window.location = base_url+"buy?y="+data.items;
+					}else
+						noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
+			}, "json").complete(function(){
+				loader.close();
+			});
+		}else
+			noty({"text": "El carro de compras esta vacio", "layout":"topRight", "type": "error"});
+	}
+
+	function calculaTotal(){
+		var total = 0;
+		$(".carrito_compra .car_item").each(function(){
+			var vthis = $(this), item = $(".car_quantity", vthis),
+			importe = ( parseInt(item.val())*parseFloat(item.attr("data-price")) );
+			total += importe;
+
+			$(".car_importe", vthis).text( util.darFormatoNum(importe) );
+		});
+
+		$("#car_total_comp").text( util.darFormatoNum(total) );
+	}
+
+	objr.init = init;
+	return objr;
+})(jQuery);
 
 
 var panel = (function($){

@@ -30,6 +30,20 @@ class book_model extends CI_Model{
 	// 		return false;
 	// }
 	
+	public function getShoppingCart(){
+		$res = $this->db->query("SELECT y.id_yuppic, y.title, y.quantity, p.price
+			FROM yuppics AS y 
+				INNER JOIN products AS p ON p.id_product = y.id_product 
+			WHERE comprado = 0 AND id_customer = ".$this->session->userdata('id_usuario'));
+		if ($res->num_rows() > 0) {
+			$response = $res->result();
+			$res->free_result();
+
+			return $response;
+		}
+		return false;
+	}
+
 	public function getYuppic($id_yuppic){
 		$res_yuppic = $this->db->query("SELECT y.id_yuppic, y.id_customer, y.id_product, y.title, y.author, 
 				yt.background_img, yt.background_color, yt.text_color 

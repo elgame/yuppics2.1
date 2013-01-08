@@ -95,12 +95,12 @@
 									data-idimg="'.$value->id_img.'" data-idpagimg="'.$value->id_page_img.'" data-width="'.$value->width.'" data-height="'.$value->height.'"
 									'.(isset($value->id_frame)? 'data-idframe="'.$value->id_frame.'"': '').' '.(isset($value->id_frame)? 'data-idphoto="'.$value->id_photo.'"': '').'>
 									<div class="photo">
-										'.(isset($value->url_img)? '<img src="'.base_url($value->url_img).'">': '').'
+										'.(isset($value->url_img)? '<img id="img_'.$value->id_img.$value->id_page_img.'" src="'.base_url($value->url_img).'">': '').'
 									</div>
 									<div class="frame">
 										'.(isset($value->url_frame)? '<img src="'.base_url($value->url_frame).'">': '').'
 									</div>
-									<span class="aviary"><i class="icon-picture"></i></span>
+									<span class="live_aviary" data-id="img_'.$value->id_img.$value->id_page_img.'"><i class="icon-picture"></i></span>
 								</div>';
 							}
 						}

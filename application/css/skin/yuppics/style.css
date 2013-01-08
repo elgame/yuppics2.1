@@ -165,7 +165,7 @@ button.close {
 	height: 100%;
 	z-index: 50;
 }
-.img_in_page .aviary{
+.img_in_page .live_aviary{
 	display: none;
 	position: absolute;
 	width: 16px;
@@ -175,6 +175,6 @@ button.close {
 	background-color: #fff;
 	z-index: 80;
 }
-.img_in_page:hover .aviary{
+.img_in_page:hover .live_aviary{
 	display: block;
 }
