@@ -30,21 +30,28 @@ class Photos_model extends CI_Model{
 
 			$data_photos = array();
 
+      $make_insert = FALSE;
 			foreach ($_POST['photos'] as $k => $url_photo)
       {
-				$a = explode('/', $url_photo);
-				$b = explode('.', $a[count($a)-1]);
+        if ($url_photo !== 'false')
+        {
+          $a = explode('/', $url_photo);
+          $b = explode('.', $a[count($a)-1]);
 
-				$path = APPPATH.'yuppics/'.$this->session->userdata('id_usuario').'/'.$id_yuppic.'/PHOTOS/'.$a[count($a)-1];
-				$path_thum = APPPATH.'yuppics/'.$this->session->userdata('id_usuario').'/'.$id_yuppic.'/PHOTOS/'.$b[0].'_thumb.'.$b[1];
+          $path = APPPATH.'yuppics/'.$this->session->userdata('id_usuario').'/'.$id_yuppic.'/PHOTOS/'.$a[count($a)-1];
+          $path_thum = APPPATH.'yuppics/'.$this->session->userdata('id_usuario').'/'.$id_yuppic.'/PHOTOS/'.$b[0].'_thumb.'.$b[1];
 
-				$data_photos[] = array('id_yuppic'=>$id_yuppic, 'url_img' => $path, 'url_thumb' => $path_thum);
+          $data_photos[] = array('id_yuppic'=>$id_yuppic, 'url_img' => $path, 'url_thumb' => $path_thum);
 
-				UploadFiles::copyFile($url_photo, $path);
-				UploadFiles::copyFile($_POST['thumbs'][$k], $path_thum);
+          UploadFiles::copyFile($url_photo, $path);
+          UploadFiles::copyFile($_POST['thumbs'][$k], $path_thum);
+
+          $make_insert = TRUE;
+        }
 			}
 
-			$this->db->insert_batch('yuppics_photos', $data_photos);
+      if ($make_insert)
+			   $this->db->insert_batch('yuppics_photos', $data_photos);
 
 			return $id_yuppic;
     }

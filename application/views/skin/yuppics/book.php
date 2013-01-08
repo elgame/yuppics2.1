@@ -35,7 +35,7 @@
 		<div class="span4">
 			<div class="scroll-pane frames">
 				<ul class="thumbnails">
-			<?php 
+			<?php
 			if (isset($frames)) {
 				foreach ($frames as $key => $value) {
 			 ?>
@@ -44,7 +44,7 @@
 							<img src="<?php echo base_url($value->url_preview); ?>"></a>
 						<p class="center"><?php echo $value->name; ?></p>
 					</li>
-			<?php 
+			<?php
 				}
 			} ?>
 				</ul>
@@ -56,7 +56,7 @@
 			</div>
 			<div class="scroll-pane frames">
 				<ul class="thumbnails">
-			<?php 
+			<?php
 			if (isset($pages)) {
 				foreach ($pages as $key => $value) {
 			 ?>
@@ -65,7 +65,7 @@
 							data-info='<?php echo json_encode($value->images); ?>'>
 							<img src="<?php echo base_url($value->url_preview); ?>"></a>
 					</li>
-			<?php 
+			<?php
 				}
 			} ?>
 				</ul>
@@ -88,10 +88,10 @@
 					<input type="hidden" id="page_edited" value="false">
 
 					<div id="pag_active" class="well center">
-						<?php 
+						<?php
 						if ($page !== false) {
 							foreach ($page->images as $key => $value) {
-								echo '<div class="img_in_page" style="top:'.$value->coord_y.'%;left:'.$value->coord_x.'%;width:'.$value->width.'%;height:'.$value->height.'%;" 
+								echo '<div class="img_in_page" style="top:'.$value->coord_y.'%;left:'.$value->coord_x.'%;width:'.$value->width.'%;height:'.$value->height.'%;"
 									data-idimg="'.$value->id_img.'" data-idpagimg="'.$value->id_page_img.'" data-width="'.$value->width.'" data-height="'.$value->height.'"
 									'.(isset($value->id_frame)? 'data-idframe="'.$value->id_frame.'"': '').' '.(isset($value->id_frame)? 'data-idphoto="'.$value->id_photo.'"': '').'>
 									<div class="photo">
@@ -110,7 +110,7 @@
 					<a id="next_page_save" class="carousel-control right" href="#myCarousel" data-page="<?php echo ($page!==false? $page->num_pag+1: '') ?>" data-slide="next">&rsaquo;</a>
 				</div>
 			</div>
-			
+
 			<div class="row-fluid">
 				<div class="span12 tema_barratop">
 					<div class="span3">
@@ -130,21 +130,21 @@
 						<!-- 165px cada imagen agregada min-width: 822px; -->
 						<div style="width: <?php echo (count($photos)*170); ?>px" id="content-selected-photos">
 							<ul class="thumbnails">
-						<?php 
-						if (isset($photos)) {
-						 	foreach ($photos as $key => $value) {
-						?>
-								<li class="span2 relative">
-									<div class="thumbnail setphoto" data-info='<?php echo json_encode($value); ?>'>
-										<img alt="" src="<?php echo base_url($value->url_thumb); ?>">
-									</div>
-									<button type="button" class="close delete" data-dismiss="alert" data-id="<?php echo $value->id_photo; ?>" title="Eliminar" id="delete">×</button>' +
-								</li>
-						<?php 
-							}
-						} ?>
-					    </ul> 
-					        <form action="<?php echo base_url()?>" method="POST" id="form"></form>
+            <?php
+            if (isset($photos)) {
+              foreach ($photos as $key => $value) {
+            ?>
+                <li class="span2 relative">
+                  <div class="thumbnail setphoto" data-info='<?php echo json_encode($value); ?>'>
+                    <img alt="" src="<?php echo base_url($value->url_thumb); ?>">
+                  </div>
+                  <button type="button" class="close delete" data-dismiss="alert" data-id="<?php echo $value->id_photo; ?>" title="Eliminar" id="delete">×</button>' +
+                </li>
+            <?php
+              }
+            } ?>
+              </ul>
+                  <form action="<?php echo base_url()?>" method="POST" id="form"></form>
 					  </div>
 					</div>
 				</div>
@@ -153,7 +153,7 @@
 		</div><!-- /span8 -->
 
 	</div><!-- /row -->
-	
+
 
 
 <div id="messajes_alerts" class="modal hide fade">

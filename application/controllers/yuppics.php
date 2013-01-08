@@ -447,7 +447,7 @@ class yuppics extends MY_Controller {
 	}
 
 	function redimImgPhoto($size, $info){
-		$diff_pix = 0; 
+		$diff_pix = 0;
 		$resize   = array('w'=>0, 'h'=>0);
 
 		if ($info['w'] > $info['h']) {

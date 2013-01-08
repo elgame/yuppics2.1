@@ -61,7 +61,13 @@
 											</li>
 								<?php }}?>
 					        </ul>
-					        <form id="form"></form>
+
+                  <form id="form">
+                      <?php if (isset($photos)){
+                      foreach($photos as $k => $p) {?>
+                        <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
+                      <?php }}?>
+                  </form>
 					    </div>
 					</div>
 				</div>

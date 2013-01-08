@@ -11,7 +11,7 @@ $(function(){
 			load_page(vvthis.attr("data-page"));
 		}else{
 			if (id_ypage.val() == "") {
-				vvthis.is("#next_page_save")? save_page_event("next"): 
+				vvthis.is("#next_page_save")? save_page_event("next"):
 					(page_edited.val()=="false"? load_page(vvthis.attr("data-page")): save_page_event("prev"));
 			}else{
 				msb.confirm("Quieres guardar los cambios de la página?", "", this, function(obj){
@@ -136,7 +136,7 @@ $(function(){
 				$("#page_edited").val("true"); // se edito la pagina
 
 				loader.create();
-				$.getJSON(base_url+"yuppics/getFrame", { id_frame: vvthis.attr("data-idframe"), id_img: vvthis.attr("data-idimg") }, 
+				$.getJSON(base_url+"yuppics/getFrame", { id_frame: vvthis.attr("data-idframe"), id_img: vvthis.attr("data-idimg") },
 					function(data){
 						if (data.msg.ico == "success") {
 							$(".frame", vvthis).html('<img src="'+base_url+data.marco.url_frame+'">');
@@ -163,7 +163,7 @@ $(function(){
 					params.id_frame.push($(this).attr("data-idframe"));
 				});
 				loader.create();
-				$.getJSON(base_url+"yuppics/magic_book", params, 
+				$.getJSON(base_url+"yuppics/magic_book", params,
 					function(data){
 						if (data.msg.ico == "success") {
 							load_page(1);
@@ -185,6 +185,7 @@ $(function(){
 	});
 
 	redimPage();
+
 });
 
 
@@ -274,7 +275,7 @@ function build_load_page(data){
 				'	<span class="aviary"><i class="icon-picture"></i></span>'+
 				'</div>';
 		};
-		
+
 		$("#pag_active").html(html);
 		redimPage();
 	}
@@ -323,3 +324,4 @@ var yuppic_book = (function($){
 
 
 })(jQuery);
+
