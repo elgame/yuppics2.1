@@ -42,6 +42,11 @@ class Buy extends MY_Controller {
       array('general/util.js'),
     ));
 
+    // Carrito de compras
+    $this->load->model('book_model');
+    $params['carrito_compra'] = $this->book_model->getShoppingCart();
+    
+
     $this->load->library('form_validation');
     if ($this->form_validation->run() === FALSE)
     {

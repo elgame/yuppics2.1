@@ -193,6 +193,22 @@ $(function(){
 
 	redimPage();
 
+
+	$(document).on('click', 'button#delete', function () {
+    deleteClonePhoto(this);
+    reinitializeScrollPane();
+  });
+
+ $('#removeall').on('click', function(){
+    loader.create();
+    $('button#delete').each(function(i, e){
+      deleteClonePhoto(e);
+    });
+    reinitializeScrollPane();
+    $('.jspPane').css('left', '0px')
+    loader.close();
+  });
+
 });
 
 
@@ -222,7 +238,7 @@ function save_page_event(direction){
 			}
 		});
 
-		if (params.status){ //guardamos la pagina
+		if (params.status == true){ //guardamos la pagina
 			loader.create();
 			$.post(base_url+"yuppics/save_page", params, function(data){
 				if(data.msg.ico = "success"){
@@ -357,7 +373,40 @@ function launchEditor() {
 
 
 
+function reinitializeScrollPane() {
+  var pane = $('.horizontal-only'),
+    api = pane.data('jsp');
+    api.reinitialise();
+}
 
+function deleteClonePhoto(obj) {
+  var obj = $(obj),
+    objtotalch = $('#total-choose');
+
+      if (obj.attr('data-exist') == 'false') {
+        obj.parent().remove();
+        $('input.src-'+obj.attr('data-id')).remove();
+        $('li#'+obj.attr('data-id')).removeClass('choose-photo').find('.choosed').remove();
+      }
+      else {
+        loader.create()
+        obj.parent().remove();
+        $('input.src-'+obj.attr('data-id')).remove();
+        $.post(base_url + 'yuppics/photo_delete', {'idp': $(obj).attr('data-id')} , function(data){
+          loader.close()
+        });
+      }
+
+      var  obj_content_selected_photos = $('#content-selected-photos'),
+       px = parseInt(obj_content_selected_photos.css('width')) - 165;
+
+    obj_content_selected_photos.css('width', px);
+    var totalch = parseInt(objtotalch.html()) - 1;
+    objtotalch.html(totalch);
+
+    if (totalch < 7)
+      $('.jspPane').css('left', '0px');
+}
 
 
 

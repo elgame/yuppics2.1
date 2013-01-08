@@ -130,21 +130,24 @@
 						<!-- 165px cada imagen agregada min-width: 822px; -->
 						<div style="width: <?php echo (count($photos)*170); ?>px" id="content-selected-photos">
 							<ul class="thumbnails">
-            <?php
-            if (isset($photos)) {
-              foreach ($photos as $key => $value) {
-            ?>
-                <li class="span2 relative">
-                  <div class="thumbnail setphoto" data-info='<?php echo json_encode($value); ?>'>
-                    <img alt="" src="<?php echo base_url($value->url_thumb); ?>">
-                  </div>
-                  <button type="button" class="close delete" data-dismiss="alert" data-id="<?php echo $value->id_photo; ?>" title="Eliminar" id="delete">×</button>' +
-                </li>
-            <?php
-              }
-            } ?>
+            <?php if (isset($photos)) {
+                foreach($photos as $k => $p) {?>
+                  <li class="span2 relative">
+                    <div class="thumbnail setphoto" data-info='<?php echo json_encode($p); ?>'>
+                      <img alt="" src="<?php echo base_url($p->url_thumb)?>">
+                    </div>
+                    <button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete">×</button>
+                  </li>
+            <?php }}?>
               </ul>
-                  <form action="<?php echo base_url()?>" method="POST" id="form"></form>
+
+              <form id="form">
+                  <?php if (isset($photos)) {
+                    foreach($photos as $k => $p) {?>
+                      <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
+                  <?php }}?>
+              </form>
+							
 					  </div>
 					</div>
 				</div>

@@ -108,7 +108,7 @@ class pages_model extends CI_Model{
 					));
 			}
 		}
-		return $this->getPage( ($this->input->post('direction')=='prev'? $data_pag['num_pag']-1: $data_pag['num_pag']+1) );
+		return $this->getPage($data_pag['id_yuppic'], ($this->input->post('direction')=='prev'? $data_pag['num_pag']-1: $data_pag['num_pag']+1) );
 	}
 
 	public function deletePage($id_pag)
