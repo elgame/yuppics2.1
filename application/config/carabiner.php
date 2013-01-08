@@ -162,7 +162,8 @@ $config['groups']['base_panel'] = array(
 		array('bootstrap/jquery-ui-1.9.2.custom.min.js'),
 		array('bootstrap/bootstrap.min.js'),
 		array('libs/jquery.noty.js'),
-		array('general/general-panel.js')
+		array('general/general-panel.js'),
+		array('general/util.js'),
 	)
 );
 

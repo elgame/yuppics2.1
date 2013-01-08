@@ -38,6 +38,10 @@ class Promotions extends MY_Controller {
 			'titulo' => 'Promociones - yuppics'
 		);
 
+		// Carrito de compras
+		$this->load->model('book_model');
+		$params['carrito_compra'] = $this->book_model->getShoppingCart();
+
 		$this->load->library('my_facebook');
 		$params['fb_app_id'] = $this->my_facebook->APP_ID;
 

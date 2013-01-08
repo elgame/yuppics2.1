@@ -31,6 +31,10 @@ class Faq extends MY_Controller {
 			array('skin/newsletter.js'),
 		));
 
+		// Carrito de compras
+		$this->load->model('book_model');
+		$params['carrito_compra'] = $this->book_model->getShoppingCart();
+
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
 		$params['seo'] = array(
 			'titulo' => 'Modificar perfil - yuppics'

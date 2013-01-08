@@ -37,6 +37,10 @@ class customer extends MY_Controller {
 			'titulo' => 'Dashboard - yuppics'
 		);
 
+		// Carrito de compras
+		$this->load->model('book_model');
+		$params['carrito_compra'] = $this->book_model->getShoppingCart();
+
 
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
@@ -91,7 +95,7 @@ class customer extends MY_Controller {
 		}else{
 			$data = "email = '".$this->input->post('email')."' AND password = '".$this->input->post('password')."' AND status = 'on' ";
 			$mdl_res = $this->customer_model->setLogin($data);
-			if (count($mdl_res[0]) > 0)
+			if ($mdl_res[0])
 			{
 				$params['frm_errors'] = array(
 					'title' => '',
@@ -198,6 +202,10 @@ class customer extends MY_Controller {
 		$params['seo'] = array(
 			'titulo' => 'Modificar perfil - yuppics'
 		);
+
+		// Carrito de compras
+		$this->load->model('book_model');
+		$params['carrito_compra'] = $this->book_model->getShoppingCart();
 
 		$this->load->model('address_book_model');
 		$this->load->model('states_model');

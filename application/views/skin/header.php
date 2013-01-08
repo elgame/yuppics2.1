@@ -60,6 +60,46 @@
 				</div>
 				<!-- user dropdown ends -->
 		<?php } ?>
+
+		<?php if (isset($carrito_compra)) {  ?>
+				<!-- carrito dropdown starts -->
+				<div id="menu_carrito_compra" class="btn-group pull-right" >
+					<a class="btn dropdown-toggle" href="#">
+						<span class="badge badge-warning"><?php echo count($carrito_compra); ?></span>
+						<span class="hidden-phone"> Carrito de compras</span>
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu carrito_compra">
+						<li><strong style="margin-left: 5%;">Resumen de compra</strong></li>
+						<li class="divider"></li>
+				<?php 
+				$car_total = 0; $car_items = '';
+				foreach ($carrito_compra as $key => $value) { 
+						$car_total += $value->price;
+					?>
+						<li class="car_item">
+							<div class="row-fluid" style="padding: 0px 5px;">
+								<div class="span6">
+									<a href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic); ?>"><?php echo $value->title; ?></a>
+								</div>
+								<div class="span3">
+									<input type="number" class="span8 car_quantity" value="<?php echo $value->quantity; ?>" 
+										data-price="<?php echo $value->price; ?>" data-yuppic="<?php echo $value->id_yuppic; ?>" min="0">
+								</div>
+								<div class="span3 car_importe"><?php echo String::formatoNumero( ($value->price*$value->quantity) ); ?></div>
+							</div>
+						</li>
+				<?php } ?>
+						<li style="background-color: #eee;">
+							<div class="row-fluid" style="margin: 0px 5px;">
+								<div class="span8"><strong>Total <span id="car_total_comp"><?php echo String::formatoNumero($car_total); ?></span></strong></div>
+								<div class="span4"><button type="button" id="car_btn_comprar" class="btn">Comprar</button></div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- carrito dropdown ends -->
+		<?php } ?>
 				
 			</div>
 		</div>

@@ -21,10 +21,13 @@ var form_ajax = (function($){
 	}
 	function success(data, target){
 		var valert = $("#"+target.attr("data-alert"));
-		
+		// alerta
 		valert.removeClass("alert-success alert-info alert-error alert-block");
 		valert.addClass("alert-"+data.frm_errors.ico).show(300);
 		$("span", valert).html(data.frm_errors.msg);
+		setTimeout(function(){
+			valert.hide(500);
+		}, 6000);
 
 		if (target.attr('data-reset') == 'true' && data.frm_errors.ico == 'success')
 		{
