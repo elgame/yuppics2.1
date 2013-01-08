@@ -45,7 +45,7 @@ class Buy extends MY_Controller {
     // Carrito de compras
     $this->load->model('book_model');
     $params['carrito_compra'] = $this->book_model->getShoppingCart();
-    
+
 
     $this->load->library('form_validation');
     if ($this->form_validation->run() === FALSE)
@@ -114,6 +114,9 @@ class Buy extends MY_Controller {
     $params['seo']    = array('titulo'=> 'Yuppics - Pago Exitoso');
     $params['status'] = TRUE;
     $params['order']  = $_GET['order'];
+
+    $this->load->model('buy_model');
+    $this->buy_model->success($params['order']);
 
     $this->load->view('skin/header', $params);
     $this->load->view('skin/general/menu', $params);

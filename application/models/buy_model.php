@@ -20,17 +20,17 @@ class Buy_model extends CI_Model {
         if ($v !== '')
           {
           $exist = FALSE;
-          $result = $this->db->query("SELECT y.id_yuppic, y.title, y.quantity, o.status, p.price
+          $result = $this->db->query("SELECT y.id_yuppic, y.title, y.quantity, o.status, p.price, y.comprado
                                      FROM yuppics AS y
                                      LEFT JOIN orders_yuppics AS oy ON oy.id_yuppics = y.id_yuppic
                                      LEFT JOIN orders AS o ON o.id_order = oy.id_order
                                      LEFT JOIN products as p ON p.id_product = y.id_product
-                                     WHERE y.id_yuppic = ".$v);
+                                     WHERE y.id_yuppic = ".$v." AND y.comprado = 0");
 
           if ($result->num_rows() > 0)
           {
             $obj_result = $result->result();
-            if (is_null($obj_result[0]->status) || $obj_result[0]->status === 'c' )
+            if (is_null($obj_result[0]->status) || $obj_result[0]->status === 'c' || $obj_result[0]->comprado === '0')
             {
               $obj_result[0]->resultado_verificacion = TRUE;
               $data_yuppics['result'][] =  $obj_result[0];
@@ -279,12 +279,25 @@ class Buy_model extends CI_Model {
     header("Location: ".$result['response']['init_point']);
   }
 
-  public function cancelOrder($order)
+  public function success($order)
   {
-    $this->db->update('orders', array('status' => 'c'), array('id_order' => $order));
+    $query = $this->db->query("SELECT id_yuppics
+                               FROM orders_yuppics
+                               WHERE id_order = ".$order);
+    $yuppics = $query->result();
+
+    foreach ($yuppics as $v)
+      $this->db->update('yuppics', array('comprado' => '1'), array('id_yuppic' => $v->id_yuppics));
+
     return $order;
   }
 
+  public function cancelOrder($order)
+  {
+    // $this->db->update('orders', array('status' => 'c'), array('id_order' => $order));
+    $this->db->delete('orders', array('id_order' => $order));
+    return $order;
+  }
 }
 
 /* End of file compras_model.php */
