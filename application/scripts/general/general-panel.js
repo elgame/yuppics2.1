@@ -41,7 +41,7 @@ var carro_compras = (function($){
 			$.post(base_url+"yuppics/shop_car", params, 
 				function(data){
 					if (data.msg.ico == "success") {
-						window.location = base_url+"buy?y="+data.items;
+						window.location = base_url+"buy/order?y="+data.items;
 					}else
 						noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
 			}, "json").complete(function(){

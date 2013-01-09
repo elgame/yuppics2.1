@@ -106,7 +106,7 @@ var yuppic_tema = (function($){
 
 		search_themes();
 
-		$("#btn_select_theme").on("click", save_theme);
+		$("#btn_select_theme, #btn_select_theme2").on("click", save_theme);
 	}
 
 

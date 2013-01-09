@@ -87,7 +87,7 @@ class Promotions extends MY_Controller {
 	}
 
 	public function twitter(){
-		$data_res = $this->db->query("SELECT Count(tweet) AS tweet FROM customer_promo WHERE id_customer = ".$this->session->userdata('id_usuario'));
+		$data_res = $this->db->query("SELECT tweet FROM customer_promo WHERE id_customer = ".$this->session->userdata('id_usuario'));
 		if ($data_res->num_rows() > 0) {
 			$data = $data_res->row();
 			$data_res->free_result();
@@ -95,13 +95,14 @@ class Promotions extends MY_Controller {
 			if ($data->tweet == 0) {
 				$this->load->library('my_twitter');
 				$res = $this->my_twitter->oauth();
-				$result = $this->my_twitter->statuses_update('Amigos entren a http://localhost/yuppics2.1/ y crea tus photobooks, rapido y facil :)');
+				$result = $this->my_twitter->statuses_update('Amigos entren a '.base_url().' y crea tus photobooks, rapido y facil :)');
 
 				if (isset($result->text) && isset($result->id_str)) {
 					$this->load->model('promotion_model');
 					$this->promotion_model->updateState($this->session->userdata('id_usuario'), 'tweet', '1');
 
 					redirect(base_url('promotions?msg=3'));
+					exit;
 				}
 			}
 		}

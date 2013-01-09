@@ -156,7 +156,7 @@ $config['yuppics/photos_save'] = array(
 								  'label' => 'Fotos',
 								  'rules' => 'required'));
 
-$config['buy/index'] = array(
+$config['buy/order'] = array(
               array('field' => 'id_address_billing',
                     'label' => 'Direccion de Facturación',
                     'rules' => 'is_natural_no_zero'),

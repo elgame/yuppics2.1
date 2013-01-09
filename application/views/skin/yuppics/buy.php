@@ -49,7 +49,7 @@
     </div>
   </div> <!-- END DATOS -->
 
-  <form action="<?php echo base_url('buy?y='.$_GET['y']);?>" method="POST">
+  <form action="<?php echo base_url('buy/order?y='.$_GET['y']);?>" method="POST">
     <div class="row-fluid">  <!-- START ADDRESSBOOK -->
       <div class="box span12" id="address">
         <div class="box-header well">

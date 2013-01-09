@@ -39,9 +39,15 @@ $(function(){
 		$('#barratop_album').html($(this).find('a').html());
 	});
 
-	$('#save_photos').on('click', function(){
+	$('#save_photos, #save_photos2').on('click', function(){
 		save_photos();
 	});
+
+	// animacion del progress bar
+	var progressbar_yuppic = $("#progressbar_yuppic .bar")
+	progressbar_yuppic.animate({
+		width: progressbar_yuppic.attr('data-progress')+"%"
+	}, 400);
 });
 
 function album(ida) {

@@ -19,7 +19,11 @@ class Buy extends MY_Controller {
       redirect(base_url());
   }
 
-  public function index()
+  public function index(){
+
+  }
+
+  public function order()
   {
     $this->load->model('buy_model');
     // Verifica si los yuppics a comprar existen y si estan en alguna orden.
@@ -111,6 +115,9 @@ class Buy extends MY_Controller {
 
   public function success()
   {
+
+    $this->session->unset_userdata('id_yuppics');
+
     $params['seo']    = array('titulo'=> 'Yuppics - Pago Exitoso');
     $params['status'] = TRUE;
     $params['order']  = $_GET['order'];
@@ -127,6 +134,8 @@ class Buy extends MY_Controller {
 
   public function cancel()
   {
+
+    $this->session->unset_userdata('id_yuppics');
 
     $params['seo']    = array('titulo'=> 'Yuppics - Pago Cancelado');
     $params['status'] = FALSE;

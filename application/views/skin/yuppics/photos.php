@@ -1,9 +1,10 @@
 <div class="span12"> <!-- START PROGRESS BAR -->
 	<div style="background-color: #fff; padding: 1% 4% 0% 4%;">
-		<div class="progress">
-		  <div class="bar" style="width: <?php echo (isset($status->progress)? $status->progress: '0'); ?>%;"></div>
+		<div class="progress" id="progressbar_yuppic">
+		  <div class="bar" style="width: -1%;" 
+		  		data-progress="<?php echo (isset($status->progress)? $status->progress: '0'); ?>"></div>
 		</div>
-		<p class="muted pull-left"><a href="http://localhost/yuppics2.1/yuppics">Seleccionar tema</a></p>
+		<p class="muted pull-left"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
 		<p class="muted pull-left" style="margin-left: 39%;">Seleccionar fotografias</p>
 		<p class="muted pull-right"><a href="javascript:void(0);" id="save_photos">Creación de Yuppic</a></p>
 		<div class="clearfix"></div>
@@ -47,7 +48,7 @@
 				</div>
 			</div> <!-- END ROW FLUID -->
 			<div class="row-fluid"> <!-- START ROW FLUID -->
-				<div class="span12 photos-select">
+				<div class="span12 photos-select" style="height:170px;">
 					<div class="scroll-pane horizontal-only">
 						<div style="width: <?php echo (isset($width) ? $width : '0').'px';?>" id="content-selected-photos">
 							<ul class="thumbnails">
@@ -62,7 +63,7 @@
 								<?php }}?>
 					        </ul>
 
-                  <form id="form">
+                  <form id="form" style="width: 1px;margin: 0px;">
                       <?php if (isset($photos)){
                       foreach($photos as $k => $p) {?>
                         <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
@@ -72,6 +73,13 @@
 					</div>
 				</div>
 			</div> <!-- END ROW FLUID -->
+
+			<p style="margin-bottom: 20px;">
+				<a href="<?php echo base_url('yuppics'); ?>" class="pull-left"><i class="icon-arrow-left"></i> Paso anterior</a>
+				<a href="javascript:void(0);" id="save_photos2" class="pull-right">Siguiente paso <i class="icon-arrow-right"></i></a>
+				<div class="clearfix"></div>
+			</p>
+
 		</div> <!-- END SPAN9 -->
 	</div> <!-- END ROW FLUID -->
 </div> <!-- END CONTAINER FLUID -->

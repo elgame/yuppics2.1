@@ -498,6 +498,130 @@ class String{
 	   //return implode(",", $rgb); // returns the rgb values separated by commas
 	   return $rgb; // returns an array with the rgb values
 	}
+
+	public function humanDate($timestamp, $lang='spa')
+	{
+		// Get time difference and setup arrays
+		$difference = time() - $timestamp;
+		$periods = ($lang === 'spa') ? array("segundos", "minutos", "hora", "dia", "semana", "mes", "años"): 
+																	 array("second", "minute", "hour", "day", "week", "month", "years");
+		$lengths = array("60","60","24","7","4.35","12");
+	 
+		// Past or present
+		if ($difference >= 0) 
+		{
+			$ending = "ago";
+		}
+		else
+		{
+			$difference = -$difference;
+			$ending = "to go";
+		}
+	 
+		// Figure out difference by looping while less than array length
+		// and difference is larger than lengths.
+		$arr_len = count($lengths);
+		for($j = 0; $j < $arr_len && $difference >= $lengths[$j]; $j++)
+		{
+			$difference /= $lengths[$j];
+		}
+	 
+		// Round up		
+		$difference = round($difference);
+	 
+		// Make plural if needed
+		if($difference != 1) 
+		{
+			$periods[$j].= "s";
+		}
+	 
+		// Default format
+		$text = "$difference $periods[$j] $ending";
+	 	if ($lang === 'spa')
+	 		$text = "Hace $difference $periods[$j]";
+		// over 24 hours
+		if($j > 2)
+		{
+			$poner_horas = (date('H:i:s', $timestamp) !== '00:00:00') ? (($lang === 'spa')?"\a \\l\\a\\s g:i a" : "\a\\t g:i a") : "" ; // \a\\t g:i a
+			// future date over a day formate with year
+			if($ending == "to go")
+			{
+				if($j == 3 && $difference == 1)
+				{
+					$text = "Tomorrow at ". date("g:i a", $timestamp);
+					if ($lang === 'spa')
+						$text = "Mañana a las ". date("g:i a", $timestamp);
+				}
+				else
+				{
+					$text = date("F j, Y {$poner_horas} a", $timestamp); // \a\\t g:i a
+				}
+				return $text;
+			}
+	 
+			if($j == 3 && $difference == 1) // Yesterday
+			{
+				$text = "Yesterday".((date('H:i:s', $timestamp) !== '00:00:00') ? ' at '.date("g:i a", $timestamp) : '');
+				if ($lang === 'spa')
+				{
+					$text = str_replace(array("Yesterday", "at"), array("Ayer", "a las"), $text);
+				}
+			}
+			else if($j == 3) // Less than a week display -- Monday at 5:28pm
+			{
+				$text = date("l {$poner_horas}", $timestamp);
+				if ($lang === 'spa')
+					$text = str_replace(date("l", $timestamp), self::dia_es(date("l", $timestamp)), $text);
+			}
+			else if($j < 6 && !($j == 5 && $difference == 12)) // Less than a year display -- June 25 at 5:23am
+			{
+				$text = date("F j {$poner_horas}", $timestamp);
+				if ($lang === 'spa')
+					$text = str_replace(date("F", $timestamp), self::mes_es(date("F", $timestamp)), $text);
+			}
+			else // if over a year or the same month one year ago -- June 30, 2010 at 5:34pm
+			{
+				$text = date("F j, Y {$poner_horas}", $timestamp);
+				if ($lang === 'spa')
+					$text = str_replace(date("F", $timestamp), self::mes_es(date("F", $timestamp)), $text);
+			}
+		}
+	 
+		return $text;
+	}
+
+	public function mes_es($mesen)
+	{
+    switch($mesen)
+    {      
+			case "January": return('Enero');break;
+			case "February": return('Febrero');break;
+			case "March": return('Marzo');break;
+			case "April": return('Abril');break;
+			case "May": return('Mayo');break;
+			case "June": return('Junio');break;
+			case "July": return('Julio');break;
+			case "August": return('Agosto');break;
+			case "September": return('Septiembre');break;
+			case "October": return('Octubre');break;
+			case "November": return('Noviembre');break;
+			case "December": return('Diciembre');break;
+    }
+  }
+
+  public function dia_es($diaes)
+  {
+  	 switch($diaes)
+    {      
+			case "Monday": return('Lunes');break;
+			case "Tuesday": return('Martes');break;
+			case "Wednesday": return('Miercoles');break;
+			case "Thursday": return('Jueves');break;
+			case "Friday": return('Viernes');break;
+			case "Saturday": return('Sabado');break;
+			case "Sunday": return('Domingo');break;
+    }
+  }
 	
 }
 
