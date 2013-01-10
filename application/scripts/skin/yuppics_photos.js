@@ -69,6 +69,8 @@ function album(ida) {
 							  '<img alt="" src="'+data[i].picture+'" data-ori="'+data[i].images[0].source+'">' +
 							'</div>' +
 						 '</li>';
+      console.log(data[i].picture);
+      // console.log(data[i].images[0].source);
 		}
 		loader.close();
 		$('#photos-list').html(html_photos);
