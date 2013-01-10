@@ -61,7 +61,9 @@
 				<!-- user dropdown ends -->
 		<?php } ?>
 
-		<?php if (isset($carrito_compra)) {  ?>
+		<?php if (isset($carrito_compra)) {  
+						$carrito_compra = is_array($carrito_compra)? $carrito_compra: array();
+			?>
 				<!-- carrito dropdown starts -->
 				<div id="menu_carrito_compra" class="btn-group pull-right" >
 					<a class="btn dropdown-toggle" href="#">

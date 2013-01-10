@@ -131,6 +131,8 @@
 
 		</div><!-- /span8 -->
 
+		<a href="javascript:void(0);" id="btn_select_theme2" class="pull-right">Siguiente paso <i class="icon-arrow-right"></i></a>
+
 	</div><!-- /row -->
 	
 

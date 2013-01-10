@@ -1,6 +1,8 @@
 $(function(){
 
-	$('.scroll-pane').jScrollPane();
+	$('.scroll-pane').jScrollPane({
+		autoReinitialise: true
+	});
 
 	// Evento para navegar en las paginas del book y guardarlas
 	$("#next_page_save, #prev_page_save").on("click", function(){
@@ -184,7 +186,7 @@ $(function(){
 
 	$("#finalizarCompra").on("click", function(){
 		msb.confirm("Estas seguro de finalizar la compra?", "", this, function(){
-			window.location = base_url+"buy?y="+$("#id_yuppic").val();
+			window.location = base_url+"buy/order?y="+$("#id_yuppic").val();
 		});
 	});
 
@@ -193,12 +195,17 @@ $(function(){
 
 	redimPage();
 
+	// animacion del progress bar
+	var progressbar_yuppic = $("#progressbar_yuppic .bar")
+	progressbar_yuppic.animate({
+		width: progressbar_yuppic.attr('data-progress')+"%"
+	}, 400);
 
+	// Eventos para eliminar imagenes de la lista
 	$(document).on('click', 'button#delete', function () {
     deleteClonePhoto(this);
     reinitializeScrollPane();
   });
-
  $('#removeall').on('click', function(){
     loader.create();
     $('button#delete').each(function(i, e){
@@ -257,7 +264,7 @@ function load_page(num_pag){
 	loader.create();
 	$.getJSON(base_url+"yuppics/load_page", {"num_pag": num_pag}, function(data){
 		if(data.msg.ico = "success"){
-			build_load_page(data);
+			build_load_page(data, num_pag);
 		}
 		// noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
 	}, "json").complete(function(){
@@ -265,13 +272,21 @@ function load_page(num_pag){
 	});
 }
 
-function build_load_page(data){
+function build_load_page(data, pagina){
 	if (data.page == false){ //no existe la sig pag, nueva pagina
-		var num_pag = $("#num_pag");
+		var num_pag = $("#num_pag"), numero;
+		
+		if (pagina == 1){ //si la pag 1 no se carga no hay pags
+			numero = 1;
+		}else{
+			numero = parseInt( (num_pag.val()==''? 1: num_pag.val()) )+1;
+		}
+
 		$("#pag_active").html("");
 		$("#idpage").val("");
 		$("#id_ypage").val("");
-		num_pag.val(parseInt(num_pag.val())+1);
+
+		num_pag.val(numero);
 		$("#barratop_pagina").text(num_pag.val());
 		$("#prev_page_save").attr("data-page", parseInt(num_pag.val())-1).hide(200);
 		$("#next_page_save").attr("data-page", parseInt(num_pag.val())+1);

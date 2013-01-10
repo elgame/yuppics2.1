@@ -81,7 +81,7 @@ function calcSubtotal() {
 
 function address_success_shop() {
   setTimeout(function(){
-    window.location.href = base_url+"buy?y="+getUrlVars()["y"];
+    window.location.href = base_url+"buy/order?y="+getUrlVars()["y"];
   }, 1000);
 }
 

@@ -1,7 +1,8 @@
 	<div class="span12">
 		<div style="background-color: #fff; padding: 1% 4% 0% 4%;">
-			<div class="progress">
-			  <div class="bar" style="width: <?php echo (isset($status->progress)? $status->progress: '100'); ?>%;"></div>
+			<div class="progress" id="progressbar_yuppic">
+			  <div class="bar" style="width: -4%;" 
+			  		data-progress="<?php echo (isset($status->progress)? $status->progress: '100'); ?>"></div>
 			</div>
 			<p class="muted pull-left"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
 			<p class="muted pull-left" style="margin-left: 39%;"><a href="<?php echo base_url('yuppics/photos') ?>">Seleccionar fotografias</a></p>
@@ -14,7 +15,7 @@
 		<div class="span12">
 			<div class="tema_barratop">
 				<div class="span4">
-					<span class="pull-left"><i class="icon-book"></i> Estilos marcos</span>
+					<span class="pull-left"><i class="icon-book"></i> Acomodación de imágenes</span>
 				</div>
 				<div class="span8">
 					<div class="pull-left"><i class="icon-th"></i> Página: <span id="barratop_pagina"><?php echo ($page!==false? $page->num_pag: '') ?></span></div>
@@ -33,27 +34,7 @@
 
 	<div class="row-fluid">
 		<div class="span4">
-			<div class="scroll-pane frames">
-				<ul class="thumbnails">
-			<?php
-			if (isset($frames)) {
-				foreach ($frames as $key => $value) {
-			 ?>
-					<li class="span4">
-						<a href="javascript:void(0);" class="thumbnail frame_photo" data-id="<?php echo $value->id_frame; ?>">
-							<img src="<?php echo base_url($value->url_preview); ?>"></a>
-						<p class="center"><?php echo $value->name; ?></p>
-					</li>
-			<?php
-				}
-			} ?>
-				</ul>
-
-			</div>
-
-			<div class="yuppic_barratop">
-				<i class="icon-book"></i> Acomodación de imágenes
-			</div>
+			
 			<div class="scroll-pane frames">
 				<ul class="thumbnails">
 			<?php
@@ -64,6 +45,26 @@
 						<a href="javascript:void(0);" class="thumbnail prev_pag" data-id="<?php echo $value->id_page; ?>"
 							data-info='<?php echo json_encode($value->images); ?>'>
 							<img src="<?php echo base_url($value->url_preview); ?>"></a>
+					</li>
+			<?php
+				}
+			} ?>
+				</ul>
+			</div>
+
+			<div class="yuppic_barratop">
+				<i class="icon-book"></i> Estilos marcos
+			</div>
+			<div class="scroll-pane frames">
+				<ul class="thumbnails">
+			<?php
+			if (isset($frames)) {
+				foreach ($frames as $key => $value) {
+			 ?>
+					<li class="span4">
+						<a href="javascript:void(0);" class="thumbnail frame_photo" data-id="<?php echo $value->id_frame; ?>">
+							<img src="<?php echo base_url($value->url_preview); ?>"></a>
+						<p class="center"><?php echo $value->name; ?></p>
 					</li>
 			<?php
 				}
@@ -125,10 +126,10 @@
 			</div>
 
 			<div class="row-fluid">
-				<div class="span12 photos-select" style="height:180px;">
+				<div class="span12 photos-select" style="height:170px;">
 					<div class="scroll-pane horizontal-only">
 						<!-- 165px cada imagen agregada min-width: 822px; -->
-						<div style="width: <?php echo (count($photos)*170); ?>px" id="content-selected-photos">
+						<div style="width: <?php echo (count($photos)*166); ?>px" id="content-selected-photos">
 							<ul class="thumbnails">
             <?php if (isset($photos)) {
                 foreach($photos as $k => $p) {?>
@@ -141,7 +142,7 @@
             <?php }}?>
               </ul>
 
-              <form id="form">
+              <form id="form" style="width: 1px;margin: 0px;">
                   <?php if (isset($photos)) {
                     foreach($photos as $k => $p) {?>
                       <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
@@ -152,6 +153,11 @@
 					</div>
 				</div>
 			</div>
+
+			<p style="margin-bottom: 20px;">
+				<a href="<?php echo base_url('yuppics/photos') ?>" class="pull-left"><i class="icon-arrow-left"></i> Paso anterior</a>
+				<div class="clearfix"></div>
+			</p>
 
 		</div><!-- /span8 -->
 

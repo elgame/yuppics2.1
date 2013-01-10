@@ -80,7 +80,7 @@ class pages_model extends CI_Model{
 		$data_pag = array(
 			'id_yuppic' => $this->session->userdata('id_yuppics'),
 			'id_page'   => $this->input->post('id_page'),
-			'num_pag'   => ($this->input->post('num_pag')!=''? $this->input->post('num_pag'): 1)
+			'num_pag'   => ($this->input->post('num_pag')==''? 1: $this->input->post('num_pag'))
 			);
 
 		if ($this->input->post('id_ypage') == '') {

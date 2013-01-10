@@ -15,12 +15,12 @@
 								</a>
 						</li>
 						<li>
-								<a class="ajax-link" href="<?php echo base_url(); ?>">
+								<a class="ajax-link" href="<?php echo base_url('history/'); ?>">
 									<i class="icon-signal"></i><span class="hidden-tablet"> Historial</span>
 								</a>
 						</li>
 						<li>
-								<a href="#" class="ajax-link" id="newsletterm" data-toggle="modal" data-target="#modal_newsletter">
+								<a href="#modal_newsletter" class="ajax-link" id="newsletterm" data-toggle="modal" data-target="#modal_newsletter">
 									<i class="icon-check"></i><span class="hidden-tablet"> Newsletter</span>
 								</a>
 						</li>
@@ -30,7 +30,7 @@
 								</a>
 						</li>
 						<li>
-								<a href="#" class="ajax-link" id="contact" data-toggle="modal" data-target="#modal_contact">
+								<a href="#modal_contact" class="ajax-link" id="contact" data-toggle="modal" data-target="#modal_contact">
 									<i class="icon-comment"></i><span class="hidden-tablet"> Contacto</span>
 								</a>
 						</li>
