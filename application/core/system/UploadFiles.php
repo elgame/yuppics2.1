@@ -117,7 +117,7 @@ class UploadFiles{
 
 
 
-	
+
 	/**
 	 * Guarda la imagen de un empleado
 	 */
@@ -143,7 +143,7 @@ class UploadFiles{
 					$config['master_dim'] = 'auto';
 					$config['width']	 = 150;
 					$config['height']	= 150;
-					
+
 					$ci->load->library('image_lib', $config);
 					$ci->image_lib->resize();
 				}
@@ -151,11 +151,11 @@ class UploadFiles{
 			}
 			return false;
 		}
-		
+
 		return 'ok';
 	}
-	
-	
+
+
 	public static function deleteFile($path){
 		$path = str_replace(base_url(), '', $path);
 		try {
@@ -165,9 +165,9 @@ class UploadFiles{
 		}catch (Exception $e){}
 		return false;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Guarda la imagen de una serie y folio
 	 */
@@ -193,7 +193,7 @@ class UploadFiles{
 					$config['master_dim'] = 'auto';
 					$config['width']	 = 150;
 					$config['height']	= 150;
-	
+
 					$ci->load->library('image_lib', $config);
 					$ci->image_lib->resize();
 				}
@@ -201,9 +201,9 @@ class UploadFiles{
 			}
 			return false;
 		}
-	
+
 		return 'ok';
 	}
-	
+
 }
 ?>

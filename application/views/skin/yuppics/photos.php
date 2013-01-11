@@ -1,7 +1,7 @@
 <div class="span12"> <!-- START PROGRESS BAR -->
 	<div style="background-color: #fff; padding: 1% 4% 0% 4%;">
 		<div class="progress" id="progressbar_yuppic">
-		  <div class="bar" style="width: -1%;" 
+		  <div class="bar" style="width: -1%;"
 		  		data-progress="<?php echo (isset($status->progress)? $status->progress: '0'); ?>"></div>
 		</div>
 		<p class="muted pull-left"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
@@ -19,7 +19,7 @@
 			<div class="span12 albums-list scroll-pane">
 				<ul class="nav nav-tabs nav-stacked" id="albums">
 					<input type="hidden" value="<?php echo $access_token?>" id="at">
-					<li class="active"><a href="javascript:album('all')">Mostrar todas las fotos</a></li>
+					<!-- <li class="active"><a href="javascript:album('all')">Mostrar todas las fotos</a></li> -->
 					<?php if(isset($albums)){
 							foreach ($albums as $k => $v) {?>
 								<li><a href="javascript:album(<?php echo '\''.$v->id.'\''; ?>)"><?php echo $v->name ?></a></li>
@@ -37,8 +37,12 @@
 			<div class="row-fluid"> <!-- START ROW FLUID -->
 				<div class="span12 photos-list">
 					<ul class="thumbnails" id="photos-list"><!-- START LISTADO FOTOS FB -->
-			        </ul><!-- END LISTADO FOTOS FB -->
-			        <div class="pagination"></div>
+	        </ul><!-- END LISTADO FOTOS FB -->
+	        <div class="pagination center">
+              <button type="button" class="btn btn-warning" data-prev="" id="btn-prev" disabled>Prev</button>
+              <button type="button" class="btn btn-success" data-next="" id="btn-next" disabled>Next</button>
+              <i></i>
+          </div>
 				</div>
 			</div> <!-- END ROW FLUID -->
 			<div class="row-fluid"> <!-- START ROW FLUID -->

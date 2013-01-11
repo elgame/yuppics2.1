@@ -90,14 +90,14 @@ div.thumbnail:hover {
 	opacity: 0.3 !important;
 }
 
-.choosed {
+/*.choosed {
 	width: 146px;
 	height: 160px;
 	position: absolute;
 	top: 0px;
 	background-color: rgba(102, 102, 102, 0);
 	z-index: 999;
-}
+}*/
 
 button.close {
 	padding: 6px !important;

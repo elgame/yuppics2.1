@@ -21,7 +21,7 @@ class  my_facebook {
   public $APP_ID = '512075685472594'; // FACEBOOK APP ID
 	private $APP_SECRET = 'c49714bb2f943ff53a2453099910bf25'; // FACEBOOK APP SECRET
   private $graph_url = 'https://graph.facebook.com/';
-  
+
   private $redirect_uri = '';	// URL A LA QUE FACEBOOK RE-DIRECCIONARA
   private $cancel_url = '';
   private $scope = '';	// PERMISOS QUE LA APP PEDIRA AL USUARIO. MAS PERMISOS EN http://developers.facebook.com/docs/concepts/login/permissions-login-dialog/
@@ -118,14 +118,14 @@ class  my_facebook {
     {
       if (isset($_GET['error_reason']) && isset($_GET['error']))
       {
-        if (isset($_GET['popup'])) 
+        if (isset($_GET['popup']))
           echo("<script>window.close()</script>");
         else
           header('Location:' . base_url('#login'));
       }
       // else
       // {
-      //   if (isset($_GET['popup'])) 
+      //   if (isset($_GET['popup']))
       //     echo("<script>window.close();window.opener.location.href = '".base_url()."'</script>");
       // }
     }
@@ -150,8 +150,8 @@ class  my_facebook {
    */
   public function get_user_photos($access_token)
   {
-    $graph_url = $this->graph_url . "me/photos?limit=0&access_token=" . $access_token;
-    return json_decode(file_get_contents($graph_url));
+    $graph_url = $this->graph_url . "me/photos?limit=12&access_token=" . $access_token;
+    return file_get_contents($graph_url);
   }
 
   /**
@@ -175,8 +175,18 @@ class  my_facebook {
    */
   public function get_user_album_photos($access_token, $ida)
   {
-    $graph_url = $this->graph_url . $ida . "/photos?limit=0&access_token=" . $access_token;
-    return json_decode(file_get_contents($graph_url));
+    $graph_url = $this->graph_url . $ida . "/photos?limit=12&access_token=" . $access_token;
+    return file_get_contents($graph_url);
+  }
+
+  public function get_next_photos_page($url)
+  {
+    return file_get_contents($url);
+  }
+
+  public function get_previuos_photos_page($url)
+  {
+    return file_get_contents($url);
   }
 
   /**
