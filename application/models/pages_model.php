@@ -61,7 +61,7 @@ class pages_model extends CI_Model{
 					INNER JOIN yuppics_photos as yp ON yp.id_photo = ypp.id_photo
 					INNER JOIN accomodation_page_imgs AS api ON ypp.id_page_img = api.id_page_img
 					INNER JOIN accomodation_imgs AS ai ON ai.id_img = api.id_img 
-					INNER JOIN frames_imgs AS fi ON (fi.id_frame = ypp.id_frame AND ai.id_img = fi.id_img)
+					LEFT JOIN frames_imgs AS fi ON (fi.id_frame = ypp.id_frame AND ai.id_img = fi.id_img)
 				WHERE ypp.id_ypage = ".$response->id_ypage)->result();
 
 			$pag_inf = $this->getPages($response->id_page);
