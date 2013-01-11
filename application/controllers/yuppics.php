@@ -168,8 +168,8 @@ class yuppics extends MY_Controller {
 	 */
 	public function photos()
 	{
-		if (! $this->session->userdata('id_yuppics'))
-			redirect(base_url('yuppics/'));
+		// if (! $this->session->userdata('id_yuppics'))
+		// 	redirect(base_url('yuppics/'));
 
 		$access_token = $this->input->get('token');
 		if (!$access_token) {
@@ -202,7 +202,7 @@ class yuppics extends MY_Controller {
 		$params['access_token'] = $access_token;
 
 		$this->load->model('photos_model');
-		$res = $this->photos_model->getYuppicPhotos($this->session->userdata('id_yuppics'));
+		$res = $this->photos_model->getYuppicPhotos('1'); //$this->session->userdata('id_yuppics')
 		$params['totalp'] = 0;
 		if ($res){
 			$params['photos'] = $res;
@@ -266,9 +266,9 @@ class yuppics extends MY_Controller {
 	public function get_user_photos($access_token = FALSE)
 	{
 		$this->load->library('my_facebook');
-		$access_token = ($access_token) ? $access_token : $_POST['access_token'];
+		$access_token = ($access_token) ? $access_token : $_GET['access_token'];
 		$photos = $this->my_facebook->get_user_photos($access_token);
-		echo json_encode($photos->data);
+		echo $photos;
 	}
 
 	public function get_user_albums($access_token)
@@ -281,11 +281,24 @@ class yuppics extends MY_Controller {
 	public function get_user_album_photos()
 	{
 		$this->load->library('my_facebook');
-		$album_photos = $this->my_facebook->get_user_album_photos($_POST['access_token'], $_POST['ida']);
-		echo  json_encode($album_photos->data);
-	}
+    // var_dump();exit;
+		$album_photos = $this->my_facebook->get_user_album_photos($_GET['access_token'], $_GET['ida']);
+	  echo $album_photos;
+  }
 
+  public function get_next_photos()
+  {
+    $this->load->library('my_facebook');
+    $photos = $this->my_facebook->get_next_photos_page($_GET['url']);
+    echo $photos;
+  }
 
+  public function get_prev_photos()
+  {
+    $this->load->library('my_facebook');
+    $photos = $this->my_facebook->get_previuos_photos_page($_GET['url']);
+    echo $photos;
+  }
 
 	/**
 	 ******************* Seccion personaliza fotos, libro ******************
@@ -296,7 +309,7 @@ class yuppics extends MY_Controller {
 	public function book(){
 		if (! $this->session->userdata('id_yuppics'))
 			redirect(base_url('yuppics/'));
-		
+
 		$this->carabiner->css(array(
 			array('libs/jquery.jscrollpane.css', 'screen'),
 			array('libs/jquery.jPages.css', 'screen'),
