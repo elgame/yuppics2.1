@@ -56,7 +56,7 @@ class pages_model extends CI_Model{
 			$res->free_result();
 
 			$response->images = $this->db->query("SELECT ypp.id_ypage, yp.id_photo, yp.url_img, api.id_page_img, api.id_img, 
-					ai.width, ai.height, api.coord_x, api.coord_y, fi.url_frame, fi.id_frame
+					ai.width, ai.height, api.coord_x, api.coord_y, fi.url_frame, fi.id_frame, ypp.coord_x AS pos_x, ypp.coord_y AS pos_y
 				FROM yuppics_pages_photos AS ypp 
 					INNER JOIN yuppics_photos as yp ON yp.id_photo = ypp.id_photo
 					INNER JOIN accomodation_page_imgs AS api ON ypp.id_page_img = api.id_page_img
@@ -92,10 +92,12 @@ class pages_model extends CI_Model{
 					'id_ypage'    => $id_ypage,
 					'id_photo'    => $value['id_photo'],
 					'id_page_img' => $value['id_page_img'],
-					'id_frame'    => $value['id_frame']
+					'id_frame'    => ($value['id_frame']!=''? $value['id_frame']: NULL),
+					'coord_x'     => $value['coord_x'],
+					'coord_y'     => $value['coord_y']
 					));
 			}
-		}else{
+		}else{ // update page
 			$this->db->update('yuppics_pages', $data_pag, "id_ypage = ".$this->input->post('id_ypage'));
 
 			$this->db->delete('yuppics_pages_photos', "id_ypage = ".$this->input->post('id_ypage'));
@@ -104,7 +106,9 @@ class pages_model extends CI_Model{
 					'id_ypage'    => $this->input->post('id_ypage'),
 					'id_photo'    => $value['id_photo'],
 					'id_page_img' => $value['id_page_img'],
-					'id_frame'    => $value['id_frame']
+					'id_frame'    => ($value['id_frame']!=''? $value['id_frame']: NULL),
+					'coord_x'     => $value['coord_x'],
+					'coord_y'     => $value['coord_y']
 					));
 			}
 		}
@@ -153,7 +157,7 @@ class pages_model extends CI_Model{
 						'id_ypage'    => $id_ypage,
 						'id_photo'    => $data_photos[$cont_photo]->id_photo,
 						'id_page_img' => $data_pag_photos[$c]->id_page_img,
-						'id_frame'    => $frames[$c]
+						'id_frame'    => (isset($frames[$c])? ($frames[$c]!=''? $frames[$c]: NULL): NULL)
 					));
 				}
 				$cont_photo++;

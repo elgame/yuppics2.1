@@ -44,36 +44,14 @@ $(function(){
 		};
 		pag_active.html(html);
 
+		images_drag_drop.setDropEvent();
+		images_drag_drop.setDragEvent();
 		$("#page_edited").val("true"); // se edito la pagina
 	});
 
 	// evento para cargar el borde de una imagen
 	$(".frame_photo").on("click", function(){
-		var vthis = $(this), img_sel = $(".img_in_page.active"),
-		params = {
-			id_frame: vthis.attr("data-id"),
-			id_img: img_sel.attr("data-idimg")
-		};
-
-		if (params.id_frame && params.id_img){
-			loader.create();
-			$.getJSON(base_url+"yuppics/getFrame", params, function(data){
-				if (data.msg.ico == "success") {
-					img_sel.attr("data-idframe", data.marco.id_frame);
-					$(".frame", img_sel).html('<img src="'+base_url+data.marco.url_frame+'">');
-					$(".frame img", img_sel).load(function(){
-						redimImgFrame(this, img_sel);
-					});
-
-					$("#page_edited").val("true"); // se edito la pagina
-				}else
-					noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
-			}).complete(function(){
-				loader.close();
-			});
-		}else{
-			noty({"text": "Activa una imagen para asignarle el borde.", "layout":"topRight", "type": "error"});
-		}
+		images_drag_drop.setFrameToPhoto($(this), $(".img_in_page.active"));
 	});
 
 	// Evento para marcar y desmarcar la imgen activa del book
@@ -87,28 +65,8 @@ $(function(){
 
 	// Evento asigna la foto al book, con la imagen activa
 	$(document).on("click", ".setphoto", function(){
-		var vthis = $(this), info = $.parseJSON(vthis.attr("data-info")),
-			img_sel = $(".img_in_page.active"),
-			img_sel_width = parseInt(img_sel.css('width')),
-			img_sel_height = parseInt(img_sel.css('height')),
-			attr_img;
-
-		if (img_sel.length > 0) {
-			loader.create();
-
-			attr_img = 'img_'+img_sel.attr("data-idimg")+img_sel.attr("data-idpagimg");
-			$(".live_aviary", img_sel).attr("data-id", attr_img);
-
-			// asigna la imagen y se redimenciona
-			img_sel.attr("data-idphoto", info.id_photo);
-			$(".photo", img_sel).html('<img id="'+attr_img+'" src="'+base_url+info.url_img+'">');
-			$(".photo img", img_sel).load(function(){
-				redimImgPhoto(this, img_sel_width, img_sel_height);
-				loader.close();
-			});
-
-			$("#page_edited").val("true"); // se edito la pagina
-		}
+		var vthis = $(this), img_sel = $(".img_in_page.active");
+		images_drag_drop.setPhotoToBook(vthis, img_sel);
 	});
 
 	// Evento para eliminar una pagina del book
@@ -166,7 +124,7 @@ $(function(){
 
 			if (params.id_page != "") {
 				$(".img_in_page").each(function(){
-					params.id_frame.push($(this).attr("data-idframe"));
+					params.id_frame.push(($(this).attr("data-idframe")? $(this).attr("data-idframe").replace("null", ""): ''));
 				});
 				loader.create();
 				$.getJSON(base_url+"yuppics/magic_book", params,
@@ -183,7 +141,7 @@ $(function(){
 		});
 	});
 
-
+	// Boton de finalizar compra
 	$("#finalizarCompra").on("click", function(){
 		msb.confirm("Estas seguro de finalizar la compra?", "", this, function(){
 			window.location = base_url+"buy/order?y="+$("#id_yuppic").val();
@@ -216,14 +174,20 @@ $(function(){
     loader.close();
   });
 
+
+ 	// Drag and drop
+ 	images_drag_drop.init();
 });
 
 
 
+// Guarda la configuracion de la pagina
 function save_page_event(direction){
-	var img_in_page = $(".img_in_page"), params = {};
+	var pag_active, img_in_page = $(".img_in_page"), params = {};
 
 	if (img_in_page.length > 0){
+		pag_active = $("#pag_active");
+
 		params.status    = true;
 		params.id_page   = $("#idpage").val();
 		params.id_ypage  = $("#id_ypage").val();
@@ -231,16 +195,20 @@ function save_page_event(direction){
 		params.direction = direction;
 		params.photos    = new Array();
 		img_in_page.each(function(){
-			var vthis = $(this);
-			if(vthis.attr("data-idframe") && vthis.attr("data-idphoto")){
+			var vthis = $(this), photo_pos = $(".photo", vthis);
+			if(vthis.attr("data-idphoto")){
 				params.photos.push({
 					id_photo: vthis.attr("data-idphoto"),
 					id_page_img: vthis.attr("data-idpagimg"),
-					id_frame: vthis.attr("data-idframe")
+					id_frame: (vthis.attr("data-idframe")? vthis.attr("data-idframe").replace("null", ""): ''),
+					coord_x: trunc2Dec( (parseInt(photo_pos.css("left")) * 100 / (vthis.width()) )),
+					coord_y: trunc2Dec( (parseInt(photo_pos.css("top")) * 100 / (vthis.height()) )),
+					width: 0,
+					height: 0
 				});
 			}else{
 				params.status = false;
-				noty({"text": "Selecciona una foto y el marco para las imagenes de la página.", "layout":"topRight", "type": "error"});
+				noty({"text": "Selecciona una foto para las imagenes de la página.", "layout":"topRight", "type": "error"});
 				return false;
 			}
 		});
@@ -260,6 +228,7 @@ function save_page_event(direction){
 		noty({"text": "Selecciona la Acomodación de imágenes.", "layout":"topRight", "type": "error"});
 }
 
+// Carga una pagina del book
 function load_page(num_pag){
 	loader.create();
 	$.getJSON(base_url+"yuppics/load_page", {"num_pag": num_pag}, function(data){
@@ -272,6 +241,7 @@ function load_page(num_pag){
 	});
 }
 
+// construlle los elementos de la pagina cargada
 function build_load_page(data, pagina){
 	if (data.page == false){ //no existe la sig pag, nueva pagina
 		var num_pag = $("#num_pag"), numero;
@@ -307,8 +277,9 @@ function build_load_page(data, pagina){
 		for (var i = 0; i < data.page.images.length; i++) {
 			html += '<div class="img_in_page" style="top:'+data.page.images[i].coord_y+'%;left:'+data.page.images[i].coord_x+'%;width:'+data.page.images[i].width+'%;height:'+data.page.images[i].height+'%;" '+
 				'data-idimg="'+data.page.images[i].id_img+'" data-idpagimg="'+data.page.images[i].id_page_img+'" data-width="'+data.page.images[i].width+'" data-height="'+data.page.images[i].height+'" '+
-				'data-idframe="'+data.page.images[i].id_frame+'" data-idphoto="'+data.page.images[i].id_photo+'">'+
-				'	<div class="photo">'+ (data.page.images[i].url_img? '<img id="img_'+data.page.images[i].id_img+data.page.images[i].id_page_img+'" src="'+base_url+data.page.images[i].url_img+'">': '') +'</div>'+
+				(data.page.images[i].id_frame!=null? 'data-idframe="'+data.page.images[i].id_frame+'"': '')+' data-idphoto="'+data.page.images[i].id_photo+'">'+
+				'	<div class="photo" style="top:'+data.page.images[i].pos_y+'%;left:'+data.page.images[i].pos_x+'%;">'+ 
+					(data.page.images[i].url_img? '<img id="img_'+data.page.images[i].id_img+data.page.images[i].id_page_img+'" src="'+base_url+data.page.images[i].url_img+'">': '') +'</div>'+
 				'	<div class="frame">'+ (data.page.images[i].url_frame? '<img src="'+base_url+data.page.images[i].url_frame+'">': '')+'</div>'+
 				'	<span class="live_aviary" data-id="img_'+data.page.images[i].id_img+data.page.images[i].id_page_img+'"><i class="icon-picture"></i></span>'+
 				'</div>';
@@ -316,6 +287,8 @@ function build_load_page(data, pagina){
 
 		$("#pag_active").html(html);
 		redimPage();
+		images_drag_drop.setDropEvent();
+		images_drag_drop.setDragEvent();
 	}
 }
 
@@ -334,17 +307,17 @@ function redimPage(){
 function redimImgPhoto(vthis, img_sel_width, img_sel_height){
 	var diff_pix; // vthis=img del load
 
-	if (img_sel_width > img_sel_height) {
-		diff_pix = img_sel_width / vthis.width;
+	// if (img_sel_width > img_sel_height) {
+	// 	diff_pix = img_sel_width / vthis.width;
 
-		diff_pix_width = img_sel_width;
-		diff_pix_height = parseInt( (diff_pix * vthis.height) );
-	} else {
+	// 	diff_pix_width = img_sel_width;
+	// 	diff_pix_height = parseInt( (diff_pix * vthis.height) );
+	// } else {
 		diff_pix = img_sel_height / vthis.height;
 
 		diff_pix_width = parseInt( (diff_pix * vthis.width) );
 		diff_pix_height = img_sel_height;
-	}
+	// }
 	vthis.width = diff_pix_width;
 	vthis.height = diff_pix_height;
 }
@@ -354,8 +327,8 @@ function redimImgFrame(vthis, img_sel){
 }
 
 
+// Activa el aviary
 var featherEditor;
-
 function launchEditor() {
 	featherEditor = new Aviary.Feather({
 		apiKey: '2e63f9892',
@@ -387,13 +360,13 @@ function launchEditor() {
 }
 
 
-
+// Listado de imagenes se reinicializa
 function reinitializeScrollPane() {
   var pane = $('.horizontal-only'),
     api = pane.data('jsp');
     api.reinitialise();
 }
-
+// Elimina fotos del listado de imagenes
 function deleteClonePhoto(obj) {
   var obj = $(obj),
     objtotalch = $('#total-choose');
@@ -424,16 +397,123 @@ function deleteClonePhoto(obj) {
 }
 
 
+function trunc2Dec(num) {
+	return Math.floor(num * 100) / 100;
+}
 
 
 
-var yuppic_book = (function($){
+var images_drag_drop = (function($){
 	var objr = {};
 
 	function init(){
+		$(".setphoto").draggable({ 
+			revert: true,
+			appendTo: 'body',
+			containment: 'body',
+			scroll: true,
+			helper: 'clone',
+			zIndex: 1000,
+		});
 
+		$(".frame_photo").draggable({ 
+			revert: true,
+			appendTo: 'body',
+			containment: 'body',
+			scroll: true,
+			helper: 'clone',
+			zIndex: 1000,
+		});
+
+		setDropEvent();
+		setDragEvent();
 	}
 
+	// Asigna el evento de drop a las imagenes del book para que cargue las fotos y marcos
+	function setDropEvent(){
+		$(".img_in_page").droppable({
+			accept: '.setphoto, .frame_photo',
+			activeClass: 'drop_hover',
+			hoverClass: 'drop_hover',
+			drop: function(event, ui) {
+				if (ui.draggable.is(".frame_photo"))
+					setFrameToPhoto(ui.draggable, $(this));
+				else
+					setPhotoToBook(ui.draggable, $(this));
+			}
+		});
+	}
 
+	// Asigna el evento de Drag a las imagenes del book, para moverlas
+	function setDragEvent(){
+		$(".img_in_page .photo").draggable({
+			revert: false,
+			scroll: false,
+			stop: function( event, ui ) {
+				$("#page_edited").val("true"); // se edito la pagina
+			}
+		});
+	}
+
+	// Asigna la foto a una de las imagenes del photobook
+	function setPhotoToBook(vphoto, vimg_book){
+		var info = $.parseJSON(vphoto.attr("data-info")),
+			// img_sel = $(".img_in_page.active"),
+			img_sel_width = parseInt(vimg_book.css('width')),
+			img_sel_height = parseInt(vimg_book.css('height')),
+			attr_img;
+
+		if (vimg_book.length > 0) {
+			loader.create();
+
+			attr_img = 'img_'+vimg_book.attr("data-idimg")+vimg_book.attr("data-idpagimg");
+			$(".live_aviary", vimg_book).attr("data-id", attr_img);
+
+			// asigna la imagen y se redimenciona
+			vimg_book.attr("data-idphoto", info.id_photo);
+			$(".photo", vimg_book).html('<img id="'+attr_img+'" src="'+base_url+info.url_img+'">');
+			$(".photo img", vimg_book).load(function(){
+				redimImgPhoto(this, img_sel_width, img_sel_height);
+				loader.close();
+			});
+
+			$("#page_edited").val("true"); // se edito la pagina
+		}
+	}
+
+	// evento para cargar el borde de una imagen
+	function setFrameToPhoto(vframe, vimg_book){
+		var params = {
+			id_frame: vframe.attr("data-id"),
+			id_img: vimg_book.attr("data-idimg")
+		};
+
+		if (params.id_frame && params.id_img){
+			loader.create();
+			$.getJSON(base_url+"yuppics/getFrame", params, function(data){
+				if (data.msg.ico == "success") {
+					vimg_book.attr("data-idframe", data.marco.id_frame);
+					$(".frame", vimg_book).html('<img src="'+base_url+data.marco.url_frame+'">');
+					$(".frame img", vimg_book).load(function(){
+						redimImgFrame(this, vimg_book);
+					});
+
+					$("#page_edited").val("true"); // se edito la pagina
+				}else
+					noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
+			}).complete(function(){
+				loader.close();
+			});
+		}else{
+			noty({"text": "Activa una imagen para asignarle el borde.", "layout":"topRight", "type": "error"});
+		}
+	}
+
+	objr.init            = init;
+	objr.setPhotoToBook  = setPhotoToBook;
+	objr.setFrameToPhoto = setFrameToPhoto;
+	objr.setDropEvent    = setDropEvent;
+	objr.setDragEvent    = setDragEvent;
+	return objr;
 })(jQuery);
 

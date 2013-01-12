@@ -33,7 +33,7 @@
 	</div> <!-- END BARRA TOP -->
 
 	<div class="row-fluid">
-		<div class="span4">
+		<div class="span3">
 			
 			<div class="scroll-pane frames">
 				<ul class="thumbnails">
@@ -75,7 +75,7 @@
 		</div><!-- /span4 -->
 
 		<!-- Lista de temas -->
-		<div class="span8">
+		<div class="span9">
 
 			<div class="row-fluid">
 				<div class="span12" style="position: relative">
@@ -94,8 +94,8 @@
 							foreach ($page->images as $key => $value) {
 								echo '<div class="img_in_page" style="top:'.$value->coord_y.'%;left:'.$value->coord_x.'%;width:'.$value->width.'%;height:'.$value->height.'%;"
 									data-idimg="'.$value->id_img.'" data-idpagimg="'.$value->id_page_img.'" data-width="'.$value->width.'" data-height="'.$value->height.'"
-									'.(isset($value->id_frame)? 'data-idframe="'.$value->id_frame.'"': '').' '.(isset($value->id_frame)? 'data-idphoto="'.$value->id_photo.'"': '').'>
-									<div class="photo">
+									'.(isset($value->id_frame)? 'data-idframe="'.$value->id_frame.'"': '').' '.(isset($value->id_photo)? 'data-idphoto="'.$value->id_photo.'"': '').'>
+									<div class="photo" style="top:'.$value->pos_y.'%;left:'.$value->pos_x.'%;">
 										'.(isset($value->url_img)? '<img id="img_'.$value->id_img.$value->id_page_img.'" src="'.base_url($value->url_img).'">': '').'
 									</div>
 									<div class="frame">
@@ -139,7 +139,8 @@
                     </div>
                     <button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete">×</button>
                   </li>
-            <?php }}?>
+            <?php }
+          		}?>
               </ul>
 
               <form id="form" style="width: 1px;margin: 0px;">
