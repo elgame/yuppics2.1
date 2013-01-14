@@ -37,13 +37,15 @@
 				<h4>Preview Yuppic</h4>
 		<?php 
 		$style = '';
+		$txt_color = '';
 		if (isset($theme_sel)) {
 			$style = 'background-image: url('.base_url($theme_sel->background_img_thum).');background-color: '.$theme_sel->background_color.'; color: '.$theme_sel->text_color.'; background-repeat: no-repeat no-repeat;';
+			$txt_color = 'color: '.$theme_sel->text_color.';';
 		}
 		?>
 				<div id="tema_prev_yuppic" class="tema_prev_yuppic center" style="<?php echo $style; ?>">
-					<div id="tema_prev_titulo" class="titulo center"><?php echo (isset($theme_sel->title)? $theme_sel->title: 'Titulo del Yuppic'); ?></div>
-					<div id="tema_prev_autor" class="autor center"><?php echo (isset($theme_sel->author)? $theme_sel->author: 'Autor de Yuppic'); ?></div>
+					<input id="tema_prev_titulo" class="titulo center tacenter" value="<?php echo (isset($theme_sel->title)? $theme_sel->title: 'Titulo del Yuppic'); ?>" style="<?php echo $txt_color; ?>">
+					<input id="tema_prev_autor" class="autor center tacenter" value="<?php echo (isset($theme_sel->author)? $theme_sel->author: 'Autor de Yuppic'); ?>" style="<?php echo $txt_color; ?>">
 				</div>
 
 				<div class="accordion" id="accordion2">

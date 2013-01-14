@@ -28,9 +28,17 @@
 	margin-top: 30%;
 	font-weight: bold;
 	font-size: 1.1em;
+	background-color: transparent;
+	border:none;
 }
 .tema_prev_yuppic .autor{
 	width: 90%;
+	background-color: transparent;
+	border:none;
+}
+.tema_prev_yuppic .titulo:focus,
+.tema_prev_yuppic .autor:focus{
+	border: 1px double #fff;
 }
 
 .colorpicker{
@@ -186,6 +194,19 @@ button.close {
 }
 .img_in_page:hover .live_aviary{
 	display: block;
+}
+
+.msg_photo_resolution{
+	position: absolute;
+	width: 84%;
+	left: 0;
+	color: rgb(255, 200, 102);
+	background-color: rgba(0,0,0, .6);
+	z-index: 35;
+	padding: 5% 5%;
+}
+.img_in_page:hover .msg_photo_resolution{
+	display: none;
 }
 
 .setphoto,

@@ -313,6 +313,12 @@ function redimImgPhoto(vthis, img_sel_width, img_sel_height){
 	// 	diff_pix_width = img_sel_width;
 	// 	diff_pix_height = parseInt( (diff_pix * vthis.height) );
 	// } else {
+		var item_sel = $(vthis).parents('.img_in_page');
+		$(".msg_photo_resolution", item_sel).remove();
+		if (vthis.width < 400 || vthis.height < 350) {
+			item_sel.append('<span class="msg_photo_resolution"><i class="icon-warning-sign icon-white"></i> La resolución de esta imagen es demasiada pequeña y puede reflejarse en la calidad de impresión.</span>');
+		}
+
 		diff_pix = img_sel_height / vthis.height;
 
 		diff_pix_width = parseInt( (diff_pix * vthis.width) );

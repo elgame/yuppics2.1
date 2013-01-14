@@ -7,7 +7,8 @@ var yuppic_tema = (function($){
 	colorpicker_fondo, color_fondo, tema_prev_yuppic,
 	colorpicker_texto, color_texto,
 	tema_prev_titulo, tema_prev_autor,
-	tema_frm_imagen, progress_img_fondo;
+	tema_frm_imagen, progress_img_fondo,
+	titulo_yuppic, autor_yuppic;
 
 	function init(){
 		pagination_themes();
@@ -35,11 +36,19 @@ var yuppic_tema = (function($){
 		// Eventos para el titulo y autor del yuppic
 		tema_prev_titulo = $("#tema_prev_titulo");
 		tema_prev_autor  = $("#tema_prev_autor");
-		$("#titulo_yuppic").on("keyup", function(evt){
-			tema_prev_titulo.text($(this).val());
+		titulo_yuppic    = $("#titulo_yuppic");
+		autor_yuppic     = $("#autor_yuppic");
+		titulo_yuppic.on("keyup", function(evt){
+			tema_prev_titulo.val($(this).val());
 		});
-		$("#autor_yuppic").on("keyup", function(evt){
-			tema_prev_autor.text($(this).val());
+		autor_yuppic.on("keyup", function(evt){
+			tema_prev_autor.val($(this).val());
+		});
+		tema_prev_titulo.on("keyup", function(evt){
+			titulo_yuppic.val($(this).val());
+		});
+		tema_prev_autor.on("keyup", function(evt){
+			autor_yuppic.val($(this).val());
 		});
 
 

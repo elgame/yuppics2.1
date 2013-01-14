@@ -102,6 +102,7 @@
 										'.(isset($value->url_frame)? '<img src="'.base_url($value->url_frame).'">': '').'
 									</div>
 									<span class="live_aviary" data-id="img_'.$value->id_img.$value->id_page_img.'"><i class="icon-picture"></i></span>
+									
 								</div>';
 							}
 						}
