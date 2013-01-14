@@ -6,7 +6,13 @@
 		</div>
 		<p class="muted pull-left"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
 		<p class="muted pull-left" style="margin-left: 39%;">Seleccionar fotografias</p>
-		<p class="muted pull-right"><a href="javascript:void(0);" id="save_photos">Creación de Yuppic</a></p>
+
+   <!--  <a href="#modal_contact" class="ajax-link" id="contact" data-toggle="modal" data-target="#modal_contact">
+      <i class="icon-comment"></i><span class="hidden-tablet"> Contacto</span>
+    </a> -->
+		<p class="muted pull-right"><a href="#modal_upload" data-toggle="modal" data-target="#modal_upload" id="modal">
+      Creación de Yuppic</a>
+    </p>
 		<div class="clearfix"></div>
 	</div>
 </div> <!-- END PROGRESS BAR -->
@@ -18,12 +24,13 @@
 			<div class="span12 tema_barratop"><i class="icon-book"></i> Albums</div>
 			<div class="span12 albums-list scroll-pane">
 				<ul class="nav nav-tabs nav-stacked" id="albums">
+          <input type="hidden" value="<?php echo $max_fotos?>" id="mf">
 					<input type="hidden" value="<?php echo $access_token?>" id="at">
-					<!-- <li class="active"><a href="javascript:album('all')">Mostrar todas las fotos</a></li> -->
 					<?php if(isset($albums)){
 							foreach ($albums as $k => $v) {?>
 								<li><a href="javascript:album(<?php echo '\''.$v->id.'\''; ?>)"><?php echo $v->name ?></a></li>
 					<?php }} ?>
+          <li><a href="javascript:album('all')">Mostrar todas las fotos</a></li>
 				</ul>
 			</div>
 		</div> <!-- END SPAN3 -->
@@ -57,21 +64,21 @@
 						<div style="width: <?php echo (isset($width) ? $width : '0').'px';?>" id="content-selected-photos">
 							<ul class="thumbnails">
 								<?php if (isset($photos)){
-										foreach($photos as $k => $p) {?>
-											<li class="span2 relative">
-												<div class="thumbnail">
-													<img alt="" src="<?php echo base_url($p->url_thumb)?>">
-												</div>
-												<button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete">×</button>
-											</li>
+    										foreach($photos as $k => $p) {?>
+    											<li class="span2 relative">
+    												<div class="thumbnail">
+    													<img alt="" src="<?php echo base_url($p->url_thumb)?>">
+    												</div>
+    												<button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete">×</button>
+    											</li>
 								<?php }}?>
 					        </ul>
 
                   <form id="form" style="width: 1px;margin: 0px;">
                       <?php if (isset($photos)){
-                      foreach($photos as $k => $p) {?>
-                        <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
-                      <?php }}?>
+                              foreach($photos as $k => $p) {?>
+                                <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
+                       <?php }}?>
                   </form>
 					    </div>
 					</div>
@@ -80,13 +87,32 @@
 
 			<p style="margin-bottom: 20px;">
 				<a href="<?php echo base_url('yuppics'); ?>" class="pull-left"><i class="icon-arrow-left"></i> Paso anterior</a>
-				<a href="javascript:void(0);" id="save_photos2" class="pull-right">Siguiente paso <i class="icon-arrow-right"></i></a>
+
+				<a href="#modal_upload" id="modal" class="pull-right"data-toggle="modal" data-target="#modal_upload">Siguiente paso <i class="icon-arrow-right"></i></a>
 				<div class="clearfix"></div>
 			</p>
 
 		</div> <!-- END SPAN9 -->
 	</div> <!-- END ROW FLUID -->
 </div> <!-- END CONTAINER FLUID -->
+
+<div id="modal_upload" class="modal hide fade span7" style="left: 20%;"><!-- START modal contacto -->
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h2 id="myModalLabel1" style="display: inline;">Fotos Seleccionadas</h2><span class="muted">
+    Espera mientras se suben las fotos que has seleccionado.</span>
+    <button type="button" class="btn btn-primary disabled" id="save_photos" disabled>Upload</button>
+  </div>
+  <div class="modal-body">
+    <ul class="thumbnails">
+    </ul>
+  </div>
+  <div class="modal-footer center" style="background-color: #fff;">
+    <h3 class="muted" id="txt-msg"></h3>
+    <span class="muted"></span>
+  </div>
+</div><!-- END modal contacto -->
+
 
 <div id="messajes_alerts" class="modal hide fade">
   <div class="modal-body">

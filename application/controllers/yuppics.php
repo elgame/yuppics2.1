@@ -186,7 +186,7 @@ class yuppics extends MY_Controller {
 			array('libs/jquery.mousewheel.min.js'),
 			array('libs/jquery.jscrollpane.min.js'),
 			array('libs/jquery.form.js'),
-			array('libs/jquery.jPages.min.js'),
+			// array('libs/jquery.jPages.min.js'),
 			array('general/loader.js'),
 			array('skin/yuppics_photos.js'),
 		));
@@ -200,6 +200,8 @@ class yuppics extends MY_Controller {
 
 		$params['albums'] = $this->get_user_albums($access_token);
 		$params['access_token'] = $access_token;
+
+    $params['max_fotos'] = $this->db->select('max_fotos')->from('config')->get()->row()->max_fotos;
 
 		$this->load->model('photos_model');
 		$res = $this->photos_model->getYuppicPhotos('1'); //$this->session->userdata('id_yuppics')
@@ -215,31 +217,38 @@ class yuppics extends MY_Controller {
 		$this->load->view('skin/footer', $params);
 	}
 
-	public function photos_save()
-	{
-		$this->load->library('form_validation');
-		if ($this->form_validation->run() === FALSE)
-		{
-			$params['frm_errors'] = array(
-									'title' => '',
-									'msg'   => 'Selecciona al menos una foto o imagen para continuar.',
-									'ico'   => 'error');
-		}
-		else
-		{
-			$this->load->model('photos_model');
-			$mdl_res = $this->photos_model->save_photos();
+	// public function photos_save()
+	// {
+	// 	$this->load->library('form_validation');
+	// 	if ($this->form_validation->run() === FALSE)
+	// 	{
+	// 		$params['frm_errors'] = array(
+	// 								'title' => '',
+	// 								'msg'   => 'Selecciona al menos una foto o imagen para continuar.',
+	// 								'ico'   => 'error');
+	// 	}
+	// 	else
+	// 	{
+	// 		$this->load->model('photos_model');
+	// 		$mdl_res = $this->photos_model->save_photos();
 
-			$params['id_yuppic'] = $mdl_res;
+	// 		$params['id_yuppic'] = $mdl_res;
 
-			$params['frm_errors'] = array(
-					'title' => '',
-					'msg'   => 'xxxxx',
-					'ico'   => 'success');
-		}
+	// 		$params['frm_errors'] = array(
+	// 				'title' => '',
+	// 				'msg'   => 'xxxxx',
+	// 				'ico'   => 'success');
+	// 	}
 
-		echo json_encode($params);
-	}
+	// 	echo json_encode($params);
+	// }
+
+  public function photos_upload()
+  {
+    $this->load->model('photos_model');
+    $res = $this->photos_model->save_photos();
+    echo json_encode($res);
+  }
 
 	public function photo_delete()
 	{
