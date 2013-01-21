@@ -204,8 +204,8 @@ button.close {
 
 .msg_photo_resolution{
 	position: absolute;
-	width: 84%;
-	left: 0;
+	width: 90%;
+	left: -2%;
 	color: rgb(255, 200, 102);
 	background-color: rgba(0,0,0, .6);
 	z-index: 35;

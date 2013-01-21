@@ -295,12 +295,26 @@ function build_load_page(data, pagina){
 
 function redimPage(){
 	$(".img_in_page").each(function(){
-		var img_sel = $(this);
-		$(".photo img", img_sel).load(function(){
+		var img_sel = $(this), 
+		img_photo = $(".photo img", img_sel),
+		img_frame = $(".frame img", img_sel);
+		
+		img_photo.load(function(){
 			redimImgPhoto(this, img_sel.width(), img_sel.height());
+		}).each(function(){
+			if(this.complete){
+				img_photo.off('load');
+				redimImgPhoto(this, img_sel.width(), img_sel.height());
+			}
 		});
-		$(".frame img", img_sel).load(function(){
+
+		img_frame.load(function(){
 			redimImgFrame(this, img_sel);
+		}).each(function(){
+			if(this.complete){
+				img_frame.off('load');
+				redimImgFrame(this, img_sel);
+			}
 		});
 	});
 }
@@ -342,8 +356,13 @@ function launchEditor() {
 		tools: 'all',
 		appendTo: '',
 		onSave: function(imageID, newURL) {
-			var img = $("#"+imageID);
-			img.attr("src", img.attr("src"));
+			var img = $("#"+imageID), d = new Date();
+			img.attr("src", img.attr("src")+"?dt="+d.getTime());
+			// .load(function(){
+			// 	var img_sel = img.parents(".img_in_page");
+			// 	console.log($(img_sel[0]).width());
+			// 	redimImgPhoto(this, $(img_sel[0]).width(), $(img_sel[0]).height());
+			// });
 		},
 		postUrl: base_url+'yuppics/save_aviary/'
 	});

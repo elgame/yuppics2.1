@@ -271,7 +271,7 @@ function save_photos() {
 	loader.create();
 	gPhotosSave = {'photos[]': [], 'thumbs[]': [], 'id[]': [], 'index[]': []};
 
-	$('#form').find('input[type="hidden"].ori').each(function(i, e){
+	$('#form').find('input[type="hidden"][value!="false"].ori').each(function(i, e){
 		var id = $(e).attr('id');
 		gPhotosSave['photos[]'].push($(e).val());
 		gPhotosSave['thumbs[]'].push($('#inpthumb-'+id).val());

@@ -21,7 +21,6 @@ class Photos_model extends CI_Model{
 
 	public function save_photos()
 	{
-    $this->session->set_userdata('id_yuppics', '1');
 		if ($this->session->userdata('id_yuppics'))
     {
 			$id_yuppic = $this->session->userdata('id_yuppics');

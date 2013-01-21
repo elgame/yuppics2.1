@@ -85,7 +85,7 @@
               {
                 foreach ($address_books['default'] as $key => $default) {
                   if($default->default_billing == 1 && $default->default_shipping == 1)
-                    echo '<strong>Direccion de facturacion y envio</strong><input type="hidden" name="id_address_billing" value="'.$default->id_address.'"><input type="text" name="id_address_shipping" value="'.$default->id_address.'">';
+                    echo '<strong>Direccion de facturacion y envio</strong><input type="hidden" name="id_address_billing" value="'.$default->id_address.'"><input type="hidden" name="id_address_shipping" value="'.$default->id_address.'">';
                   else if ($default->default_billing == 1)
                     echo '<strong>Direccion de facturacion</strong><input type="hidden" name="id_address_billing" value="'.$default->id_address.'">';
                   else if ($default->default_shipping == 1)

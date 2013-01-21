@@ -204,7 +204,7 @@ class yuppics extends MY_Controller {
     $params['max_fotos'] = $this->db->select('max_fotos')->from('config')->get()->row()->max_fotos;
 
 		$this->load->model('photos_model');
-		$res = $this->photos_model->getYuppicPhotos('1'); //$this->session->userdata('id_yuppics')
+		$res = $this->photos_model->getYuppicPhotos($this->session->userdata('id_yuppics')); //$this->session->userdata('id_yuppics')
 		$params['totalp'] = 0;
 		if ($res){
 			$params['photos'] = $res;
