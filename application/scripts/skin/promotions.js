@@ -33,7 +33,7 @@ var get_yuppic = (function($){
 				   ),
 				   link: 'http://www.yuppics.com/',
 				   picture: 'http://a0.twimg.com/profile_images/1245623307/Logo_oficial_Yuppics.gif'
-				  }, 
+				  },
 				  requestShareLink
 				);
 			});
@@ -147,7 +147,7 @@ var get_yuppic = (function($){
 
 	function myalert(msg, ico, id){
 		var valert = $("#"+(id? id: "promo_alert") );
-		
+
 		valert.removeClass("alert-success alert-info alert-error alert-block");
 		valert.addClass("alert-"+ico).show(300);
 		$("span", valert).html(msg);

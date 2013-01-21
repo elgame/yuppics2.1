@@ -1,10 +1,23 @@
 	<div class="container-fluid">
-		
+
 		<div class="row-fluid">
-			
+
 			<div class="row-fluid intro">
-				
-				<div class="span9 center">
+
+				<div class="span3 center">
+          <div style="display:inline-block;">
+              <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Flocalhost%2Fyuppics2.1%2F&amp;send=false&amp;layout=button_count&amp;width=140&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=194793667332525" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:21px;" allowTransparency="true"></iframe>
+              <!-- <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Flocalhost%2Fyuppics2.1%2F&amp;send=false&amp;layout=box_count&amp;width=100&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=62&amp;appId=512075685472594" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:62px;" allowTransparency="true"></iframe> -->
+          </div>
+
+          <div style="display:inline-block; float:right;">
+            <a href="https://twitter.com/Yuppics" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false" data-width="154px">Follow @Yuppics</a>
+            <!-- <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/yuppics2.1/" data-text="Follow" data-via="Yuppics" data-related="anywhereTheJavascriptAPI" data-count="vertical">Tweet</a> -->
+          </div>
+
+
+        </div>
+        <div class="span9 center">
 					<h1>Imprime tus momentos especiales</h1>
 					<p>por tan sólo 100.00MXN sin consto de envío con yuppics.com</p>
 
@@ -34,7 +47,7 @@
 				<h3 class="muted">Imprime tus momentos especiales con yuppics</h3>
 			</div>
 			<div class="span5">
-				<form id="frm_login" action="<?php echo base_url('customer/login'); ?>" method="POST" class="form-horizontal" 
+				<form id="frm_login" action="<?php echo base_url('customer/login'); ?>" method="POST" class="form-horizontal"
 					data-sendajax="true" data-alert="login_alert" data-callback="login_success">
 					<div class="control-group">
 						<span>Ingresa tus datos para entrar o <a href="#modal_registro" role="button" data-toggle="modal">Registrate</a></span>
@@ -46,7 +59,7 @@
 							<span></span>
 						</div>
 					</div>
-					
+
 					<div class="control-group">
 						<input type="text" name="email" id="email" class="input-block-level" placeholder="Email">
 					</div>
@@ -74,7 +87,7 @@
 	</div>
 
 	<div id="modal_registro" class="modal hide fade">
-		<form action="<?php echo base_url('customer/register/')?>" method="POST" class="form-horizontal" data-sendajax="true" 
+		<form action="<?php echo base_url('customer/register/')?>" method="POST" class="form-horizontal" data-sendajax="true"
 				data-alert="register_alert" data-reset="true">
 			<div class="modal-header">
 				<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -141,9 +154,9 @@
 								</div>
 							</div>
 						</div>
-					
+
 				</div>
-				
+
 
 			</div>
 			<div class="modal-footer">
@@ -154,11 +167,11 @@
 	</div>
 
 
-<!-- 
+<!--
 	<div id="modal_ingreso" class="container-fluid well">
 		<div class="row-fluid">
 
-			
+
 
 		</div>
 	</div> -->
