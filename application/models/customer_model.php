@@ -19,6 +19,10 @@ class customer_model extends CI_Model{
 		if($res->num_rows() > 0){
 			$response['info'] = $res->row();
 			$res->free_result();
+			//Precio yuppic
+			$res = $this->db->select('*')->from('products')->where("id_product = '1'")->get();
+			$response['yuppic'] = $res->row();
+			$res->free_result();
 			if($info_basic)
 				return $response;
 

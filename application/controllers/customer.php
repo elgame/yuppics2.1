@@ -33,6 +33,7 @@ class customer extends MY_Controller {
 		));
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
+		$params['product_yuppic'] = $this->info_empleado['yuppic']; //info empleado
 		$params['seo'] = array(
 			'titulo' => 'Dashboard - yuppics'
 		);
@@ -44,7 +45,7 @@ class customer extends MY_Controller {
 
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
-		// $this->load->view('skin/general/home', $params);
+		$this->load->view('skin/general/home', $params);
 		$this->load->view('skin/general/right-bar', $params);
 		$this->load->view('skin/footer');
 	}

@@ -149,8 +149,8 @@ $config['force_curl'] = FALSE;
 // jQuery (latest, as of 1.xx)
 $config['groups']['base_panel'] = array(
 	'css' => array(
-		array('bootstrap/bootstrap-simplex.css', 'screen'),
-		array('bootstrap/bootstrap-simplex-responsive.css', 'screen'),
+		array('bootstrap/bootstrap-slate.css', 'screen'),
+		array('bootstrap/bootstrap-responsive.css', 'screen'),
 		array('bootstrap/user-miscs.css', 'screen'),
 		array('bootstrap/charisma-app.css', 'screen'),
 		array('libs/jquery.noty.css', 'screen')
