@@ -7,10 +7,10 @@ class mailchimp_test extends CI_Controller {
 	 *
 	 * Maps to the following URL
 	 * 		http://example.com/index.php/welcome
-	 *	- or -  
+	 *	- or -
 	 * 		http://example.com/index.php/welcome/index
 	 *	- or -
-	 * Since this controller is set as the default controller in 
+	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
@@ -19,9 +19,9 @@ class mailchimp_test extends CI_Controller {
 	 */
 	public function index()
 	{
-		
+
 		$this->load->library('mcapi');
-		
+
 		/*$name = 'Furby';
 		$last_name = 'Alcantar';
 		$mail = 'oscar.alcantars@gmail.com';
@@ -50,10 +50,10 @@ class mailchimp_test extends CI_Controller {
 
 	public function send_email(){
 		$apikey = '7a2f3fa0034c583fdbad37fa9bc24457-us6';
- 
+
 		$to_emails = array('gamameso@gmail.com');
 		$to_names = array('gamameso');
-		
+
 
 		$html = $this->load->view('html_campaign_mc', '', true);
 		$message = array(
@@ -65,9 +65,9 @@ class mailchimp_test extends CI_Controller {
 		    'to_email'=>$to_emails,
 		    'to_name'=>$to_names
 		);
-		 
+
 		$tags = array('WelcomeEmail');
-		 
+
 		$params = array(
 		    'apikey'=>$apikey,
 		    'message'=> $message,
@@ -77,17 +77,17 @@ class mailchimp_test extends CI_Controller {
 		);
 		var_dump(http_build_query($params, '&'));
 		exit;
-		 
+
 		$url = "http://us6.sts.mailchimp.com/1.0/SendEmail";
-		 
+
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url.'?'.http_build_query($params, '&'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		 
+
 		$result = curl_exec($ch);
 		var_dump($result);
 		curl_close ($ch);
-		 
+
 		$data = json_decode($result);
 		echo "Status = ".$data->status."\n";
 	}
@@ -96,7 +96,7 @@ class mailchimp_test extends CI_Controller {
 		echo 'pruebita para crear una campaña desde codigo :D<br>';
 
 		$this->load->library('mcapi');
-		
+
 		$type = 'regular';
 		$options = array(
 								'list_id'=> $this->config->item('mcapi_list_id'),
@@ -157,7 +157,7 @@ class mailchimp_test extends CI_Controller {
 
 		var_dump($this->mcapi->campaignCreate($type, $options, $content));
 	}
-	
+
 }
 
 /* End of file welcome.php */
