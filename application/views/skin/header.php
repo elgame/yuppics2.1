@@ -121,7 +121,11 @@
 	</div>
 	<!-- topbar ends -->
 
-	<div class="container-fluid">
+	<div class="barra_menu_fix">
+		adsdas
+	</div>
+
+	<div class="container-fluid nopadding_lf">
 		<div class="row-fluid">
 			<!--[if lt IE 7]>
         <div class="alert alert-info">

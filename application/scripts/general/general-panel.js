@@ -118,7 +118,7 @@ var panel = (function($){
 
 	objr.init = function(){
 		activeMenu();
-		animeMenu();
+		// animeMenu();
 		boxBtns();
 	};
 

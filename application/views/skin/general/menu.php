@@ -6,17 +6,17 @@
 
 						<li>
 								<a class="ajax-link" href="<?php echo base_url(); ?>">
-									<i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span>
+									<span class="hidden-tablet"> Dashboard</span> <i class="icon-home"></i>
 								</a>
 						</li>
 						<li>
 								<a class="ajax-link" href="<?php echo base_url('customer/perfil'); ?>">
-									<i class="icon-user"></i><span class="hidden-tablet"> Perfil</span>
+									<span class="hidden-tablet"> Perfil</span> <i class="icon-user"></i>
 								</a>
 						</li>
 						<li>
 								<a class="ajax-link" href="<?php echo base_url('history/'); ?>">
-									<i class="icon-signal"></i><span class="hidden-tablet"> Historial</span>
+									<span class="hidden-tablet"> Historial</span> <i class="icon-signal"></i>
 								</a>
 						</li>
 						<li>

@@ -1,5 +1,5 @@
 body{
-	background-color: #f4f5f6 !important;
+	background: #f4f5f6 url(../../../images/bg.jpg) !important;
 }
 
 .myriad{
@@ -8,6 +8,10 @@ body{
 	text-shadow: none !important;
 	color: #464f55 !important;
 	font-size: 19px;
+}
+
+.container-fluid.nopadding_lf{
+	padding-left: 0px;
 }
 
 /********  header **********/
@@ -74,9 +78,62 @@ body{
 }
 
 
+/*********  Menu **********/
+.barra_menu_fix{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	background-color: #2d2e33;
+	z-index: -1;
+}
+.well.nav-collapse.sidebar-nav{
+	height: 100%;
+	margin-top: -18px;
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+}
+.main-menu-span [class*="icon-"]{
+	float: right;
+}
+.main-menu-span a.ajax-link{
+	padding: 12px 12px;
+	color: #fff;
+	border:1px #404043 solid;
+
+	background-color: #303135;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3d3e44), color-stop(70%, #303135), to(#303135));
+  background-image: -webkit-linear-gradient(#3d3e44, #303135 70%, #303135);
+  background-image: -moz-linear-gradient(top, #3d3e44, #303135 70%, #303135);
+  background-image: -ms-linear-gradient(#3d3e44, #303135 70%, #303135);
+  background-image: -o-linear-gradient(#3d3e44, #303135 70%, #303135);
+  background-image: linear-gradient(#3d3e44, #303135 70%, #303135);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d3e44', endColorstr='#303135', GradientType=0);
+}
+.main-menu-span a.ajax-link:hover,
+.main-menu-span li.active a.ajax-link{
+  background-color: #64a54d;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#89c772), color-stop(70%, #64a54d), to(#64a54d));
+  background-image: -webkit-linear-gradient(#89c772, #64a54d 70%, #64a54d);
+  background-image: -moz-linear-gradient(top, #89c772, #64a54d 70%, #64a54d);
+  background-image: -ms-linear-gradient(#89c772, #64a54d 70%, #64a54d);
+  background-image: -o-linear-gradient(#89c772, #64a54d 70%, #64a54d);
+  background-image: linear-gradient(#89c772, #64a54d 70%, #64a54d);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c772', endColorstr='#64a54d', GradientType=0);
+}
+.main-menu-span .nav.main-menu li{
+	border-bottom: 1px #27282b solid;
+	border-top: 1px #27282b solid;
+}
+
 
 /************* Contenido ***************/
-
 .hero-unit.unitwhite{
 	background-color: #fff;
 	padding: 0px;
