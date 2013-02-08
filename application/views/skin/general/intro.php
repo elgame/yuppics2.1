@@ -4,13 +4,13 @@
 
 			<div class="row-fluid intro">
 
-				<div class="span3 center">
+				<div class="span4 center">
           <div style="display:inline-block;">
               <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Flocalhost%2Fyuppics2.1%2F&amp;send=false&amp;layout=button_count&amp;width=140&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=194793667332525" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:21px;" allowTransparency="true"></iframe>
               <!-- <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Flocalhost%2Fyuppics2.1%2F&amp;send=false&amp;layout=box_count&amp;width=100&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=62&amp;appId=512075685472594" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:62px;" allowTransparency="true"></iframe> -->
           </div>
 
-          <div style="display:inline-block; float:right;">
+          <div style="display:inline-block;">
             <a href="https://twitter.com/Yuppics" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false" data-width="154px">Follow @Yuppics</a>
             <!-- <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/yuppics2.1/" data-text="Follow" data-via="Yuppics" data-related="anywhereTheJavascriptAPI" data-count="vertical">Tweet</a> -->
           </div>
