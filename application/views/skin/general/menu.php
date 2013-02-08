@@ -10,17 +10,17 @@
 
         <div class="well menu-user-info">
           <div class="user-info">
-            <div class="user-avatar"><img src="<?php echo base_url(''); ?>"></div>
-            <span class="user-name">Jorge Suarez Basañez</span>
-            <span class="user-email">jorgefsb@gmail.com</span>
+            <div class="user-avatar"><img src="<?php echo base_url($info_customer->url_avatar); ?>"></div>
+            <span class="user-name"><?php echo $info_customer->first_name.' '.$info_customer->last_name; ?></span>
+            <span class="user-email"><?php echo $info_customer->email; ?></span>
           </div>
           <div class="info-stats">
             <div>
-              <span>103</span>
+              <span><?php echo $info_dash->purchases; ?></span>
               <span class="status">Comprados</span>
             </div>
             <div>
-              <span>53</span>
+              <span><?php echo count($carrito_compra); ?></span>
               <span class="status">Pendientes</span>
             </div>
           </div>
@@ -33,32 +33,32 @@
 
 						<li>
 								<a class="ajax-link" href="<?php echo base_url(); ?>">
-									<span class="hidden-tablet"> Dashboard</span> <i class="icon-home"></i>
+									<span class="hidden-tablet"> Dashboard</span> <i class="icon-mhome"></i>
 								</a>
 						</li>
 						<li>
 								<a class="ajax-link" href="<?php echo base_url('customer/perfil'); ?>">
-									<span class="hidden-tablet"> Perfil</span> <i class="icon-user"></i>
+									<span class="hidden-tablet"> Perfil</span> <i class="icon-mperfil"></i>
 								</a>
 						</li>
 						<li>
 								<a class="ajax-link" href="<?php echo base_url('history/'); ?>">
-									<span class="hidden-tablet"> Historial</span> <i class="icon-signal"></i>
+									<span class="hidden-tablet"> Historial</span> <i class="icon-mhisto"></i>
 								</a>
 						</li>
 						<li>
 								<a href="#modal_newsletter" class="ajax-link" id="newsletterm" data-toggle="modal" data-target="#modal_newsletter">
-									<i class="icon-check"></i><span class="hidden-tablet"> Newsletter</span>
+									<span class="hidden-tablet"> Newsletter</span> <i class="icon-mnews"></i>
 								</a>
 						</li>
 						<li>
 								<a class="ajax-link" href="<?php echo base_url('faq/'); ?>">
-									<i class="icon-list"></i><span class="hidden-tablet"> FAQ</span>
+									<span class="hidden-tablet"> FAQ</span> <i class="icon-mfaqs"></i>
 								</a>
 						</li>
 						<li>
 								<a href="#modal_contact" class="ajax-link" id="contact" data-toggle="modal" data-target="#modal_contact">
-									<i class="icon-comment"></i><span class="hidden-tablet"> Contacto</span>
+									<span class="hidden-tablet"> Contacto</span> <i class="icon-mconta"></i>
 								</a>
 						</li>
 

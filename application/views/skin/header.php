@@ -122,7 +122,6 @@
 	<!-- topbar ends -->
 
 	<div class="barra_menu_fix">
-		adsdas
 	</div>
 
 	<div class="container-fluid nopadding_lf">

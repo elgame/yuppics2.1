@@ -1,21 +1,12 @@
-		<div id="content" class="span8">
+		<div id="content" class="span7 mtop-content">
 			<!-- content starts -->
 
-			<div>
-				<ul class="breadcrumb">
-					<li>
-						<a href="<?php echo base_url(); ?>">Inicio</a> <span class="divider">/</span>
-					</li>
-					<li>
-						Panel principal
-					</li>
-				</ul>
-			</div>
-
 			<div class="row-fluid">
-				<div class="hero-unit">
-					<h3>Importante</h3>
-					<p>Recuerda que es necesario que proporciones correctamente todos tus datos de envío y facturacion antes de realizar tu compra.</p>
+				<div class="hero-unit unitwhite">
+					<div class="unit-body unit-foo">
+						<h3>Importante</h3>
+						<p>Recuerda que es necesario que proporciones correctamente todos tus datos de envío y facturacion antes de realizar tu compra.</p>
+					</div>
 				</div>
 			</div>
 

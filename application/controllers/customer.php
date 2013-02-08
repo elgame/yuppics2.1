@@ -38,6 +38,7 @@ class customer extends MY_Controller {
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
 		$params['product_yuppic'] = $this->info_empleado['yuppic']; //info yuppic
+		$params['info_dash'] = $this->info_empleado['yuppic_compr']; //Yuppics comprados contador
 		$params['seo'] = array(
 			'titulo' => 'Dashboard - yuppics'
 		);
@@ -47,13 +48,18 @@ class customer extends MY_Controller {
 		$params['carrito_compra'] = $this->book_model->getShoppingCart();
 
 
+		//Yuppics comprados
+		//listado
+		$this->load->model('yuppics_model');
+		$params['info_dash']->listado1 = $this->yuppics_model->getYuppicsCP(1);
+		$params['info_dash']->listado2 = $this->yuppics_model->getYuppicsCP(0);
+
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
 		$this->load->view('skin/general/home', $params);
 		$this->load->view('skin/general/right-bar', $params);
 		$this->load->view('skin/footer');
 	}
-
 
 
 	public function intro(){
@@ -204,6 +210,8 @@ class customer extends MY_Controller {
 		));
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
+		$params['product_yuppic'] = $this->info_empleado['yuppic']; //info yuppic
+		$params['info_dash'] = $this->info_empleado['yuppic_compr']; //Yuppics comprados contador
 		$params['seo'] = array(
 			'titulo' => 'Modificar perfil - yuppics'
 		);

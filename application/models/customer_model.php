@@ -19,10 +19,14 @@ class customer_model extends CI_Model{
 		if($res->num_rows() > 0){
 			$response['info'] = $res->row();
 			$res->free_result();
+			$response['info']->url_avatar = ($response['info']->url_avatar!=''? $response['info']->url_avatar: 'application/images/anonimous44.jpg');
 			//Precio yuppic
 			$res = $this->db->select('*')->from('products')->where("id_product = '1'")->get();
 			$response['yuppic'] = $res->row();
 			$res->free_result();
+			//Yuppics comprados contador
+			$response['yuppic_compr'] = $this->db->query("SELECT (SELECT Count(*) FROM orders WHERE id_customer = ".$this->session->userdata('id_usuario')." AND status IN ('a','e')) AS purchases")->row();
+
 			if($info_basic)
 				return $response;
 

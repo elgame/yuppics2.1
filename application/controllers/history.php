@@ -22,6 +22,7 @@ class history extends MY_Controller {
 	public function index()
 	{
 		$this->carabiner->css(array(
+			array('skin/dashboard/style.css', 'screen'),
 			array('skin/faq/faq.css'),
 		));
 
@@ -37,6 +38,8 @@ class history extends MY_Controller {
 		$params['carrito_compra'] = $this->book_model->getShoppingCart();
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
+		$params['product_yuppic'] = $this->info_empleado['yuppic']; //info yuppic
+		$params['info_dash'] = $this->info_empleado['yuppic_compr']; //Yuppics comprados contador
 		$params['seo'] = array(
 			'titulo' => 'Historial de compras - yuppics'
 		);

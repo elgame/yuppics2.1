@@ -21,6 +21,7 @@ class Promotions extends MY_Controller {
 	public function index()
 	{
 		$this->carabiner->css(array(
+			array('skin/dashboard/style.css', 'screen'),
 			array('skin/promo/promo.css'),
 		));
 
@@ -34,6 +35,8 @@ class Promotions extends MY_Controller {
 		));
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
+		$params['product_yuppic'] = $this->info_empleado['yuppic']; //info yuppic
+		$params['info_dash'] = $this->info_empleado['yuppic_compr']; //Yuppics comprados contador
 		$params['seo'] = array(
 			'titulo' => 'Promociones - yuppics'
 		);

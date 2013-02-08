@@ -52,3 +52,10 @@ SERVICIOS APIs:
          nickname: TEST6876
          password: qatest2157
          site_status: active
+
+
+
+
+
+
+ALTER TABLE  `customers` ADD  `url_avatar` VARCHAR( 150 ) NOT NULL AFTER  `phone`;

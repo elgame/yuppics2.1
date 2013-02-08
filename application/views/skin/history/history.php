@@ -1,30 +1,21 @@
-		<div id="content" class="span8">
+		<div id="content" class="span7 mtop-content">
 			<!-- content starts -->
-			
-			<div>
-				<ul class="breadcrumb">
-					<li>
-						<a href="<?php echo base_url(); ?>">Inicio</a> <span class="divider">/</span>
-					</li>
-					<li>
-						Historial de compras
-					</li>
-				</ul>
-			</div>
 
 			<div class="row-fluid">
-				<div class="hero-unit">
-					<h3>Revisa tus reportes</h3>
-					<p>A continuación se presenta un listado con el historial de cada una de tus compras dentro de la aplicacion, para consultar más detalles sobre cada compra, da clic sobre la celda para ver más detalles al respecto.</p>
+				<div class="hero-unit unitwhite">
+					<div class="unit-body unit-foo">
+						<h3>Revisa tus reportes</h3>
+						<p>A continuación se presenta un listado con el historial de cada una de tus compras dentro de la aplicacion, para consultar más detalles sobre cada compra, da clic sobre la celda para ver más detalles al respecto.</p>
+					</div>
 				</div>
 			</div>
 					
 			
-			<h2>Historial de compras</h2>
+			<h2 class="myriad" style="color:#464f55;">Historial de compras</h2>
 
 			<div class="row-fluid">
 					<div class="span12">
-						<div class="accordion" id="hisotry-accordion">
+						<div class="accordion accord_barr_rig" id="hisotry-accordion">
 				<?php 
 				if(isset($orders)){
 					if (is_array($orders)) {
@@ -38,8 +29,8 @@
 						        <span class="span2"><?php echo count($value->yuppics); ?></span>
 						        <span class="span2"><?php echo String::formatoNumero($value->total_discount); ?>MXN</span>
 						        <span class="span3"><?php echo String::formatoNumero($value->total); ?>MXN</span>
+						        <div class="clearfix"></div>
 						      </a>
-						      <div class="clearfix"></div>
 						    </div>
 						    <div id="collapse<?php echo $value->id_order; ?>" class="accordion-body collapse">
 						      <div class="accordion-inner">
@@ -49,15 +40,15 @@
 						      	<fieldset>
 						      		<legend style="font-size: 15px;"><?php echo $yuppic->title; ?></legend>
 						      		<div class="row-fluid">
-								        <span class="span3 tacenter">Precio</span>
+								        <span class="span3 tacenter strongss">Precio</span>
 								        <span class="span3"><?php echo String::formatoNumero($yuppic->unitary_price); ?>MXN</span>
-								        <span class="span3 tacenter">Fecha</span>
+								        <span class="span3 tacenter strongss">Fecha</span>
 								        <span class="span3"><?php echo String::humanDate(strtotime($yuppic->created)); ?></span>
 								      </div>
 								      <div class="row-fluid">
-								        <span class="span3 tacenter">Cantidad</span>
+								        <span class="span3 tacenter strongss">Cantidad</span>
 								        <span class="span3"><?php echo $yuppic->quantity; ?> yuppic<?php echo ($yuppic->quantity>1? 's': ''); ?></span>
-								        <span class="span3 tacenter">Subtotal</span>
+								        <span class="span3 tacenter strongss">Subtotal</span>
 								        <span class="span3"><?php echo String::formatoNumero($yuppic->quantity*$yuppic->unitary_price); ?>MXN</span>
 								      </div>
 						      	</fieldset>

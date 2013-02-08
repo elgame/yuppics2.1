@@ -13,13 +13,20 @@
 
 .cupon{
 	background-color: #fff; 
-	padding: 3% 4% 1% 4%;
+	padding: 3% 1% 1% 1%;
 	border: 1px #ccc solid;
 }
 .cupon_left span{
 	font-size: 2em;
-
 }
 .cupon_code{
+	font-weight: bold;
 	border-bottom: 2px #ccc solid;
+	font-size: 13px;
+}
+.cupon .span6 p{
+	color: #888;
+	font-size: 11px;
+	line-height: 14px;
+	text-align: center;
 }

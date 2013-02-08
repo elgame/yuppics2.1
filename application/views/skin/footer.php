@@ -29,7 +29,7 @@
 				<textarea name="message" rows="7" cols="10" class="input-block-level" id="message" placeholder="Inserte comentarios en este apartado" required></textarea>
 			</div>
 			<div class="control-group">
-				<button type="submit" class="btn btn-primary btn-large input-xxlarge" id="btn-contact">Enviar mensaje</button>
+				<button type="submit" class="btn btn-success btn-large input-xxlarge" id="btn-contact">Enviar mensaje</button>
 			</div>
 		</form>
 
