@@ -24,7 +24,7 @@ class coupons_model extends CI_Model{
 
 			$response = $res->row();
 			$res->free_result();
-			
+
 			return $response;
 		}else
 			return false;
@@ -35,7 +35,8 @@ class coupons_model extends CI_Model{
 		$data = array(
 			'code'       => String::RandomString(8),
 			'uses_total' => (isset($params['uses_total'])? $params['uses_total']: 1),
-			'amount'     => $this->getProduct()
+			'amount'     => (isset($params['amount'])) ? $params['amount'] : $this->getProduct(),
+      'percentage' => (isset($params['percentage'])) ? $params['percentage'] : $this->get_global_percentage(),
 			);
 		if (isset($params['name']))
 			$data['name'] = $params['name'];
@@ -47,11 +48,10 @@ class coupons_model extends CI_Model{
 		$this->db->insert('coupons', $data);
 		$id = $this->db->insert_id();
 
-		$response =  $this->getCoupon($id); 
+		$response =  $this->getCoupon($id);
 
 		return $response;
 	}
-
 
 	public function getProduct($all=false){
 		$resy = $this->db->query("SELECT * FROM products WHERE name = 'yuppics'");
@@ -67,5 +67,14 @@ class coupons_model extends CI_Model{
 			return 0;
 	}
 
+  public function get_global_percentage()
+  {
+    $resy = $this->db->query("SELECT percentage FROM config");
+    if ($resy->num_rows() > 0)
+    {
+      return $resy->row()->percentage;
+    }
+    return 100;
+  }
 
 }

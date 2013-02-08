@@ -27,7 +27,7 @@ APIKEY AVIARY:
 
 
 SERVICIOS APIs:
- 
+
   ☐ Facebook
     - authentication server-side (http://developers.facebook.com/docs/howtos/login/server-side-login/)
     - Compartir enlace o invitar amigos (Dialogos -> http://developers.facebook.com/docs/reference/dialogs/requests/)
@@ -59,3 +59,9 @@ SERVICIOS APIs:
 
 
 ALTER TABLE  `customers` ADD  `url_avatar` VARCHAR( 150 ) NOT NULL AFTER  `phone`;
+
+
+
+
+ALTER TABLE  `config` ADD  `percentage` DOUBLE UNSIGNED NOT NULL COMMENT  'Porcentaje para los cupones'
+ALTER TABLE  `coupons` ADD  `percentage` DOUBLE UNSIGNED NOT NULL DEFAULT  '0' COMMENT  'Porcentaje Aplicado' AFTER  `amount`

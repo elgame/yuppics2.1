@@ -96,7 +96,7 @@
 
 							<div class="span5 cupon">
 								<div class="span6 tacenter cupon_left">
-									<span>100%</span>
+									<span><?php echo $status->coupon->percentage; ?>%</span>
 									<p>De descuento</p>
 								</div>
 								<div class="span6">
