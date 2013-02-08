@@ -21,7 +21,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 5px;
+	width: 8px;
 	height: 100%;
 	background: red;
 }
@@ -31,9 +31,15 @@
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	width: 100%;
-	height: 5px;
+	width: 90%; /*----*/
+	height: 8px;
 	background: red;
+
+  border:1px solid #DBDCDD;
+  -moz-border-radius: 10px !important;
+  -webkit-border-radius:10px !important;
+  border-radius: 10px !important;
+  margin: 0 0 0 20px; /*----*/
 }
 
 .jspVerticalBar *,
@@ -55,17 +61,23 @@
 
 .jspTrack
 {
-	background: #dde;
+	background: #DBDCDD; /*#dde*/
 	position: relative;
+  width: 100% !important;
 }
 
 .jspDrag
 {
-	background: #bbd;
+	background: #AEAEAF; /*#bbd*/
 	position: relative;
 	top: 0;
 	left: 0;
 	cursor: pointer;
+
+  border:1px solid #AEAEAF;
+  -moz-border-radius: 10px !important;
+  -webkit-border-radius:10px !important;
+  border-radius: 10px !important;
 }
 
 .jspHorizontalBar .jspTrack,
