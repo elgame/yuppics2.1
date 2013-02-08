@@ -205,5 +205,19 @@ class UploadFiles{
 		return 'ok';
 	}
 
+/**
+ *    Obtiene el contenido de un url que apunta a un archivo (imagen, txt etc etc)
+ *    y lo guarda en el directorio y nombre expecificado ($dir)
+ *    @param  [String] $url [URL donde se encuentra el archivo]
+ *    @param  [String] $dir [Path o Directorio junto con el nombre Ej. application/images/foto.jpg]
+ */
+  public static function copy_file_url($url, $dir)
+  {
+    $file = file_get_contents($url);
+    if ($file !== FALSE)
+      file_put_contents($dir, $file);
+    return $file;
+  }
+
 }
 ?>

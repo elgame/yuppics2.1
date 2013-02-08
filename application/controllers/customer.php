@@ -141,6 +141,7 @@ class customer extends MY_Controller {
 			'first_name' => $user->first_name,
 			'last_name'  => (isset($user->last_name)? $user->last_name: ''),
 			'email'      => $user->email,
+      'picture'    => $user->pictures['small'],
 			);
 		$this->customer_model->customer_social_checkin($params);
 	}
@@ -173,13 +174,21 @@ class customer extends MY_Controller {
 		{
 			$mdl_res = $this->customer_model->register_customer();
 
-			$params['frm_errors'] = array(
-					'title' => '',
-					'msg'   => 'Te has registrado correctamente a yuppics, <a href="#modal_ingreso" role="button" class="btn btn-small btn-info" data-toggle="modal">Ingresa con tu cuenta</a>',
-					'ico'   => 'success');
+      $msg = 'Te has registrado correctamente a yuppics, <a href="#modal_ingreso" role="button" class="btn btn-small btn-info" data-toggle="modal">Ingresa con tu cuenta</a>';
+      $ico = 'success';
+      if (isset($mdl_res['msg']))
+      {
+        $msg = $mdl_res['msg'];
+        $ico = 'error';
+      }
+
+      $params['frm_errors'] = array(
+            'title' => '',
+            'msg'   => $msg,
+            'ico'   => $ico);
 		}
 
-		echo json_encode($params);
+    echo json_encode($params);
 	}
 
 	/*

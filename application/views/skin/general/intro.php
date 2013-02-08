@@ -88,7 +88,7 @@
 
 	<div id="modal_registro" class="modal hide fade">
 		<form action="<?php echo base_url('customer/register/')?>" method="POST" class="form-horizontal" data-sendajax="true"
-				data-alert="register_alert" data-reset="true">
+				data-alert="register_alert" data-reset="true" enctype="multipart/form-data">
 			<div class="modal-header">
 				<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h3>Modal header</h3> -->
@@ -136,6 +136,13 @@
 							</div>
 						</div>
 
+            <div class="control-group">
+              <label for="avatar" class="control-label">Avatar</label>
+              <div class="controls">
+                <input type="file" name="avatar" value="">
+              </div>
+            </div>
+
 						<div class="password-container">
 							<div class="control-group">
 								<label for="password" class="control-label">Password</label>
@@ -154,7 +161,6 @@
 								</div>
 							</div>
 						</div>
-
 				</div>
 
 

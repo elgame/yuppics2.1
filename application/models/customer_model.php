@@ -27,7 +27,7 @@ class customer_model extends CI_Model{
 				return $response;
 
 			//Informacion extra
-			
+
 		}else
 			return false;
 	}
@@ -47,6 +47,41 @@ class customer_model extends CI_Model{
 			'created'    => date('Y-m-d H:i:s'),
 			'status'     => 'on',
 		);
+
+    if (isset($_FILES['avatar']))
+    {
+      $this->load->library('my_upload');
+
+      $config_upload = array(
+        'upload_path'     => APPPATH.'images/avatars/',
+        'allowed_types'   => 'jpg|png',
+        'max_size'        => '2048',
+        'encrypt_name'    => TRUE
+      );
+
+      $this->my_upload->initialize($config_upload);
+
+      $config_resize = array(
+        'image_library' => 'gd2',
+        'source_image'  => '',
+        'width'         => '50',
+        'height'        => '280',
+        'maintain_ratio' => TRUE
+      );
+
+      $this->my_upload->do_resize     = TRUE;
+      $this->my_upload->config_resize = $config_resize;
+      $data_image = $this->my_upload->do_upload('avatar');
+
+      if (isset($data_image['file_name']))
+      {
+        $data['url_avatar'] = APPPATH.'images/avatars/'.$data_image['file_name'];
+      }
+      else
+      {
+        return array(FALSE, 'msg' => $data_image['msg']);
+      }
+    }
 
 		$this->db->insert('customers', $data);
 		return array('cid' => $this->db->insert_id());
@@ -69,10 +104,12 @@ class customer_model extends CI_Model{
 		// posibles valores en $data['social'] (facebook_id o twitter_id)
 		$data[$sdata['social']] = $sdata['sid'];
 
-		$valid = $this->db->select('id_customer, facebook_id, email')
-			->from('customers')
-			->where("facebook_id = '".$sdata['sid']."' OR email = '".$sdata['email']."'")
-		->get();
+		$valid = $this->db->select('id_customer, facebook_id, email, url_avatar')
+                			->from('customers')
+                			->where("facebook_id = '".$sdata['sid']."' OR email = '".$sdata['email']."'")
+                		  ->get();
+
+    $path_picture = APPPATH.'images/avatars/'.$sdata['sid'].'.jpg';
 		if ($valid->num_rows() > 0) // ya existe el usuario
 		{
 			$info = $valid->row();
@@ -83,10 +120,21 @@ class customer_model extends CI_Model{
 						'email'          => $sdata['email']
 					), "id_customer = ".$info->id_customer );
 			}
+
+      // Si el usuario no tiene un avatar actualiza la imagen
+      if ($info->url_avatar === '')
+      {
+        if (UploadFiles::copy_file_url($sdata['picture'], $path_picture) !== FALSE) // Guarda la imagen de Fb en el server
+          $this->db->update('customers', array('url_avatar' => $path_picture), "id_customer = ".$info->id_customer);
+      }
 		}
-		else  // Registra al usuario 
+		else  // Registra al usuario
 		{
 			$data['created'] = date('Y-m-d H:i:s');
+
+      // Guarda la imagen de Fb en el server y asigna el PATH de la picture al campo de la BDD
+      if (UploadFiles::copy_file_url($sdata['picture'], $path_picture) !== FALSE)
+        $data['url_avatar'] = $path_picture;
 
 			$this->db->insert('customers', $data);
 
@@ -154,7 +202,7 @@ class customer_model extends CI_Model{
 													'idunico' => uniqid('l', true));
 				$this->crea_session($user_data);
 		}
-			
+
 			return array($fun_res, 'msg'=>'El correo electrónico y/o contraseña son incorrectos');
 		// return array($fun_res);
 	}

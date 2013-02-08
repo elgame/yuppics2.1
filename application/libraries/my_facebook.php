@@ -139,7 +139,10 @@ class  my_facebook {
   public function get_user_about_me($access_token)
   {
     $graph_url = $this->graph_url . "me?access_token=" . $access_token;
-    return json_decode(file_get_contents($graph_url));
+    $user = json_decode(file_get_contents($graph_url));
+    $user->pictures = array('small' => 'http://graph.facebook.com/'.$user->username.'/picture',
+                            'large' => 'http://graph.facebook.com/'.$user->username.'/picture?type=large');
+    return $user;
   }
 
   /**
