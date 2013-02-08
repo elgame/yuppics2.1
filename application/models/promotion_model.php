@@ -36,9 +36,15 @@ class promotion_model extends CI_Model{
 			// crea el cupon
 			if ($response->progress == 100 && $response->id_coupon == '') {
 				$this->load->model('coupons_model');
+
+        $global_percentage = $this->coupons_model->get_global_percentage();
+        $global_price      = $this->coupons_model->getProduct();
+
 				$response->coupon = $this->coupons_model->create(array(
 					'uses_total' => '1',
-					'name'       => 'Cupon de regalo'
+					'name'       => 'Cupon de regalo',
+          'amount'     => ($global_price * $global_percentage) / 100,
+          'percentage' => $global_percentage,
 					));
 				$this->db->update('customer_promo', array('id_coupon' => $response->coupon->id_coupon), "id_promo = ".$response->id_promo);
 			}
@@ -47,7 +53,7 @@ class promotion_model extends CI_Model{
 				$this->load->model('coupons_model');
 				$response->coupon = $this->coupons_model->getCoupon($response->id_coupon);
 			}
-			
+
 			return $response;
 		}else
 			return false;
@@ -59,15 +65,15 @@ class promotion_model extends CI_Model{
 		$data = array(
 				$field => $params
 				);
-		if ($field == 'feedback') 
+		if ($field == 'feedback')
 		{
 			$data[$field] = $params[0];
 			$data[$field.'_text'] = $params[1];
 		}
 
-		if ($response !== false) 
+		if ($response !== false)
 		{
-			$this->db->update('customer_promo', $data, array('id_customer' => $id_customer));	
+			$this->db->update('customer_promo', $data, array('id_customer' => $id_customer));
 		}
 		else
 		{

@@ -1,6 +1,6 @@
 		<div id="content" class="span8">
 			<!-- content starts -->
-			
+
 			<div>
 				<ul class="breadcrumb">
 					<li>
@@ -19,11 +19,11 @@
 						Cada actividad de la lista forma parte de un porcentaje para ganar un yuppic</p>
 				</div>
 			</div>
-					
-			
+
+
 			<div class="row-fluid">
 					<div class="span12">
-						
+
 						<div id="promo_alert" class="alert hide">
 							<button type="button" class="close">×</button>
 							<span></span>
@@ -91,7 +91,7 @@
 					</div><!--/span-->
 			</div><!--/row-->
 	<?php if (isset($status->progress)) {
-		if ($status->progress == 100) { 
+		if ($status->progress == 100) {
 	?>
 			<div class="row-fluid">
 				<div style="background-color: #fff; padding: 3% 4% 1% 4%;">
@@ -102,7 +102,7 @@
 
 					<div class="span5 cupon">
 						<div class="span6 tacenter cupon_left">
-							<span>100%</span>
+							<span><?php echo $status->coupon->percentage?>%</span>
 							<p>De descuento</p>
 						</div>
 						<div class="span6">
@@ -134,7 +134,7 @@
 					</div>
 				</div>
 
-				<div class="control-group">		
+				<div class="control-group">
 					<textarea name="feedback_text" rows="7" cols="10" class="input-block-level" id="feedback_text" placeholder="comentarios, observaciones y/o sugerencias" required></textarea>
 				</div>
 				<div class="control-group">
@@ -146,12 +146,12 @@
 
 <!-- Bloque de alertas -->
 <?php if(isset($frm_errors)){
-	if($frm_errors['msg'] != ''){ 
+	if($frm_errors['msg'] != ''){
 ?>
 <script type="text/javascript" charset="UTF-8">
 	$(document).ready(function(){
 		var valert = $("#<?php echo $frm_errors['objs']; ?>");
-		
+
 		valert.addClass("alert-<?php echo $frm_errors['ico']; ?>").show(300);
 		$("span", valert).html("<?php echo $frm_errors['msg']; ?>");
 	});
