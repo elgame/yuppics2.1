@@ -1,6 +1,6 @@
 /*!
  * Miscellaneous Bootstrap y definidos por el usuario
- * 
+ *
  * Clases CSS predefinidas que hacen una funcion espesifica
  * utilerias para asignar a los objetos
  */
@@ -35,7 +35,7 @@
 }
 
 /*centra un contenido*/
-div.center, p.center, 
+div.center, p.center,
 img.center, span.center{
   margin-left: auto !important;
   margin-right: auto !important;
@@ -67,4 +67,8 @@ img.center, span.center{
 
 .dropdown-menu.carrito_compra{
   width: 250px;
+}
+
+.mtop-content {
+  margin-top: 44px;
 }

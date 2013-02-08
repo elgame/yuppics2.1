@@ -22,14 +22,18 @@ class customer extends MY_Controller {
 
 	public function index(){
 		$this->carabiner->css(array(
+      array('libs/jquery.jscrollpane.css', 'screen'),
 			array('skin/dashboard/style.css', 'screen')
 		));
 
 		$this->carabiner->js(array(
 			array('libs/jquery.form.js'),
+      array('libs/jquery.mousewheel.min.js'),
+      array('libs/jquery.jscrollpane.min.js'),
 			array('skin/form_ajax.js'),
 			array('skin/contact.js'),
-			array('skin/newsletter.js')
+			array('skin/newsletter.js'),
+      array('skin/dashboard.js'),
 		));
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado

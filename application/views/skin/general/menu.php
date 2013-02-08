@@ -1,6 +1,33 @@
-			<!-- left menu starts -->
+      <!-- left menu starts -->
 			<div class="span2 main-menu-span">
-				<div class="well nav-collapse sidebar-nav">
+
+        <div class="search">
+          <form class="form-search">
+              <input type="text" class="input-small search-query input-search" id="search" placeholder="Realizar Búsqueda...">
+              <button type="submit" class="btn btn-search"><i class="yup-icon-search"></i></button>
+          </form>
+        </div>
+
+        <div class="well menu-user-info">
+          <div class="user-info">
+            <div class="user-avatar"><img src="<?php echo base_url(''); ?>"></div>
+            <span class="user-name">Jorge Suarez Basañez</span>
+            <span class="user-email">jorgefsb@gmail.com</span>
+          </div>
+          <div class="info-stats">
+            <div>
+              <span>103</span>
+              <span class="status">Comprados</span>
+            </div>
+            <div>
+              <span>53</span>
+              <span class="status">Pendientes</span>
+            </div>
+          </div>
+        </div>
+
+
+				<div class="well nav-collapse sidebar-nav bg-black">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<!-- <li class="nav-header hidden-tablet">Menú</li> -->
 
