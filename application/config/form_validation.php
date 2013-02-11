@@ -45,7 +45,10 @@ $config['customer/update'] = array(
 								  'rules' => 'min_length[6]|matches[repassword]|md5'),
 							array('field' => 'repassword',
 								  'label' => 'Re-password',
-								  'rules' => 'min_length[6]|md5'));
+								  'rules' => 'min_length[6]|md5'),
+              array('field' => 'avatar',
+                  'label' => 'Avatar',
+                  'rules' => ''));
 
 $config['address_book/add'] = array(
 							array('field' => 'contact_first_name',

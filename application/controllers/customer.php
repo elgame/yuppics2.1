@@ -259,10 +259,24 @@ class customer extends MY_Controller {
 		{
 			$mdl_res = $this->customer_model->update_customer();
 
-			$params['frm_errors'] = array(
-					'title' => '',
-					'msg'   => 'Se actualizo correctamente la informacion del perfil',
-					'ico'   => 'success');
+      $msg = 'Se actualizo correctamente la informacion del perfil';
+      $ico = 'success';
+      if (isset($mdl_res['msg']))
+      {
+        $msg = $mdl_res['msg'];
+        $ico = 'error';
+      }
+
+      $params['frm_errors'] = array(
+            'title' => '',
+            'msg'   => $msg,
+            'ico'   => $ico);
+
+
+			// $params['frm_errors'] = array(
+			// 		'title' => '',
+			// 		'msg'   => 'Se actualizo correctamente la informacion del perfil',
+			// 		'ico'   => 'success');
 		}
 
 		echo json_encode($params);

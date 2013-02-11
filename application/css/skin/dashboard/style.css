@@ -187,6 +187,8 @@ body{
 }
 .main-menu-span .menu-user-info .user-avatar img{
   float: none;
+  height: 100%;
+  width: auto;
 }
 
 .main-menu-span .menu-user-info .user-info {
@@ -475,6 +477,28 @@ i.icon-mconta{
 .paddin10{ padding: 10px !important; }
 .nopaddin{
   padding: 0 0 0 0 !important;
+}
+
+.box-content .accordion {
+  margin-bottom: 0 !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.box-content .accordion div:nth-last-child(1) {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.alert-transparent {
+  background-color: transparent !important;
+  color: red !important;
+  text-shadow: none !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 

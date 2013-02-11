@@ -18,8 +18,8 @@ class  my_facebook {
 	private $CI; // Instancia de Codeigniter
 
 	// Vars
-  public $APP_ID = '447729658597880'; // FACEBOOK APP ID
-	private $APP_SECRET = '84a20b6f73a3089b7dab5e536d946ce7'; // FACEBOOK APP SECRET
+  public $APP_ID = '512075685472594'; // FACEBOOK APP ID 447729658597880
+	private $APP_SECRET = 'c49714bb2f943ff53a2453099910bf25'; // FACEBOOK APP SECRET 84a20b6f73a3089b7dab5e536d946ce7
   private $graph_url = 'https://graph.facebook.com/';
 
   private $redirect_uri = '';	// URL A LA QUE FACEBOOK RE-DIRECCIONARA

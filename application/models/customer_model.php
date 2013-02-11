@@ -163,10 +163,57 @@ class customer_model extends CI_Model{
 		);
 		if ($this->input->post('username') != '')
 			$data['username'] = $this->input->post('username');
-		if ($this->input->post('username') != '')
+		if ($this->input->post('password') != '')
 			$data['password'] = $this->input->post('password');
 		if ($this->input->post('status') != '')
 			$data['status'] = $this->input->post('status');
+
+    if (isset($_FILES['avatar']))
+    {
+      $this->load->library('my_upload');
+
+      $result = $this->db->query("SELECT url_avatar
+                                  FROM customers
+                                  WHERE id_customer = " . $this->session->userdata('id_usuario'));
+
+      if ($result->num_rows() > 0)
+      {
+        $avatar = $result->result();
+        $path = base_url($avatar[0]->url_avatar);
+        UploadFiles::deleteFile($path);
+      }
+
+      $config_upload = array(
+        'upload_path'     => APPPATH.'images/avatars/',
+        'allowed_types'   => 'jpg|png',
+        'max_size'        => '2048',
+        'encrypt_name'    => TRUE
+      );
+
+      $this->my_upload->initialize($config_upload);
+
+      $config_resize = array(
+        'image_library' => 'gd2',
+        'source_image'  => '',
+        'width'         => '1',
+        'height'        => '50',
+        'master_dim'    => 'height',
+        'maintain_ratio' => TRUE
+      );
+
+      $this->my_upload->do_resize     = TRUE;
+      $this->my_upload->config_resize = $config_resize;
+      $data_image = $this->my_upload->do_upload('avatar');
+
+      if (isset($data_image['file_name']))
+      {
+        $data['url_avatar'] = APPPATH.'images/avatars/'.$data_image['file_name'];
+      }
+      else
+      {
+        return array(FALSE, 'msg' => $data_image['msg']);
+      }
+    }
 
 		$this->db->update('customers', $data, "id_customer = ".$this->input->post('customer'));
 		return true;

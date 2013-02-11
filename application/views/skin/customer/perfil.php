@@ -65,6 +65,13 @@
 									</div>
 								</div>
 
+                <div class="control-group">
+                  <label for="avatar" class="control-label">Avatar</label>
+                  <div class="controls">
+                    <input type="file" name="avatar" value="">
+                  </div>
+                </div>
+
 								<div class="password-container">
 									<div class="control-group">
 										<label for="password" class="control-label">Password</label>
@@ -130,7 +137,7 @@
 					<div class="paddin10" style="background-color: #fbfbfc;">
 						<div class="row-fluid">
 							<div class="span6">
-								
+
 
 									<div class="control-group">
 								<?php

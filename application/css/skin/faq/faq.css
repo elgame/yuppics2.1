@@ -6,11 +6,16 @@
 	text-decoration: underline;
 }
 
-
-
 #hisotry-accordion .accordion-inner legend{
 	font-weight: bold;
 }
 #hisotry-accordion .strongss{
 	font-weight: bold;
+}
+
+.box-content .accordion .accordion-toggle i.icon-faq-point,
+.box-content .accordion.accord_barr_rig .accordion-heading a:hover i {
+  padding-right: 10px;
+  background-image: url('../../../images/icon-faq-point.png');
+  background-position: center center;
 }
