@@ -20,7 +20,7 @@
               <span class="status">Comprados</span>
             </div>
             <div>
-              <span><?php echo count($carrito_compra); ?></span>
+              <span><?php echo (is_array($carrito_compra)? count($carrito_compra): 0); ?></span>
               <span class="status">Pendientes</span>
             </div>
           </div>

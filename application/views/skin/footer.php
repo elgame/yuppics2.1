@@ -7,10 +7,10 @@
 	<div id="modal_contact" class="modal hide fade"><!-- START modal contacto -->
 	  <div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	    <h2 id="myModalLabel1" style="display: inline;">Contacto</h2><span class="muted"> ¿Tienes alguna duda, comentario o sugerencia?</span>
+	    <h2 id="myModalLabel1" style="display: inline;">Contacto</h2>
 	  </div>
 	  <div class="modal-body">
-
+	  	<span class="muted" style="font-size:16px;">¿Tienes alguna duda, comentario o sugerencia?</span>
 	  	<form action="<?php echo base_url('contact/send');?>" method="POST" id="frm_contact" class="form-horizontal" data-sendajax="true"
 				data-alert="register_contact" data-reset="true">
 			<div class="control-group">
@@ -35,8 +35,8 @@
 
 	  </div>
 	  <div class="modal-footer center" style="background-color: #fff;">
-	  	<h3 class="muted">¿Deseas contactarnos? Puedes hacerlo también a través de nuestras redes sociales!</h3>
-	  	<span class="muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span>
+	  	<!-- <h3 class="muted">¿Deseas contactarnos? Puedes hacerlo también a través de nuestras redes sociales!</h3>
+	  	<span class="muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</span> -->
 	  </div>
 	</div><!-- END modal contacto -->
 
@@ -45,7 +45,7 @@
 	<div id="modal_newsletter" class="modal hide fade"><!-- START modal newsletter -->
 	  <div class="modal-header tacenter">
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	    <h2 id="myModalLabel2">Suscribete a nuestro Newsletter y mantente informado siempre!</h2>
+	    <h2 id="myModalLabel2">Suscribete a nuestro <span class="green">Newsletter</span> y mantente informado siempre!</h2>
 	    <span class="muted">No esperes más! y mantente al tanto de todas nuestras promociones, novedades y actividades que tenemos pensadas para ti.</span>
 	  </div>
 	  <div class="modal-body">
@@ -84,8 +84,7 @@
 
 	  </div>
 	  <div class="modal-footer center" style="background-color: #fff;">
-	  	<h3 class="muted">Importante</h3>
-	  	<span class="muted">Para activar tu cuenta debes revisar tu correo electronico y confirmar tu suscripciones la lista de novedades (newsletter) de yuppics</span>
+	  	<span class="muted" style="color:#bdbdbd;">Revisa tu correo electrónico y confirma  tu subscripción a través de la url incluida en dicho email, para formar parte de nuestra lista de novedades.</span>
 	  </div>
 	</div><!-- END modal newsletter -->
 <?php } ?>

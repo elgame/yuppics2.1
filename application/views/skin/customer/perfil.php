@@ -11,14 +11,17 @@
 			</div>
 
 
-			<h2>Edita tus datos</h2>
+			<h2 class="myriad" style="color:#464f55;">Edita tus datos</h2>
 
 			<div class="row-fluid">
 					<div class="box span12">
 						<div class="box-header well">
-							<h2><i class="icon-shopping-cart"></i> Informacion personal</h2>
-							<div class="box-icon">
-								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							<h2>Informacion personal</h2>
+
+							<div class="box-icon pull-right">
+								<div class="btn-group">
+								  <a href="#" class="btn btn-white btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+								</div>
 							</div>
 						</div>
 						<div class="box-content">
@@ -81,8 +84,8 @@
 									</div>
 								</div>
 
-								<div class="form-actions">
-								  <button type="submit" class="btn btn-primary">Guardar</button>
+								<div class="form-actions white_action">
+								  <button type="submit" class="btn btn-success">Guardar</button>
 								</div>
 
 							</form>
@@ -95,13 +98,16 @@
 
 				<div class="box span12" id="address">
 					<div class="box-header well">
-						<h2><i class="icon-shopping-cart"></i> Libro de direcciones</h2>
-						<div class="box-icon">
-							<a href="#modal_addaddress" class="btn btn-round" title="Agregar direccion" role="button" data-toggle="modal"><i class="icon-plus"></i></a>
-							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+						<h2>Libro de direcciones</h2>
+
+						<div class="box-icon pull-right">
+							<div class="btn-group">
+								<a href="#modal_addaddress" class="btn btn-white" title="Agregar direccion" role="button" data-toggle="modal"><i class="icon-plus"></i></a>
+								<a href="#" class="btn btn-white btn-minimize"><i class="icon-chevron-up"></i></a>
+							</div>
 						</div>
 					</div>
-					<div class="box-content">
+					<div class="box-content nopaddin">
 						<div class="row-fluid">
 							<div id="deleteaddress_alert" class="alert hide">
 								<button type="button" class="close" data-dismiss="alert">×</button>
@@ -109,14 +115,22 @@
 							</div>
 						</div>
 
+						<div class="row-fluid xxboxx">
+							<div class="span6 title-box">
+									Direccion predeterminada
+							</div>
+							<div class="span6 title-box">
+									Direccion predeterminada
+							</div>
+						</div>
 				<?php
 					if ($address_books != false)
 					{
 				?>
+					<div class="paddin10" style="background-color: #fbfbfc;">
 						<div class="row-fluid">
 							<div class="span6">
-								<fieldset>
-									<legend>Direccion predeterminada</legend>
+								
 
 									<div class="control-group">
 								<?php
@@ -131,27 +145,29 @@
 											echo '<strong>Direccion de envio</strong>';
 								?>
 										<p>
-											<?php
-											echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
-												($default->company!=''? $default->company.'<br>': '').
-												($default->rfc!=''? $default->rfc.'<br>': '').
-												$default->street.', '.$default->colony.'<br>'.
-												$default->city.', '.$default->state.', '.$default->country;
-											?>
-											<br><a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a>
+											<span class="span2">
+												<a href="#modal_updateaddress" class="btn-link update_address center" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">
+													<img src="<?php echo base_url('application/images/edit-dir.png'); ?>" width="20" height="20">
+												</a>
+											</span>
+											<span class="span10">
+												<?php
+												echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
+													($default->company!=''? $default->company.'<br>': '').
+													($default->rfc!=''? $default->rfc.'<br>': '').
+													$default->street.', '.$default->colony.'<br>'.
+													$default->city.', '.$default->state.', '.$default->country;
+												?>
+											</span>
 										</p>
 								<?php
 									}
 								} ?>
 									</div>
 
-								</fieldset>
 							</div>
 
 							<div class="span6">
-								<fieldset>
-									<legend>Otras direcciones</legend>
-
 									<div class="control-group">
 									<?php
 									if (isset($address_books['others']))
@@ -160,26 +176,34 @@
 									?>
 										<strong>Direccion <?php echo $key+1; ?></strong>
 											<p>
-												<?php
-												echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
-													($default->company!=''? $default->company.'<br>': '').
-													($default->rfc!=''? $default->rfc.'<br>': '').
-													$default->street.', '.$default->colony.'<br>'.
-													$default->city.', '.$default->state.', '.$default->country;
-												?>
-												<br>
-												<a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a> |
-												<a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link"
-													onclick="msb.confirm('Estas seguro de eliminar la direccion?', 'Libro de direcciones', this); return false;">Eliminar</a>
+												<span class="span2">
+													<a href="#modal_updateaddress" class="btn-link update_address center" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">
+														<img src="<?php echo base_url('application/images/edit-dir.png'); ?>" width="20" height="20">
+													</a>
+													<a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link center"
+														onclick="msb.confirm('Estas seguro de eliminar la direccion?', 'Libro de direcciones', this); return false;">
+														<img src="<?php echo base_url('application/images/delete-dir.png'); ?>" width="20" height="20">
+													</a>
+												</span>
+												<span class="span10">
+													<?php
+													echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
+														($default->company!=''? $default->company.'<br>': '').
+														($default->rfc!=''? $default->rfc.'<br>': '').
+														$default->street.', '.$default->colony.'<br>'.
+														$default->city.', '.$default->state.', '.$default->country;
+													?>
+												</span>
 											</p>
 									<?php
 										}
 									}?>
 									</div>
 
-								</fieldset>
 							</div>
 						</div>
+
+					</div>
 				<?php
 				}
 				else
@@ -198,7 +222,8 @@
 			</div><!--/row-->
 
 
-
+			<br>
+			<br>
 
 					<!-- content ends -->
 	</div><!--/#content.span8-->
@@ -208,12 +233,11 @@
 	<div id="modal_addaddress" class="modal hide fade">
 		<form action="<?php echo base_url('address_book/add/')?>" method="POST" class="form-horizontal" data-sendajax="true"
 				data-alert="address_alert" data-callback="address_success">
-
+			<div class="modal-header tacenter">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h2>Direccion</h2>
+		  </div>
 			<div class="modal-body">
-
-				<div class="span12" style="text-align:center;">
-					<h3 class="muted">Direccion</h3>
-				</div>
 
 				<div class="span12">
 						<div class="control-group">
@@ -307,8 +331,8 @@
 
 
 			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Guardar</button>
+			<div class="modal-footer" style="background-color: #fff;">
+				<button type="submit" class="btn btn-success">Guardar</button>
 			</div>
 		</form>
 	</div>
@@ -317,12 +341,11 @@
 	<div id="modal_updateaddress" class="modal hide fade">
 		<form id="frm_updateaddress" action="<?php echo base_url('address_book/update/')?>" method="POST" class="form-horizontal" data-sendajax="true"
 				data-alert="updateaddress_alert" data-callback="address_success">
-
+			<div class="modal-header tacenter">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h2>Modificar direccion</h2>
+		  </div>
 			<div class="modal-body">
-
-				<div class="span12" style="text-align:center;">
-					<h3 class="muted">Modificar direccion</h3>
-				</div>
 
 				<div class="span12">
 						<div class="control-group">
@@ -417,8 +440,8 @@
 
 
 			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Guardar</button>
+			<div class="modal-footer" style="background-color: #fff;">
+				<button type="submit" class="btn btn-success">Guardar</button>
 			</div>
 		</form>
 	</div>

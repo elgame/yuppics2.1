@@ -5,7 +5,7 @@ var msb = {
 		$('#myModal').modal().on('hidden', function(){
 			$(this).remove();
 		});
-		$('#myModal .btn-primary').on('click', function(){
+		$('#myModal .btn-success').on('click', function(){
 			if($.isFunction(callback)){
 				$('#myModal').modal("hide");
 				callback.call(this, obj);
@@ -27,7 +27,7 @@ var msb = {
 		$('#myModal').modal().on('hidden', function(){
 			$(this).remove();
 		});
-		$('#myModal .btn-primary').on('click', function(){
+		$('#myModal .btn-success').on('click', function(){
 			if($.isFunction(callback)){
 				$('#myModal').modal("hide");
 				callback.call(this, obj);
@@ -67,10 +67,10 @@ var msb = {
 		switch(type){
 			case 'confirm': 
 				footer = '<a href="#" class="btn cancel" data-dismiss="modal">No</a>'+
-							 '<a href="#" class="btn btn-primary">Si</a>';
+							 '<a href="#" class="btn btn-success">Si</a>';
 			break;
 			case 'info': 
-				footer = '<a href="#" class="btn btn-primary" data-dismiss="modal">Ok</a>';
+				footer = '<a href="#" class="btn btn-success" data-dismiss="modal">Ok</a>';
 			break;
 		}
 

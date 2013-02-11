@@ -457,6 +457,27 @@ i.icon-mconta{
   z-index: 100;
 }
 
+/*box*/
+.form-actions.white_action{
+  background-color: #f8f8f8;
+}
+.xxboxx{
+  border-bottom: 1px #dfdede solid;
+}
+.xxboxx .title-box{
+  font-size: 18px;
+  color: #444;
+  padding: 12px 10px;
+}
+.box .box-content .control-group{
+  color: #666666;
+}
+.paddin10{ padding: 10px !important; }
+.nopaddin{
+  padding: 0 0 0 0 !important;
+}
+
+
 /************* Barra right *********************/
 .well.well-small.create_yupps{
 	padding: 0;
@@ -529,6 +550,12 @@ i.icon-mconta{
 .modal form{
 	padding: 0;
 	margin: 0;
+}
+.modal-header h2 .green{
+  color: #77bf6c;
+}
+.modal .modal-footer{
+  background-color: #fff;
 }
 a.link_black{
 	color: #3d4148;

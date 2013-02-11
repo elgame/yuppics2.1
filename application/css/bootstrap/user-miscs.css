@@ -36,7 +36,8 @@
 
 /*centra un contenido*/
 div.center, p.center,
-img.center, span.center{
+img.center, span.center,
+a.center{
   margin-left: auto !important;
   margin-right: auto !important;
   float: none !important;

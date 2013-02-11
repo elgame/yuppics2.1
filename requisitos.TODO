@@ -59,9 +59,5 @@ SERVICIOS APIs:
 
 
 ALTER TABLE  `customers` ADD  `url_avatar` VARCHAR( 150 ) NOT NULL AFTER  `phone`;
-
-
-
-
 ALTER TABLE  `config` ADD  `percentage` DOUBLE UNSIGNED NOT NULL COMMENT  'Porcentaje para los cupones'
 ALTER TABLE  `coupons` ADD  `percentage` DOUBLE UNSIGNED NOT NULL DEFAULT  '0' COMMENT  'Porcentaje Aplicado' AFTER  `amount`

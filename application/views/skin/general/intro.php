@@ -34,14 +34,15 @@
 
 	<div id="modal_ingreso" class="modal span8 hide fade">
 		<div class="modal-header">
+			<div class="span12 center">
+				<h2>yuppics</h2>
+			</div>
 			<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			<h3>Modal header</h3> -->
 		</div>
 		<div class="modal-body">
 
-			<div class="span12 center">
-				<h1>yuppics</h1>
-			</div>
+			
 
 			<div class="span11 center">
 				<h3 class="muted">Imprime tus momentos especiales con yuppics</h3>
@@ -50,7 +51,7 @@
 				<form id="frm_login" action="<?php echo base_url('customer/login'); ?>" method="POST" class="form-horizontal"
 					data-sendajax="true" data-alert="login_alert" data-callback="login_success">
 					<div class="control-group">
-						<span>Ingresa tus datos para entrar o <a href="#modal_registro" role="button" data-toggle="modal">Registrate</a></span>
+						<span>Ingresa tus datos para entrar o <a href="#modal_registro" role="button" data-toggle="modal" style="color:#70ba57;">Registrate</a></span>
 					</div>
 
 					<div class="control-group">
@@ -67,14 +68,14 @@
 						<input type="password" name="password" id="password" class="input-block-level" placeholder="Password">
 					</div>
 					<div class="control-group">
-						<input type="submit" class="btn btn-block" value="Ingresa a tu cuenta en Yuppics">
+						<input type="submit" class="btn btn-success btn-block" value="Ingresa a tu cuenta en Yuppics">
 					</div>
 				</form>
 			</div>
 			<div class="span1 tacenter vamodal"><strong>Ó</strong></div>
 			<div class="span5">
 				<div style="margin-top:30px;">
-					<input type="button" class="btn btn-link" value="Conectate vía facebook" id="loginFb"/>
+					<input type="button" class="btn btn-success btn-link" value="Conectate vía facebook" id="loginFb"/>
 				</div>
 				<span>Ac magnis ultrices pulvinar! Nec dolor tincidunt rhoncus aliquet natoque</span>
 			</div>
@@ -90,14 +91,14 @@
 		<form action="<?php echo base_url('customer/register/')?>" method="POST" class="form-horizontal" data-sendajax="true"
 				data-alert="register_alert" data-reset="true" enctype="multipart/form-data">
 			<div class="modal-header">
+				<div class="span12 center">
+					<h2>Registro</h2>
+				</div>
 				<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h3>Modal header</h3> -->
 			</div>
 			<div class="modal-body">
-
-				<div class="span12" style="text-align:center;">
-					<h3 class="muted">Registro</h3>
-				</div>
+				
 
 				<div class="span12">
 						<div class="control-group">
@@ -165,9 +166,8 @@
 
 
 			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Registrarme</button>
-				<button type="reset" class="btn">Limpiar</button>
+			<div class="modal-footer" style="background-color:#fff;">
+				<button type="submit" class="btn btn-success">Registrarme</button>
 			</div>
 		</form>
 	</div>
