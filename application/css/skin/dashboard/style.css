@@ -501,6 +501,15 @@ i.icon-mconta{
   box-shadow: none !important;
 }
 
+i.icon-faq-point {
+  padding-right: 10px;
+  background-image: url('../../../images/icon-faq-point.png');
+  background-position: center center;
+}
+
+.green-text {
+  color: #77BF6C;
+}
 
 /************* Barra right *********************/
 .well.well-small.create_yupps{

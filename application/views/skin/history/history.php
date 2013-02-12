@@ -49,18 +49,18 @@
   						  foreach ($value->yuppics as $key => $yuppic) {
   						  ?>
   						      	<fieldset>
-  						      		<legend style="font-size: 15px;"><?php echo $yuppic->title; ?></legend>
+  						      		<legend style="font-size: 15px; border-bottom: none;"><i class="icon-faq-point"></i><?php echo $yuppic->title; ?></legend>
   						      		<div class="row-fluid">
   								        <span class="span3 tacenter strongss">Precio</span>
-  								        <span class="span3"><?php echo String::formatoNumero($yuppic->unitary_price); ?>MXN</span>
+  								        <span class="span3 green-text"><?php echo String::formatoNumero($yuppic->unitary_price); ?>MXN</span>
   								        <span class="span3 tacenter strongss">Fecha</span>
-  								        <span class="span3"><?php echo String::humanDate(strtotime($yuppic->created)); ?></span>
+  								        <span class="span3 green-text"><?php echo String::humanDate(strtotime($yuppic->created)); ?></span>
   								      </div>
   								      <div class="row-fluid">
   								        <span class="span3 tacenter strongss">Cantidad</span>
-  								        <span class="span3"><?php echo $yuppic->quantity; ?> yuppic<?php echo ($yuppic->quantity>1? 's': ''); ?></span>
+  								        <span class="span3 green-text"><?php echo $yuppic->quantity; ?> yuppic<?php echo ($yuppic->quantity>1? 's': ''); ?></span>
   								        <span class="span3 tacenter strongss">Subtotal</span>
-  								        <span class="span3"><?php echo String::formatoNumero($yuppic->quantity*$yuppic->unitary_price); ?>MXN</span>
+  								        <span class="span3 green-text"><?php echo String::formatoNumero($yuppic->quantity*$yuppic->unitary_price); ?>MXN</span>
   								      </div>
   						      	</fieldset>
   						  <?php

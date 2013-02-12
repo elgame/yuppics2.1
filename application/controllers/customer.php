@@ -51,8 +51,22 @@ class customer extends MY_Controller {
 		//Yuppics comprados
 		//listado
 		$this->load->model('yuppics_model');
-		$params['info_dash']->listado1 = $this->yuppics_model->getYuppicsCP(1);
-		$params['info_dash']->listado2 = $this->yuppics_model->getYuppicsCP(0);
+    $is_search = FALSE;
+    if (isset($_GET['search']))
+    {
+      if ($_GET['search'] !== '')
+      {
+        $params['info_dash']->listado1 = $this->yuppics_model->getYuppicsCP(1, true);
+        $params['info_dash']->listado2 = $this->yuppics_model->getYuppicsCP(0, true);
+        $is_search = TRUE;
+      }
+    }
+
+    if ($is_search === FALSE)
+    {
+      $params['info_dash']->listado1 = $this->yuppics_model->getYuppicsCP(1);
+      $params['info_dash']->listado2 = $this->yuppics_model->getYuppicsCP(0);
+    }
 
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);

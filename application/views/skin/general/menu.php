@@ -2,8 +2,8 @@
 			<div class="span2 main-menu-span">
 
         <div class="search">
-          <form class="form-search">
-              <input type="text" class="input-small search-query input-search" id="search" placeholder="Realizar Búsqueda...">
+          <form action="<?php echo base_url('customer/'); ?>" method="GET" class="form-search">
+              <input type="text" name="search" class="input-small search-query input-search" id="search" placeholder="Realizar Búsqueda...">
               <button type="submit" class="btn btn-search"><i class="yup-icon-search"></i></button>
           </form>
         </div>

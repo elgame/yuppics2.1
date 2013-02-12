@@ -47,7 +47,6 @@ class history extends MY_Controller {
 		$this->load->model('history_model');
 		$params['orders'] = $this->history_model->getHistory($this->session->userdata('id_usuario'));
 
-
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
 		$this->load->view('skin/history/history', $params);
