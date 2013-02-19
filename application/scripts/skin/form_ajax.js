@@ -7,7 +7,7 @@ var form_ajax = (function($){
 	function initialize(){
 		$("form[data-sendajax=true]").each(function(){
 			var target = $(this);
-			target.ajaxForm({ 
+			target.ajaxForm({
 				success:  function(data){
 					success(data, target)
 				},

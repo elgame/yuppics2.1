@@ -29,14 +29,41 @@
             <div class="tabbable"> <!-- Only required for left/right tabs -->
               <div class="btn-group btn-sstyle">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab-comprados" class="btn" data-toggle="tab">Comprados</a></li>
-                  <li><a href="#tab-pendientes" class="btn" data-toggle="tab">Pendientes</a></li>
+                  <li class="active"><a href="#tab-pendientes" class="btn" data-toggle="tab">Pendientes</a></li>
+                  <li><a href="#tab-comprados" class="btn" data-toggle="tab">Comprados</a></li>
                 </ul>
               </div>
               <div class="tab-content">
-                <div class="tab-pane active scroll-pane horizontal-only" id="tab-comprados">
 
-              <?php 
+                <div class="tab-pane active scroll-pane horizontal-only" id="tab-pendientes">
+            <?php
+              if (is_array($info_dash->listado2)) { ?>
+                  <!-- 374 -->
+                  <ul class="thumbnails" style="width: <?php echo count($info_dash->listado2)*374; ?>px;">
+              <?php
+                foreach ($info_dash->listado2 as $key => $value) {
+              ?>
+                    <li class="span6" style="width: 360px;">
+                      <div class="thumbnail">
+                        <div style="width: 360px; height: 200px;overflow: hidden;">
+                          <img alt="<?php echo $value->title; ?>" style="width: 360px; height: auto;" src="<?php echo base_url($value->url_img); ?>">
+                        </div>
+                        <div class="caption">
+                          <h3><?php echo $value->title; ?></h3>
+                          <p>Creado: <?php echo String::humanDate(strtotime($value->created)); ?></p>
+                        </div>
+                        <a class="shopcar" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>"></a>
+                      </div>
+                    </li>
+          <?php } ?>
+                  </ul>
+        <?php } ?>
+                </div>
+
+
+                <div class="tab-pane scroll-pane horizontal-only" id="tab-comprados">
+
+              <?php
               if (is_array($info_dash->listado1)) { ?>
                   <!-- 374 -->
                   <ul class="thumbnails" style="width: <?php echo count($info_dash->listado1)*374; ?>px;">
@@ -59,30 +86,6 @@
                   </ul>
         <?php } ?>
 
-                </div>
-                <div class="tab-pane scroll-pane horizontal-only" id="tab-pendientes">
-            <?php 
-              if (is_array($info_dash->listado2)) { ?>
-                  <!-- 374 -->
-                  <ul class="thumbnails" style="width: <?php echo count($info_dash->listado2)*374; ?>px;">
-              <?php
-                foreach ($info_dash->listado2 as $key => $value) {
-              ?>
-                    <li class="span6" style="width: 360px;">
-                      <div class="thumbnail">
-                        <div style="width: 360px; height: 200px;overflow: hidden;">
-                          <img alt="<?php echo $value->title; ?>" style="width: 360px; height: auto;" src="<?php echo base_url($value->url_img); ?>">
-                        </div>
-                        <div class="caption">
-                          <h3><?php echo $value->title; ?></h3>
-                          <p>Creado: <?php echo String::humanDate(strtotime($value->created)); ?></p>
-                        </div>
-                        <a class="shopcar" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>"></a>
-                      </div>
-                    </li>
-          <?php } ?>
-                  </ul>
-        <?php } ?>
                 </div>
 
               </div>

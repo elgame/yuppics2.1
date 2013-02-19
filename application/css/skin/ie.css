@@ -1,0 +1,48 @@
+/**** CSS para definir el style de los elementos que no se visualizen adecuadamente en IE ****/
+
+/*---- Alertas ----*/
+.alert-danger,
+.alert-error,
+.alert-success,
+.alert-info {
+  color: #FFF;
+}
+
+
+/*---- HEADERS ----*/
+.alert-browser {
+  width: 99.8%;
+  height: 20px;
+  padding: 15px 0 15px 0;
+  font-size: 1.2em;
+}
+
+.alert-browser a{
+  color: #FCD209;
+}
+
+.alert-browser .close{
+  top: -16px;
+  right: 13px;
+}
+
+.navbar .dropdown-menu::after {
+  border-bottom: #FFF 6px solid !important;
+}
+
+.mnu-info-usr ul{
+  border: 1px solid #5C5C5F;
+}
+
+/*---- MENU ----*/
+.well {
+  border: none;
+}
+
+i[class*="icon-m"] {
+  margin-top: -35px;
+}
+
+.accordion-history .accordion-inner {
+  margin-left: 0;
+}

@@ -26,56 +26,58 @@
             </div>
 
             <div class="box-content" style="padding: 0 !important;">
-  						<div class="accordion accord_barr_rig" id="hisotry-accordion">
-  				<?php
-  				if(isset($orders)){
-  					if (is_array($orders)) {
-  						foreach ($orders as $key => $value) {
-  				?>
-  							<div class="accordion-group">
-  						    <div class="accordion-heading">
-  						      <a class="accordion-toggle" data-toggle="collapse" data-parent="#hisotry-accordion" href="#collapse<?php echo $value->id_order; ?>">
-  						        <span class="span2">Orden No <?php echo $value->id_order; ?></span>
-  						        <span class="span3"><?php echo String::humanDate(strtotime($value->created)); ?></span>
-  						        <span class="span2"><?php echo count($value->yuppics); ?></span>
-  						        <span class="span2"><?php echo String::formatoNumero($value->total_discount); ?>MXN</span>
-  						        <span class="span3"><?php echo String::formatoNumero($value->total); ?>MXN</span>
-  						        <div class="clearfix"></div>
-  						      </a>
-  						    </div>
-  						    <div id="collapse<?php echo $value->id_order; ?>" class="accordion-body collapse">
-  						      <div class="accordion-inner">
-  						  <?php
-  						  foreach ($value->yuppics as $key => $yuppic) {
-  						  ?>
-  						      	<fieldset>
-  						      		<legend style="font-size: 15px; border-bottom: none;"><i class="icon-faq-point"></i><?php echo $yuppic->title; ?></legend>
-  						      		<div class="row-fluid">
-  								        <span class="span3 tacenter strongss">Precio</span>
-  								        <span class="span3 green-text"><?php echo String::formatoNumero($yuppic->unitary_price); ?>MXN</span>
-  								        <span class="span3 tacenter strongss">Fecha</span>
-  								        <span class="span3 green-text"><?php echo String::humanDate(strtotime($yuppic->created)); ?></span>
-  								      </div>
-  								      <div class="row-fluid">
-  								        <span class="span3 tacenter strongss">Cantidad</span>
-  								        <span class="span3 green-text"><?php echo $yuppic->quantity; ?> yuppic<?php echo ($yuppic->quantity>1? 's': ''); ?></span>
-  								        <span class="span3 tacenter strongss">Subtotal</span>
-  								        <span class="span3 green-text"><?php echo String::formatoNumero($yuppic->quantity*$yuppic->unitary_price); ?>MXN</span>
-  								      </div>
-  						      	</fieldset>
-  						  <?php
-  							} ?>
+  						<div class="accordion accord_barr_rig" id="history-accordion">
 
-  						      </div>
-  						    </div>
-  						  </div>
-  				<?php
-  						}
-  					}else{
-  						echo '<div class="alert alert-transparent">No has realizado ninguna compra</div>';
-  					}
-  				}
-  				 ?>
+                 <?php
+                  if(isset($orders)) {
+                    if (is_array($orders)) {
+                      foreach ($orders as $key => $value) {
+                  ?>
+                          <div class="accordion-group accordion-history">
+
+                            <div class="accordion-heading">
+                              <a class="accordion-toggle" data-toggle="collapse" data-parent="#history-accordion" href="#collapse<?php echo $value->id_order; ?>">
+                                <span class="span2">Orden No <?php echo $value->id_order; ?></span>
+                                <span class="span3"><?php echo String::humanDate(strtotime($value->created)); ?></span>
+                                <span class="span2"><?php echo count($value->yuppics); ?></span>
+                                <span class="span2"><?php echo String::formatoNumero($value->total_discount); ?>MXN</span>
+                                <span class="span3"><?php echo String::formatoNumero($value->total); ?>MXN</span>
+                                <div class="clearfix"></div>
+                                <div class="clearfix"></div>
+                              </a>
+                            </div>
+                            <div id="collapse<?php echo $value->id_order; ?>" class="accordion-body collapse">
+                              <div class="accordion-inner">
+
+                                  <?php foreach ($value->yuppics as $key => $yuppic) { ?>
+                                            <fieldset >
+                                              <legend style="font-size: 15px; border-bottom: none;"><i class="icon-faq-point"></i><?php echo $yuppic->title; ?></legend>
+                                              <div class="row-fluid">
+                                                <span class="span3 tacenter strongss">Precio</span>
+                                                <span class="span3 green-text"><?php echo String::formatoNumero($yuppic->unitary_price); ?>MXN</span>
+                                                <span class="span3 tacenter strongss">Fecha</span>
+                                                <span class="span3 green-text"><?php echo String::humanDate(strtotime($yuppic->created)); ?></span>
+                                              </div>
+                                              <div class="row-fluid">
+                                                <span class="span3 tacenter strongss">Cantidad</span>
+                                                <span class="span3 green-text"><?php echo $yuppic->quantity; ?> yuppic<?php echo ($yuppic->quantity>1? 's': ''); ?></span>
+                                                <span class="span3 tacenter strongss">Subtotal</span>
+                                                <span class="span3 green-text"><?php echo String::formatoNumero($yuppic->quantity*$yuppic->unitary_price); ?>MXN</span>
+                                              </div>
+                                            </fieldset>
+                                  <?php } ?>
+
+                              </div>
+                            </div>
+
+                          </div>
+                <?php }
+
+                    } else {
+                      echo '<div class="alert alert-transparent">No has realizado ninguna compra</div>';
+                    }
+                  }
+                   ?>
 
   						</div>
             </div>

@@ -24,6 +24,7 @@ $config['customer/register'] = array(
               array('field' => 'avatar',
                   'label' => 'Avatar',
                   'rules' => ''));
+
 $config['customer/update'] = array(
 							array('field' => 'customer',
 								  'label' => 'Cliente',
@@ -75,6 +76,7 @@ $config['address_book/add'] = array(
 							array('field' => 'state',
 								  'label' => 'Estado',
 								  'rules' => 'required'));
+
 $config['address_book/update'] = array(
 							array('field' => 'id_address',
 								  'label' => 'id direccion',

@@ -18,10 +18,10 @@
 		$this->carabiner->display('js');
 	}
 ?>
-
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('application/css/skin/ie.css'); ?>" />
 	<![endif]-->
 
 <script type="text/javascript" charset="UTF-8">
@@ -39,8 +39,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				
-				<!-- <a class="brand" href="<?php echo base_url(); ?>"> 
+
+				<!-- <a class="brand" href="<?php echo base_url(); ?>">
 					<img alt="logo" src="<?php echo base_url('application/images/logo.png'); ?>" width="67" height="67">
 					<span>Yuppics</span>
 				</a> -->
@@ -54,7 +54,7 @@
 
 		<?php if ($this->session->userdata('nombre')!='') { ?>
 				<!-- user dropdown starts -->
-				<div class="under_group pull-right">
+				<div class="under_group pull-right mnu-info-usr">
 					<div class="btn-group" >
 						<a class="btn" href="<?php echo base_url('customer/perfil/');?>">
 							<span class="hidden-phone"> <?php echo $this->session->userdata('nombre'); ?></span>
@@ -64,7 +64,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo base_url('customer/perfil/');?>">Perfil</a></li>
-							<li class="divider"></li>
+							<!-- <li class="divider"></li> -->
 							<li><a href="<?php echo base_url('customer/logout'); ?>">Cerrar sesión</a></li>
 						</ul>
 					</div>
@@ -72,7 +72,7 @@
 				<!-- user dropdown ends -->
 		<?php } ?>
 
-		<?php if (isset($carrito_compra)) {  
+		<?php if (isset($carrito_compra)) {
 						$carrito_compra = is_array($carrito_compra)? $carrito_compra: array();
 			?>
 				<!-- carrito dropdown starts -->
@@ -83,31 +83,37 @@
 							<span class="hidden-phone"> Carrito de compras</span>
 						</a>
 						<ul class="dropdown-menu carrito_compra">
-							<li><strong style="margin-left: 5%;">Resumen de compra</strong></li>
-							<li class="divider"></li>
-					<?php 
+							<li class="secc-titulo"><span>Resumen de <strong>Compra</strong></span></li>
+							<!-- <li class="divider"></li> -->
+					<?php
 					$car_total = 0; $car_items = '';
-					foreach ($carrito_compra as $key => $value) { 
+					foreach ($carrito_compra as $key => $value) {
 							$car_total += $value->price;
 						?>
 							<li class="car_item">
 								<div class="row-fluid" style="padding: 0px 5px;">
-									<div class="span6">
-										<a href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic); ?>"><?php echo $value->title; ?></a>
-									</div>
 									<div class="span3">
-										<input type="number" class="span8 car_quantity" value="<?php echo $value->quantity; ?>" 
-											data-price="<?php echo $value->price; ?>" data-yuppic="<?php echo $value->id_yuppic; ?>" min="0">
+                    <a href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic); ?>" style="padding: 8% 0; width: 35px; height: 37px;"><img src="<?php echo base_url($value->url_img); ?>" width="35" height="37"></a>
 									</div>
-									<div class="span3 car_importe"><?php echo String::formatoNumero( ($value->price*$value->quantity) ); ?></div>
+									<div class="span9">
+                    <div class="span12">
+                      <a href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic); ?>" class="yp-title"><?php echo $value->title; ?></a>
+                    </div>
+                    <div class="span12">
+                      <input type="number" class="span8 car_quantity" value="<?php echo $value->quantity; ?>"
+                             data-price="<?php echo $value->price; ?>" data-yuppic="<?php echo $value->id_yuppic; ?>" min="0">
+                      <div class="span3 car_importe"><?php echo String::formatoNumero( ($value->price*$value->quantity) ); ?></div>
+                    </div>
+
+									</div>
 								</div>
 							</li>
 					<?php } ?>
-							<li class="divider"></li>
-							<li>
+<!-- 							<li class="divider"></li> -->
+							<li class="secc-total">
 								<div class="row-fluid">
-									<div class="span8 carr_total"><strong>Total <span id="car_total_comp"><?php echo String::formatoNumero($car_total); ?></span></strong></div>
-									<div class="span4"><button type="button" id="car_btn_comprar" class="btn btn-success">Comprar</button></div>
+									<div class="span7 carr_total"><strong>Total <span class="green-text" id="car_total_comp"><?php echo String::formatoNumero($car_total); ?> MXN</span></strong></div>
+									<div class="span5"><button type="button" id="car_btn_comprar" class="btn btn-success">Comprar</button></div>
 								</div>
 							</li>
 						</ul>
@@ -115,7 +121,7 @@
 				</div>
 				<!-- carrito dropdown ends -->
 		<?php } ?>
-				
+
 			</div>
 		</div>
 	</div>
@@ -123,12 +129,11 @@
 
 	<div class="barra_menu_fix">
 	</div>
-
+    <!--[if lt IE 8]>
+    <div class="alert alert-info center alert-browser">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
+    </div>
+  <![endif]-->
 	<div class="container-fluid nopadding_lf">
 		<div class="row-fluid">
-			<!--[if lt IE 7]>
-        <div class="alert alert-info">
-					<button type="button" class="close" data-dismiss="alert">×</button>
-					<p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
-				</div>
-      <![endif]-->

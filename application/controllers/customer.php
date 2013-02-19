@@ -181,7 +181,6 @@ class customer extends MY_Controller {
  	*/
 	public function register()
 	{
-
 		$this->load->library('form_validation');
 		if ($this->form_validation->run() === FALSE)
 		{
@@ -208,6 +207,7 @@ class customer extends MY_Controller {
             'ico'   => $ico);
 		}
 
+    var_dump($_FILES);
     echo json_encode($params);
 	}
 
@@ -285,12 +285,6 @@ class customer extends MY_Controller {
             'title' => '',
             'msg'   => $msg,
             'ico'   => $ico);
-
-
-			// $params['frm_errors'] = array(
-			// 		'title' => '',
-			// 		'msg'   => 'Se actualizo correctamente la informacion del perfil',
-			// 		'ico'   => 'success');
 		}
 
 		echo json_encode($params);

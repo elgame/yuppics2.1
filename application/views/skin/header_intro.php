@@ -22,6 +22,7 @@
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('application/css/skin/ie.css'); ?>" />
 	<![endif]-->
 
 <script type="text/javascript" charset="UTF-8">
@@ -29,12 +30,11 @@
 </script>
 </head>
 <body>
-
+  <!--[if lt IE 8]>
+    <div class="alert alert-info center alert-browser">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
+    </div>
+  <![endif]-->
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<!--[if lt IE 7]>
-        <div class="alert alert-info">
-					<button type="button" class="close" data-dismiss="alert">×</button>
-					<p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
-				</div>
-      <![endif]-->

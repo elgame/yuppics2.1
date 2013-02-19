@@ -24,16 +24,17 @@ class book_model extends CI_Model{
 
 	// 		$response = $res->result();
 	// 		$res->free_result();
-			
+
 	// 		return $response;
 	// 	}else
 	// 		return false;
 	// }
-	
+
 	public function getShoppingCart(){
-		$res = $this->db->query("SELECT y.id_yuppic, y.title, y.quantity, p.price
-			FROM yuppics AS y 
-				INNER JOIN products AS p ON p.id_product = y.id_product 
+		$res = $this->db->query("SELECT y.id_yuppic, y.title, y.quantity, p.price, yph.url_img
+			FROM yuppics AS y
+				INNER JOIN products AS p ON p.id_product = y.id_product
+        INNER JOIN (SELECT * FROM yuppics_photos GROUP BY id_yuppic) AS yph ON yph.id_yuppic = y.id_yuppic
 			WHERE comprado = 0 AND id_customer = ".$this->session->userdata('id_usuario'));
 		if ($res->num_rows() > 0) {
 			$response = $res->result();
@@ -45,8 +46,8 @@ class book_model extends CI_Model{
 	}
 
 	public function getYuppic($id_yuppic){
-		$res_yuppic = $this->db->query("SELECT y.id_yuppic, y.id_customer, y.id_product, y.title, y.author, 
-				yt.background_img, yt.background_color, yt.text_color 
+		$res_yuppic = $this->db->query("SELECT y.id_yuppic, y.id_customer, y.id_product, y.title, y.author,
+				yt.background_img, yt.background_color, yt.text_color
 			FROM yuppics AS y INNER JOIN yuppics_theme AS yt ON y.id_yuppic = yt.id_yuppic
 			WHERE y.id_yuppic = ".$id_yuppic);
 		if ($res_yuppic->num_rows() > 0) {
@@ -60,14 +61,14 @@ class book_model extends CI_Model{
 			->get();
 			foreach ($res->result() as $key => $value) {
 				$response->pages[$key] = $value;
-				$response->pages[$key]->images = $this->db->query("SELECT ypp.id_ypage, yp.id_photo, yp.url_img, api.id_page_img, api.id_img, 
+				$response->pages[$key]->images = $this->db->query("SELECT ypp.id_ypage, yp.id_photo, yp.url_img, api.id_page_img, api.id_img,
 						ai.width, ai.height, api.coord_x, api.coord_y, fi.url_frame, fi.id_frame
-					FROM yuppics_pages_photos AS ypp 
+					FROM yuppics_pages_photos AS ypp
 						INNER JOIN yuppics_photos as yp ON yp.id_photo = ypp.id_photo
 						INNER JOIN accomodation_page_imgs AS api ON ypp.id_page_img = api.id_page_img
-						INNER JOIN accomodation_imgs AS ai ON ai.id_img = api.id_img 
+						INNER JOIN accomodation_imgs AS ai ON ai.id_img = api.id_img
 						INNER JOIN frames_imgs AS fi ON (fi.id_frame = ypp.id_frame AND ai.id_img = fi.id_img)
-					WHERE ypp.id_ypage = ".$value->id_ypage)->result(); 
+					WHERE ypp.id_ypage = ".$value->id_ypage)->result();
 			}
 			$res->free_result();
 			return $response;
@@ -76,16 +77,16 @@ class book_model extends CI_Model{
 	}
 
 	public function getYuppicTheme($id_yuppic){
-		$res = $this->db->query("SELECT 
-				y.id_yuppic, y.title, y.author, yt.background_img, yt.background_color, yt.text_color 
-			FROM yuppics AS y 
-				INNER JOIN yuppics_theme AS yt ON y.id_yuppic = yt.id_yuppic 
+		$res = $this->db->query("SELECT
+				y.id_yuppic, y.title, y.author, yt.background_img, yt.background_color, yt.text_color
+			FROM yuppics AS y
+				INNER JOIN yuppics_theme AS yt ON y.id_yuppic = yt.id_yuppic
 			WHERE y.id_yuppic = ".$id_yuppic);
 
 		if($res->num_rows() > 0){
 			$response = $res->row();
 			$res->free_result();
-			
+
 			$a = explode('/', $response->background_img);
 			$b = explode('.', $a[count($a)-1]);
 			unset($a[count($a)-1]);
@@ -100,7 +101,7 @@ class book_model extends CI_Model{
 		$this->load->model('coupons_model');
 		$produc = $this->coupons_model->getProduct(true);
 		$data_yuppic = array(
-			'id_customer' => $this->session->userdata('id_usuario'), 
+			'id_customer' => $this->session->userdata('id_usuario'),
 			'id_product'  => $produc->id_product,
 			'title'       => $this->input->post('title'),
 			'author'      => $this->input->post('author'),
@@ -108,9 +109,9 @@ class book_model extends CI_Model{
 			);
 
 		$data_theme = array(
-			'id_yuppic'        => '', 
-			'background_img'   => $this->input->post('background_img'), 
-			'background_color' => $this->input->post('background_color'), 
+			'id_yuppic'        => '',
+			'background_img'   => $this->input->post('background_img'),
+			'background_color' => $this->input->post('background_color'),
 			'text_color'       => $this->input->post('text_color')
 			);
 
@@ -138,7 +139,7 @@ class book_model extends CI_Model{
 			$this->session->set_userdata('id_yuppics', $id_yuppic);
 		}
 
-		
+
 
 		return $id_yuppic;
 	}
@@ -160,7 +161,7 @@ class book_model extends CI_Model{
 		if ($delte) {
 			$info = $this->getYuppicTheme($id_yuppic);
 			UploadFiles::deleteFile($info->background_img);
-			
+
 			$a = explode('/', $info->background_img);
 			$b = explode('.', $a[count($a)-1]);
 			unset($a[count($a)-1]);

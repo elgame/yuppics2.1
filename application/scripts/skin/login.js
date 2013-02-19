@@ -32,9 +32,12 @@ function login_success(){
 var popupFb = (function($){
 	var objr = {};
 	function initialize(){
-		$('input[type="button"]#loginFb').on('click', function(){
-			popup();
-		});
+    $('body').find('input[type="button"]#loginFb').on('click', function(){
+      popup();
+    });
+		// $('input[type="button"]#loginFb').on('click', function(){
+		// 	popup();
+		// });
 	}
 	function popup(){
 		var width = 300,
@@ -42,10 +45,8 @@ var popupFb = (function($){
 			xPosition = ($(window).width()-width) / 2,
 			yPosition = ($(window).height()-height) / 2,
 			url = base_url + 'customer/login_facebook';
-		var win = window.open(url, 'Login Facebook', 'width=' + width +
-													 ', height=' + height +
-													 ', top=' + yPosition +
-													 ', left=' + xPosition);
+
+		  var win = window.open(url, '', 'width=' + width + ', height=' + height + ', top=' + yPosition + ', left=' + xPosition);
 	}
 	objr.init = initialize;
 	return objr;

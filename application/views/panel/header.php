@@ -39,14 +39,14 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				
-				<a class="brand" href="<?php echo base_url('panel/home/'); ?>"> 
+
+				<a class="brand" href="<?php echo base_url('panel/home/'); ?>">
 					<img alt="logo" src="<?php echo base_url('application/images/logo.png'); ?>" width="67" height="67">
 					<span>
 						Panel
 					</span>
 				</a>
-				
+
 		<?php if ($this->session->userdata('nombre')!='') { ?>
 				<!-- user dropdown starts -->
 				<div class="btn-group pull-right" >
@@ -62,7 +62,7 @@
 				</div>
 				<!-- user dropdown ends -->
 		<?php } ?>
-				
+
 			</div>
 		</div>
 	</div>
@@ -70,8 +70,8 @@
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<!--[if lt IE 7]>
-        <div class="alert alert-info">
+			<!--[if lt IE 8]>
+        <div class="alert alert-info center alert-browser">
 					<button type="button" class="close" data-dismiss="alert">×</button>
 					<p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
 				</div>

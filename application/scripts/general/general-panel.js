@@ -2,6 +2,35 @@ $(function(){
 	panel.init();
 
 	carro_compras.init();
+
+
+  if(!Modernizr.input.placeholder) {
+
+    $('[placeholder]').focus(function() {
+      var input = $(this);
+      if (input.val() == input.attr('placeholder')) {
+      input.val('');
+      input.removeClass('placeholder');
+      }
+    }).blur(function() {
+      var input = $(this);
+      if (input.val() == '' || input.val() == input.attr('placeholder')) {
+      input.addClass('placeholder');
+      input.val(input.attr('placeholder'));
+      }
+    }).blur();
+    $('[placeholder]').parents('form').submit(function() {
+      $(this).find('[placeholder]').each(function() {
+      var input = $(this);
+      if (input.val() == input.attr('placeholder')) {
+        input.val('');
+      }
+      })
+    });
+
+  }
+
+
 });
 
 var carro_compras = (function($){
@@ -31,14 +60,14 @@ var carro_compras = (function($){
 		$(".carrito_compra .car_item").each(function(){
 			var vthis = $(this), item = $(".car_quantity", vthis),
 			importe = ( parseInt(item.val())*parseFloat(item.attr("data-price")) );
-			
+
 			params.yupics.push(item.attr("data-yuppic"));
 			params.quantity.push(item.val());
 		});
 
 		if (params.yupics.length > 0 && params.yupics.length == params.quantity.length) {
 			loader.create();
-			$.post(base_url+"yuppics/shop_car", params, 
+			$.post(base_url+"yuppics/shop_car", params,
 				function(data){
 					if (data.msg.ico == "success") {
 						window.location = base_url+"buy/order?y="+data.items;

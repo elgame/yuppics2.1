@@ -5,12 +5,12 @@
 			<div class="row-fluid intro">
 
 				<div class="span4 center">
-          <div style="display:inline-block;">
+          <div style="float:left;display:inline-block;width:140px;">
               <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Flocalhost%2Fyuppics2.1%2F&amp;send=false&amp;layout=button_count&amp;width=140&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=194793667332525" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:21px;" allowTransparency="true"></iframe>
               <!-- <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Flocalhost%2Fyuppics2.1%2F&amp;send=false&amp;layout=box_count&amp;width=100&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=62&amp;appId=512075685472594" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:62px;" allowTransparency="true"></iframe> -->
           </div>
 
-          <div style="display:inline-block;">
+          <div style="float:right;display:inline-block;width:140px;">
             <a href="https://twitter.com/Yuppics" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false" data-width="154px">Follow @Yuppics</a>
             <!-- <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/yuppics2.1/" data-text="Follow" data-via="Yuppics" data-related="anywhereTheJavascriptAPI" data-count="vertical">Tweet</a> -->
           </div>
@@ -42,7 +42,7 @@
 		</div>
 		<div class="modal-body">
 
-			
+
 
 			<div class="span11 center">
 				<h3 class="muted">Imprime tus momentos especiales con yuppics</h3>
@@ -88,7 +88,7 @@
 	</div>
 
 	<div id="modal_registro" class="modal hide fade">
-		<form action="<?php echo base_url('customer/register/')?>" method="POST" class="form-horizontal" data-sendajax="true"
+		<form action="<?php echo base_url('customer/register/')?>" method="POST" class="form-horizontal" data-sendajax="false"
 				data-alert="register_alert" data-reset="true" enctype="multipart/form-data">
 			<div class="modal-header">
 				<div class="span12 center">
@@ -98,7 +98,7 @@
 				<h3>Modal header</h3> -->
 			</div>
 			<div class="modal-body">
-				
+
 
 				<div class="span12">
 						<div class="control-group">
@@ -144,7 +144,7 @@
               </div>
             </div>
 
-						<div class="password-container">
+            <div class="password-container">
 							<div class="control-group">
 								<label for="password" class="control-label">Password</label>
 								<div class="controls">
@@ -157,11 +157,12 @@
 							<div class="control-group">
 								<label for="repassword" class="control-label">Repetir password</label>
 								<div class="controls">
-									<input type="password" name="repassword" value="" class="strong-password" id="repassword" placeholder="Re-password" required maxlength="15">
+									<input type="password" name="repassword" value="" class="strong-password" id="repassword" placeholder="Password" required maxlength="15">
 									<span class="help-block">6 caracteres mínimo</span>
 								</div>
 							</div>
-						</div>
+            </div>
+
 				</div>
 
 

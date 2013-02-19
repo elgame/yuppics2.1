@@ -124,11 +124,20 @@
 
 						<div class="row-fluid xxboxx">
 							<div class="span6 title-box">
-									Direccion predeterminada
+									Dirección predeterminada
 							</div>
-							<div class="span6 title-box">
-									Direccion predeterminada
-							</div>
+
+              <!--[if !IE]><!-->
+                <div class="span6 title-box">
+                  Dirección predeterminada
+                </div>
+               <!--<![endif]-->
+              <!--[if lt IE 8]>
+                <div class="span5 title-box" style="margin-left:0;">
+                  Dirección predeterminada
+                </div>
+              <![endif]-->
+
 						</div>
 				<?php
 					if ($address_books != false)

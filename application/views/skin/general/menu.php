@@ -1,5 +1,5 @@
-      <!-- left menu starts -->
-			<div class="span2 main-menu-span">
+
+			<div class="span2 main-menu-span"><!-- left menu starts -->
 
         <div class="search">
           <form action="<?php echo base_url('customer/'); ?>" method="GET" class="form-search">
