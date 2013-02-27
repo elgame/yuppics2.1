@@ -401,9 +401,13 @@ margin-bottom:0;
 	.box-header h3{
 		font-size:11px !important;
 	}
-	.main-menu-span{
+	.main-menu-span,
+	.barra_menu_fix, {
 		width:6.2% !important;
 		margin-right:4%;
+	}
+	.barra_menu_fix{
+		margin-right:0px;
 	}
 }
 

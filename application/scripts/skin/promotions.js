@@ -24,6 +24,7 @@ var get_yuppic = (function($){
 		if (!fb_comparte_link.is(".disable")){
 			// Paso 1, asigna eventos para compartir en facebook
 			fb_comparte_link.on("click", function(){
+				$("#fb_comparte_link input[type=checkbox]").attr("checked", "checked");
 				FB.ui({
 				   method: 'feed',
 				   name: 'Crea tus photobooks en linea nunca había sido tan divertido!',
@@ -42,6 +43,8 @@ var get_yuppic = (function($){
 		// Paso 2, asigna eventos para invitar amigos
 		if (!fb_invita_link.is(".disable")){
 			fb_invita_link.on("click", function(){
+				$("#fb_invita_link input[type=checkbox]").attr("checked", "checked");
+
 				FB.ui({method: 'apprequests',
 				  message: 'Crea photobooks facil y rapido con yuppics'
 				}, requestInviteLink);
@@ -79,9 +82,11 @@ var get_yuppic = (function($){
 				updateStatusPromo(data);
 			}else{
 				myalert("Tienes que invitar a mas de 20 amigos, intentalo de nuevo.", "error");
+				$("#fb_invita_link input[type=checkbox]").removeAttr("checked");
 			}
 		}else{
 			myalert("No se pudo enviar la invitacion en facebook, intenta de nuevo porfavor.", "error");
+			$("#fb_invita_link input[type=checkbox]").removeAttr("checked");
 		}
 	}
 
@@ -93,6 +98,7 @@ var get_yuppic = (function($){
 
 		} else {
 			myalert("No se pudo hacer la publicacion en facebook, intenta de nuevo porfavor.", "error");
+			$("#fb_comparte_link input[type=checkbox]").removeAttr("checked");
 		}
 	}
 
@@ -110,7 +116,7 @@ var get_yuppic = (function($){
 			if(data.status1.link_facebook == "1"){
 				var obj = $("#fb_comparte_link");
 				obj.addClass("disable").off('click');
-				$("input[type=checkbox]", obj).attr("checked", true);
+				$("input[type=checkbox]", obj).attr("checked", true).attr("disabled", "disabled");
 			}else
 				$("#fb_comparte_link").removeClass("disable");
 
@@ -118,7 +124,7 @@ var get_yuppic = (function($){
 			if(data.status1.invit_facebook == "1"){
 				var obj = $("#fb_invita_link");
 				obj.addClass("disable").off('click');
-				$("input[type=checkbox]", obj).attr("checked", true);
+				$("input[type=checkbox]", obj).attr("checked", true).attr("disabled", "disabled");
 			}else
 				$("#fb_invita_link").removeClass("disable");
 
@@ -126,15 +132,15 @@ var get_yuppic = (function($){
 			if(data.status1.feedback == "1"){
 				var obj = $("#prom_feedback");
 				obj.addClass("disable").off('click');
-				$("input[type=checkbox]", obj).attr("checked", true);
+				$("input[type=checkbox]", obj).attr("checked", true).attr("disabled", "disabled");
 				$("#modal_feedback").modal("hide");
 			}else
 				$("#prom_feedback").removeClass("disable");
 
 			// anima la barra de progreso
-			$(".progress .bar").animate({
+			$(".progress .bar").css("width", data.status1.progress+"%"); /*.animate({
 				width: data.status1.progress+"%"
-			}, 500);
+			}, 500);*/
 
 			// si se completaron todos los pasos redirecciona para generar le cupon
 			if (data.status1.progress == 100) {

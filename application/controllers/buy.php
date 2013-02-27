@@ -67,6 +67,8 @@ class Buy extends MY_Controller {
     }
 
     $params['info_customer'] = $this->info_empleado['info']; //info empleado
+    $params['product_yuppic'] = $this->info_empleado['yuppic']; //info yuppic
+    $params['info_dash'] = $this->info_empleado['yuppic_compr']; //Yuppics comprados contador
     $params['seo']           = array('titulo'=>'Yuppics - Resumen de compra');
 
     $this->load->model('address_book_model');

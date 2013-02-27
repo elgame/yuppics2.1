@@ -43,6 +43,8 @@ class Faq extends MY_Controller {
 			'titulo' => 'Modificar perfil - yuppics'
 		);
 
+		$this->load->model('faqs_model');
+		$params['all_faqs'] = $this->faqs_model->getFaqs();
 
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);

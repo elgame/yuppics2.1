@@ -183,6 +183,7 @@ body{
   -moz-box-shadow:inset -20px 0px 12px #17181C;
   -webkit-box-shadow:inset -20px 0px 12px #17181C;
   box-shadow:inset -20px 0px 12px #17181C;
+  background-color: #1C1C20;
 }
 .main-menu-span [class*="icon-"]{
 	float: right;
@@ -231,7 +232,7 @@ body{
 .main-menu-span .well.menu-user-info {
   margin: 0px;
   padding: 0px;
-  height: 128px;
+  /*height: 128px;*/
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -285,6 +286,7 @@ body{
 
 .main-menu-span .menu-user-info .info-stats {
   padding: 8px 0;
+  height: 50px;
 }
 
 .main-menu-span .menu-user-info .info-stats div {
@@ -309,6 +311,12 @@ body{
 .main-menu-span .menu-user-info .info-stats div span.status {
   color: #676971;
   font-size: 9px;
+}
+
+@media (max-width: 979px) {
+  .main-menu-span .nav > li > a.ajax-link{
+    color: #fff;
+  }
 }
 
 .search {
@@ -591,6 +599,34 @@ i.icon-faq-point {
   color: #77BF6C;
 }
 
+
+.frmedit_perfil.form-horizontal{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.frmedit_perfil.form-horizontal .controls{
+  margin: 0px;
+}
+.frmedit_perfil.form-horizontal .btn.btn-success{
+  padding: 8px 14px;
+}
+
+
+.under_group_light{
+  padding: 3px 5px;
+  margin-top: -3px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  border: 1px #e7e7e7 solid;
+  border-right: 1px #e7e7e7 solid;
+}
+.under_group_light.ugl_chk{
+  padding: 2px 2px;
+  width: 13px;
+  height:13px;
+}
+
+
 /************* Barra right *********************/
 .well.well-small.create_yupps{
 	padding: 0;
@@ -641,7 +677,8 @@ i.icon-faq-point {
   padding: 12px 15px;
 }
 .accordion.accord_barr_rig .accordion-heading a:hover,
-.accordion.accord_barr_rig .accordion-heading .actifaqs{
+.accordion.accord_barr_rig .accordion-heading .actifaqs,
+.accordion.accord_barr_rig .accordion-body.actifaqs{
   background-color: #f8f8f8;
 }
 .accordion.accord_barr_rig .accordion-heading a i{

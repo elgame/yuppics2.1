@@ -428,8 +428,8 @@ class yuppics extends MY_Controller {
 		file_put_contents($_REQUEST['postdata'], $image_data);
 	}
 
-	/**
-	 * Descarga el listado de cuentas por pagar en formato pdf
+	/**************************************************************
+	 * Crea el pdf de un yuppic
 	 */
 	public function genera_pdf(){
 		$this->load->model('book_model');
@@ -472,22 +472,36 @@ class yuppics extends MY_Controller {
 
 				foreach ($page->images as $key2 => $photo) {
 					$info = array(
-						'x' => ($photo->coord_x*$pdf->CurPageSize[0]/100),
-						'y' => ($photo->coord_y*$pdf->CurPageSize[1]/100),
-						'w' => ($photo->width*$pdf->CurPageSize[0]/100),
-						'h' => ($photo->height*$pdf->CurPageSize[1]/100)
+						'x'     => ($photo->coord_x*$pdf->CurPageSize[0]/100),
+						'y'     => ($photo->coord_y*$pdf->CurPageSize[1]/100),
+						'w'     => ($photo->width*$pdf->CurPageSize[0]/100),
+						'h'     => ($photo->height*$pdf->CurPageSize[1]/100),
+						'pos_x' => $photo->pos_x,//($photo->pos_x*$pdf->CurPageSize[0]/100),
+						'pos_y' => $photo->pos_y //($photo->pos_y*$pdf->CurPageSize[1]/100)
 						);
 					$pdf->SetFillColor(204, 204, 204);
 					$pdf->Rect($info['x'], $info['y'], $info['w'], $info['h'], 'F');
 
+					// $name_file = explode('/', $photo->url_img);
+					// $img_cortada = $this->cropImg($name_file[count($name_file)-1], $photo->url_img, 
+					// 	array('new_w' => $photo->width, 'new_h' => $photo->height, 'x' => abs($photo->pos_x), 'y' => abs($photo->pos_y) ),
+					// 	$info);
+
 					$size = $pdf->getSizeImage($photo->url_img, 0, 0);
 					$size = $this->redimImgPhoto($size, $info);
-					$pdf->Image($photo->url_img, $info['x'], $info['y'], $size['w'], $size['h']); // foto
 
-					$pdf->Image($photo->url_frame, $info['x'], $info['y'], $info['w'], $info['h']); // marco
+					$name_file = str_replace('PHOTOS/', '', $photo->url_img);
+					$img_cortada = $this->cropImg($name_file, $photo->url_img, $size, $info);
 
-					$pdf->SetFillColor(255, 255, 255);
-					$pdf->Rect( ($info['x']+$info['w']), ($info['y']-.5), $pdf->CurPageSize[0], ($info['h']+1), 'F');
+					$pdf->Image($img_cortada, $info['x'], $info['y'], $info['w'], $info['h']); // foto
+					unlink($img_cortada);
+
+					if($photo->url_frame != '')
+						$pdf->Image($photo->url_frame, $info['x'], $info['y'], $info['w'], $info['h']); // marco
+
+					// $pdf->SetFillColor(255, 255, 255);
+					// $pdf->Rect( ($info['x']+$info['w']), ($info['y']-$info['h']), $pdf->CurPageSize[0], ($info['h']+$info['h']), 'F');
+					// $pdf->Rect( 0, ($info['y']-$info['h']), $info['x'], ($info['h']+$info['h']), 'F');
 				}
 			}
 		}
@@ -499,19 +513,73 @@ class yuppics extends MY_Controller {
 		$diff_pix = 0;
 		$resize   = array('w'=>0, 'h'=>0);
 
-		if ($info['w'] > $info['h']) {
-			$diff_pix = $info['w'] / $size[0];
+		// if ($info['w'] > $info['h']) {
+		// 	$diff_pix = $info['w'] / $size[0];
 
-			$resize['w'] = $info['w'];
-			$resize['h'] = ($diff_pix * $size[1]);
-		} else {
+		// 	$resize['w'] = $info['w'];
+		// 	$resize['h'] = ($diff_pix * $size[1]);
+		// } else {
 			$diff_pix = $info['h'] / $size[1];
 
 			$resize['w'] = ($diff_pix * $size[0]);
 			$resize['h'] = $info['h'];
-		}
+		// }
 		return $resize;
 	}
+	private function cropImg($thumb_image_name, $image, $conf, $pag){
+		list($imagewidth, $imageheight, $imageType) = getimagesize($image);
+		$imageType = image_type_to_mime_type($imageType);
+
+		$zoom_xciento = $conf['w']*100/$imagewidth;
+		
+		$newImageWidth  = $pag['w']*100/$zoom_xciento;
+		$newImageHeight = $pag['h']*100/$zoom_xciento;
+
+		$src_x = abs($pag['pos_x'])*$newImageWidth/100;
+		$src_y = abs($pag['pos_y'])*$newImageHeight/100;
+
+		$src_width = $newImageWidth;
+		$src_height = $newImageHeight;
+	  	
+	  	
+		$newImage = imagecreatetruecolor($newImageWidth, $newImageHeight);
+		switch($imageType) {
+			case "image/gif":
+				$source=imagecreatefromgif($image); 
+				break;
+		    case "image/pjpeg":
+			case "image/jpeg":
+			case "image/jpg":
+				$source=imagecreatefromjpeg($image); 
+				break;
+		    case "image/png":
+			case "image/x-png":
+				$source=imagecreatefrompng($image); 
+				break;
+	  	}
+		imagecopyresampled($newImage, $source, 0, 0, $src_x, $src_y, $newImageWidth, $newImageHeight, 
+			$src_width, $src_height);
+		switch($imageType) {
+			case "image/gif":
+		  		imagegif($newImage,$thumb_image_name); 
+				break;
+	      	case "image/pjpeg":
+			case "image/jpeg":
+			case "image/jpg":
+		  		imagejpeg($newImage,$thumb_image_name,90); 
+				break;
+			case "image/png":
+			case "image/x-png":
+				imagepng($newImage,$thumb_image_name);  
+				break;
+	    }
+		chmod($thumb_image_name, 0777);
+		return $thumb_image_name;
+	}
+	/**
+	 * / pdf yuppic
+	 ********************************************************/
+
 
 	/**
 	 * Asigna el id del yuppic en la session del usuairo para modificarlo
