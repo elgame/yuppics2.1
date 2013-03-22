@@ -192,6 +192,11 @@ class Buy_model extends CI_Model {
 
   }
 
+  /**
+   * Paypal
+   * @param  [type] $id_order [description]
+   * @return [type]           [description]
+   */
   public function payByPaypal($id_order)
   {
     $this->load->library('my_paypal');
@@ -233,7 +238,55 @@ class Buy_model extends CI_Model {
     $this->my_paypal->add_products($products);
     $this->my_paypal->send_checkout();
   }
+  public function confirmByPaypal($id_order)
+  {
+    $this->load->model('order_model');
+    $data = $this->order_model->get_order_info($id_order);
 
+    $this->load->library('my_paypal');
+
+    $this->my_paypal->config_do_payment(array(
+      'token'   => $this->input->get('token'),
+      'payerid' => $this->input->get('PayerID')
+    ));
+
+    $this->my_paypal->config_payment(array(
+      'currencycode'         => 'MXN',
+      'desc'                 => 'Pago Yuppics',
+      'shippingamt'          => 0,
+      'discount_amount_cart' => $data['info']->total_discount
+    ));
+
+    $products = array();
+    if (isset($data['products'])) {
+      foreach ($data['products'] as $k => $v)
+      {
+        $products[] = array(
+                        'name'  => $v->title,
+                        'price' => $v->unitary_price,
+                        'qty'   => $v->quantity
+                      );
+      }
+    }
+
+    if (floatval($data['info']->total_discount) > 0)
+    {
+      $products[] = array(
+                      'name'  => 'Descuento | Discount',
+                      'price' => floatval($data['info']->total_discount) * -1,
+                      'qty'   => 1
+                    );
+    }
+
+    $this->my_paypal->add_products($products);
+    return $this->my_paypal->do_payment();
+  }
+
+  /**
+   * Mercadopago
+   * @param  [type] $id_order [description]
+   * @return [type]           [description]
+   */
   public function payByMercadoPago($id_order)
   {
     $this->load->library('mp', array(
@@ -281,6 +334,9 @@ class Buy_model extends CI_Model {
 
   public function success($order)
   {
+    var_dump($this->confirmByPaypal($order));
+    exit;
+
     $query = $this->db->query("SELECT id_yuppics
                                FROM orders_yuppics
                                WHERE id_order = ".$order);
