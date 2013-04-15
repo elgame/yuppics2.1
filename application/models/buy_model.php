@@ -279,23 +279,49 @@ class Buy_model extends CI_Model {
     header("Location: ".$result['response']['init_point']);
   }
 
+  /**
+   *    Si la orden se pago correctamente mediante paypal o mercadopago cambia
+   *    el status comprado de los Yuppics que se cargaron en la orden.
+   *    @param  $order [id de la orden]
+   *    @return [id de la orden]
+   */
   public function success($order)
   {
     $query = $this->db->query("SELECT id_yuppics
                                FROM orders_yuppics
                                WHERE id_order = ".$order);
-    $yuppics = $query->result();
 
+     // Cambia el status de comprado para que el o los Yuppics a comprados (1)
+    $yuppics = $query->result();
     foreach ($yuppics as $v)
       $this->db->update('yuppics', array('comprado' => '1'), array('id_yuppic' => $v->id_yuppics));
 
     return $order;
   }
 
+  /**
+   *    Cancela (Elimina) la orden si no se realizo el pago.
+   *    @param   $order [id de la orden]
+   *    @return [id de la orden eliminada|cancelada]
+   */
   public function cancelOrder($order)
   {
     // $this->db->update('orders', array('status' => 'c'), array('id_order' => $order));
+
+    // Obtiene lo yuppics de la orden a cancelar
+    $query = $this->db->query("SELECT id_yuppics
+                               FROM orders_yuppics
+                               WHERE id_order = ".$order);
+
+    // Cambia el status de comprado para que el o los Yuppics vuelvan a usarse en otra
+    // orden.
+    $yuppics = $query->result();
+    foreach ($yuppics as $v)
+      $this->db->update('yuppics', array('comprado' => '0'), array('id_yuppic' => $v->id_yuppics));
+
+    // Elimina la orden cancelada.
     $this->db->delete('orders', array('id_order' => $order));
+
     return $order;
   }
 }

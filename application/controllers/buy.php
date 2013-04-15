@@ -20,14 +20,20 @@ class Buy extends MY_Controller {
   }
 
   public function index(){
-
+    redirect(base_url()); // Redirecciona al Dashboard
   }
 
+  /**
+   *    Muestra la orden de compra con los yuppics especificados.
+   *    @return [type] [description]
+   */
   public function order()
   {
     $this->load->model('buy_model');
+
     // Verifica si los yuppics a comprar existen y si estan en alguna orden.
     $verificacion = $this->buy_model->verificaYuppic($this->input->get('y'));
+
     if (!$verificacion)
       redirect(base_url());
 
@@ -113,10 +119,17 @@ class Buy extends MY_Controller {
     echo json_encode($params);
   }
 
+  /**
+   *    Muestra un mensaje si el pago se realizo correctamente.
+   *    Publica en el muro del usuario.
+   */
   public function success()
   {
 
-    $this->session->unset_userdata('id_yuppics');
+    $this->post_facebook(); // Publica en el muro de facebook del usuario
+
+    $this->session->unset_userdata('id_yuppics'); // Elimina de la session el parametro
+                                                  // id_yuppics para evitar que se vuelva a cargar.
 
     $params['seo']    = array('titulo'=> 'Yuppics - Pago Exitoso');
     $params['status'] = TRUE;
@@ -130,12 +143,17 @@ class Buy extends MY_Controller {
     $this->load->view('skin/yuppics/pay', $params);
     $this->load->view('skin/general/right-bar', $params);
     $this->load->view('skin/footer', $params);
+
   }
 
+  /**
+   *    Muestra un avizo si el pago se cancelo o no se pudo concretar.
+   */
   public function cancel()
   {
 
-    $this->session->unset_userdata('id_yuppics');
+    $this->session->unset_userdata('id_yuppics'); // Elimina de la session el parametro
+                                                  // id_yuppics para evitar que se vuelva a cargar.
 
     $params['seo']    = array('titulo'=> 'Yuppics - Pago Cancelado');
     $params['status'] = FALSE;
@@ -149,6 +167,39 @@ class Buy extends MY_Controller {
     $this->load->view('skin/yuppics/pay', $params);
     $this->load->view('skin/general/right-bar', $params);
     $this->load->view('skin/footer', $params);
+  }
+
+  /**
+   *    Publica en el muro del usuario un mensaje que realizo la compra
+   *    de Yuppics
+   */
+  private function post_facebook()
+  {
+    $this->load->library("my_facebook");
+    $config = array(
+          'redirect_uri' => base_url('buy/success?order='.$_GET['order']),
+          'scope'        => 'user_about_me, email, user_photos, friends_photos',
+          'display'      => ''
+    );
+
+    $this->my_facebook->initialize($config);
+    $access_token = $this->my_facebook->oauth();
+
+    $url_page = "https://graph.facebook.com/me/feed";
+
+    $message = "Hola amigos, acabo de comprar un Yuppic y está genial <3 Arma el tuyo no esperes más!!! ";
+    $data      = array(
+                'access_token' => $access_token,
+                'message'      => $message,
+                'link'         => base_url(),
+                'picture'      => '',
+                'name'         => 'Yuppics',
+                'caption'      => 'Descripción',
+                'description'  => '',
+                'properties'   => '',
+                'actions'      => json_encode (array('name'=>'Yuppics', 'link'=>base_url())));
+
+    $this->my_facebook->post($url_page, $data);
   }
 
 }

@@ -48,69 +48,69 @@ class  my_facebook {
    */
   public function initialize($config=array())
   {
-    	foreach ($config as $key => $value) {
-    		$this->{$key} = $value;
-    	}
-    }
+  	foreach ($config as $key => $value) {
+  		$this->{$key} = $value;
+  	}
+  }
 
-    /**
-     * Realiza la autenticacion del usuario en facebook
-     *
-     * http://developers.facebook.com/docs/howtos/login/server-side-login/
-     * http://developers.facebook.com/docs/reference/dialogs/oauth/
-     * @return string Access Token
-     */
-    public function oauth()
+  /**
+   * Realiza la autenticacion del usuario en facebook
+   *
+   * http://developers.facebook.com/docs/howtos/login/server-side-login/
+   * http://developers.facebook.com/docs/reference/dialogs/oauth/
+   * @return string Access Token
+   */
+  public function oauth()
+  {
+    $this->validate_error();
+    if (!isset($_SESSION))
+      session_start();
+
+    $code = isset($_GET['code'])?$_GET['code']:'';
+    $state = isset($_GET['state'])?$_GET['state']:'';
+
+    if (empty($code))
     {
-      $this->validate_error();
-      if (!isset($_SESSION))
-        session_start();
+      $_SESSION['state'] = md5(uniqid(rand(), TRUE)); // PROTECCION CSRF
+      $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" . $this->APP_ID .
+                    "&redirect_uri=" . urlencode($this->redirect_uri.($this->display==='popup'?'?popup=t':'')) .
+                    "&state=" . $_SESSION['state'] .
+                    (empty($this->scope)?'':"&scope=" . $this->scope) .
+                    (empty($this->display)?'':"&display=" . $this->display);
 
-      $code = isset($_GET['code'])?$_GET['code']:'';
-      $state = isset($_GET['state'])?$_GET['state']:'';
-
-      if (empty($code))
-      {
-        $_SESSION['state'] = md5(uniqid(rand(), TRUE)); // PROTECCION CSRF
-        $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" . $this->APP_ID .
-        "&redirect_uri=" . urlencode($this->redirect_uri.($this->display==='popup'?'?popup=t':'')) .
-        "&state=" . $_SESSION['state'] .
-        (empty($this->scope)?'':"&scope=" . $this->scope) .
-        (empty($this->display)?'':"&display=" . $this->display);
-
-        // echo $dialog_url;exit;
-        // if ($this->display === 'popup')
-        // {
-        // echo("<script>fb=window.open('".$dialog_url."', 'Login con facebook', 'width=50, height=50, left=600, top=150')</script>");
-        // exit;
-        // }
-        // else
-        // {
-        echo("<script>top.location.href='" . $dialog_url . "'</script>");
-        // }
-      }
-
-      if ($_SESSION['state'] && ($_SESSION['state'] === $state))
-      {
-        $token_url = $this->graph_url . "oauth/access_token?" .
-        "client_id=" . $this->APP_ID .
-        "&redirect_uri=" . urlencode($this->redirect_uri.($this->display==='popup'?'?popup=t':'')) .
-        "&client_secret=" . $this->APP_SECRET .
-        "&code=" . $code;
-
-        $response = file_get_contents($token_url);
-        $params = null;
-        parse_str($response, $params);
-
-        // $_SESSION['access_token'] = $params['access_token']; // ALMACENAR EN LA BDD O CREAR SESION CON EL ACCESSO_TOKEN
-        return $params['access_token'];
-      }
-      else
-      {
-        echo("El parametro state no se encontro. Puedes estar siendo victima de CSRF");
-      }
-
+      // echo $dialog_url;exit;
+      // if ($this->display === 'popup')
+      // {
+      // echo("<script>fb=window.open('".$dialog_url."', 'Login con facebook', 'width=50, height=50, left=600, top=150')</script>");
+      // exit;
+      // }
+      // else
+      // {
+      echo("<script>top.location.href='" . $dialog_url . "'</script>");
+      // }
     }
+
+    if ($_SESSION['state'] && ($_SESSION['state'] === $state))
+    {
+      $token_url = $this->graph_url . "oauth/access_token?" .
+      "client_id=" . $this->APP_ID .
+      "&redirect_uri=" . urlencode($this->redirect_uri.($this->display==='popup'?'?popup=t':'')) .
+      "&client_secret=" . $this->APP_SECRET .
+      "&code=" . $code;
+
+      $response = file_get_contents($token_url);
+      $params = null;
+      parse_str($response, $params);
+
+      // $_SESSION['access_token'] = $params['access_token']; // ALMACENAR EN LA BDD O CREAR SESION CON EL ACCESSO_TOKEN
+      return $params['access_token'];
+    }
+    else
+    {
+      echo("El parametro state no se encontro. Puedes estar siendo victima de CSRF");
+    }
+
+  }
 
   private function validate_error()
   {
@@ -208,6 +208,61 @@ class  my_facebook {
   public function set_redirect_uri($redirect_uri='')
   {
   	$this->redirect_uri = $redirect_uri;
+  }
+
+  /**
+   *    Realiza una publicacion en un muro, pagina.
+   *    @param  $graph_url [URL de la GRAPH API]
+   *    @param  $data [array con los parametros permitidos en la API] Ej:
+   *
+   *         $data = array(
+   *                'access_token' => 'acess token valido para realizar una publicacion en nombre del usuario',
+   *                'message'      => 'mensaje que aparecera como publicacion',
+   *                'link'         => 'link al q enviara',
+   *                'picture'      => 'url de la imagen a mostrar',
+   *                'name'         => 'Nombre',
+   *                'caption'      => 'Caption',
+   *                'description'  => 'Description',
+   *                'properties'   => '',
+   *                'actions'      => json_encode(array('name'=>'Link Extra', 'link'=>'http://www.google.com'))
+   *               );
+   *
+   *    @return json_decode
+   */
+  public function post($graph_url, $data)
+  {
+    return $this->curlExec($graph_url, $data);
+  }
+
+  /**
+   *    Ejecuta CURL para enviar los datos mediante POST
+   *    @return
+   *            - FALSE si la funcion curl_init no esta habilitada
+   *            - json_decode de la respuesta de la GRAPH API
+   */
+  private function curlExec($graph_url, $data)
+  {
+    if (!function_exists('curl_init'))
+    {
+      echo('Se necesita la extension CURL PHP.');
+    }
+    else
+    {
+      $handle = curl_init($graph_url);
+      curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE);
+      curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($handle, CURLOPT_POST, true);
+      curl_setopt($handle, CURLOPT_HTTPHEADER, array('Expect:'));
+      curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
+
+      $response = json_decode(curl_exec($handle)); // OBTIENE EL RESULTADO DEL ENVIO DE DATOS DEL EVENTO
+
+      curl_close($handle);
+
+      return $response;
+    }
+
+    return FALSE;
   }
 
 }
