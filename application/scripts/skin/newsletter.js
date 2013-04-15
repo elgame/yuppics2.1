@@ -12,15 +12,25 @@ var faqssqs = (function($){
 
 	function showFaqssqs(){
 		var obj = $(".accordion-body.in.collapse", this).parents(".accordion-group");
-		obj = $(".accordion-heading .accordion-toggle", obj);
-		obj.addClass("actifaqs");
-		$("i", obj).addClass("actifaqs");
+
+		if (obj.attr('data-type') == 'inverse') {
+			$(".accordion-body", obj).addClass("actifaqs");
+		}else{
+			obj = $(".accordion-heading .accordion-toggle", obj);
+			obj.addClass("actifaqs");
+			$("i", obj).addClass("actifaqs");
+		}
 	}
 	function hideFaqssqs(){
 		var obj = $(".accordion-body.in.collapse", this).parents(".accordion-group");
-		obj = $(".accordion-heading .accordion-toggle", obj);
-		obj.removeClass("actifaqs");
-		$("i", obj).removeClass("actifaqs");
+
+		if (obj.attr('data-type') == 'inverse') {
+			$(".accordion-body", obj).removeClass("actifaqs");
+		}else{
+			obj = $(".accordion-heading .accordion-toggle", obj);
+			obj.removeClass("actifaqs");
+			$("i", obj).removeClass("actifaqs");
+		}
 	}
 
 	objr.init = init;

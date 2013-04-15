@@ -57,7 +57,7 @@
 				<div class="under_group pull-right mnu-info-usr">
 					<div class="btn-group" >
 						<a class="btn" href="<?php echo base_url('customer/perfil/');?>">
-							<span class="hidden-phone"> <?php echo $this->session->userdata('nombre'); ?></span>
+							<i class="icon-user visible-phone"></i> <span class="hidden-phone"> <?php echo $this->session->userdata('nombre'); ?></span>
 						</a>
 						<button class="btn dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span>
@@ -80,7 +80,7 @@
 					<div id="menu_carrito_compra" class="btn-group" >
 						<a class="btn dropdown-toggle" href="#">
 							<span id="carr_badge_success" class="badge badge-success"><?php echo count($carrito_compra); ?></span>
-							<span class="hidden-phone"> Carrito de compras</span>
+							<i class="icon-shopping-cart visible-phone"></i> <span class="hidden-phone"> Carrito de compras</span>
 						</a>
 						<ul class="dropdown-menu carrito_compra">
 							<li class="secc-titulo"><span>Resumen de <strong>Compra</strong></span></li>
@@ -127,7 +127,7 @@
 	</div>
 	<!-- topbar ends -->
 
-	<div class="barra_menu_fix">
+	<div class="barra_menu_fix hidden-phone">
 	</div>
     <!--[if lt IE 8]>
     <div class="alert alert-info center alert-browser">

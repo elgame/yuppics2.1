@@ -5,6 +5,7 @@
           <form action="<?php echo base_url('customer/'); ?>" method="GET" class="form-search">
               <input type="text" name="search" class="input-small search-query input-search" id="search" placeholder="Realizar Búsqueda...">
               <button type="submit" class="btn btn-search"><i class="yup-icon-search"></i></button>
+              <div class="clearfix"></div>
           </form>
         </div>
 
@@ -13,6 +14,7 @@
             <div class="user-avatar"><img src="<?php echo base_url($info_customer->url_avatar); ?>"></div>
             <span class="user-name"><?php echo $info_customer->first_name.' '.$info_customer->last_name; ?></span>
             <span class="user-email"><?php echo $info_customer->email; ?></span>
+            <div style="clear: both;"></div>
           </div>
           <div class="info-stats">
             <div>
@@ -23,6 +25,7 @@
               <span><?php echo (is_array($carrito_compra)? count($carrito_compra): 0); ?></span>
               <span class="status">Pendientes</span>
             </div>
+            <div style="clear: both;"></div>
           </div>
         </div>
 

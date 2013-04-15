@@ -23,68 +23,32 @@
 			<h3 class="myriad">Preguntas Populares</h3>
 			<div class="row-fluid">
 				<div class="span12">
-
+				<?php 
+				$CI =& get_instance();
+				$CI->load->model('faqs_model');
+				$faqs_popular = $CI->faqs_model->getFaqs('popular = 1');
+				 ?>
 					<div class="accordion accord_barr_rig" id="faqssqs">
+				<?php 
+	        if (is_array($faqs_popular)) {
+	          foreach ($faqs_popular as $key => $value) {
+	       ?>
 					  <div class="accordion-group">
 					    <div class="accordion-heading">
-					      <a class="accordion-toggle" data-toggle="collapse" data-parent="#faqssqs" href="#faqss_collapse1">
-					        <i class="icon-ok"></i> Métodos de envío
+					      <a class="accordion-toggle" data-toggle="collapse" data-parent="#faqssqs" href="#faqss_collapse<?php echo $key; ?>">
+					        <i class="icon-ok"></i> <?php echo $value->question; ?>
 					      </a>
 					    </div>
-					    <div id="faqss_collapse1" class="accordion-body collapse">
+					    <div id="faqss_collapse<?php echo $key; ?>" class="accordion-body collapse">
 					      <div class="accordion-inner">
-					        Contrary to popular belief,
+					        <?php echo $value->response; ?>
 					      </div>
 					    </div>
 					  </div>
-					  <div class="accordion-group">
-					    <div class="accordion-heading">
-					      <a class="accordion-toggle" data-toggle="collapse" data-parent="#faqssqs" href="#faqss_collapse2">
-					        <i class="icon-ok"></i> Tamaños y medidas del Photobook
-					      </a>
-					    </div>
-					    <div id="faqss_collapse2" class="accordion-body collapse">
-					      <div class="accordion-inner">
-					        Contrary to popular belief,
-					      </div>
-					    </div>
-					  </div>
-					  <div class="accordion-group">
-					    <div class="accordion-heading">
-					      <a class="accordion-toggle" data-toggle="collapse" data-parent="#faqssqs" href="#faqss_collapse3">
-					        <i class="icon-ok"></i> Fotografías
-					      </a>
-					    </div>
-					    <div id="faqss_collapse3" class="accordion-body collapse">
-					      <div class="accordion-inner">
-					        Contrary to popular belief,
-					      </div>
-					    </div>
-					  </div>
-					  <div class="accordion-group">
-					    <div class="accordion-heading">
-					      <a class="accordion-toggle" data-toggle="collapse" data-parent="#faqssqs" href="#faqss_collapse4">
-					        <i class="icon-ok"></i> Envíos a toda la república
-					      </a>
-					    </div>
-					    <div id="faqss_collapse4" class="accordion-body collapse">
-					      <div class="accordion-inner">
-					        Contrary to popular belief,
-					      </div>
-					    </div>
-					  </div>
-					  <div class="accordion-group">
-					    <div class="accordion-heading">
-					      <a class="accordion-toggle" data-toggle="collapse" data-parent="#faqssqs" href="#faqss_collapse5">
-					        <i class="icon-ok"></i> Métodos de Pago
-					      </a>
-					    </div>
-					    <div id="faqss_collapse5" class="accordion-body collapse">
-					      <div class="accordion-inner">
-					        Contrary to popular belief,
-					      </div>
-					    </div>
-					  </div>
+				<?php 
+            }
+          } ?>
+					  
 					</div><!-- /accordion -->
 
 				</div>

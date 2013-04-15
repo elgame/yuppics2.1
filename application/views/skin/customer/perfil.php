@@ -25,7 +25,7 @@
 							</div>
 						</div>
 						<div class="box-content">
-							<form action="<?php echo base_url('customer/update/')?>" method="POST" class="form-horizontal" data-sendajax="true"
+							<form action="<?php echo base_url('customer/update/')?>" method="POST" class="frmedit_perfil form-horizontal" data-sendajax="true"
 								data-alert="register_alert" data-reset="false">
 								<input type="hidden" name="customer" value="<?php echo $this->session->userdata('id_usuario'); ?>">
 
@@ -37,36 +37,36 @@
 								</div>
 
 								<div class="control-group">
-									<label for="firstname" class="control-label">Nombre</label>
+									<!-- <label for="firstname" class="control-label">Nombre</label> -->
 									<div class="controls">
-										<input type="text" name="firstname" value="<?php echo $info_customer->first_name; ?>" class="input-block-level" id="firstname" placeholder="Nombre" autofocus required maxlength="30">
+										<input type="text" name="firstname" value="<?php echo $info_customer->first_name; ?>" class="input-block-level" id="firstname" placeholder="Nombre ó Nickname" autofocus required maxlength="30">
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label for="lastname" class="control-label">Apellido Paterno</label>
+									<!-- <label for="lastname" class="control-label">Apellido Paterno</label> -->
 									<div class="controls">
 										<input type="text" name="lastname" value="<?php echo $info_customer->last_name; ?>" class="input-block-level" id="lastname" placeholder="Apellido Paterno" maxlength="40">
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label for="email" class="control-label">E-mail</label>
+									<!-- <label for="email" class="control-label">E-mail</label> -->
 									<div class="controls">
-										<input type="email" name="email" value="<?php echo $info_customer->email; ?>" class="input-block-level" id="email" placeholder="email@ejemplo.com" required maxlength="60">
+										<input type="email" name="email" value="<?php echo $info_customer->email; ?>" class="input-block-level" id="email" placeholder="Dirección de email" required maxlength="60">
 										<span class="help-block">Asegurate de introducir un email valido</span>
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label for="username" class="control-label">Usuario</label>
+									<!-- <label for="username" class="control-label">Usuario</label> -->
 									<div class="controls">
-										<input type="text" name="username" value="<?php echo $info_customer->username; ?>" class="input-block-level" id="username" placeholder="Usuario" maxlength="15">
+										<input type="text" name="username" value="<?php echo $info_customer->username; ?>" class="input-block-level" id="username" placeholder="Usuario o alias" maxlength="15">
 									</div>
 								</div>
 
                 <div class="control-group">
-                  <label for="avatar" class="control-label">Avatar</label>
+                  <!-- <label for="avatar" class="control-label">Avatar</label> -->
                   <div class="controls">
                     <input type="file" name="avatar" value="">
                   </div>
@@ -74,7 +74,7 @@
 
 								<div class="password-container">
 									<div class="control-group">
-										<label for="password" class="control-label">Password</label>
+										<!-- <label for="password" class="control-label">Password</label> -->
 										<div class="controls">
 											<input type="password" name="password" value="" class="input-block-level strong-password" id="password" placeholder="Password" maxlength="15">
 											<div class="help-inline"><div class="strength-indicator"><div class="meter"></div></div></div>
@@ -83,7 +83,7 @@
 									</div>
 
 									<div class="control-group">
-										<label for="repassword" class="control-label">Repetir password</label>
+										<!-- <label for="repassword" class="control-label">Repetir password</label> -->
 										<div class="controls">
 											<input type="password" name="repassword" value="" class="input-block-level strong-password" id="repassword" placeholder="Re-password" maxlength="15">
 											<span class="help-block">6 caracteres mínimo</span>
@@ -91,15 +91,15 @@
 									</div>
 								</div>
 
-								<div class="form-actions white_action">
-								  <button type="submit" class="btn btn-success">Guardar</button>
-								</div>
-
+								<button type="submit" class="btn btn-success pull-right">Guardar</button>
+								<div class="clearfix"></div>
 							</form>
 						</div>
 					</div><!--/span-->
 
 			</div><!--/row-->
+
+			<h2 class="myriad" style="color:#464f55; margin-top: 30px;">Administrar Direcciones</h2>
 
 			<div class="row-fluid">
 
@@ -129,7 +129,7 @@
 
               <!--[if !IE]><!-->
                 <div class="span6 title-box">
-                  Dirección predeterminada
+                  Otras Direcciones
                 </div>
                <!--<![endif]-->
               <!--[if lt IE 8]>
@@ -153,12 +153,12 @@
 								if (isset($address_books['default']))
 								{
 									foreach ($address_books['default'] as $key => $default) {
-										if($default->default_billing==1 && $default->default_shipping == 1)
-											echo '<strong>Direccion de facturacion y envio</strong>';
-										else if ($default->default_billing==1)
-											echo '<strong>Direccion de facturacion</strong>';
-										else if ($default->default_shipping == 1)
-											echo '<strong>Direccion de envio</strong>';
+										// if($default->default_billing==1 && $default->default_shipping == 1)
+										// 	echo '<strong>Direccion de facturacion y envio</strong>';
+										// else if ($default->default_billing==1)
+										// 	echo '<strong>Direccion de facturacion</strong>';
+										// else if ($default->default_shipping == 1)
+										// 	echo '<strong>Direccion de envio</strong>';
 								?>
 										<p>
 											<span class="span2">
@@ -168,7 +168,7 @@
 											</span>
 											<span class="span10">
 												<?php
-												echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
+												echo '<strong style="color:#616569;">'.$default->contact_first_name.' '.$default->contact_last_name.'</strong><br><br>'.
 													($default->company!=''? $default->company.'<br>': '').
 													($default->rfc!=''? $default->rfc.'<br>': '').
 													$default->street.', '.$default->colony.'<br>'.
@@ -189,21 +189,23 @@
 									if (isset($address_books['others']))
 									{
 										foreach ($address_books['others'] as $key => $default) {
+
+										/*<strong>Direccion <?php echo $key+1; ?></strong>*/
 									?>
-										<strong>Direccion <?php echo $key+1; ?></strong>
 											<p>
 												<span class="span2">
 													<a href="#modal_updateaddress" class="btn-link update_address center" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">
 														<img src="<?php echo base_url('application/images/edit-dir.png'); ?>" width="20" height="20">
 													</a>
-													<a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link center"
+													<a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link center" 
+														style="margin-top:20px;" 
 														onclick="msb.confirm('Estas seguro de eliminar la direccion?', 'Libro de direcciones', this); return false;">
 														<img src="<?php echo base_url('application/images/delete-dir.png'); ?>" width="20" height="20">
 													</a>
 												</span>
 												<span class="span10">
 													<?php
-													echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
+													echo '<strong style="color:#616569;">'.$default->contact_first_name.' '.$default->contact_last_name.'</strong><br><br>'.
 														($default->company!=''? $default->company.'<br>': '').
 														($default->rfc!=''? $default->rfc.'<br>': '').
 														$default->street.', '.$default->colony.'<br>'.

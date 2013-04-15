@@ -62,12 +62,12 @@ class book_model extends CI_Model{
 			foreach ($res->result() as $key => $value) {
 				$response->pages[$key] = $value;
 				$response->pages[$key]->images = $this->db->query("SELECT ypp.id_ypage, yp.id_photo, yp.url_img, api.id_page_img, api.id_img,
-						ai.width, ai.height, api.coord_x, api.coord_y, fi.url_frame, fi.id_frame
+						ai.width, ai.height, api.coord_x, api.coord_y, fi.url_frame, fi.id_frame, ypp.coord_x AS pos_x, ypp.coord_y AS pos_y
 					FROM yuppics_pages_photos AS ypp
 						INNER JOIN yuppics_photos as yp ON yp.id_photo = ypp.id_photo
 						INNER JOIN accomodation_page_imgs AS api ON ypp.id_page_img = api.id_page_img
 						INNER JOIN accomodation_imgs AS ai ON ai.id_img = api.id_img
-						INNER JOIN frames_imgs AS fi ON (fi.id_frame = ypp.id_frame AND ai.id_img = fi.id_img)
+						LEFT JOIN frames_imgs AS fi ON (fi.id_frame = ypp.id_frame AND ai.id_img = fi.id_img)
 					WHERE ypp.id_ypage = ".$value->id_ypage)->result();
 			}
 			$res->free_result();

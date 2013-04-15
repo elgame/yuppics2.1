@@ -109,6 +109,26 @@ class my_paypal{
 						'sellerpaypalaccountid'  => '',			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
             );
 
+	/**
+	 * Array de respuesta (confirmacion) de la compra
+	 * token
+	 * payerid
+	 * @var array
+	 */
+	private $DECPFields = array(
+						'token'                => '', 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
+						'payerid'              => '', 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
+						'returnfmfdetails'     => '', 					// Flag to indiciate whether you want the results returned by Fraud Management Filters or not.  1 or 0.
+						'giftmessage'          => '', 						// The gift message entered by the buyer on the PayPal Review page.  150 char max.
+						'giftreceiptenable'    => '', 					// Pass true if a gift receipt was selected by the buyer on the PayPal Review page. Otherwise pass false.
+						'giftwrapname'         => '', 						// The gift wrap name only if the gift option on the PayPal Review page was selected by the buyer.
+						'giftwrapamount'       => '', 					// The amount only if the gift option on the PayPal Review page was selected by the buyer.
+						'buyermarketingemail'  => '', 				// The buyer email address opted in by the buyer on the PayPal Review page.
+						'surveyquestion'       => '', 					// The survey question on the PayPal Review page.  50 char max.
+						'surveychoiceselected' => '',  				// The survey response selected by the buyer on the PayPal Review page.  15 char max.
+						'allowedpaymentmethod' => '' 				// The payment method type. Specify the value InstantPaymentOnly.
+					);
+
 	function __construct($conf_sale=array(), $conf_payment=array() ){
 
 		$this->application_id = $this->sandbox? 'APP-80W284485P519543T' : 'LIVE_APP_ID';
@@ -211,6 +231,47 @@ class my_paypal{
 
 		$payresult = $this->PayPal->SetExpressCheckout($PayPalRequest);
 		redirect($payresult['REDIRECTURL']);
+	}
+
+
+
+
+	/**
+	 * Asigna la configuracion de la confirmacion de una compra
+	 * @param  array  $conf_sale [description]
+	 * @return [type]            [description]
+	 */
+	public function config_do_payment($conf_sale=array()){
+		if (count($conf_sale) > 0) {
+			foreach ($conf_sale as $key => $value) {
+				$this->DECPFields[$key] = $value;
+			}
+		}
+	}
+
+	/**
+	 * Confirma el pago procesado en paypal para aceptarlo
+	 */
+	public function do_payment(){
+		$Payments = array($this->Payment);
+
+		$UserSelectedOptions = array(
+					'shippingcalculationmode' => '', 	// Describes how the options that were presented to the user were determined.  values are:  API - Callback   or   API - Flatrate.
+					'insuranceoptionselected' => '', 	// The Yes/No option that you chose for insurance.
+					'shippingoptionisdefault' => '', 	// Is true if the buyer chose the default shipping option.  
+					'shippingoptionamount'    => '', 		// The shipping amount that was chosen by the buyer.
+					'shippingoptionname'      => '', 		// Is true if the buyer chose the default shipping option...??  Maybe this is supposed to show the name..??
+				 );
+							 
+		$PayPalRequestData = array(
+					'DECPFields'          => $this->DECPFields, 
+					'Payments'            => $Payments, 
+					'UserSelectedOptions' => $UserSelectedOptions
+			   );
+
+		// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+		$PayPalResult = $this->PayPal->DoExpressCheckoutPayment($PayPalRequestData);
+		return $PayPalResult;
 	}
 
 }

@@ -33,7 +33,7 @@
                     if (is_array($orders)) {
                       foreach ($orders as $key => $value) {
                   ?>
-                          <div class="accordion-group accordion-history">
+                          <div class="accordion-group accordion-history" data-type="inverse">
 
                             <div class="accordion-heading">
                               <a class="accordion-toggle" data-toggle="collapse" data-parent="#history-accordion" href="#collapse<?php echo $value->id_order; ?>">
@@ -51,7 +51,8 @@
 
                                   <?php foreach ($value->yuppics as $key => $yuppic) { ?>
                                             <fieldset >
-                                              <legend style="font-size: 15px; border-bottom: none;"><i class="icon-faq-point"></i><?php echo $yuppic->title; ?></legend>
+                                              <legend style="font-size: 15px; border-bottom: none;">
+                                                <i class="icon-faq-point"></i> <strong><?php echo $yuppic->title; ?></strong></legend>
                                               <div class="row-fluid">
                                                 <span class="span3 tacenter strongss">Precio</span>
                                                 <span class="span3 green-text"><?php echo String::formatoNumero($yuppic->unitary_price); ?>MXN</span>
