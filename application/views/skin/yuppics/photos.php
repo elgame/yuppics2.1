@@ -1,21 +1,21 @@
-<div class="span12"> <!-- START PROGRESS BAR -->
-	<div style="background-color: #fff; padding: 1% 4% 0% 4%;">
-		<div class="progress" id="progressbar_yuppic">
-		  <div class="bar" style="width: -1%;"
-		  		data-progress="<?php echo (isset($status->progress)? $status->progress: '0'); ?>"></div>
+	<div class="span12 progress_yuppic"><!-- START PROGRESS BAR -->
+		<div class="pross_yupp_conte">
+			<div class="progress_bg">
+				<div class="progress" id="progressbar_yuppic">
+				  <div class="bar" style="width: -1%;"
+		  			data-progress="<?php echo (isset($status->progress)? $status->progress: '0'); ?>"></div>
+				</div>
+				<span class="paso1"></span>
+				<span class="circl1"></span>
+				<span class="paso2" style="display: none;"></span>
+				<span class="circl2" style="display: none;"></span>
+			</div>
+			<p class="txtpaso1"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
+			<p class="muted txtpaso2">Seleccionar fotografias</p>
+			<p class="muted txtpaso3"><a href="#modal_upload" data-toggle="modal" data-target="#modal_upload" id="modal">Creación de Yuppic</a></p>
+			<div class="clearfix"></div>
 		</div>
-		<p class="muted pull-left"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
-		<p class="muted pull-left" style="margin-left: 39%;">Seleccionar fotografias</p>
-
-   <!--  <a href="#modal_contact" class="ajax-link" id="contact" data-toggle="modal" data-target="#modal_contact">
-      <i class="icon-comment"></i><span class="hidden-tablet"> Contacto</span>
-    </a> -->
-		<p class="muted pull-right"><a href="#modal_upload" data-toggle="modal" data-target="#modal_upload" id="modal">
-      Creación de Yuppic</a>
-    </p>
-		<div class="clearfix"></div>
-	</div>
-</div> <!-- END PROGRESS BAR -->
+	</div><!-- END PROGRESS BAR -->
 
 
 <div class="container-fluid"> <!-- START CONTAINER FLUID -->

@@ -12,14 +12,15 @@ class themes_model extends CI_Model{
 	 */
 	public function getThemes($search=null, $exist=false){
 		$this->db
-			->select('t.id_theme, t.name, t.background_img, t.background_color, t.text_color')
+			->select('t.id_theme, t.name, t.autor, t.background_img, t.background_color, t.text_color')
 			->from('themes AS t');
 		if ($search != null) {
-			$this->db->join('themes_tags AS tt', 't.id_theme = tt.id_theme', 'inner')
-				->join('tags AS ta', 'ta.id_tag = tt.id_tag', 'inner')
-				->where("Lower(t.name) LIKE Lower('".$search."') OR Lower(ta.name) LIKE Lower('".$search."')");
+			$search = mb_strtolower($search, 'utf-8');
+			$this->db->join('themes_tags AS tt', 't.id_theme = tt.id_theme', 'left')
+				->join('tags AS ta', 'ta.id_tag = tt.id_tag', 'left')
+				->where("Lower(t.name) LIKE '%".$search."%' OR Lower(t.autor) LIKE '%".$search."%' OR Lower(ta.name) LIKE '%".$search."%'");
 		}
-
+		$this->db->group_by('t.id_theme');
 		$res = $this->db->order_by('t.name', 'asc')
 		->get();
 		if($res->num_rows() > 0){

@@ -39,6 +39,7 @@ class Buy extends MY_Controller {
 
     $this->carabiner->css(array(
       array('skin/buy/buy.css', 'screen'),
+      array('skin/dashboard/style.css', 'screen')
     ));
 
     $this->carabiner->js(array(
@@ -108,7 +109,8 @@ class Buy extends MY_Controller {
                               'data'  => array('id'            => $res_mdl->id,
                                                'type'          => $res_mdl->type,
                                                'amount'        => $res_mdl->amount,
-                                               'amount_format' => String::formatoNumero($res_mdl->amount).'MXN'));
+                                               'percentage'    => $res_mdl->percentage,
+                                               'amount_format' => 'MXN'));
     }
     else
     {
@@ -129,16 +131,30 @@ class Buy extends MY_Controller {
   {
 
     $this->post_facebook(); // Publica en el muro de facebook del usuario
-
+    
     $this->session->unset_userdata('id_yuppics'); // Elimina de la session el parametro
                                                   // id_yuppics para evitar que se vuelva a cargar.
 
-    $params['seo']    = array('titulo'=> 'Yuppics - Pago Exitoso');
     $params['status'] = TRUE;
     $params['order']  = $_GET['order'];
 
     $this->load->model('buy_model');
     $this->buy_model->success($params['order']);
+
+
+
+    $this->carabiner->css(array(
+      array('skin/buy/buy.css', 'screen'),
+      array('skin/dashboard/style.css', 'screen')
+    ));
+
+    // Carrito de compras
+    $this->load->model('book_model');
+    $params['carrito_compra'] = $this->book_model->getShoppingCart();
+    $params['info_customer'] = $this->info_empleado['info']; //info empleado
+    $params['product_yuppic'] = $this->info_empleado['yuppic']; //info yuppic
+    $params['info_dash'] = $this->info_empleado['yuppic_compr']; //Yuppics comprados contador
+    $params['seo']    = array('titulo'=> 'Yuppics - Pago Exitoso');
 
     $this->load->view('skin/header', $params);
     $this->load->view('skin/general/menu', $params);
@@ -157,12 +173,26 @@ class Buy extends MY_Controller {
     $this->session->unset_userdata('id_yuppics'); // Elimina de la session el parametro
                                                   // id_yuppics para evitar que se vuelva a cargar.
 
-    $params['seo']    = array('titulo'=> 'Yuppics - Pago Cancelado');
     $params['status'] = FALSE;
     $params['order']  = $_GET['order'];
 
     $this->load->model('buy_model');
     $this->buy_model->cancelOrder($params['order']);
+
+
+
+    $this->carabiner->css(array(
+      array('skin/buy/buy.css', 'screen'),
+      array('skin/dashboard/style.css', 'screen')
+    ));
+    
+    // Carrito de compras
+    $this->load->model('book_model');
+    $params['carrito_compra'] = $this->book_model->getShoppingCart();
+    $params['info_customer'] = $this->info_empleado['info']; //info empleado
+    $params['product_yuppic'] = $this->info_empleado['yuppic']; //info yuppic
+    $params['info_dash'] = $this->info_empleado['yuppic_compr']; //Yuppics comprados contador
+    $params['seo']    = array('titulo'=> 'Yuppics - Pago Cancelado');
 
     $this->load->view('skin/header', $params);
     $this->load->view('skin/general/menu', $params);
@@ -180,7 +210,7 @@ class Buy extends MY_Controller {
     $this->load->library("my_facebook");
     $config = array(
           'redirect_uri' => base_url('buy/success?order='.$_GET['order']),
-          'scope'        => 'user_about_me, email, user_photos, friends_photos',
+          'scope'        => 'user_about_me, publish_stream, email, user_photos, friends_photos',
           'display'      => ''
     );
 

@@ -1,5 +1,9 @@
 $(function(){
 	yuppic_tema.init();
+
+	$(".barra_menu_fix").removeClass('barra_menu_fix').addClass('barra_menu_fix4').css({
+		backgroundColor: "#15181d"
+	});
 });
 
 var yuppic_tema = (function($){
@@ -18,19 +22,21 @@ var yuppic_tema = (function($){
 		colorpicker_fondo = $('#colorpicker_fondo'); 
 		color_fondo       = $("#color_fondo");
 		tema_prev_yuppic  = $("#tema_prev_yuppic");
-		colorpicker_fondo.farbtastic(function(color){
-			colorpicker_fondo.css("background-color", color);
-			color_fondo.val(color);
-			tema_prev_yuppic.css("background-color", color);
-		});
+		color_fondo.minicolors();
+		// colorpicker_fondo.farbtastic(function(color){
+		// 	colorpicker_fondo.css("background-color", color);
+		// 	color_fondo.val(color);
+		// 	tema_prev_yuppic.css("background-color", color);
+		// });
 		
 		colorpicker_texto = $('#colorpicker_texto');
 		color_texto       = $("#color_texto");
-		colorpicker_texto.farbtastic(function(color){
-			colorpicker_texto.css("background-color", color);
-			color_texto.val(color);
-			tema_prev_yuppic.css("color", color);
-		});
+		color_texto.minicolors();
+		// colorpicker_texto.farbtastic(function(color){
+		// 	colorpicker_texto.css("background-color", color);
+		// 	color_texto.val(color);
+		// 	tema_prev_yuppic.css("color", color);
+		// });
 
 
 		// Eventos para el titulo y autor del yuppic
@@ -38,18 +44,18 @@ var yuppic_tema = (function($){
 		tema_prev_autor  = $("#tema_prev_autor");
 		titulo_yuppic    = $("#titulo_yuppic");
 		autor_yuppic     = $("#autor_yuppic");
-		titulo_yuppic.on("keyup", function(evt){
-			tema_prev_titulo.val($(this).val());
-		});
-		autor_yuppic.on("keyup", function(evt){
-			tema_prev_autor.val($(this).val());
-		});
-		tema_prev_titulo.on("keyup", function(evt){
-			titulo_yuppic.val($(this).val());
-		});
-		tema_prev_autor.on("keyup", function(evt){
-			autor_yuppic.val($(this).val());
-		});
+		// titulo_yuppic.on("keyup", function(evt){
+		// 	tema_prev_titulo.val($(this).val());
+		// });
+		// autor_yuppic.on("keyup", function(evt){
+		// 	tema_prev_autor.val($(this).val());
+		// });
+		// tema_prev_titulo.on("keyup", function(evt){
+		// 	titulo_yuppic.val($(this).val());
+		// });
+		// tema_prev_autor.on("keyup", function(evt){
+		// 	autor_yuppic.val($(this).val());
+		// });
 
 
 		// Eventos para subir la imagen del tema
@@ -88,29 +94,31 @@ var yuppic_tema = (function($){
 			colortexto = obj.attr("data-colortexto"), colorfondo = obj.attr("data-colorfondo");
 
 			//si es un tema seleccionado le quita la seleccion
-			if (obj.is(".btn-success")) {
-				colortexto = "#555";
+			if (obj.is(".btn-warning")) {
+				colortexto = "#fff";
 				colorfondo = "#CCC";
 				img_quit = true;
 				img = "";
 
-				obj.removeClass("btn-success").text("Usar tema");
+				obj.removeClass("btn-warning").text("Usar tema");
 			}else{
-				use_theme.removeClass("btn-success").text("Usar tema");
-				obj.addClass("btn-success").text("Quitar tema");
+				use_theme.removeClass("btn-warning").text("Usar tema");
+				obj.addClass("btn-warning").text("Quitar tema");
 			}
 
 			preview_setImage(img, imgthum, img_quit);
 
-			color_texto.val(colortexto);
+			color_texto.minicolors('value', colortexto);
 			colorpicker_texto.css("background-color", colortexto);
 
-			color_fondo.val(colorfondo);
+			color_fondo.minicolors('value', colorfondo);
 			colorpicker_fondo.css("background-color", colorfondo);
 			tema_prev_yuppic.css({
 				color: colortexto,
 				backgroundColor: colorfondo
 			});
+			tema_prev_titulo.css("color", colortexto);
+			tema_prev_autor.css("color", colortexto);
 		});
 
 		search_themes();
@@ -165,8 +173,8 @@ var yuppic_tema = (function($){
 	function save_theme(){
 		var msg_modal = $("#messajes_alerts"),
 		params = {
-			title: $("#titulo_yuppic").val(),
-			author: $("#autor_yuppic").val(),
+			title: $("#tema_prev_titulo").val(),
+			author: $("#tema_prev_autor").val(),
 			background_img: $("#path_imagen_fondo").val(),
 			background_color: color_fondo.val(),
 			text_color: color_texto.val()

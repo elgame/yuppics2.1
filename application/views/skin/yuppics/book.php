@@ -1,15 +1,24 @@
-	<div class="span12">
-		<div style="background-color: #fff; padding: 1% 4% 0% 4%;">
-			<div class="progress" id="progressbar_yuppic">
-			  <div class="bar" style="width: -4%;" 
+	<div class="span12 progress_yuppic"><!-- START PROGRESS BAR -->
+		<div class="pross_yupp_conte">
+			<div class="progress_bg">
+				<div class="progress" id="progressbar_yuppic">
+				  <div class="bar" style="width: -4%;" 
 			  		data-progress="<?php echo (isset($status->progress)? $status->progress: '100'); ?>"></div>
+				</div>
+				<span class="paso1"></span>
+				<span class="circl1"></span>
+				<span class="paso2"></span>
+				<span class="circl2"></span>
+				<span class="paso3"></span>
+				<span class="circl3"></span>
 			</div>
-			<p class="muted pull-left"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
-			<p class="muted pull-left" style="margin-left: 39%;"><a href="<?php echo base_url('yuppics/photos') ?>">Seleccionar fotografias</a></p>
-			<p class="muted pull-right">Creación de Yuppic</p>
+			<p class="txtpaso1"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
+			<p class="muted txtpaso2"><a href="<?php echo base_url('yuppics/photos') ?>">Seleccionar fotografias</a></p>
+			<p class="muted txtpaso3">Creación de Yuppic</p>
 			<div class="clearfix"></div>
 		</div>
-	</div>
+	</div><!-- END PROGRESS BAR -->
+	
 
 	<div class="row-fluid"> <!-- START BARRA TOP -->
 		<div class="span12">

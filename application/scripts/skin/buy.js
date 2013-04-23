@@ -14,7 +14,7 @@ $(function(){
 
   $('#btnDiscount').on('click', function(e) {
     loader.create('#txt-discount');
-    var objcode = $('#codeDiscount');
+    var objcode = $('#codeDiscount'), tipo, campod, disc;
     $('#type_discount_id').val('');
     $('#type_discount').val('');
     if (objcode.val() !== '') {
@@ -22,11 +22,18 @@ $(function(){
 
         $('#discount_alert').removeClass('hide alert-success alert-info alert-error alert-block').addClass('alert-'+data.frm_errors.ico).show(300).find('span').html(data.frm_errors.msg);
         if (data.frm_errors.ico === 'success') {
-          console.log(data);
-          calcTotal(data.frm_errors.data.amount);
+          if(data.frm_errors.data.amount==0){
+            tipo = 'percent';
+            campod = 'percentage';
+          }else{
+            tipo = 'amount';
+            campod = 'amount';
+          }
+
+          disc = calcTotal(data.frm_errors.data[campod], tipo);
           $('#type_discount_id').val(data.frm_errors.data.id);
           $('#type_discount').val(data.frm_errors.data.type);
-          $('#txt-discount').find('strong').html(data.frm_errors.data.amount_format);
+          $('#txt-discount').find('strong').html(util.darFormatoNum(disc) + data.frm_errors.data.amount_format);
         }
         else {
           calcTotal(0);
@@ -53,10 +60,12 @@ $(function(){
 
 });
 
-function calcTotal(discount) {
+function calcTotal(discount, disco_type) {
   var disc     = parseFloat(discount),
       subtotal = parseFloat($('#tsubtotal').val()),
       ship     = parseFloat($('#tship').val());
+
+  disc = (disco_type=='percent'? (subtotal*discount/100): disc);
 
   var ttotal = (subtotal + ship) - disc;
 
@@ -65,6 +74,8 @@ function calcTotal(discount) {
 
   $('#tdiscount-format').html(util.darFormatoNum(disc) + 'MXN');
   $('#ttotal-format').html(util.darFormatoNum(ttotal) + 'MXN');
+
+  return disc;
 }
 
 function calcSubtotal() {

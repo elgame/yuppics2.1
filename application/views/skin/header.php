@@ -31,7 +31,7 @@
 <body>
 
 	<!-- topbar starts -->
-	<div class="navbar">
+	<div class="navbar top">
 		<div class="navbar-inner navinner">
 			<div class="container-fluid">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
@@ -40,10 +40,10 @@
 					<span class="icon-bar"></span>
 				</a>
 
-				<!-- <a class="brand" href="<?php echo base_url(); ?>">
-					<img alt="logo" src="<?php echo base_url('application/images/logo.png'); ?>" width="67" height="67">
+				<a class="brand header" href="<?php echo base_url(); ?>">
+					<!-- <img alt="logo" src="<?php echo base_url('application/images/logo.png'); ?>" width="67" height="67"> -->
 					<span>Yuppics</span>
-				</a> -->
+				</a>
 
 				<div class="under_group head_tw_fb pull-left">
 					<div class="btn-group">

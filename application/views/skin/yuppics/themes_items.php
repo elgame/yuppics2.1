@@ -13,12 +13,15 @@
 		 ?>
 							<div class="span6">
 								<div class="well">
-									<img src="<?php echo base_url($value->background_img); ?>" class="img-rounded" width="400" height="300">
+									<img src="<?php echo base_url($value->background_img); ?>" class="img-rounded">
 									<h4><?php echo $value->name; ?></h4>
-									<button class="btn use-theme" data-img="<?php echo $value->background_img; ?>" 
+									<button class="btn btn-success use-theme" data-img="<?php echo $value->background_img; ?>" 
 										data-imgthum="<?php echo $thume; ?>" 
 										data-colorfondo="<?php echo $value->background_color; ?>" 
 										data-colortexto="<?php echo $value->text_color; ?>">Usar tema</button>
+									<div class="them_autrr">
+										Creado por <strong><?php echo $value->autor; ?></strong>
+									</div>
 								</div>
 							</div>
 		<?php 
@@ -32,6 +35,6 @@
 			$noresult = true;
 
 		if (isset($noresult)) {
-			echo '<div class="well">No se encontraron resultados.</div>';
+			echo '<div class="well no-resultados">No se encontraron resultados.</div>';
 		}
 		?>

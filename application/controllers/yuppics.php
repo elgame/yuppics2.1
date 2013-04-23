@@ -28,14 +28,14 @@ class yuppics extends MY_Controller {
 	public function index(){
 		// $this->session->set_userdata('id_yuppics', 2);
 		$this->carabiner->css(array(
-			array('libs/jquery.colorpicker.css', 'screen'),
+			array('libs/jquery.minicolors.css', 'screen'),
 			array('libs/jquery.jPages.css', 'screen'),
 			array('skin/dashboard/style.css', 'screen'),
 			array('skin/yuppics/style.css', 'screen')
 		));
 
 		$this->carabiner->js(array(
-			array('libs/jquery.colorpicker.js'),
+			array('libs/jquery.minicolors.js'),
 			array('libs/jquery.form.js'),
 			array('libs/jquery.jPages.min.js'),
 			array('general/loader.js'),
@@ -168,8 +168,8 @@ class yuppics extends MY_Controller {
 	 */
 	public function photos()
 	{
-		// if (! $this->session->userdata('id_yuppics'))
-		// 	redirect(base_url('yuppics/'));
+		if (! $this->session->userdata('id_yuppics'))
+			redirect(base_url('yuppics/'));
 
 		$access_token = $this->input->get('token');
 		if (!$access_token) {
@@ -179,6 +179,7 @@ class yuppics extends MY_Controller {
 		$this->carabiner->css(array(
 			array('libs/jquery.jscrollpane.css', 'screen'),
 			array('libs/jquery.jPages.css', 'screen'),
+			array('skin/dashboard/style.css', 'screen'),
 			array('skin/yuppics/style.css', 'screen'),
 		));
 

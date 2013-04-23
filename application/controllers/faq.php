@@ -15,7 +15,7 @@ class Faq extends MY_Controller {
 
 			$this->{$method}();
 		}else
-			$this->{'index'}();
+			redirect(base_url());
 	}
 
 	public function index()

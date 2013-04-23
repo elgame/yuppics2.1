@@ -89,7 +89,7 @@ class Buy_model extends CI_Model {
       $date_end   = ($couvau->date_end === NULL) ? '' : ' AND date_end > NOW()';
 
       $query->free_result();
-      $query = $this->db->select($id_field . ' as id, amount')->
+      $query = $this->db->select($id_field . ' as id, amount, percentage')->
                                 from($table)->
                                 where('code = "'.$_POST['code'].'" AND uses_total >='.(intval($uses_total) + 1).$date_start.$date_end)->
                                 get();
@@ -125,7 +125,8 @@ class Buy_model extends CI_Model {
     $data_ids_yuppics = array();
     foreach($_POST['yids'] as $k => $v)
     {
-      $data_ids_yuppics[] = array('id_order' => $id_order, 'id_yuppics' => $v);
+      $data_ids_yuppics[] = array('id_order' => $id_order, 'id_yuppics' => $v, 'quantity' => $_POST['yqty'][$k], 
+                                  'unitary_price' => $_POST['yprice'][$k]);
       $this->db->update('yuppics', array('quantity' => $_POST['yqty'][$k]), array('id_yuppic' => $v));
     }
     $this->db->insert_batch('orders_yuppics', $data_ids_yuppics);
@@ -340,9 +341,7 @@ class Buy_model extends CI_Model {
    */
   public function success($order)
   {
-    var_dump($this->confirmByPaypal($order));
-    exit;
-
+    $this->confirmByPaypal($order);
     $query = $this->db->query("SELECT id_yuppics
                                FROM orders_yuppics
                                WHERE id_order = ".$order);

@@ -11,13 +11,18 @@ body{
 }
 
 .container-fluid.nopadding_lf{
-	padding-left: 0px;
+	padding: 0px;
 }
 
 /********  header **********/
-
 .navbar {
   margin-bottom: 0 !important;
+}
+.navbar .navbar-inner.navinner{
+  background: url("../../../images/topbar_bk.png") repeat-x;
+}
+.brand.header{
+  width: auto;
 }
 
 .navbar-inner.navinner{
@@ -25,6 +30,7 @@ body{
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	padding: 10px 0px;
+  border-bottom: 1px #2d3035 solid;
 }
 .under_group{
 	margin-left: 10px;
@@ -157,7 +163,8 @@ body{
 /*********  Menu **********/
 #barra_menu_fix{
 }
-.barra_menu_fix{
+.barra_menu_fix,
+.barra_menu_fix4{
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -168,6 +175,9 @@ body{
   -moz-box-shadow:inset -20px 0px 12px #17181C;
   -webkit-box-shadow:inset -20px 0px 12px #17181C;
   box-shadow:inset -20px 0px 12px #17181C;
+}
+.barra_menu_fix4{
+  z-index: 1;
 }
 .well.nav-collapse.sidebar-nav{
 	height: 100%;
@@ -694,6 +704,25 @@ i.icon-faq-point {
   color: #70727d;
 }
 
+
+/** order **/
+.ordercps{
+  color: #666666;
+}
+.ord_datos_adress{
+  color: #666666;
+}
+.ord_datos_adress strong,
+.text-warning{
+  color: #616569;
+}
+.ord_datos_adress a{
+  color: #666;
+}
+.ord_datos_adress a:hover{
+  color: #666;
+  text-decoration: underline;
+}
 
 
 

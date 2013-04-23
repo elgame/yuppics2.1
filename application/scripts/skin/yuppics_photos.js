@@ -87,7 +87,11 @@ $(function() {
 	var progressbar_yuppic = $("#progressbar_yuppic .bar")
 	progressbar_yuppic.animate({
 		width: progressbar_yuppic.attr('data-progress')+"%"
-	}, 400);
+	}, 400, function(){
+    setTimeout(function(){
+      $(".paso2, .circl2").show();
+    }, 420);
+  });
 
   // Asigna evento "Click" al Boton "Next".
   $('#btn-next').on('click', function(event) {

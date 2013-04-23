@@ -132,9 +132,9 @@ class my_paypal{
 	function __construct($conf_sale=array(), $conf_payment=array() ){
 
 		$this->application_id = $this->sandbox? 'APP-80W284485P519543T' : 'LIVE_APP_ID';
-		$this->api_username   = $this->sandbox? 'gamame_1325861557_biz_api1.gmail.com' : 'LIVE_API_USERNAME';
-		$this->api_password   = $this->sandbox? '1325861583' : 'LIVE_API_PASSWORD';
-		$this->api_signature  = $this->sandbox? 'AaCnRBnC4zIK4buj5ijEl0MKS62hAntLOpnfxKhwzSSDjTL1hGK5bORP' : 'LIVE_API_SIGNATURE';
+		$this->api_username   = $this->sandbox? 'gamame_vendedor_api1.gmail.com' : 'LIVE_API_USERNAME';
+		$this->api_password   = $this->sandbox? '1363657954' : 'LIVE_API_PASSWORD';
+		$this->api_signature  = $this->sandbox? 'Ar0kCMVg4RUhfs5pQkttLlBFe4J0AQ1hx85ZxihqL50w9CO4Foz8neYO' : 'LIVE_API_SIGNATURE';
 
 		$this->PayPalConfig   = array('Sandbox'      => $this->sandbox,
 																	'APIUsername'  => $this->api_username,
@@ -254,7 +254,7 @@ class my_paypal{
 	 */
 	public function do_payment(){
 		$Payments = array($this->Payment);
-
+		
 		$UserSelectedOptions = array(
 					'shippingcalculationmode' => '', 	// Describes how the options that were presented to the user were determined.  values are:  API - Callback   or   API - Flatrate.
 					'insuranceoptionselected' => '', 	// The Yes/No option that you chose for insurance.

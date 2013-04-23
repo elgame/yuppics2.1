@@ -1,26 +1,38 @@
-	<div class="span12">
-		<div style="background-color: #fff; padding: 1% 4% 0% 4%;">
-			<div class="progress">
-			  <div class="bar" style="width: <?php echo (isset($status->progress)? $status->progress: '0'); ?>%;"></div>
+	<div class="span12 progress_yuppic"><!-- START PROGRESS BAR -->
+		<div class="pross_yupp_conte">
+			<div class="progress_bg">
+				<div class="progress">
+				  <div class="bar" style="width: <?php echo (isset($status->progress)? $status->progress: '0'); ?>%;"></div>
+				</div>
+				<span class="paso1"></span>
+				<span class="circl1"></span>
+				<span class="paso2"></span>
+				<span class="circl2"></span>
+				<span class="paso3"></span>
+				<span class="circl3"></span>
 			</div>
-			<p class="muted pull-left">Seleccionar tema</p>
-			<p class="muted pull-left" style="margin-left: 39%;"><a href="javascript:void(0);" id="btn_select_theme">Seleccionar fotografias</a></p>
-			<p class="muted pull-right">Creación de Yuppic</p>
+			<p class="txtpaso1">Seleccionar tema</p>
+			<p class="muted txtpaso2"><a href="javascript:void(0);" id="btn_select_theme">Seleccionar fotografias</a></p>
+			<p class="muted txtpaso3">Creación de Yuppic</p>
 			<div class="clearfix"></div>
 		</div>
-	</div>
+	</div><!-- END PROGRESS BAR -->
 
 	<div class="row-fluid">
-		<div class="span12 ">
+		<div class="span12 barratop">
 			<div class="tema_barratop">
 				<div class="pull-left">
-					Selecciona un tema y personaliza tu Yuppic
+					Elige un tema y personalizalo a tu gusto
 				</div>
 
 				<div class="pull-right">
-					<form action="<?php echo base_url('yuppics/theme_search'); ?>" method="get" id="tema_frm_buscar" class="tema_form-buscar">
-						<div class="input-append">
-							<input type="text" name="qs" class="span2" id="appendedInputButtons"><button class="btn" type="submit">Buscar</button>
+					<div class="input-append ir_pasos pull-right">
+						<a href="javascript:void(0);" id="btn_select_theme2" class="btn">Siguiente paso <i class="icon-arrow-right"></i></a>
+					</div>
+
+					<form action="<?php echo base_url('yuppics/theme_search'); ?>" method="get" id="tema_frm_buscar" class="tema_form-buscar pull-right">
+					  <div class="input-append">
+							<input type="text" name="qs" class="span1" id="appendedInputButtons" placeholder="Titulo, Autor.."><button class="btn" type="submit">Buscar</button>
 						</div>
 					</form>
 				</div>
@@ -31,21 +43,24 @@
 	</div>
 
 
-	<div class="row-fluid">
-		<div class="span4">
+	<div class="row-fluid contenido_crea_yupp">
+		<div class="span4 barrpreview">
 			<div id="tema_preview">
-				<h4>Preview Yuppic</h4>
 		<?php 
 		$style = '';
 		$txt_color = '';
 		if (isset($theme_sel)) {
-			$style = 'background-image: url('.base_url($theme_sel->background_img_thum).');background-color: '.$theme_sel->background_color.'; color: '.$theme_sel->text_color.'; background-repeat: no-repeat no-repeat;';
+			$style = 'background-image: url('.base_url($theme_sel->background_img_thum).');background-color: '.$theme_sel->background_color.';color: '.$theme_sel->text_color.'; background-repeat: no-repeat no-repeat;';
 			$txt_color = 'color: '.$theme_sel->text_color.';';
 		}
 		?>
 				<div id="tema_prev_yuppic" class="tema_prev_yuppic center" style="<?php echo $style; ?>">
-					<input id="tema_prev_titulo" class="titulo center tacenter" value="<?php echo (isset($theme_sel->title)? $theme_sel->title: 'Titulo del Yuppic'); ?>" style="<?php echo $txt_color; ?>">
+					<br><br><br>
+					<div class="bgtitulo">
+						<input id="tema_prev_titulo" class="titulo center tacenter" value="<?php echo (isset($theme_sel->title)? $theme_sel->title: '—— TÍTULO ——'); ?>" style="<?php echo $txt_color; ?>">
+					</div>
 					<input id="tema_prev_autor" class="autor center tacenter" value="<?php echo (isset($theme_sel->author)? $theme_sel->author: 'Autor de Yuppic'); ?>" style="<?php echo $txt_color; ?>">
+					<span class="fecha center"><?php echo String::fechaATexto(date("Y-m-d")); ?></span>
 				</div>
 
 				<div class="accordion" id="accordion2">
@@ -71,46 +86,22 @@
 
 					<div class="accordion-group">
 						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_fondo">Color de fondo</a>
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_fondo">Personalizar Colores</a>
 						</div>
 						<div id="collapse_fondo" class="accordion-body collapse">
 							<div class="accordion-inner">
-								<input type="hidden" id="color_fondo" name="color_fondo" value="<?php echo (isset($theme_sel->background_color)? $theme_sel->background_color: '#ccc'); ?>">
-									<div id="colorpicker_fondo" class="colorpicker center"></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_texto">Color de texto</a>
-						</div>
-						<div id="collapse_texto" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<input type="hidden" id="color_texto" name="color_texto" value="<?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555'); ?>">
-									<div id="colorpicker_texto" class="colorpicker center"></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_titulo">Titulo del Yuppic</a>
-						</div>
-						<div id="collapse_titulo" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<input type="text" id="titulo_yuppic" value="<?php echo (isset($theme_sel->title)? $theme_sel->title: ''); ?>" placeholder="Titulo de tu Yuppic">
-							</div>
-						</div>
-					</div>
-
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_autor">Autor del Yuppic</a>
-						</div>
-						<div id="collapse_autor" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<input type="text" id="autor_yuppic" value="<?php echo (isset($theme_sel->author)? $theme_sel->author: ''); ?>" placeholder="Autor de tu Yuppic">
+								<div>
+									<div class="span6" style="text-align: left;color: #5c5c67;">Color de fondo</div>
+									<div class="span6">
+										<input type="text" id="color_fondo" name="color_fondo" value="<?php echo (isset($theme_sel->background_color)? $theme_sel->background_color: '#ccc'); ?>">
+									</div>
+								</div>
+								<div>
+									<div class="span6" style="text-align: left;color: #5c5c67;">Color de fondo</div>
+									<div class="span6">
+										<input type="text" id="color_texto" name="color_texto" value="<?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555'); ?>">
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -122,18 +113,20 @@
 		</div><!-- /span4 -->
 
 		<!-- Lista de temas -->
-		<div class="span8">
+		<div id="thmslists" class="span8 lista_temas">
+			<div class="span6 pgtitle">Selecciona un tema y personaliza tu Yuppics</div>
+			<div class="span6">
+				<div class="pagination pull-right"></div>
+			</div>
+
 			<div id="list_themes">
 <?php 
 	if (isset($themes)) {
 			echo $themes;
 	} ?>
 			</div>
-			<div class="pagination"></div>
 
 		</div><!-- /span8 -->
-
-		<a href="javascript:void(0);" id="btn_select_theme2" class="pull-right">Siguiente paso <i class="icon-arrow-right"></i></a>
 
 	</div><!-- /row -->
 	

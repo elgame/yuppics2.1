@@ -1,33 +1,28 @@
-<div class="span8"> <!-- STAR SPAN8 -->
-  <div>
-    <ul class="breadcrumb">
-     <li>
-        <a href="<?php echo base_url(); ?>">Inicio</a> <span class="divider">/</span>
-      </li>
-      <li>
-        Resumen de Compra
-      </li>
-    </ul>
-  </div>
+<div id="content" class="span7 ordercps mtop-content"> <!-- STAR SPAN8 -->
 
   <div class="row-fluid"> <!-- START ROW-FLUID -->
     <div id="send_alert" class="alert hide">
       <button type="button" class="close" data-dismiss="alert">×</button>
       <span></span>
     </div>
-    <div class="hero-unit">
-      <h3>Resumen de compra</h3>
-      <p>A continuación se muestran de manera detallada los datos de compra a realizar, si tienes alguna duda puedes contactarnos
-        <a href="#" data-toggle="modal" data-target="#modal_contact">aquí</a></p>
+    <div class="hero-unit unitwhite">
+      <div class="unit-body unit-foo">
+        <h3>Resumen de compra</h3>
+        <p>A continuación se muestran de manera detallada los datos de compra a realizar, si tienes alguna duda puedes contactarnos
+          <a href="#" class="link_green bold" data-toggle="modal" data-target="#modal_contact">aquí</a></p>
+      </div>
     </div>
   </div> <!-- END ROW-FLUID -->
 
   <div class="row-fluid">  <!-- START DATOS -->
-    <div class="box span4">
+    <div class="box span12">
       <div class="box-header well">
-        <h2><i class="icon-user"></i> Datos</h2>
-        <div class="box-icon">
-          <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+        <h2>Datos</h2>
+       
+        <div class="box-icon pull-right">
+          <div class="btn-group">
+            <a href="#" class="btn btn-white btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+          </div>
         </div>
       </div>
       <div class="box-content">
@@ -38,7 +33,7 @@
           </div>
         </div>
         <div class="row-fluid">
-          <address>
+          <address class="ord_datos_adress">
             <?php if (!empty($info_customer->username)) {?> <strong>Username: </strong><?php echo $info_customer->username?><br><?php } ?>
             <strong>Nombre: </strong><?php echo $info_customer->first_name.' '.$info_customer->last_name ?><br>
             <strong>Email: </strong><a href="mailto:#"><?php echo $info_customer->email?></a><br>
@@ -53,13 +48,15 @@
     <div class="row-fluid">  <!-- START ADDRESSBOOK -->
       <div class="box span12" id="address">
         <div class="box-header well">
-          <h2><i class="icon-shopping-cart"></i> Libro de direcciones</h2>
-          <div class="box-icon">
-            <a href="#modal_addaddress" class="btn btn-round" title="Agregar direccion" role="button" data-toggle="modal"><i class="icon-plus"></i></a>
-            <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+          <h2>Libro de direcciones</h2>
+          <div class="box-icon pull-right">
+            <div class="btn-group">
+              <a href="#modal_addaddress" class="btn btn-white" title="Agregar direccion" role="button" data-toggle="modal"><i class="icon-plus"></i></a>
+              <a href="#" class="btn btn-white btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
           </div>
         </div>
-        <div class="box-content">
+        <div class="box-content nopaddin">
           <div class="row-fluid">
             <div id="deleteaddress_alert" class="alert hide">
               <button type="button" class="close" data-dismiss="alert">×</button>
@@ -67,92 +64,129 @@
             </div>
           </div>
 
-      <?php
-        if ($address_books != false)
-        {
-      ?>
           <div class="row-fluis">
             <div class="span12 center"><h4 class="text-warning">NOTA: asegurate de especificar correctamente las direcciones de envío y/o facturación</h4></div>
           </div>
-          <div class="row-fluid">
-            <div class="span6">
-              <fieldset>
-                <legend>Direccion(es) predeterminada(s)</legend>
 
-                <div class="control-group">
-              <?php
-              if (isset($address_books['default']))
-              {
-                foreach ($address_books['default'] as $key => $default) {
-                  if($default->default_billing == 1 && $default->default_shipping == 1)
-                    echo '<strong>Direccion de facturacion y envio</strong><input type="hidden" name="id_address_billing" value="'.$default->id_address.'"><input type="hidden" name="id_address_shipping" value="'.$default->id_address.'">';
-                  else if ($default->default_billing == 1)
-                    echo '<strong>Direccion de facturacion</strong><input type="hidden" name="id_address_billing" value="'.$default->id_address.'">';
-                  else if ($default->default_shipping == 1)
-                    echo '<strong>Direccion de envio</strong><input type="hidden" name="id_address_shipping" value="'.$default->id_address.'">';
-              ?>
-                  <p>
-                    <?php
-                    echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
-                      ($default->company!=''? $default->company.'<br>': '').
-                      ($default->rfc!=''? $default->rfc.'<br>': '').
-                      $default->street.', '.$default->colony.'<br>'.
-                      $default->city.', '.$default->state.', '.$default->country;
-                    ?>
-                    <br><a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a>
-                  </p>
-              <?php
-                }
-              } ?>
-                </div>
-
-              </fieldset>
+          <div class="row-fluid xxboxx">
+            <div class="span6 title-box">
+                Dirección predeterminada
             </div>
 
-            <div class="span6">
-              <fieldset>
-                <legend>Otras direcciones</legend>
+            <!--[if !IE]><!-->
+              <div class="span6 title-box">
+                Otras Direcciones
+              </div>
+             <!--<![endif]-->
+            <!--[if lt IE 8]>
+              <div class="span5 title-box" style="margin-left:0;">
+                Dirección predeterminada
+              </div>
+            <![endif]-->
 
-                <div class="control-group">
+          </div>
+        <?php
+        if ($address_books != false)
+        {
+        ?>
+          <div class="paddin10" style="background-color: #fbfbfc;">
+            <div class="row-fluid">
+              <div class="span6">
+
+
+                  <div class="control-group">
                 <?php
-                if (isset($address_books['others']))
+                if (isset($address_books['default']))
                 {
-                  foreach ($address_books['others'] as $key => $default) {
+                  foreach ($address_books['default'] as $key => $default) {
+                    if($default->default_billing == 1 && $default->default_shipping == 1)
+                      echo '<input type="hidden" name="id_address_billing" value="'.$default->id_address.'">
+                            <input type="hidden" name="id_address_shipping" value="'.$default->id_address.'">';
+                    else if ($default->default_billing == 1)
+                      echo '<input type="hidden" name="id_address_billing" value="'.$default->id_address.'">';
+                    else if ($default->default_shipping == 1)
+                      echo '<input type="hidden" name="id_address_shipping" value="'.$default->id_address.'">';
                 ?>
-                  <strong>Direccion <?php echo $key+1; ?></strong>
                     <p>
-                      <?php
-                      echo $default->contact_first_name.' '.$default->contact_last_name.'<br>'.
-                        ($default->company!=''? $default->company.'<br>': '').
-                        ($default->rfc!=''? $default->rfc.'<br>': '').
-                        $default->street.', '.$default->colony.'<br>'.
-                        $default->city.', '.$default->state.', '.$default->country;
-                      ?>
-                      <br>
-                      <a href="#modal_updateaddress" class="btn-link update_address" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">Modificar</a> |
-                      <a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link"
-                        onclick="msb.confirm('Estas seguro de eliminar la direccion?', 'Libro de direcciones', this); return false;">Eliminar</a>
+                      <span class="span2">
+                        <a href="#modal_updateaddress" class="btn-link update_address center" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">
+                          <img src="<?php echo base_url('application/images/edit-dir.png'); ?>" width="20" height="20">
+                        </a>
+                      </span>
+                      <span class="span10">
+                        <?php
+                        echo '<strong style="color:#616569;">'.$default->contact_first_name.' '.$default->contact_last_name.'</strong><br><br>'.
+                          ($default->company!=''? $default->company.'<br>': '').
+                          ($default->rfc!=''? $default->rfc.'<br>': '').
+                          $default->street.', '.$default->colony.'<br>'.
+                          $default->city.', '.$default->state.', '.$default->country;
+                        ?>
+                      </span>
                     </p>
                 <?php
                   }
-                }?>
-                </div>
+                } ?>
+                  </div>
 
-              </fieldset>
+              </div>
+
+              <div class="span6">
+                  <div class="control-group">
+                  <?php
+                  if (isset($address_books['others']))
+                  {
+                    foreach ($address_books['others'] as $key => $default) {
+
+                    /*<strong>Direccion <?php echo $key+1; ?></strong>*/
+                  ?>
+                      <p>
+                        <span class="span2">
+                          <a href="#modal_updateaddress" class="btn-link update_address center" data-toggle="modal" data-id="<?php echo $default->id_address; ?>">
+                            <img src="<?php echo base_url('application/images/edit-dir.png'); ?>" width="20" height="20">
+                          </a>
+                          <a href="<?php echo base_url('address_book/delete?id='.$default->id_address) ?>" class="btn-link center" 
+                            style="margin-top:20px;" 
+                            onclick="msb.confirm('Estas seguro de eliminar la direccion?', 'Libro de direcciones', this); return false;">
+                            <img src="<?php echo base_url('application/images/delete-dir.png'); ?>" width="20" height="20">
+                          </a>
+                        </span>
+                        <span class="span10">
+                          <?php
+                          echo '<strong style="color:#616569;">'.$default->contact_first_name.' '.$default->contact_last_name.'</strong><br><br>'.
+                            ($default->company!=''? $default->company.'<br>': '').
+                            ($default->rfc!=''? $default->rfc.'<br>': '').
+                            $default->street.', '.$default->colony.'<br>'.
+                            $default->city.', '.$default->state.', '.$default->country;
+                          ?>
+                        </span>
+                      </p>
+                  <?php
+                    }
+                  }?>
+                  </div>
+
+              </div>
             </div>
+
           </div>
-      <?php
-      }
-      else
-      {
-      ?>
-          <div class="alert alert-block">
-            <h4>No has registrado direcciones</h4>
-            Agrega almenos una direccion :)
-          </div>
-      <?php
-      }
-      ?>
+        <?php
+        }
+        else
+        {
+        ?>
+            <div class="alert alert-block">
+              <h4>No has registrado direcciones</h4>
+              Agrega almenos una direccion :)
+            </div>
+        <?php
+        }
+        ?>
+
+
+
+
+
+
         </div>
       </div><!--/span-->
 
@@ -162,9 +196,12 @@
     <div class="row-fluid">  <!-- START DATOS -->
       <div class="box span12">
         <div class="box-header well">
-          <h2><i class="icon-user"></i> Datos de la Compra</h2>
-          <div class="box-icon">
-            <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+          <h2>Datos de la Compra</h2>
+
+          <div class="box-icon pull-right">
+            <div class="btn-group">
+              <a href="#" class="btn btn-white btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+            </div>
           </div>
         </div>
         <div class="box-content"> <!-- START box-content -->
@@ -180,13 +217,13 @@
                   </label>
                    <input type="text" value="" name="codeDiscount" id="codeDiscount" style="margin-left: 5px;"><button type="button" class="btn btn-info btn-small" id="btnDiscount" disabled>Cargar</button>
                    <span class="mutted" id="txt-discount">Descuento con valor de <strong>$0.00MXN</strong></span>
-                </div>
+                </div><!-- 
                 <div class="input-append">
                   <label class="radio inline">
                     <input type="radio" name="typeDiscount" value="voucher">Seleccionar Voucher
                   </label>
                 </div>
-                <strong>Recuerda que por compra sólo puedes utilizar un voucher o un codigo de descuento.</strong>
+                <strong>Recuerda que por compra sólo puedes utilizar un voucher o un codigo de descuento.</strong> -->
                 <input type="hidden" name="type_discount_id" value="" id="type_discount_id">
                 <input type="hidden" name="type_discount" value="" id="type_discount">
               </div>
@@ -208,8 +245,9 @@
                   <?php
                       $ttotal = $tshipping = $tdiscount = 0;
                       foreach ($yuppics['result'] as $k => $yuppic) {
-                      $subtotal = floatval($yuppic->price) * floatval($yuppic->quantity);
-                      $ttotal += $subtotal;
+                        if ($yuppic->resultado_verificacion) {
+                          $subtotal = floatval($yuppic->price) * floatval($yuppic->quantity);
+                          $ttotal += $subtotal;
                   ?>
                       <tr>
                         <td><?php echo $yuppic->title; ?>
@@ -220,7 +258,9 @@
                         <td><input type="number" name="yqty[]" value="<?php echo $yuppic->quantity ?>" id="yqty" min="1" data-id="<?php echo $yuppic->id_yuppic?>"></td>
                         <td id="<?php echo $yuppic->id_yuppic?>"><?php echo String::formatoNumero($subtotal) ?>MXN</td>
                       </tr>
-                  <?php } ?>
+                  <?php } 
+                      }
+                  ?>
                 </tbody>
               </table> <!-- END TABLE LIST YUPPICS -->
 
@@ -509,7 +549,7 @@
     <input type="hidden" value="<?php echo isset($throw_alert[1])?$throw_alert[1]:''; ?>" id="alert-throw" data-throwalert="<?php echo isset($throw_alert[0])?$throw_alert[0]:'false'; ?>">
   </div>
   <div class="modal-footer">
-    <a href="<?php echo base_url('historial'); ?>" class="btn btn-info">Mi Historial</a>
+    <a href="<?php echo base_url('history'); ?>" class="btn btn-info">Mi Historial</a>
     <a href="#" class="btn" data-dismiss="modal" aria-hidden="true" id="modal-alert-btn">Cerrar</a>
   </div>
 </div>

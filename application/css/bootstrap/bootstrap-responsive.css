@@ -247,7 +247,8 @@
     width: 40.17094017094017%;
     *width: 40.11774868157847%;
   }
-  .row-fluid .span4 {
+  .row-fluid .span4,
+  .barra_menu_fix4 {
     width: 31.623931623931625%;
     *width: 31.570740134569924%;
   }
@@ -779,8 +780,8 @@
 
 @media (max-width: 767px) {
   body {
-    padding-right: 20px;
-    padding-left: 20px;
+    /*padding-right: 20px;
+    padding-left: 20px;*/
   }
   .navbar-fixed-top,
   .navbar-fixed-bottom,
