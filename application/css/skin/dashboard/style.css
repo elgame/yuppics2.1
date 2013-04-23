@@ -723,7 +723,22 @@ i.icon-faq-point {
   color: #666;
   text-decoration: underline;
 }
+.table-striped tbody tr:nth-child(odd) td, 
+.table-striped tbody tr:nth-child(odd) th {
+  background-color: #eee !important;
+}
 
+
+.well.wellwithe{
+  background-color: #fff;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
 
 
 .modal form{

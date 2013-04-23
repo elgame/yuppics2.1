@@ -206,7 +206,7 @@
         </div>
         <div class="box-content"> <!-- START box-content -->
           <div class="row-fluid">
-              <div class="span12 well">
+              <div class="span12 well wellwithe" style="border-bottom: 1px solid #dfdede;">
                 <div id="discount_alert" class="alert hide">
                   <button type="button" class="close">×</button>
                   <span></span>
@@ -264,9 +264,9 @@
                 </tbody>
               </table> <!-- END TABLE LIST YUPPICS -->
 
-              <div class="row"> <!-- START TABLE TOTALES -->
-                <div class="span5 offset5">
-                    <table class="table">
+              <div class="row-fluid"> <!-- START TABLE TOTALES -->
+                <div class="span12">
+                    <table class="table span5 pull-right">
                       <thead>
                         <tr>
                           <th></th>
@@ -296,7 +296,7 @@
               </div> <!-- END TABLE TOTALES -->
 
               <div class="row-fluid">
-                <div class="span12 form-actions">
+                <div class="span12 well wellwithe" style="border-top: 1px solid #dfdede;">
                   <div class="row-fluid">
                     <div class="span6">
                         <h3>Selecciona el método de pago</h3>
