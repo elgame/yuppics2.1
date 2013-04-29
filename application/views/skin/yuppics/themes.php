@@ -46,7 +46,7 @@
 	<div class="row-fluid contenido_crea_yupp">
 		<div class="span4 barrpreview">
 			<div id="tema_preview">
-		<?php 
+		<?php
 		$style = '';
 		$txt_color = '';
 		if (isset($theme_sel)) {
@@ -120,7 +120,7 @@
 			</div>
 
 			<div id="list_themes">
-<?php 
+<?php
 	if (isset($themes)) {
 			echo $themes;
 	} ?>
@@ -129,7 +129,7 @@
 		</div><!-- /span8 -->
 
 	</div><!-- /row -->
-	
+
 
 
 <div id="messajes_alerts" class="modal hide fade">

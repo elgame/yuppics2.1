@@ -209,7 +209,7 @@ class yuppics extends MY_Controller {
 		$params['totalp'] = 0;
 		if ($res){
 			$params['photos'] = $res;
-			$params['width'] = count($params['photos']) * 165;
+			$params['width'] = count($params['photos']) * 195; // 165
 			$params['totalp'] = count($params['photos']);
 		}
 
@@ -484,7 +484,7 @@ class yuppics extends MY_Controller {
 					$pdf->Rect($info['x'], $info['y'], $info['w'], $info['h'], 'F');
 
 					// $name_file = explode('/', $photo->url_img);
-					// $img_cortada = $this->cropImg($name_file[count($name_file)-1], $photo->url_img, 
+					// $img_cortada = $this->cropImg($name_file[count($name_file)-1], $photo->url_img,
 					// 	array('new_w' => $photo->width, 'new_h' => $photo->height, 'x' => abs($photo->pos_x), 'y' => abs($photo->pos_y) ),
 					// 	$info);
 
@@ -532,7 +532,7 @@ class yuppics extends MY_Controller {
 		$imageType = image_type_to_mime_type($imageType);
 
 		$zoom_xciento = $conf['w']*100/$imagewidth;
-		
+
 		$newImageWidth  = $pag['w']*100/$zoom_xciento;
 		$newImageHeight = $pag['h']*100/$zoom_xciento;
 
@@ -541,37 +541,37 @@ class yuppics extends MY_Controller {
 
 		$src_width = $newImageWidth;
 		$src_height = $newImageHeight;
-	  	
-	  	
+
+
 		$newImage = imagecreatetruecolor($newImageWidth, $newImageHeight);
 		switch($imageType) {
 			case "image/gif":
-				$source=imagecreatefromgif($image); 
+				$source=imagecreatefromgif($image);
 				break;
 		    case "image/pjpeg":
 			case "image/jpeg":
 			case "image/jpg":
-				$source=imagecreatefromjpeg($image); 
+				$source=imagecreatefromjpeg($image);
 				break;
 		    case "image/png":
 			case "image/x-png":
-				$source=imagecreatefrompng($image); 
+				$source=imagecreatefrompng($image);
 				break;
 	  	}
-		imagecopyresampled($newImage, $source, 0, 0, $src_x, $src_y, $newImageWidth, $newImageHeight, 
+		imagecopyresampled($newImage, $source, 0, 0, $src_x, $src_y, $newImageWidth, $newImageHeight,
 			$src_width, $src_height);
 		switch($imageType) {
 			case "image/gif":
-		  		imagegif($newImage,$thumb_image_name); 
+		  		imagegif($newImage,$thumb_image_name);
 				break;
 	      	case "image/pjpeg":
 			case "image/jpeg":
 			case "image/jpg":
-		  		imagejpeg($newImage,$thumb_image_name,90); 
+		  		imagejpeg($newImage,$thumb_image_name,90);
 				break;
 			case "image/png":
 			case "image/x-png":
-				imagepng($newImage,$thumb_image_name);  
+				imagepng($newImage,$thumb_image_name);
 				break;
 	    }
 		chmod($thumb_image_name, 0777);

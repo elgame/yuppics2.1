@@ -6,6 +6,10 @@
 //  max_fotos: maximo de fotos permitidas
 var gPhotos = {}, gAlbSel, ajaxReq, gMf;
 $(function() {
+
+  // Auto ajusta el Tamaño del alto
+  autoAjustaAlto();
+
   //  Habilita el Plugin jScrollPane
 	$('.scroll-pane').jScrollPane();
   gMf = parseInt($('#mf').val());
@@ -18,12 +22,14 @@ $(function() {
     else if(res === 2)
       noty({"text": 'Has llegado al maximo de fotos permitidas.', "layout":"topRight", "type": 'error'}); // topRight
     reinitializeScrollPane();
+    contPagScroll = 0;
   });
 
   // Asigna evento "Click" a los botones eliminar en la seccion "Fotos Seleccionadas".
 	$(document).on('click', 'button#delete', function () {
 		deleteClonePhoto(this);
 		reinitializeScrollPane();
+    contPagScroll = 0;
 	});
 
   // Asigna evento "Click" al boton "Seleccionar todo" y carga todas las imagenes
@@ -41,6 +47,7 @@ $(function() {
       noty({"text": 'Has llegado al maximo de fotos permitidas.', "layout":"topRight", "type": 'error'}); // topRight
     }
 		reinitializeScrollPane();
+    contPagScroll = 0;
 		loader.close();
 	});
 
@@ -52,6 +59,7 @@ $(function() {
 			deleteClonePhoto(e);
 		});
 		reinitializeScrollPane();
+    contPagScroll = 0;
 		$('.jspPane').css('left', '0px')
 		loader.close();
 	});
@@ -60,7 +68,7 @@ $(function() {
 	$('#albums').find('li').on('click', function(){
 		$('#albums').find('li.active').removeClass('active');
 		$(this).addClass('active');
-		$('#barratop_album').html($(this).find('a').html());
+		$('#barratop_album').html($(this).find('a').text());
 	});
 
   // Asigna evento "Click" a los link  para guardar las fotos.
@@ -97,6 +105,7 @@ $(function() {
   $('#btn-next').on('click', function(event) {
     $('#btn-next').attr({'disabled': 'disabled'}).addClass('disabled');
     $('#btn-prev').attr({'disabled': 'disabled'}).addClass('disabled');
+
     buildPhotos(base_url+'yuppics/get_next_photos', {'url': $(this).attr('data-next')});
   });
 
@@ -107,7 +116,52 @@ $(function() {
     buildPhotos(base_url+'yuppics/get_prev_photos', {'url': $(this).attr('data-prev')});
   });
 
+  var contPagScroll = 0;
+  $('#btn-next-scroll').on('click', function(event) {
+      var obj = $('.photos-select').find('.jspPane'),
+          leftPos = parseInt(obj.css('left'), 10),
+          parentWidth = parseInt($('#content-selected-photos').css('width')),
+          totalFotos = parseInt($('#total-choose').html(), 10);
+
+          // console.log(leftPos + ' - ' + totalFotos + ' - ' + Math.ceil(totalFotos/4));
+
+      if ((Math.ceil(totalFotos/4) > 1) && (contPagScroll < ((Math.ceil(totalFotos/4)) - 1))) {
+        contPagScroll += 1;
+        console.log(contPagScroll);
+        obj.animate({
+            'left': leftPos - 780
+        }, 300);
+      }
+
+  });
+
+  $('#btn-prev-scroll').on('click', function(event) {
+      var obj = $('.photos-select').find('.jspPane'),
+          leftPos = parseInt(obj.css('left'), 10);
+
+      if (leftPos < 0) {
+        contPagScroll -= 1;
+        // console.log(contPagScroll);
+        obj.animate({
+            'left': leftPos + 780
+        }, 300);
+      }
+  });
+
 });
+
+
+var autoAjustaAlto = function() {
+  var browserHeight = parseInt($(document).height());
+      AltoUsado = parseInt($('.navbar').outerHeight()) +
+                  parseInt($('.progress_yuppic').outerHeight()) +
+                  parseInt($('.barratop').outerHeight());
+
+      $('#content-album-photos').css({'min-height': browserHeight - AltoUsado});
+      $('#content-albums').css({'min-height': browserHeight - AltoUsado});
+      $('#thmslists').css({'min-height': browserHeight - AltoUsado});
+      // console.log(browserHeight - AltoUsado);
+};
 
 /**
  * Cancela o Aborta la ultima peticion ajax.
@@ -138,6 +192,7 @@ function album(ida) {
   // if (!gPhotos.hasOwnProperty(ida))
   gPhotos[ida] = {}; // Inserta el album selecciona al obj global
   gAlbSel = ida; // Asigna que el album es el ultimo seleccionado
+  pag_actual = 0;
 
   $('#btn-next').attr({'data-next': '', 'disabled': 'disabled'}).addClass('disabled');
   $('#btn-prev').attr({'data-prev': '', 'disabled': 'disabled'}).addClass('disabled');
@@ -159,9 +214,10 @@ function album(ida) {
  */
 function buildClonePhoto(obj) {
 	var obj = $(obj),
-      photo_id  = obj.attr('id'),
-      photo_src = obj.find('img').attr('src'),
-      photo_ori = obj.find('img').attr('data-ori'),
+      photo_id    = obj.attr('id'),
+      photo_src   = obj.find('img').attr('src'),
+      photo_ori   = obj.find('img').attr('data-ori'),
+      photo_thumb = obj.find('img').attr('data-thumb'),
 		// photo_title = obj.find('#thumbnail-title').html(),
   		exist = false,
   		objtotalch = $('#total-choose');
@@ -170,32 +226,32 @@ function buildClonePhoto(obj) {
     exist = validateExistPhoto(photo_id);
     if (!exist) {
       var html_input = '<input type="hidden" name="photos[]" value="'+photo_ori+'" id="'+photo_id+'" class="src-'+photo_id+' ori">',
-          html_input_thumb = '<input type="hidden" name="thumbs[]" value="'+photo_src+'" id="inpthumb-'+photo_id+'" class="src-'+photo_id+'">',
-          html_clone_photo = '<li class="span2 relative">' +
+          html_input_thumb = '<input type="hidden" name="thumbs[]" value="'+photo_thumb+'" id="inpthumb-'+photo_id+'" class="src-'+photo_id+'">',
+          html_clone_photo = '<li class="span3 relative">' +
                                 '<div class="thumbnail">' +
                                   '<img alt="" src="'+photo_src+'">'+
                                   // '<div class="caption">' +
                                   //  '<span class="center"><strong>'+photo_title+'</strong></span>' +
                                   // '</div>' +
                                 '</div>' +
-                                '<button type="button" class="close delete" data-dismiss="alert" data-id="'+photo_id+'" data-exist="false" title="Eliminar" id="delete">×</button>' +
+                                '<button type="button" class="close delete" data-dismiss="alert" data-id="'+photo_id+'" data-exist="false" title="Eliminar" id="delete"></button>' + //×
                               '</li>',
           html_clone_photo_modal = '<li class="span2 relative" data-id="mdl-'+photo_id+'">' +
                                       '<div class="loader"></div>' +
                                       '<div class="thumbnail">' +
-                                        '<img alt="" src="'+photo_src+'">'+
+                                        '<img alt="" src="'+photo_thumb+'">'+
                                         // '<div class="caption">' +
                                         //  '<span class="center"><strong>'+photo_title+'</strong></span>' +
                                         // '</div>' +
                                       '</div>' +
                                     '</li>',
           obj_content_selected_photos = $('#content-selected-photos'),
-          px = parseInt(obj_content_selected_photos.css('width')) + 165;
+          px = parseInt(obj_content_selected_photos.css('width')) + 195; //165
 
       obj_content_selected_photos.css('width', px);
       obj_content_selected_photos.find('.thumbnails').append(html_clone_photo);
       $('#modal_upload').find('.thumbnails').append(html_clone_photo_modal);
-      obj.addClass('choose-photo'); //.append('<div class="choosed" id="chossed"></div>')
+      obj.append('<div class="choosed" id="chossed"></div>'); //.addClass('choose-photo');
 
       $('#form').append(html_input+html_input_thumb);
       objtotalch.html(parseInt(objtotalch.html()) + 1);
@@ -231,7 +287,7 @@ function deleteClonePhoto(obj) {
   		}
 
 		var obj_content_selected_photos = $('#content-selected-photos'),
-		    px = parseInt(obj_content_selected_photos.css('width')) - 165;
+		    px = parseInt(obj_content_selected_photos.css('width')) - 195; // 165
 
 		obj_content_selected_photos.css('width', px);
 		var totalch = parseInt(objtotalch.html()) - 1;
@@ -337,6 +393,11 @@ function ajaxSave (params, max) {
  * @param  {[Str]} url    [Url a la que se realizara la peticion AJAX]
  * @param  {[Str]} params [Parametros a enviar en la peticion AJAX]
  */
+var last_next = '', // Auxiliar para saber la ultima url del boton sig
+    pag_actual = 0,
+    pag_next = 0,
+    pag_prev = 0;
+
 function buildPhotos(url, params) {
   var html_photos = '',
       i,
@@ -344,21 +405,29 @@ function buildPhotos(url, params) {
 
   $('.photos-list').find('ul').html('');
   loader.create('.photos-list ul');
+
+  // console.log(params);
+
   if (params.hasOwnProperty('url')) {
     if (gPhotos[gAlbSel].hasOwnProperty(params.url)) {
+
+      // console.log(gPhotos);
+
       do_getJSON = false;
       var class_choose_photo = '', child_choose_photo = '';
       for (i in gPhotos[gAlbSel][params.url].data) {
         class_choose_photo = '';
-        // child_choose_photo = '';
+        child_choose_photo = '';
+
         if (validateExistPhoto(gPhotos[gAlbSel][params.url].data[i].id)) {
           class_choose_photo = 'choose-photo';
           child_choose_photo = '<div class="choosed" id="chossed"></div>';
         }
-        html_photos += '<li class="span2 relative '+class_choose_photo+'" id="'+gPhotos[gAlbSel][params.url].data[i].id+'">' +
+
+        html_photos += '<li class="span2 relative" id="'+gPhotos[gAlbSel][params.url].data[i].id+'" style="width: 17%;">' + //'+class_choose_photo+'
                        '<div class="thumbnail">' +
-                         '<img alt="" src="'+gPhotos[gAlbSel][params.url].data[i].picture+'" data-ori="'+gPhotos[gAlbSel][params.url].data[i].images[0].source+'">' +
-                          // child_choose_photo +
+                         '<img alt="" src="'+gPhotos[gAlbSel][params.url].data[i].source+'" data-ori="'+gPhotos[gAlbSel][params.url].data[i].images[0].source+'" data-thumb="'+gPhotos[gAlbSel][params.url].data[i].picture+'">' +
+                          child_choose_photo +
                       '</div>' +
 
                     '</li>';
@@ -367,13 +436,30 @@ function buildPhotos(url, params) {
       $('#photos-list').html(html_photos);
 
       if (gPhotos[gAlbSel][params.url].hasOwnProperty('paging')) {
+        // if (gPhotos[gAlbSel][params.url].paging.hasOwnProperty('next'))
+        //   $('#btn-next').attr('data-next', gPhotos[gAlbSel][params.url].paging.next).removeAttr('disabled').removeClass('disabled');
+        // else
+        //   $('#btn-next').attr({'data-next': '', 'disabled': 'disabled'}).addClass('disabled');
+
         if (gPhotos[gAlbSel][params.url].paging.hasOwnProperty('next'))
-          $('#btn-next').attr('data-next', gPhotos[gAlbSel][params.url].paging.next).removeAttr('disabled').removeClass('disabled');
+
+          if(gPhotos[gAlbSel].hasOwnProperty(parseInt(params.url) + 1)) {
+            $('#btn-next').attr('data-next', parseInt(params.url) + 1).removeAttr('disabled').removeClass('disabled');
+          } else {
+            $('#btn-next').attr('data-next', last_next).removeAttr('disabled').removeClass('disabled');
+          }
+
+
         else
           $('#btn-next').attr({'data-next': '', 'disabled': 'disabled'}).addClass('disabled');
 
+        // if (gPhotos[gAlbSel][params.url].paging.hasOwnProperty('previous'))
+        //   $('#btn-prev').attr('data-prev', gPhotos[gAlbSel][params.url].paging.previous).removeAttr('disabled').removeClass('disabled');
+        // else
+        //   $('#btn-prev').attr({'data-prev': '', 'disabled': 'disabled'}).addClass('disabled');
+
         if (gPhotos[gAlbSel][params.url].paging.hasOwnProperty('previous'))
-          $('#btn-prev').attr('data-prev', gPhotos[gAlbSel][params.url].paging.previous).removeAttr('disabled').removeClass('disabled');
+          $('#btn-prev').attr('data-prev', parseInt(params.url) - 1).removeAttr('disabled').removeClass('disabled');
         else
           $('#btn-prev').attr({'data-prev': '', 'disabled': 'disabled'}).addClass('disabled');
       }
@@ -385,6 +471,8 @@ function buildPhotos(url, params) {
   if (do_getJSON) {
     ajaxReq = $.getJSON(url, params, function(data) {
       var class_choose_photo = '', child_choose_photo = '';
+
+      // console.log(data);
       for (i in data.data) {
         class_choose_photo = '';
         child_choose_photo = '';
@@ -393,29 +481,40 @@ function buildPhotos(url, params) {
           child_choose_photo = '<div class="choosed" id="chossed"></div>';
         }
 
-        html_photos += '<li class="span2 relative '+class_choose_photo+'" id="'+data.data[i].id+'">' +
+        html_photos += '<li class="span2 relative" id="'+data.data[i].id+'" style="width: 17%;">' + //'+class_choose_photo+'
                          '<div class="thumbnail">' +
-                           '<img alt="" src="'+data.data[i].picture+'" data-ori="'+data.data[i].images[0].source+'">' +
-                           // child_choose_photo +
+                           '<img alt="" src="'+data.data[i].source+'" data-ori="'+data.data[i].images[0].source+'" data-thumb="'+data.data[i].picture+'">' +
+                           child_choose_photo +
                          '</div>' +
                       '</li>';
       }
-      if (params.hasOwnProperty('url'))
-        gPhotos[gAlbSel][params.url] = data;
+
+      // if (params.hasOwnProperty('url'))
+      //   gPhotos[gAlbSel][params.url] = data;
+      pag_actual += 1;
+      gPhotos[gAlbSel][pag_actual] = data;
 
       loader.close();
       $('#photos-list').html(html_photos);
 
       if (data.hasOwnProperty('paging')) {
-        if (data.paging.hasOwnProperty('next'))
-          $('#btn-next').attr('data-next', data.paging.next).removeAttr('disabled').removeClass('disabled');
+        if (data.paging.hasOwnProperty('next')) {
+          last_next = data.paging.next;
+          $('#btn-next').attr('data-next', last_next).removeAttr('disabled').removeClass('disabled');
+        }
         else
           $('#btn-next').attr({'data-next': '', 'disabled': 'disabled'}).addClass('disabled');
 
-        if (data.paging.hasOwnProperty('previous'))
-          $('#btn-prev').attr('data-prev', data.paging.previous).removeAttr('disabled').removeClass('disabled');
+        // if (data.paging.hasOwnProperty('previous'))
+        //   $('#btn-prev').attr('data-prev', data.paging.previous).removeAttr('disabled').removeClass('disabled');
+        // else
+        //   $('#btn-prev').attr({'data-prev': '', 'disabled': 'disabled'}).addClass('disabled');
+        if (pag_actual > 1)
+          $('#btn-prev').attr('data-prev', (pag_actual - 1)).removeAttr('disabled').removeClass('disabled');
         else
           $('#btn-prev').attr({'data-prev': '', 'disabled': 'disabled'}).addClass('disabled');
+
+        // console.log(gPhotos);
       }
     }); //, "json"  END getSON
   }

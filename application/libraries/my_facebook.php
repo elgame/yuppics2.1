@@ -153,7 +153,7 @@ class  my_facebook {
    */
   public function get_user_photos($access_token)
   {
-    $graph_url = $this->graph_url . "me/photos?limit=12&access_token=" . $access_token;
+    $graph_url = $this->graph_url . "me/photos?limit=5&access_token=" . $access_token;
     return file_get_contents($graph_url);
   }
 
@@ -178,7 +178,7 @@ class  my_facebook {
    */
   public function get_user_album_photos($access_token, $ida)
   {
-    $graph_url = $this->graph_url . $ida . "/photos?limit=12&access_token=" . $access_token;
+    $graph_url = $this->graph_url . $ida . "/photos?limit=5&access_token=" . $access_token;
     return file_get_contents($graph_url);
   }
 

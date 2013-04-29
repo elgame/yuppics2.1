@@ -18,58 +18,109 @@
 	</div><!-- END PROGRESS BAR -->
 
 
-<div class="container-fluid"> <!-- START CONTAINER FLUID -->
-	<div class="row-fluid"> <!-- START ROW FLUID -->
-		<div class="span3"> <!-- START SPAN3 -->
-			<div class="span12 tema_barratop"><i class="icon-book"></i> Albums</div>
-			<div class="span12 albums-list scroll-pane">
-				<ul class="nav nav-tabs nav-stacked" id="albums">
-          <input type="hidden" value="<?php echo $max_fotos?>" id="mf">
-					<input type="hidden" value="<?php echo $access_token?>" id="at">
-					<?php if(isset($albums)){
-							foreach ($albums as $k => $v) {?>
-								<li><a href="javascript:album(<?php echo '\''.$v->id.'\''; ?>)"><?php echo $v->name ?></a></li>
-					<?php }} ?>
-          <li><a href="javascript:album('all')">Mostrar todas las fotos</a></li>
-				</ul>
+  <div class="row-fluid">
+    <div class="span12 barratop">
+      <div class="tema_barratop no-box-shadow">
+        <div class="pull-left" style="line-height: 42px;font-size: 17px;margin-left: 28px;color: #F4F4F5;">
+          <div class="bullet"></div>Seleccción de Fotografías
+        </div>
+
+        <div class="pull-right">
+          <div class="input-append ir_pasos pull-right hover-blue">
+            <a href="#modal_upload" id="modal" class="btn" data-toggle="modal" data-target="#modal_upload">Siguiente paso <i class="icon-right"></i></i></a>
+          </div>
+
+          <div class="input-append ir_pasos pull-right hover-blue">
+            <a href="<?php echo base_url('yuppics'); ?>" id="btn_select_theme2" class="btn"><i class="icon-left"></i> Paso anterior</a>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+
+	<div class="row-fluid contenido_crea_yupp" id="content-album-photos"> <!-- START ROW FLUID -->
+
+		<div class="span4 barrpreview"> <!-- START SPAN3 -->
+			<div class="span12 bg-albums" id="content-albums">
+        <div class="span12" style="font-size: 17px;font-weight: bold;color: #3B3F46;padding: 38px 0 15px 55px;">Preguntas Frequentes</div>
+
+        <div class="scroll-pane albums-list">
+          <ul class="nav nav-tabs nav-stacked hover-blue-albums" id="albums">
+            <input type="hidden" value="<?php echo $max_fotos?>" id="mf">
+            <input type="hidden" value="<?php echo $access_token?>" id="at">
+
+            <?php if(isset($albums)){
+                foreach ($albums as $k => $v) {?>
+                  <li><a href="javascript:album(<?php echo '\''.$v->id.'\''; ?>)"><i class="icon-album"></i><span><?php echo $v->name ?></span></a></li>
+            <?php }} ?>
+            <!-- <li><a href="javascript:album('all')">Mostrar todas las fotos</a></li> -->
+          </ul>
+        </div>
+
 			</div>
 		</div> <!-- END SPAN3 -->
-		<div class="span9"> <!-- START SPAN9 -->
-			<div class="row-fluid"> <!-- START ROW FLUID -->
-				<div class="span12 tema_barratop">
-					<i class="icon-th"></i> Album > <span id="barratop_album">Mostrar todas las fotos</span>
-					<button class="btn btn-success btn-mini pull-right" id="selectall">Seleccionar todo</button>
+
+		<div class="span8 lista_temas lista_photos" id="thmslists" style="position: relative;"> <!-- START SPAN9 -->
+
+			<div class="row-fluid bar-white"> <!-- START ROW FLUID -->
+				<div class="span12">
+
+          <i class="icon-select-photo" style="margin-left: 15px;"></i>
+          <span style="font-weight:bold;">Album</span>
+          <i class="big-arrow-right"></i>
+
+          <span id="barratop_album" style="margin-left: 30px;">Ningún album seleccionado</span>
+          <!-- <span class="badge badge-success badge-total-photos" id="total-choose">0</span> -->
+
+          <button type="button" class="btn pull-right btn-photos btn-pag-right" data-next="" id="btn-next" disabled><i class="icon-right-type2 active"></i></button>
+          <button type="button" class="btn pull-right btn-photos btn-pag-left" data-prev="" id="btn-prev" disabled><i class="icon-left-type2 active"></i></button>
+
+          <button class="btn pull-right btn-photos" id="selectall">Seleccionar todo</button>
+
 				</div>
 			</div> <!-- END ROW FLUID -->
+
 			<div class="row-fluid"> <!-- START ROW FLUID -->
-				<div class="span12 photos-list">
-					<ul class="thumbnails" id="photos-list"><!-- START LISTADO FOTOS FB -->
-	        </ul><!-- END LISTADO FOTOS FB -->
-	        <div class="pagination center">
-              <button type="button" class="btn btn-warning" data-prev="" id="btn-prev" disabled>Prev</button>
-              <button type="button" class="btn btn-success" data-next="" id="btn-next" disabled>Next</button>
-              <i></i>
-          </div>
+        <div class="span1" style="width: 4.3% !important;"></div>
+				<div class="span11 photos-list" style="position: relative; height: 150px;margin-top: 30px; margin-bottom: 30px;">
+
+          <!-- START LISTADO FOTOS FB -->
+          <ul class="thumbnails" id="photos-list" style="height: 130px; text-align:center; margin-top: 0px;"></ul><!-- END LISTADO FOTOS FB -->
+
 				</div>
 			</div> <!-- END ROW FLUID -->
-			<div class="row-fluid"> <!-- START ROW FLUID -->
-				<div class="span12 tema_barratop">
-					<i class="icon-picture"></i> Fotos Seleccionadas <span class="badge badge-success" style="margin-left:5px;" id="total-choose"><? echo $totalp;?></span>
-					<button class="btn btn-danger btn-mini pull-right" id="removeall">Remover todo</button>
-				</div>
+
+			<div class="row-fluid bar-white"> <!-- START ROW FLUID -->
+				<div class="span12">
+
+					<i class="icon-select-photo" style="margin-left: 15px;"></i>
+          <span style="font-weight:bold;">Fotografías Seleccionadas</span>
+          <span class="badge badge-success badge-total-photos" id="total-choose"><? echo $totalp;?></span>
+
+          <button type="button" class="btn pull-right btn-photos btn-pag-right" data-next="" id="btn-next-scroll"><i class="icon-right-type2 active"></i></button>
+          <button type="button" class="btn pull-right btn-photos btn-pag-left" data-prev="" id="btn-prev-scroll"><i class="icon-left-type2 active"></i></button>
+
+          <button class="btn pull-right btn-photos" id="removeall">Remover todo</button>
+
+        </div>
 			</div> <!-- END ROW FLUID -->
+
 			<div class="row-fluid"> <!-- START ROW FLUID -->
-				<div class="span12 photos-select" style="height:170px;">
-					<div class="scroll-pane horizontal-only">
+				<div class="span10 offset1 photos-select" style="height:170px;">
+
+          <div class="scroll-pane horizontal-only">
 						<div style="width: <?php echo (isset($width) ? $width : '0').'px';?>" id="content-selected-photos">
-							<ul class="thumbnails">
+							<ul class="thumbnails" style="margin-top: 8px">
 								<?php if (isset($photos)){
     										foreach($photos as $k => $p) {?>
     											<li class="span2 relative">
     												<div class="thumbnail">
     													<img alt="" src="<?php echo base_url($p->url_thumb)?>">
     												</div>
-    												<button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete">×</button>
+    												<button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete"></button>
     											</li>
 								<?php }}?>
 					        </ul>
@@ -82,19 +133,12 @@
                   </form>
 					    </div>
 					</div>
+
 				</div>
 			</div> <!-- END ROW FLUID -->
 
-			<p style="margin-bottom: 20px;">
-				<a href="<?php echo base_url('yuppics'); ?>" class="pull-left"><i class="icon-arrow-left"></i> Paso anterior</a>
-
-				<a href="#modal_upload" id="modal" class="pull-right"data-toggle="modal" data-target="#modal_upload">Siguiente paso <i class="icon-arrow-right"></i></a>
-				<div class="clearfix"></div>
-			</p>
-
 		</div> <!-- END SPAN9 -->
 	</div> <!-- END ROW FLUID -->
-</div> <!-- END CONTAINER FLUID -->
 
 <div id="modal_upload" class="modal hide fade span7" style="left: 20%;"><!-- START modal contacto -->
   <div class="modal-header">

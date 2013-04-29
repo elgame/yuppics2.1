@@ -216,7 +216,7 @@ a#btn_select_theme{
 }
 #accordion2 .accordion-group .accordion-body .accordion-inner{
 	border-top:1px #000105 solid;
-	
+
 }
 .minicolors.minicolors-theme-default{
 	float: right;
@@ -371,25 +371,76 @@ a#btn_select_theme{
 
 /******************* SELECCIONAR FOTOS ************************/
 
-.albums-list {max-height: 468px; margin: 0px !important;}
+/*.albums-list {max-height: 468px; margin: 0px !important;}
+.albums-list .nav, .albums-list ul {margin-bottom: 0;}
+.albums-list .scroll-content {width: 100%;}*/
+
+div.albums-list {
+  max-height: 357px;
+  margin: 0px !important;
+  width: 92% !important;
+  padding: 0 0 0 39px;
+}
 .albums-list .nav, .albums-list ul {margin-bottom: 0;}
 .albums-list .scroll-content {width: 100%;}
 
+.albums-list .nav-tabs.nav-stacked > li:first-child > a,
+.albums-list .nav-tabs.nav-stacked > li:last-child > a {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+.albums-list .nav > li > a {
+  /*height: 49px;*/
+  width: 85%;
+  background: #25272C url("../../../images/bg-albums-button.jpg") repeat;
+  border: 1px solid #000 !important;
+  margin-bottom: 1px !important;
+  font-size: 13px !important;
+  color: #F6F6F6 !important;
+  padding: 15px 0 15px 15px !important;
+}
+
+.albums-list .nav > li > a > i {
+  float: left;
+  margin-left: -5px;
+}
+
+.albums-list .nav > li > a > span {
+  width: 85% !important;
+  display: block;
+  margin-left: 24px;
+}
+
 .photos-list, .photos-select {padding: 10px 0 0 0;}
+.photos-select { margin: 18px 0 0 90px !important;}
+.thumbnail {
+  border: none !important;
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6) !important;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6) !important;
+}
+
 .photos-list .thumbnails .thumbnail, .photos-select .thumbnails .thumbnail,
 #modal_upload .modal-body .thumbnails .thumbnail{margin-bottom: 5px !important;}
 .photos-list .thumbnails > li, .photos-select .thumbnails > li {margin-bottom: 0;}
 .photos-list ul li:nth-child(6n+1), #modal_upload .modal-body ul li:nth-child(6n+1) {margin-left: 0;}
 
-.photos-list .thumbnail > img, .photos-select .thumbnail img {
+.photos-list .thumbnail > img {
 	width: 160px;
-	height: 120px
+	height: 125px
+}
+
+.photos-select .thumbnail img {
+  width: 160px;
+  height: 140px
 }
 
 .photos-select li {
-	width: 144px !important;
+	width: 170px !important;
 	height: 135px !important;
-	margin-right: 20px !important;
+	margin-right: 25px !important;
 	margin-left: 0px !important;
 }
 
@@ -398,46 +449,60 @@ a#btn_select_theme{
 	overflow: auto;
 }
 .horizontal-only {
-	height: 150px;
-	max-height: 150px;
+	height: 160px;
+	max-height: 160px;
 }
 
 .delete {
-	position: absolute;
-	top: 95px;
-	z-index: 999;
-	left: 109px;
+  display: none;
+  position: absolute;
+  top: 52px;
+  left: 62px;
+  width: 48px;
+  height: 46px;
+  background-color: rgba(102, 102, 102, 0) !important;
+  background-image: url("../../../images/photo-delete.png") !important;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 6px !important;
+  opacity: 0.9 !important;
+  z-index: 999;
 }
+
+/*button.close {
+  padding: 6px !important;
+  opacity: 1 !important;
+  font-size: 30px ;
+  background: rgba(0, 0, 0, 0.77) !important;
+  color: #FFF !important;
+}*/
 
 .relative {position: relative;}
 
-div.thumbnail:hover {
+/*div.thumbnail:hover {
 	border-color: #366DDC;
 	-webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 	-moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 	box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
-}
-
-.choose-photo {
-	opacity: 0.3 !important;
-}
-
-
-/*.choosed {
-	width: 146px;
-	height: 160px;
-	position: absolute;
-	top: 0px;
-	background-color: rgba(102, 102, 102, 0);
-	z-index: 999;
 }*/
 
-button.close {
-	padding: 6px !important;
-	opacity: 0.9 !important;
-	font-size: 30px ;
-	background: rgba(0, 0, 0, 0.77) !important;
-	color: #FFF !important;
+.choose-photo {
+	/*opacity: 0.3 !important;*/
+}
+
+
+.choosed {
+	position: absolute;
+  top: 46px;
+  left: 49px;
+  width: 48px;
+  height: 46px;
+	/*background-color: rgba(102, 102, 102, 0);*/
+  background-image: url("../../../images/photo-selected.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.9 !important;
+  z-index: 999;
 }
 
 .close:hover {
@@ -454,6 +519,198 @@ button.close {
   top: 45px;
   left: 5px;
 }
+
+.bullet {
+  position: relative;
+  display: inline-block;
+  top: 4px;
+  left: -9px;
+  width: 20px;
+  height: 20px;
+
+  border-top: 1px solid #131416;
+  border-left: 1px solid #131416;
+
+  border-right: 1px solid #404348;
+  border-bottom: 1px solid #404348;
+
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+
+  -moz-box-shadow: inset 3px 3px 5px #030408;
+  -webkit-box-shadow: inset 3px 3px 5px #030408;
+  box-shadow: inset 3px 3px 5px #030408;
+}
+
+i.icon-left, i.icon-right, i.icon-album, i.icon-select-photo, i.big-arrow-right, i.icon-left-type2,
+i.icon-right-type2 {
+  padding-top: 3px;
+  padding-right: 10px;
+  background-position: center center;
+}
+
+i.icon-left { background-image: url('../../../images/icon-left.png'); }
+i.icon-right { background-image: url('../../../images/icon-right.png'); }
+i.icon-album { background-image: url('../../../images/icon-album.png'); }
+i.icon-select-photo { background-image: url('../../../images/icon-select-photo.png'); }
+i.icon-left-type2 {background-image: url('../../../images/icon-left-type2.png'); }
+i.icon-right-type2 {background-image: url('../../../images/icon-right-type2.png'); }
+
+
+i.big-arrow-right {
+  position: absolute;
+  top: -2px;
+  left: 100px;
+  display: inline-block;
+  width: 12px;
+  height: 44px;
+  background-image: url("../../../images/big-arrow-right.png");
+  background-repeat: no-repeat;
+}
+
+.hover-blue a:hover, .hover-blue-albums > li > a:hover {
+  background: #0f7aff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#149dff), to(#0f7aff));
+  background: -webkit-linear-gradient(top, #149dff, #0f7aff);
+  background: -moz-linear-gradient(top, #149dff, #0f7aff);
+  background: -ms-linear-gradient(top, #149dff, #0f7aff);
+  background: -o-linear-gradient(top, #149dff, #0f7aff);
+}
+
+/*.hover-blue-albums > li > a:hover {
+  background: #1075FF;
+  background: -webkit-gradient(linear, left top, left bottom, from(#169FFF), to(#1075FF));
+  background: -webkit-linear-gradient(top, #169FFF, #1075FF);
+  background: -moz-linear-gradient(top, #169FFF, #1075FF);
+  background: -ms-linear-gradient(top, #169FFF, #1075FF);
+  background: -o-linear-gradient(top, #169FFF, #1075FF);
+}*/
+
+.bg-albums {
+  background: #12151A url("../../../images/bg-albums-photos.jpg") repeat;
+  color: #FFF;
+  padding: 5px 1% 5px 1%;
+  -webkit-box-shadow: inset 0 8px 18px 0 rgba(0, 0, 0, .5);
+  -moz-box-shadow: inset 0 8px 18px 0 rgba(0, 0, 0, .5);
+  box-shadow: inset 0 8px 18px 0 rgba(0, 0, 0, .5);
+}
+
+
+/*******  Style para el scrollbar de la lista de albums *******/
+
+.albums-list .jspVerticalBar {
+  top: 25px !important;
+  height: 85% !important;
+
+  border: 1px solid rgba(0, 0, 0, 0.20);
+  -moz-border-radius: 10px !important;
+  -webkit-border-radius:10px !important;
+  border-radius: 10px !important;
+
+  background: none !important;
+}
+
+.albums-list .jspTrack {
+  height: 100% !important;
+
+  background-color: rgba(0, 0, 0, 0.20);
+}
+
+.albums-list .jspVerticalBar {
+  right: 25px !important;
+}
+
+.albums-list .jspDrag { /* Parte del scroolbar que se arrastra 155px*/
+  /*height: 165px !important;*/
+  background-color: rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+/*******  End Style para el scrollbar de la lista de albums *******/
+
+.lista_photos {
+  padding: 0 !important;
+}
+
+.badge-total-photos {
+  margin-left: 5px;
+  background-color: #646464!important;
+  padding: 4px 11px 4px !important;
+  border-radius: 11px !important;
+}
+
+.btn-photos {
+  margin-top: -5px;
+  background-color: #484D51 !important;
+  background-image: -moz-linear-gradient(top, #FAFAFA, #E5E5E5) !important;
+  background-image: -ms-linear-gradient(top, #FAFAFA, #E5E5E5) !important;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FAFAFA), to(#E5E5E5)) !important;
+  background-image: -webkit-linear-gradient(top, #FAFAFA, #E5E5E5) !important;
+  background-image: -o-linear-gradient(top, #FAFAFA, #E5E5E5) !important;
+  background-image: linear-gradient(top, #FAFAFA, #E5E5E5) !important;
+
+  color: #656565 !important;
+  font-weight: bold;
+  text-shadow: none !important;
+
+  border-color: #DBDBDB !important;
+  border: 1px solid #DBDBDB !important;
+
+  margin-right: 2px;
+}
+
+.btn-photos:hover {
+  background-position: 0 0 !important;
+}
+
+button.btn-pag-right:active, button.btn-pag-left:active {
+  background: #737373 !important;
+  border: 1px solid #5A5A5A !important;
+
+  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 1);
+  box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 1);
+}
+
+button.btn-pag-right:active i { background-image: url('../../../images/icon-arrow-right-active.png'); }
+button.btn-pag-left:active i { background-image: url('../../../images/icon-arrow-left-active.png'); }
+
+.bar-white {
+  border-bottom: 2px solid #DCDCDD !important;
+  background-color: #FFF !important;
+  padding-top: 14px !important;
+  color: #7C7E88 !important;
+  font-size: 14px !important;
+
+
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, .2);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, .2);
+}
+
+.no-box-shadow {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.photos-select li:hover .delete{display: block;}
+
+.ajax-loader {
+
+}
+/*******  Style para el scrollbar de las fotografias seleccionadas *******/
+
+.photos-select .jspVerticalBar, .photos-select .jspHorizontalBar,
+.photos-select .jspTrack, .photos-select .jspDrag {
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+/*******  Style para el scrollbar de las fotografias seleccionadas *******/
+
+
 
 /******************* CREAR YUPPIC ************************/
 .yuppic_barratop{
