@@ -363,6 +363,19 @@ a#btn_select_theme{
 		width: 100%;
 		/*background: url("../../../images/crearyp/bg_paso1.jpg") no-repeat;*/
 	}
+
+	#photos-list.thumbnails li.span2,
+	#content-selected-photos ul.thumbnails li.span2{
+		width: 17%;
+		float: left;
+		margin-left: 1%;
+	}
+	#photos-list.thumbnails li:first-child{
+		margin-left: 2%;
+	}
+	.row-fluid .span10.offset1.photos-select{
+		width: 80%;
+	}
 }
 
 
@@ -435,6 +448,10 @@ div.albums-list {
 .photos-select .thumbnail img {
   width: 160px;
   height: 140px
+}
+
+ul#photos-list li{
+	cursor: pointer;
 }
 
 .photos-select li {
