@@ -21,15 +21,11 @@ $(function() {
       noty({"text": 'La fotografía/imagen ya está seleccionada.', "layout":"center", "type": 'warning'}); // topRight
     else if(res === 2)
       noty({"text": 'Has llegado al maximo de fotos permitidas.', "layout":"topRight", "type": 'error'}); // topRight
-    reinitializeScrollPane();
-    contPagScroll = 0;
   });
 
   // Asigna evento "Click" a los botones eliminar en la seccion "Fotos Seleccionadas".
 	$(document).on('click', 'button#delete', function () {
 		deleteClonePhoto(this);
-		reinitializeScrollPane();
-    contPagScroll = 0;
 	});
 
   // Asigna evento "Click" al boton "Seleccionar todo" y carga todas las imagenes
@@ -46,8 +42,7 @@ $(function() {
     if (show_msg) {
       noty({"text": 'Has llegado al maximo de fotos permitidas.', "layout":"topRight", "type": 'error'}); // topRight
     }
-		reinitializeScrollPane();
-    contPagScroll = 0;
+
 		loader.close();
 	});
 
@@ -58,16 +53,15 @@ $(function() {
 		$('button#delete').each(function(i, e){
 			deleteClonePhoto(e);
 		});
-		reinitializeScrollPane();
-    contPagScroll = 0;
+
 		$('.jspPane').css('left', '0px')
 		loader.close();
 	});
 
   // Asigna evento "Click" al listado de albums.
 	$('#albums').find('li').on('click', function(){
-		$('#albums').find('li.active').removeClass('active');
-		$(this).addClass('active');
+		$('#albums').find('a.active').removeClass('active');
+		$(this).find('a').addClass('active');
 		$('#barratop_album').html($(this).find('a').text());
 	});
 
@@ -101,7 +95,8 @@ $(function() {
     }, 420);
   });
 
-  // Asigna evento "Click" al Boton "Next".
+  // Asigna evento "Click" al Boton "Next" para cargar las siguientes
+  // fotos del album
   $('#btn-next').on('click', function(event) {
     $('#btn-next').attr({'disabled': 'disabled'}).addClass('disabled');
     $('#btn-prev').attr({'disabled': 'disabled'}).addClass('disabled');
@@ -110,42 +105,57 @@ $(function() {
   });
 
   // Asigna evento "Click" al Boton "Prev".
+  //  para cargar las totos anteriores del album
   $('#btn-prev').on('click', function(event) {
     $('#btn-next').attr({'disabled': 'disabled'}).addClass('disabled');
     $('#btn-prev').attr({'disabled': 'disabled'}).addClass('disabled');
     buildPhotos(base_url+'yuppics/get_prev_photos', {'url': $(this).attr('data-prev')});
   });
 
+  // Eventos click para el control del scroll dela fotos seleccionadas
+  // Este es el click del boton derecho
   var contPagScroll = 0;
   $('#btn-next-scroll').on('click', function(event) {
-      var obj = $('.photos-select').find('.jspPane'),
-          leftPos = parseInt(obj.css('left'), 10),
-          parentWidth = parseInt($('#content-selected-photos').css('width')),
-          totalFotos = parseInt($('#total-choose').html(), 10);
+      var obj = $('#content-selected-photos'),
+          width_content = parseInt(obj.css('width'), 10);
+          leftPos = parseInt(obj.scrollLeft(), 10),
+          pix_recorrer = 0;
 
-          // console.log(leftPos + ' - ' + totalFotos + ' - ' + Math.ceil(totalFotos/4));
-
-      if ((Math.ceil(totalFotos/4) > 1) && (contPagScroll < ((Math.ceil(totalFotos/4)) - 1))) {
-        contPagScroll += 1;
-        console.log(contPagScroll);
-        obj.animate({
-            'left': leftPos - 780
-        }, 300);
+      if (width_content > (195 * 4)) {
+        pix_recorrer = 195 * 4;
+      } else if ((width_content < (195 * 4)) && width_content > (195 * 3)) {
+        pix_recorrer = 195 * 3;
+      } else if (width_content < (195 * 3) && width_content > (195 * 2)) {
+        pix_recorrer = 195 * 2;
+      } else {
+        pix_recorrer = 195;
       }
+      obj.animate({
+          'scrollLeft': leftPos + pix_recorrer
+      }, 300);
 
   });
 
+  // Este es el click del boton izquierdo
   $('#btn-prev-scroll').on('click', function(event) {
-      var obj = $('.photos-select').find('.jspPane'),
-          leftPos = parseInt(obj.css('left'), 10);
+      var obj = $('#content-selected-photos'),
+          width_content = parseInt(obj.css('width'), 10);
+          leftPos = parseInt(obj.scrollLeft(), 10),
+          pix_recorrer = 0;
 
-      if (leftPos < 0) {
-        contPagScroll -= 1;
-        // console.log(contPagScroll);
-        obj.animate({
-            'left': leftPos + 780
-        }, 300);
+
+      if (width_content > (195 * 4)) {
+        pix_recorrer = 195 * 4;
+      } else if ((width_content < (195 * 4)) && width_content > (195 * 3)) {
+        pix_recorrer = 195 * 3;
+      } else if (width_content < (195 * 3) && width_content > (195 * 2)) {
+        pix_recorrer = 195 * 2;
+      } else {
+        pix_recorrer = 195;
       }
+      obj.animate({
+          'scrollLeft': leftPos - pix_recorrer
+      }, 300);
   });
 
 });
@@ -223,6 +233,7 @@ function buildClonePhoto(obj) {
   		objtotalch = $('#total-choose');
 
   if (parseInt(objtotalch.html()) < gMf) {
+
     exist = validateExistPhoto(photo_id);
     if (!exist) {
       var html_input = '<input type="hidden" name="photos[]" value="'+photo_ori+'" id="'+photo_id+'" class="src-'+photo_id+' ori">',
@@ -245,16 +256,30 @@ function buildClonePhoto(obj) {
                                         // '</div>' +
                                       '</div>' +
                                     '</li>',
-          obj_content_selected_photos = $('#content-selected-photos'),
-          px = parseInt(obj_content_selected_photos.css('width')) + 195; //165
+          obj_content_selected_photos = $('#content-selected-photos');
+          // px = parseInt(obj_content_selected_photos.css('width')) + 195; //165
 
-      obj_content_selected_photos.css('width', px);
+      // obj_content_selected_photos.css('width', px);
+      //
+      $('#txt-msg-2').css('display', 'none');
       obj_content_selected_photos.find('.thumbnails').append(html_clone_photo);
       $('#modal_upload').find('.thumbnails').append(html_clone_photo_modal);
       obj.append('<div class="choosed" id="chossed"></div>'); //.addClass('choose-photo');
 
       $('#form').append(html_input+html_input_thumb);
-      objtotalch.html(parseInt(objtotalch.html()) + 1);
+      objtotalch.html(parseInt(objtotalch.html(), 10) + 1);
+      // autoAjustaAlto();
+
+
+      // Mueve las fotos seleccionadas al agregar una nueva
+      var obj = $('#content-selected-photos'),
+          width_content = parseInt(obj.css('width'), 10);
+          leftPos = parseInt(obj.scrollLeft(), 10);
+
+      obj.animate({
+          'scrollLeft': 9999
+      }, 300);
+
     }
     else exist = 1;
     return exist;
@@ -286,12 +311,19 @@ function deleteClonePhoto(obj) {
   			});
   		}
 
-		var obj_content_selected_photos = $('#content-selected-photos'),
-		    px = parseInt(obj_content_selected_photos.css('width')) - 195; // 165
 
-		obj_content_selected_photos.css('width', px);
+
+		var obj_content_selected_photos = $('#content-selected-photos');
+		    // px = parseInt(obj_content_selected_photos.css('width')) - 195; // 165
+
+		// obj_content_selected_photos.css('width', px);
 		var totalch = parseInt(objtotalch.html()) - 1;
 		objtotalch.html(totalch);
+
+    // Si ya no existen fotos seleccionadas vuelve a mostrar el msg
+    if (totalch === 0) {
+      $('#txt-msg-2').css('display', 'block');
+    }
 
 		if (totalch < 7)
 			$('.jspPane').css('left', '0px');
@@ -316,11 +348,11 @@ function validateExistPhoto (id) {
 /**
  * Reinicializa el jScrollPane.
  */
-function reinitializeScrollPane() {
-	var pane = $('.horizontal-only'),
-		api = pane.data('jsp');
-		api.reinitialise();
-}
+// function reinitializeScrollPane() {
+// 	var pane = $('.horizontal-only'),
+// 		api = pane.data('jsp');
+// 		api.reinitialise();
+// }
 
 /**
  * Guarda la o las imagenes seleccionadas. Este es el paso final de esta
