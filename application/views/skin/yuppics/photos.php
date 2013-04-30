@@ -45,7 +45,7 @@
 
 		<div class="span4 barrpreview"> <!-- START SPAN3 -->
 			<div class="span12 bg-albums" id="content-albums">
-        <div class="span12" style="font-size: 17px;font-weight: bold;color: #3B3F46;padding: 38px 0 15px 55px;">Preguntas Frequentes</div>
+        <div class="span12" style="font-size: 17px;font-weight: bold;color: #3B3F46;padding: 38px 0 15px 55px;">Lista de Albums</div>
 
         <div class="scroll-pane albums-list">
           <ul class="nav nav-tabs nav-stacked hover-blue-albums" id="albums">
@@ -88,7 +88,13 @@
 				<div class="span11 photos-list" style="position: relative; height: 150px;margin-top: 30px; margin-bottom: 30px;">
 
           <!-- START LISTADO FOTOS FB -->
-          <ul class="thumbnails" id="photos-list" style="height: 130px; text-align:center; margin-top: 0px;"></ul><!-- END LISTADO FOTOS FB -->
+          <ul class="thumbnails" id="photos-list" style="height: 130px; text-align:center; margin-top: 0px;">
+
+            <span style="display:block; text-align:center; margin-top: 7%; color:#7B4F28; font-weight:bolder;">
+              Para comenzar Selecciona alguna categoría de la Lista de Albums
+            </span>
+
+          </ul><!-- END LISTADO FOTOS FB -->
 
 				</div>
 			</div> <!-- END ROW FLUID -->
@@ -109,32 +115,35 @@
 			</div> <!-- END ROW FLUID -->
 
 			<div class="row-fluid"> <!-- START ROW FLUID -->
-				<div class="span10 offset1 photos-select" style="height:170px;">
 
-          <div class="scroll-pane horizontal-only">
-						<div style="width: <?php echo (isset($width) ? $width : '0').'px';?>" id="content-selected-photos">
-							<ul class="thumbnails" style="margin-top: 8px">
-								<?php if (isset($photos)){
-    										foreach($photos as $k => $p) {?>
-    											<li class="span2 relative">
-    												<div class="thumbnail">
-    													<img alt="" src="<?php echo base_url($p->url_thumb)?>">
-    												</div>
-    												<button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete"></button>
-    											</li>
-								<?php }}?>
-					        </ul>
+        <div class="span1"></div>
+        <div class="span10 myClass photos-select" id="content-selected-photos" style="width: 85.6% !important;">
 
-                  <form id="form" style="width: 1px;margin: 0px;">
-                      <?php if (isset($photos)){
-                              foreach($photos as $k => $p) {?>
-                                <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
-                       <?php }}?>
-                  </form>
-					    </div>
-					</div>
+          <ul class="thumbnails" style="margin-top: 8px">
+            <?php if (isset($photos)){
+                    foreach($photos as $k => $p) {?>
+                      <li class="span2 relative">
+                        <div class="thumbnail">
+                          <img alt="" src="<?php echo base_url($p->url_thumb)?>">
+                        </div>
+                        <button type="button" class="close delete" data-id="<?php echo $p->id_photo?>" data-exist="true" title="Eliminar" id="delete"></button>
+                      </li>
+            <?php }} else {?>
+                    <span id="txt-msg-2"style="display:block; text-align:center; margin-top: 6%; color:#7B4F28; font-weight:bolder;">No hay Fotografías seleccionas aún</span>
+            <?php } ?>
+          </ul>
 
-				</div>
+          <form id="form" style="width: 1px;margin: 0px;">
+              <?php if (isset($photos)){
+                      foreach($photos as $k => $p) {?>
+                        <input type="hidden" name="photos[]" value="false" id="<?php echo $p->id_photo ?>" class="src-<?php echo $p->id_photo ?> ori">
+               <?php }}?>
+          </form>
+
+        </div>
+
+
+
 			</div> <!-- END ROW FLUID -->
 
 		</div> <!-- END SPAN9 -->
