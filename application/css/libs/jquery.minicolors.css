@@ -1,5 +1,5 @@
 .minicolors {
-	position: relative;
+	/*position: relative;*/
 	display: inline-block;
 	z-index: 1;
 }
@@ -71,8 +71,8 @@
 /* Panel */
 .minicolors-panel {
 	position: absolute;
-	top: 26px;
-	left: 0;
+	top: 60%;
+	left: 2%;
 	width: 173px;
 	height: 152px;
 	background: white;

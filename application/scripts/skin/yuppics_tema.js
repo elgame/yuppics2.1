@@ -191,7 +191,19 @@ var yuppic_tema = (function($){
 	}
 
 
+
+	function selThemesAutor(obj){
+		$("#appendedInputButtons").val(obj);
+		$("button.btn.submmit").click();
+
+		if(obj == '')
+			obj = 'Todos los temas';
+		$("#autor_sel_tthem").text(obj);
+	}
+
+
 	objr.init = init;
+	objr.selThemesAutor = selThemesAutor;
 
 	return objr;
 })(jQuery);

@@ -47,8 +47,8 @@
 
 				<div class="under_group head_tw_fb pull-left">
 					<div class="btn-group">
-					  <a class="btn"><i class="icon-tw"></i></a>
-					  <a class="btn"><i class="icon-fb"></i></a>
+					  <a class="btn textura"><i class="icon-tw"></i></a>
+					  <a class="btn textura"><i class="icon-fb"></i></a>
 					</div>
 				</div>
 
@@ -56,11 +56,12 @@
 				<!-- user dropdown starts -->
 				<div class="under_group pull-right mnu-info-usr">
 					<div class="btn-group" >
-						<a class="btn" href="<?php echo base_url('customer/perfil/');?>">
+						<a class="btn textura" href="<?php echo base_url('customer/perfil/');?>">
 							<i class="icon-user visible-phone"></i> <span class="hidden-phone"> <?php echo $this->session->userdata('nombre'); ?></span>
 						</a>
-						<button class="btn dropdown-toggle" data-toggle="dropdown">
-							<span class="caret"></span>
+						<button class="btn dropdown-toggle textura" data-toggle="dropdown">
+							<i class="icon-chevron-down1"></i>
+							<!-- <span class="caret"></span> -->
 						</button>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo base_url('customer/perfil/');?>">Perfil</a></li>
@@ -78,7 +79,7 @@
 				<!-- carrito dropdown starts -->
 				<div class="under_group pull-right">
 					<div id="menu_carrito_compra" class="btn-group" >
-						<a class="btn dropdown-toggle" href="#">
+						<a class="btn dropdown-toggle textura" href="#">
 							<span id="carr_badge_success" class="badge badge-success"><?php echo count($carrito_compra); ?></span>
 							<i class="icon-shopping-cart visible-phone"></i> <span class="hidden-phone"> Carrito de compras</span>
 						</a>

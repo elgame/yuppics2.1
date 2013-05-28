@@ -7,9 +7,9 @@
 				<span class="paso1"></span>
 				<span class="circl1"></span>
 				<span class="paso2"></span>
-				<span class="circl2"></span>
+				<!-- <span class="circl2"></span> -->
 				<span class="paso3"></span>
-				<span class="circl3"></span>
+				<!-- <span class="circl3"></span> -->
 			</div>
 			<p class="txtpaso1">Seleccionar tema</p>
 			<p class="muted txtpaso2"><a href="javascript:void(0);" id="btn_select_theme">Seleccionar fotografias</a></p>
@@ -21,18 +21,31 @@
 	<div class="row-fluid">
 		<div class="span12 barratop">
 			<div class="tema_barratop">
-				<div class="pull-left">
-					Elige un tema y personalizalo a tu gusto
+				<div class="pull-left" style="line-height: 42px;font-size: 17px;margin-left: 28px;color: #F4F4F5;">
+					<div class="bullet"></div> Elige un tema y personalizalo a tu gusto
 				</div>
 
 				<div class="pull-right">
-					<div class="input-append ir_pasos pull-right">
-						<a href="javascript:void(0);" id="btn_select_theme2" class="btn">Siguiente paso <i class="icon-arrow-right"></i></a>
+					<div class="input-append ir_pasos pull-right hover-blue under_gpp">
+						<a href="javascript:void(0);" id="btn_select_theme2" class="btn textura">Siguiente paso <i class="icon-right"></i></a>
 					</div>
 
-					<form action="<?php echo base_url('yuppics/theme_search'); ?>" method="get" id="tema_frm_buscar" class="tema_form-buscar pull-right">
-					  <div class="input-append">
-							<input type="text" name="qs" class="span1" id="appendedInputButtons" placeholder="Titulo, Autor.."><button class="btn" type="submit">Buscar</button>
+					<form action="<?php echo base_url('yuppics/theme_search'); ?>" method="get" id="tema_frm_buscar" class="tema_form-buscar pull-right under_gpp mnu-info-usr">
+						<div class="btn-group">
+						  <a class="btn dropdown-toggle textura" data-toggle="dropdown" href="#">
+						    <span id="autor_sel_tthem">Todos los temas</span>
+						    <i class="icon-chevron-down1"></i>
+						  </a>
+						  <ul class="dropdown-menu">
+						    <li><a href="javascript:yuppic_tema.selThemesAutor('');">Todos los temas</a></li>
+						    <li><a href="javascript:yuppic_tema.selThemesAutor('Gusanito');">Gusanito</a></li>
+						    <li><a href="javascript:yuppic_tema.selThemesAutor('Johnson&johnson');">Johnson&johnson</a></li>
+						    <li><a href="javascript:yuppic_tema.selThemesAutor('Yuppics');">Yuppics</a></li>
+						  </ul>
+						</div>
+
+					  <div class="input-append" style="display:none;">
+							<input type="text" name="qs" class="span1" id="appendedInputButtons" placeholder="Titulo, Autor.."><button class="btn submmit" type="submit">Buscar</button>
 						</div>
 					</form>
 				</div>
@@ -97,7 +110,7 @@
 									</div>
 								</div>
 								<div>
-									<div class="span6" style="text-align: left;color: #5c5c67;">Color de fondo</div>
+									<div class="span6" style="text-align: left;color: #5c5c67;">Color de texto</div>
 									<div class="span6">
 										<input type="text" id="color_texto" name="color_texto" value="<?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555'); ?>">
 									</div>

@@ -7,12 +7,13 @@
 				</div>
 				<span class="paso1"></span>
 				<span class="circl1"></span>
-				<span class="paso2" style="display: none;"></span>
+				<span class="paso2"></span>
 				<span class="circl2" style="display: none;"></span>
+        <span class="paso3"></span>
 			</div>
-			<p class="txtpaso1"><a href="<?php echo base_url('yuppics'); ?>">Seleccionar tema</a></p>
-			<p class="muted txtpaso2">Seleccionar fotografias</p>
-			<p class="muted txtpaso3"><a href="#modal_upload" data-toggle="modal" data-target="#modal_upload" id="modal">Creación de Yuppic</a></p>
+			<p class="txtpaso1"><a href="<?php echo base_url('yuppics'); ?>" class="muted">Seleccionar tema</a></p>
+			<p class="txtpaso2">Seleccionar fotografias</p>
+			<p class="muted txtpaso3"><a href="#modal_upload" class="muted" data-toggle="modal" data-target="#modal_upload" id="modal">Creación de Yuppic</a></p>
 			<div class="clearfix"></div>
 		</div>
 	</div><!-- END PROGRESS BAR -->
@@ -27,11 +28,11 @@
 
         <div class="pull-right">
           <div class="input-append ir_pasos pull-right hover-blue">
-            <a href="#modal_upload" id="modal" class="btn" data-toggle="modal" data-target="#modal_upload">Siguiente paso <i class="icon-right"></i></i></a>
+            <a href="#modal_upload" id="modal" class="btn textura" data-toggle="modal" data-target="#modal_upload">Siguiente paso <i class="icon-right"></i></i></a>
           </div>
 
           <div class="input-append ir_pasos pull-right hover-blue">
-            <a href="<?php echo base_url('yuppics'); ?>" id="btn_select_theme2" class="btn"><i class="icon-left"></i> Paso anterior</a>
+            <a href="<?php echo base_url('yuppics'); ?>" id="btn_select_theme2" class="btn textura"><i class="icon-left"></i> Paso anterior</a>
           </div>
         </div>
 

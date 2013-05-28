@@ -1,4 +1,52 @@
 $(function(){
+	$(".barra_menu_fix").removeClass('barra_menu_fix').addClass('barra_menu_fix4').css({
+		backgroundColor: "#15181d"
+	});
+
+	// Eventos click para el control del scroll dela fotos seleccionadas
+  // Este es el click del boton derecho
+  var contPagScroll = 0;
+  $('#btn-next-scroll').on('click', function(event) {
+      var obj = $('#content-selected-photos'),
+          width_content = parseInt(obj.css('width'), 10);
+          leftPos = parseInt(obj.scrollLeft(), 10),
+          pix_recorrer = 0;
+
+      if (width_content > (195 * 4)) {
+        pix_recorrer = 195 * 4;
+      } else if ((width_content < (195 * 4)) && width_content > (195 * 3)) {
+        pix_recorrer = 195 * 3;
+      } else if (width_content < (195 * 3) && width_content > (195 * 2)) {
+        pix_recorrer = 195 * 2;
+      } else {
+        pix_recorrer = 195;
+      }
+      obj.animate({
+          'scrollLeft': leftPos + pix_recorrer
+      }, 300);
+
+  });
+  // Este es el click del boton izquierdo
+  $('#btn-prev-scroll').on('click', function(event) {
+      var obj = $('#content-selected-photos'),
+          width_content = parseInt(obj.css('width'), 10);
+          leftPos = parseInt(obj.scrollLeft(), 10),
+          pix_recorrer = 0;
+
+
+      if (width_content > (195 * 4)) {
+        pix_recorrer = 195 * 4;
+      } else if ((width_content < (195 * 4)) && width_content > (195 * 3)) {
+        pix_recorrer = 195 * 3;
+      } else if (width_content < (195 * 3) && width_content > (195 * 2)) {
+        pix_recorrer = 195 * 2;
+      } else {
+        pix_recorrer = 195;
+      }
+      obj.animate({
+          'scrollLeft': leftPos - pix_recorrer
+      }, 300);
+  });
 
 	$('.scroll-pane').jScrollPane({
 		autoReinitialise: true
@@ -22,6 +70,19 @@ $(function(){
 					load_page(vvthis.attr("data-page"));
 				});
 			}
+
+			$("#page_edited").val("false"); // se edito la pagina - reset
+		}
+	});
+	// Evento para guardar la pagina activa
+	$("#save_page_active").on("click", function(){
+		var vvthis = $(this), page_edited = $("#page_edited"),
+		id_ypage = $("#id_ypage");
+
+		if (page_edited.val() == "true"){
+			msb.confirm("Quieres guardar los cambios de la página?", "", this, function(obj){
+				save_page_event("next");
+			});
 
 			$("#page_edited").val("false"); // se edito la pagina - reset
 		}
@@ -169,9 +230,10 @@ $(function(){
     $('button#delete').each(function(i, e){
       deleteClonePhoto(e);
     });
-    reinitializeScrollPane();
+    // reinitializeScrollPane();
     $('.jspPane').css('left', '0px')
     loader.close();
+    window.location = base_url+"yuppics/photos";
   });
 
 
@@ -258,10 +320,10 @@ function build_load_page(data, pagina){
 
 		num_pag.val(numero);
 		$("#barratop_pagina").text(num_pag.val());
-		$("#prev_page_save").attr("data-page", parseInt(num_pag.val())-1).hide(200);
+		$("#prev_page_save").attr("data-page", parseInt(num_pag.val())-1).attr("disabled", "disabled"); //.hide(200);
 		$("#next_page_save").attr("data-page", parseInt(num_pag.val())+1);
 		if(parseInt(num_pag.val()) > 1)
-			$("#prev_page_save").show(200);
+			$("#prev_page_save").removeAttr("disabled"); //.show(200);
 	}else{
 		var html = "";
 		var num_pag = $("#num_pag");
@@ -269,10 +331,10 @@ function build_load_page(data, pagina){
 		$("#id_ypage").val(data.page.id_ypage);
 		num_pag.val(data.page.num_pag);
 		$("#barratop_pagina").text(num_pag.val());
-		$("#prev_page_save").attr("data-page", parseInt(num_pag.val())-1).hide(200);
+		$("#prev_page_save").attr("data-page", parseInt(num_pag.val())-1).attr("disabled", "disabled"); //.hide(200);
 		$("#next_page_save").attr("data-page", parseInt(num_pag.val())+1);
 		if(data.page.num_pag > 1)
-			$("#prev_page_save").show(200);
+			$("#prev_page_save").removeAttr("disabled"); //.show(200);
 
 		for (var i = 0; i < data.page.images.length; i++) {
 			html += '<div class="img_in_page" style="top:'+data.page.images[i].coord_y+'%;left:'+data.page.images[i].coord_x+'%;width:'+data.page.images[i].width+'%;height:'+data.page.images[i].height+'%;" '+
@@ -387,9 +449,9 @@ function launchEditor() {
 
 // Listado de imagenes se reinicializa
 function reinitializeScrollPane() {
-  var pane = $('.horizontal-only'),
-    api = pane.data('jsp');
-    api.reinitialise();
+  // var pane = $('.horizontal-only'),
+  //   api = pane.data('jsp');
+  //   api.reinitialise();
 }
 // Elimina fotos del listado de imagenes
 function deleteClonePhoto(obj) {

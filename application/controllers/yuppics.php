@@ -114,7 +114,7 @@ class yuppics extends MY_Controller {
 	 */
 	public function theme_search(){
 		$this->load->model('themes_model');
-
+		
 		$params['themes'] = $this->themes_model->getThemes($this->input->get('qs'));
 
 		echo $this->load->view('skin/yuppics/themes_items', $params, true);
@@ -335,7 +335,8 @@ class yuppics extends MY_Controller {
 			array('http://feather.aviary.com/js/feather.js'),
 			array('general/msgbox.js'),
 			array('general/loader.js'),
-			array('skin/yuppics_book.js')
+			array('skin/yuppics_book.js'),
+			// array('skin/yuppics_photos.js'),
 		));
 
 		$params['info_customer'] = $this->info_empleado['info']; //info empleado
@@ -350,10 +351,12 @@ class yuppics extends MY_Controller {
 		$this->load->model('frames_model');
 		$this->load->model('pages_model');
 		$this->load->model('photos_model');
+		$this->load->model('themes_model');
 		$params['frames'] = $this->frames_model->getFrames();
 		$params['pages']  = $this->pages_model->getPages();
 		$params['photos'] = $this->photos_model->getYuppicPhotos($this->session->userdata('id_yuppics'));
 		$params['page']   = $this->pages_model->getPage($this->session->userdata('id_yuppics'));
+		$params['theme_sel'] = $this->themes_model->getYuppicTheme($this->session->userdata('id_yuppics'));
 
 		if($this->session->userdata('id_yuppics')){
 			// $params['theme_sel'] = $this->themes_model->getYuppicTheme($this->session->userdata('id_yuppics'));
@@ -514,17 +517,17 @@ class yuppics extends MY_Controller {
 		$diff_pix = 0;
 		$resize   = array('w'=>0, 'h'=>0);
 
-		// if ($info['w'] > $info['h']) {
-		// 	$diff_pix = $info['w'] / $size[0];
+		if ($info['w'] > $info['h']) {
+			$diff_pix = $info['w'] / $size[0];
 
-		// 	$resize['w'] = $info['w'];
-		// 	$resize['h'] = ($diff_pix * $size[1]);
-		// } else {
+			$resize['w'] = $info['w'];
+			$resize['h'] = ($diff_pix * $size[1]);
+		} else {
 			$diff_pix = $info['h'] / $size[1];
 
 			$resize['w'] = ($diff_pix * $size[0]);
 			$resize['h'] = $info['h'];
-		// }
+		}
 		return $resize;
 	}
 	private function cropImg($thumb_image_name, $image, $conf, $pag){

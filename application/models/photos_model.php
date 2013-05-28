@@ -61,13 +61,19 @@ class Photos_model extends CI_Model{
 	public function photo_delete($id_photo = false)
 	{
 		$idp = ($id_photo) ? $id_photo : $_POST['idp'];
-		$res = $this->db->select('url_img, url_thumb')->from('yuppics_photos')->where('id_photo', $idp)->get();
+		$res = $this->db->select('url_img, url_thumb, id_yuppic')->from('yuppics_photos')->where('id_photo', $idp)->get();
 		$data_photo = $res->row();
 
 		UploadFiles::deleteFile($data_photo->url_img);
 		UploadFiles::deleteFile($data_photo->url_thumb);
 
 		$this->db->delete('yuppics_photos', array('id_photo'=>$idp));
+
+		//si es la ultima foto elimina las paginas del yuppic
+		$res = $this->db->select('Count(*) AS c')->from('yuppics_photos')->where('id_yuppic', $data_photo->id_yuppic)->get()->row();
+		if($res->c == 0){
+			$this->db->delete('yuppics_pages', array('id_yuppic'=> $data_photo->id_yuppic));
+		}
 
 		return TRUE;
 	}

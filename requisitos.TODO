@@ -68,3 +68,21 @@ ALTER TABLE  `coupons` CHANGE  `amount`  `amount` DOUBLE NOT NULL DEFAULT  '0';
 
 
 
+CREATE TABLE  `themes_autor` (
+`id_autor` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`name` VARCHAR( 30 ) NOT NULL
+) ENGINE = INNODB;
+INSERT INTO `themes_autor` (`id_autor`, `name`) VALUES
+(1, 'Gusanito'),
+(2, 'Johnson&johnson'),
+(3, 'Yuppics');
+ALTER TABLE  `themes` DROP  `autor`;
+ALTER TABLE  `themes` ADD  `id_autor` INT UNSIGNED NULL DEFAULT NULL AFTER  `id_theme` ,
+ADD INDEX ( id_autor );
+ALTER TABLE  `themes` ADD FOREIGN KEY (  `id_autor` ) REFERENCES  `themes_autor` (
+`id_autor`
+) ON DELETE CASCADE ON UPDATE CASCADE ;
+UPDATE  `themes` SET  `id_autor` =  '1' WHERE  `id_theme` =1 LIMIT 1 ;
+UPDATE  `themes` SET  `id_autor` =  '2' WHERE  `id_theme` =2 LIMIT 1 ;
+UPDATE  `themes` SET  `id_autor` =  '2' WHERE  `id_theme` =3 LIMIT 1 ;
+UPDATE  `themes` SET  `id_autor` =  '3' WHERE  `id_theme` =4 LIMIT 1 ;
