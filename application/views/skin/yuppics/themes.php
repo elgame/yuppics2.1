@@ -61,13 +61,27 @@
 			<div id="tema_preview">
 		<?php
 		$style = '';
+		$style_img = 'top:0%; left:0%; display:none;';
 		$txt_color = '';
+		$img_bg = '';
 		if (isset($theme_sel)) {
-			$style = 'background-image: url('.base_url($theme_sel->background_img_thum).');background-color: '.$theme_sel->background_color.';color: '.$theme_sel->text_color.'; background-repeat: no-repeat no-repeat;';
+			$style = '';
+			$img_bg = $theme_sel->background_img_thum;
+			if($theme_sel->bg_pattern=='1'){
+				$img_bg = $theme_sel->background_img;
+				$style .= 'background-image: url('.base_url($img_bg).');background-repeat: repeat;';
+			}
+			$style .= 'background-color: '.$theme_sel->background_color.';color: '.$theme_sel->text_color.';';
 			$txt_color = 'color: '.$theme_sel->text_color.';';
+
+			$style_img = 'top:'.$theme_sel->bg_img_y.'%; left:'.$theme_sel->bg_img_x.'%; display:'.($theme_sel->bg_pattern=='0'? 'block': 'none').';';
 		}
 		?>
 				<div id="tema_prev_yuppic" class="tema_prev_yuppic center" style="<?php echo $style; ?>">
+
+					<img src="<?php echo base_url($img_bg); ?>" class="img_move_preview" 
+						style="<?php echo $style_img; ?>">
+					
 					<br><br><br>
 					<div class="bgtitulo">
 						<input id="tema_prev_titulo" class="titulo center tacenter" value="<?php echo (isset($theme_sel->title)? $theme_sel->title: '—— TÍTULO ——'); ?>" style="<?php echo $txt_color; ?>">
@@ -84,6 +98,9 @@
 						<div id="collapse_img" class="accordion-body collapse in">
 							<div class="accordion-inner">
 								<form action="<?php echo base_url('yuppics/theme_image'); ?>" id="tema_frm_imagen" method="post" enctype="multipart/form-data">
+									<label for="pattern_imagen_fondo">Repetir imagen 
+										<input type="checkbox" id="pattern_imagen_fondo" value="si" <?php echo (isset($theme_sel->bg_pattern)? ($theme_sel->bg_pattern=='1'? 'checked': ''): ''); ?>></label>
+
 									<input type="hidden" id="path_imagen_fondo" value="<?php echo (isset($theme_sel->background_img)? $theme_sel->background_img: ''); ?>">
 									<label for="imagen_fondo pull-left">Subir imagen</label>
 									<input type="file" name="imagen_fondo" id="imagen_fondo"><br>
@@ -106,13 +123,15 @@
 								<div>
 									<div class="span6" style="text-align: left;color: #5c5c67;">Color de fondo</div>
 									<div class="span6">
-										<input type="text" id="color_fondo" name="color_fondo" value="<?php echo (isset($theme_sel->background_color)? $theme_sel->background_color: '#ccc'); ?>">
+										<input type="text" id="color_fondo" name="color_fondo" value="<?php echo (isset($theme_sel->background_color)? str_replace('#', '', $theme_sel->background_color): 'cccccc'); ?>">
+										<span id="minibox_color_fondo" style="background-color: <?php echo (isset($theme_sel->background_color)? $theme_sel->background_color: '#cccccc'); ?>;"></span>
 									</div>
 								</div>
 								<div>
 									<div class="span6" style="text-align: left;color: #5c5c67;">Color de texto</div>
 									<div class="span6">
-										<input type="text" id="color_texto" name="color_texto" value="<?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555'); ?>">
+										<input type="text" id="color_texto" name="color_texto" value="<?php echo (isset($theme_sel->text_color)? str_replace('#', '', $theme_sel->text_color): '555555'); ?>">
+										<span id="minibox_color_texto" style="background-color: <?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555555'); ?>;"></span>
 									</div>
 								</div>
 							</div>

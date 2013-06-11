@@ -86,3 +86,93 @@ UPDATE  `themes` SET  `id_autor` =  '1' WHERE  `id_theme` =1 LIMIT 1 ;
 UPDATE  `themes` SET  `id_autor` =  '2' WHERE  `id_theme` =2 LIMIT 1 ;
 UPDATE  `themes` SET  `id_autor` =  '2' WHERE  `id_theme` =3 LIMIT 1 ;
 UPDATE  `themes` SET  `id_autor` =  '3' WHERE  `id_theme` =4 LIMIT 1 ;
+
+-------------------
+  UPDATE  `accomodation_imgs` SET  `height` =  '36' WHERE  `accomodation_imgs`.`id_img` =1 LIMIT 1 ;
+  ALTER TABLE  `yuppics_theme` ADD  `bg_pattern` BOOL NOT NULL DEFAULT  '0' COMMENT  '0:no repetir, 1:repetir';
+  ALTER TABLE  `yuppics_theme` ADD  `bg_img_x` INT NOT NULL DEFAULT  '0',
+  ADD  `bg_img_y` INT NOT NULL DEFAULT  '0';
+
+  INSERT INTO  `frames_imgs` (
+  `id_frame` ,
+  `id_img` ,
+  `url_frame`
+  )
+  VALUES (
+  '1',  '3',  'application/yuppics/frames/frame13.png'
+  ), (
+  '2',  '3',  'application/yuppics/frames/frame23.png'
+  );
+  UPDATE  `accomodation_imgs` SET  `width` =  '80' WHERE  `accomodation_imgs`.`id_img` =3 LIMIT 1 ;
+
+----------------------------------------
+
+  INSERT INTO  `frames` (
+  `id_frame` ,
+  `name` ,
+  `url_preview`
+  )
+  VALUES (
+  NULL ,  'Border 3',  'application/yuppics/frames/preview/frame3.png'
+  ), (
+  NULL ,  'Border 4',  'application/yuppics/frames/preview/frame4.png'
+  );
+  INSERT INTO  `frames` (
+  `id_frame` ,
+  `name` ,
+  `url_preview`
+  )
+  VALUES (
+  NULL ,  'Border 5',  'application/yuppics/frames/preview/frame5.png'
+  ), (
+  NULL ,  'Border 6',  'application/yuppics/frames/preview/frame6.png'
+  );
+  INSERT INTO  `frames_imgs` (
+  `id_frame` ,
+  `id_img` ,
+  `url_frame`
+  )
+  VALUES (
+  '3',  '1',  'application/yuppics/frames/frame31.png'
+  ), (
+  '3',  '2',  'application/yuppics/frames/frame32.png'
+  ), (
+  '3',  '3',  'application/yuppics/frames/frame33.png'
+  );
+  INSERT INTO  `frames_imgs` (
+  `id_frame` ,
+  `id_img` ,
+  `url_frame`
+  )
+  VALUES (
+  '4',  '1',  'application/yuppics/frames/frame41.png'
+  ), (
+  '4',  '2',  'application/yuppics/frames/frame42.png'
+  ), (
+  '4',  '3',  'application/yuppics/frames/frame43.png'
+  );
+  INSERT INTO  `frames_imgs` (
+  `id_frame` ,
+  `id_img` ,
+  `url_frame`
+  )
+  VALUES (
+  '5',  '1',  'application/yuppics/frames/frame51.png'
+  ), (
+  '5',  '2',  'application/yuppics/frames/frame52.png'
+  ), (
+  '5',  '3',  'application/yuppics/frames/frame53.png'
+  );
+  INSERT INTO  `frames_imgs` (
+  `id_frame` ,
+  `id_img` ,
+  `url_frame`
+  )
+  VALUES (
+  '6',  '1',  'application/yuppics/frames/frame61.png'
+  ), (
+  '6',  '2',  'application/yuppics/frames/frame62.png'
+  ), (
+  '6',  '3',  'application/yuppics/frames/frame63.png'
+  );
+

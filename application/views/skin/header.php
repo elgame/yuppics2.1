@@ -136,5 +136,5 @@
       <p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
     </div>
   <![endif]-->
-	<div class="container-fluid nopadding_lf">
+	<div id="contai_all_data" class="container-fluid nopadding_lf">
 		<div class="row-fluid">

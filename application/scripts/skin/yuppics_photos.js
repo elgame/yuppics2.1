@@ -59,11 +59,13 @@ $(function() {
 	});
 
   // Asigna evento "Click" al listado de albums.
-	$('#albums').find('li').on('click', function(){
+	var albums = $('#albums');
+  albums.find('li').on('click', function(){
 		$('#albums').find('a.active').removeClass('active');
 		$(this).find('a').addClass('active');
 		$('#barratop_album').html($(this).find('a').text());
 	});
+  album($("#albums li:first a").addClass("active").attr("data-fbid"));
 
   // Asigna evento "Click" a los link  para guardar las fotos.
 	$('#save_photos').on('click', function(){

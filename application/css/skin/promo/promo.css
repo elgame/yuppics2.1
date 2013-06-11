@@ -43,13 +43,39 @@
 	font-size: 2em;
 }
 .cupon_code{
-	font-weight: bold;
-	border-bottom: 2px #ccc solid;
-	font-size: 13px;
-}
-.cupon .span6 p{
-	color: #888;
-	font-size: 11px;
-	line-height: 14px;
+	font-size: 1.6em;
+	color: #61a9e0;
 	text-align: center;
+}
+.span12 p.cupinf{
+	color: #98a1aa;
+	margin-top: 5px;
+	text-align: center;
+}
+.span12 p.cupinf span{
+	color: #646a70;
+}
+#btn_usecupon.btn.btn-info{
+	background-color: #49afcd;
+  background-image: -moz-linear-gradient(top, #1a9fff, #0f77fe);
+  background-image: -ms-linear-gradient(top, #1a9fff, #0f77fe);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1a9fff), to(#0f77fe));
+  background-image: -webkit-linear-gradient(top, #1a9fff, #0f77fe);
+  background-image: -o-linear-gradient(top, #1a9fff, #0f77fe);
+  background-image: linear-gradient(top, #1a9fff, #0f77fe);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1a9fff', endColorstr='#0f77fe', GradientType=0);
+  border-color: #0f77fe #0f77fe #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #0f77fe;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+#btn_usecupon.btn.btn-info:hover {
+  background-color: #0f77fe;
+  *background-color: #0a77ae;
+}
+#btn_usecupon.btn.btn-info:hover {
+  background-color: #0a77ae \9;
 }

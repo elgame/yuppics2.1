@@ -73,6 +73,12 @@ var get_yuppic = (function($){
 			});
 		}
 
+		//evento para copiar el cupon al portapapeles
+		ZeroClipboard.setDefaults( { moviePath: base_url+"ZeroClipboard/ZeroClipboard.swf" } );
+		var clip = new ZeroClipboard($("#btn_usecupon"));
+		clip.on( 'complete', function ( client, args ) {
+			alert("Se copio el cupón al portapapeles" );
+		});
 	}
 
 	function requestInviteLink(response) {

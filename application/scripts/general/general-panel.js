@@ -41,8 +41,10 @@ var carro_compras = (function($){
 		$("#menu_carrito_compra .btn.dropdown-toggle").on("click", function(){
 			if (menu_carrito_compra.is('.open')) {
 				menu_carrito_compra.removeClass("open");
-			}else
+			}else{
 				menu_carrito_compra.addClass("open");
+				setTimeout(setEventClose, 50, menu_carrito_compra);
+			}
 		});
 
 		$(".car_quantity").on('change', function(){
@@ -50,6 +52,12 @@ var carro_compras = (function($){
 		});
 
 		$("#car_btn_comprar").on("click", enviar_carro);
+	}
+
+	function setEventClose(menu_carrito_compra){
+		$("#contai_all_data").one("click", function() {
+		  $("#menu_carrito_compra .btn.dropdown-toggle").click();
+		});
 	}
 
 	function enviar_carro(){

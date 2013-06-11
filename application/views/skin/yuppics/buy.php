@@ -162,6 +162,10 @@
                       </p>
                   <?php
                     }
+                  }else{
+                  ?>
+                    <span>No hay más direcciones disponibles. Da de alta otra dirección <a href="#modal_addaddress" class="link_green bold" title="Agregar direccion" role="button" data-toggle="modal">aquí</a></span>
+                  <?php
                   }?>
                   </div>
 
@@ -329,11 +333,12 @@
   <form action="<?php echo base_url('address_book/add/')?>" method="POST" class="form-horizontal" data-sendajax="true"
       data-alert="address_alert" data-callback="address_success_shop">
 
-    <div class="modal-body">
+    <div class="modal-header tacenter">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h2>Direccion</h2>
+    </div>
 
-      <div class="span12" style="text-align:center;">
-        <h3 class="muted">Direccion</h3>
-      </div>
+    <div class="modal-body">
 
       <div class="span12">
           <div class="control-group">
@@ -428,7 +433,7 @@
 
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="submit" class="btn btn-success">Guardar</button>
     </div>
   </form>
 </div><!-- END MODAL AGREGAR ADDRESS -->
@@ -438,11 +443,12 @@
   <form id="frm_updateaddress" action="<?php echo base_url('address_book/update/')?>" method="POST" class="form-horizontal" data-sendajax="true"
       data-alert="updateaddress_alert" data-callback="address_success_shop">
 
-    <div class="modal-body">
+    <div class="modal-header tacenter">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h2>Modificar direccion</h2>
+    </div>
 
-      <div class="span12" style="text-align:center;">
-        <h3 class="muted">Modificar direccion</h3>
-      </div>
+    <div class="modal-body">
 
       <div class="span12">
           <div class="control-group">

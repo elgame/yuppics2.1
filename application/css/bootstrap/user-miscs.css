@@ -37,7 +37,7 @@
 /*centra un contenido*/
 div.center, p.center,
 img.center, span.center,
-a.center{
+a.center, button.center{
   margin-left: auto !important;
   margin-right: auto !important;
   float: none !important;
@@ -66,9 +66,7 @@ a.center{
 }
 
 
-.dropdown-menu.carrito_compra{
-  width: 250px;
-}
+
 
 .mtop-content {
   margin-top: 44px;

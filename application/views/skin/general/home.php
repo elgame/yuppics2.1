@@ -35,18 +35,24 @@
               </div>
               <div class="tab-content">
 
-                <div class="tab-pane active scroll-pane horizontal-only" id="tab-pendientes">
+                <div class="tab-pane active" id="tab-pendientes"> <!-- class="tab-pane active scroll-pane horizontal-only" -->
             <?php
               if (is_array($info_dash->listado2)) { ?>
                   <!-- 374 -->
-                  <ul class="thumbnails" style="width: <?php echo count($info_dash->listado2)*374; ?>px;">
+                  <ul class="thumbnails thumbnails_yuppics"> <!-- style="width: <?php echo count($info_dash->listado2)*374; ?>px;" -->
               <?php
                 foreach ($info_dash->listado2 as $key => $value) {
+                  $style = '';
+                  if ($value->bg_pattern == '1') {
+                    $style = "background: url('".base_url($value->url_img)."') repeat;";
+                  }
               ?>
                     <li class="span6" style="width: 360px;">
                       <div class="thumbnail">
-                        <div style="width: 360px; height: 200px;overflow: hidden;">
+                        <div style="<?php echo $style; ?>width: 360px; height: 200px;overflow: hidden;">
+                      <?php if ($value->bg_pattern == '0') { ?>
                           <img alt="<?php echo $value->title; ?>" style="width: 360px; height: auto;" src="<?php echo base_url($value->url_img); ?>">
+                      <?php } ?>
                         </div>
                         <div class="caption">
                           <h3><?php echo $value->title; ?></h3>
@@ -61,12 +67,12 @@
                 </div>
 
 
-                <div class="tab-pane scroll-pane horizontal-only" id="tab-comprados">
+                <div class="tab-pane" id="tab-comprados"> <!-- class="tab-pane scroll-pane horizontal-only" -->
 
               <?php
               if (is_array($info_dash->listado1)) { ?>
                   <!-- 374 -->
-                  <ul class="thumbnails" style="width: <?php echo count($info_dash->listado1)*374; ?>px;">
+                  <ul class="thumbnails thumbnails_yuppics"> <!-- style="width: <?php echo count($info_dash->listado1)*374; ?>px;" -->
               <?php
                 foreach ($info_dash->listado1 as $key => $value) {
               ?>

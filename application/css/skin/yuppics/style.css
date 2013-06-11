@@ -152,7 +152,7 @@ a#btn_select_theme{
 
 /*contenido*/
 .row-fluid.contenido_crea_yupp{
-	background: url("../../../images/crearyp/bg_paso1.jpg") no-repeat;
+	background: url("../../../images/crearyp/bg_paso1.jpg") repeat;
 }
 .row-fluid .span4.barrpreview{
 	position: relative;
@@ -166,13 +166,25 @@ a#btn_select_theme{
 .tema_prev_yuppic{
 	position: relative;
 	width: 70%;
-	height: 250px;
+	height: auto;
+	min-height: 300px;
 	background-color: #ccc;
 	margin-bottom: 20px;
+	overflow: hidden;
+}
+.tema_prev_yuppic .img_move_preview{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	max-width: none;
+	z-index: 0;
 }
 .tema_prev_yuppic .bgtitulo{
+	position: relative;
 	background-color: rgba(54, 98, 169, 0.6);
 	padding: 20px 0;
+	z-index: 10;
 }
 .tema_prev_yuppic .titulo{
 	width: 90%;
@@ -183,6 +195,7 @@ a#btn_select_theme{
 	color: #fff;
 }
 .tema_prev_yuppic .autor{
+	position: relative;
 	width: 90%;
 	margin-top: 20px;
 	background-color: transparent;
@@ -190,13 +203,16 @@ a#btn_select_theme{
 	color: #fff;
 	font-style: italic;
 	font-size: 1.1em;
+	z-index: 10;
 }
 .tema_prev_yuppic .titulo:focus,
 .tema_prev_yuppic .autor:focus{
 	border: 1px double #fff;
 }
 .tema_prev_yuppic .fecha{
+	position: relative;
 	font-size: .8em;
+	z-index: 10;
 }
 
 #accordion2 .accordion-group,
@@ -222,15 +238,49 @@ a#btn_select_theme{
 	border-top:1px #000105 solid;
 
 }
+a.accordion-toggle:hover{
+	text-decoration: none;
+}
 #collapse_fondo.accordion-body.collapse{
 	position: inherit;
 }
-.minicolors.minicolors-theme-default{
+.colorpicker{
+	z-index: 300;
+}
+#color_fondo,
+#color_texto{
+	float: right;
+	margin: 0px;
+	font: 14px sans-serif;
+	width: 65px;
+	height: 16px;
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, .04);
+	padding: 2px;
+	border: none;
+	background-color: #171717;
+	border-radius: 2px;
+	border-bottom: 1px #475757 solid;
+	border-right: 1px #475757 solid;
+	color: #c9c9c9;
+	text-align: center;
+}
+#minibox_color_fondo,
+#minibox_color_texto{
+	float: right;
+	display: inline-block;
+	margin-right: 8%;
+	width: 19px;
+	height: 19px;
+	background: none;
+	box-shadow: inset 0 9px 0 rgba(255, 255, 255, .1);
+	border-radius: 4px;
+}
+/*.minicolors.minicolors-theme-default{
 	float: right;
 }
 .minicolors.minicolors-theme-default .minicolors-swatch{
 	margin-right: 8px;
-}
+}*/
 .input-append.ir_pasos{
 	background-color: #131315;
 	border-radius: 4px;
@@ -245,9 +295,7 @@ a#btn_select_theme{
 	text-shadow: #fff 0.1em 0.1em 0.2em;*/
 }
 
-.colorpicker{
-	width: 195px;
-}
+
 
 /** Listado de temas **/
 #thmslists .pagination{

@@ -12,31 +12,31 @@ var yuppic_tema = (function($){
 	colorpicker_texto, color_texto,
 	tema_prev_titulo, tema_prev_autor,
 	tema_frm_imagen, progress_img_fondo,
-	titulo_yuppic, autor_yuppic;
+	titulo_yuppic, autor_yuppic,
+	minibox_color_fondo, minibox_color_texto;
 
 	function init(){
 		pagination_themes();
 
+		//si la imagen existe se asigna el evento para mover
+		$(".img_move_preview").draggable({
+			revert: false,
+			scroll: false
+		});
 
-		// Objetos y eventos para cambiar el color de fondo y texto del yuppic
-		colorpicker_fondo = $('#colorpicker_fondo'); 
-		color_fondo       = $("#color_fondo");
-		tema_prev_yuppic  = $("#tema_prev_yuppic");
-		color_fondo.minicolors();
-		// colorpicker_fondo.farbtastic(function(color){
-		// 	colorpicker_fondo.css("background-color", color);
-		// 	color_fondo.val(color);
-		// 	tema_prev_yuppic.css("background-color", color);
-		// });
-		
-		colorpicker_texto = $('#colorpicker_texto');
-		color_texto       = $("#color_texto");
-		color_texto.minicolors();
-		// colorpicker_texto.farbtastic(function(color){
-		// 	colorpicker_texto.css("background-color", color);
-		// 	color_texto.val(color);
-		// 	tema_prev_yuppic.css("color", color);
-		// });
+		//evento al cambiar el check de pattern en la imagen del preview
+		$("#pattern_imagen_fondo").on("change", function(){
+			var vthis = $(this), img = $(".img_move_preview"), img_str="";
+			// if(vthis.is(":checked")){
+				img_str = img.attr("src").replace(base_url, "");
+				preview_setImage(img_str.replace("_thumb", ""), img_str);
+			// }else{
+
+			// }
+		});
+		$(".img_move_preview").load(function(){
+			redimImgPreview(this, $("#tema_prev_yuppic"));
+		});
 
 
 		// Eventos para el titulo y autor del yuppic
@@ -56,6 +56,53 @@ var yuppic_tema = (function($){
 		// tema_prev_autor.on("keyup", function(evt){
 		// 	autor_yuppic.val($(this).val());
 		// });
+
+
+		// Objetos y eventos para cambiar el color de fondo y texto del yuppic
+		colorpicker_fondo   = $('#colorpicker_fondo'); 
+		color_fondo         = $("#color_fondo");
+		tema_prev_yuppic    = $("#tema_prev_yuppic");
+		minibox_color_fondo = $("#minibox_color_fondo");
+		color_fondo.ColorPicker({  			//colorpicker del color de fondo
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+				tema_prev_yuppic.css("background-color", "#"+hex);
+				minibox_color_fondo.css("background-color", "#"+hex);
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			}
+		}).on('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+			tema_prev_yuppic.css("background-color", "#"+this.value);
+			minibox_color_fondo.css("background-color", "#"+this.value);
+		});
+		// color_fondo.minicolors();
+		
+		colorpicker_texto   = $('#colorpicker_texto');
+		color_texto         = $("#color_texto");
+		minibox_color_texto = $("#minibox_color_texto");
+		color_texto.ColorPicker({			   //colorpicker del color de texto
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+				tema_prev_yuppic.css("color", "#"+hex);
+				tema_prev_titulo.css("color", "#"+hex);
+				tema_prev_autor.css("color", "#"+hex);
+				minibox_color_texto.css("background-color", "#"+hex);
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			}
+		}).on('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+			tema_prev_yuppic.css("color", "#"+this.value);
+			tema_prev_titulo.css("color", "#"+this.value);
+			tema_prev_autor.css("color", "#"+this.value);
+			minibox_color_texto.css("background-color", "#"+this.value);
+		});
+		// color_texto.minicolors();
 
 
 		// Eventos para subir la imagen del tema
@@ -108,11 +155,21 @@ var yuppic_tema = (function($){
 
 			preview_setImage(img, imgthum, img_quit);
 
-			color_texto.minicolors('value', colortexto);
-			colorpicker_texto.css("background-color", colortexto);
+			// color_texto.minicolors('value', colortexto);
+			// colorpicker_texto.css("background-color", colortexto);
+			color_texto.ColorPickerSetColor(colortexto.replace("#", ""));
+			tema_prev_yuppic.css("color", colortexto);
+			tema_prev_titulo.css("color", colortexto);
+			tema_prev_autor.css("color", colortexto);
+			minibox_color_texto.css("background-color", colortexto);
 
-			color_fondo.minicolors('value', colorfondo);
-			colorpicker_fondo.css("background-color", colorfondo);
+
+			// color_fondo.minicolors('value', colorfondo);
+			// colorpicker_fondo.css("background-color", colorfondo);
+			color_fondo.ColorPickerSetColor(colorfondo.replace("#", ""));
+			tema_prev_yuppic.css("background-color", colorfondo);
+			minibox_color_fondo.css("background-color", colorfondo);
+
 			tema_prev_yuppic.css({
 				color: colortexto,
 				backgroundColor: colorfondo
@@ -129,12 +186,34 @@ var yuppic_tema = (function($){
 
 	function preview_setImage(image, thume, remove){
 		remove = (remove? remove: false);
+		var pattern_img = $("#pattern_imagen_fondo");
 
-		if (remove)
+		if (remove){
 			tema_prev_yuppic.css("background-image", "none");
-		else
-			tema_prev_yuppic.css("background", "url("+base_url+thume+") no-repeat");
+			$("#tema_prev_yuppic .img_move_preview").hide();
+		}else{
+			if(pattern_img.is(":checked")){ //si esta activado el pattern
+				tema_prev_yuppic.css("background-image", "url("+base_url+image+")")
+												.css("background-repeat", "repeat");
+				$("#tema_prev_yuppic .img_move_preview").hide();
+			}else{
+				tema_prev_yuppic.css("background-image", "none");
+				$("#tema_prev_yuppic .img_move_preview").attr("src", base_url+thume).show();
+			}
+		}
 		$("#path_imagen_fondo").val(image);
+	}
+
+	function redimImgPreview(img, content){
+		var diff_pix; // img=img del load
+
+		diff_pix = content.height() / img.height;
+
+		diff_pix_width = parseInt( (diff_pix * img.width) );
+		diff_pix_height = content.height();
+
+		img.width = diff_pix_width;
+		img.height = diff_pix_height;
 	}
 
 	/**
@@ -173,12 +252,20 @@ var yuppic_tema = (function($){
 	function save_theme(){
 		var msg_modal = $("#messajes_alerts"),
 		params = {
-			title: $("#tema_prev_titulo").val(),
-			author: $("#tema_prev_autor").val(),
+			title: tema_prev_titulo.val(),
+			author: tema_prev_autor.val(),
 			background_img: $("#path_imagen_fondo").val(),
-			background_color: color_fondo.val(),
-			text_color: color_texto.val()
-		};
+			background_color: "#"+color_fondo.val().replace("#", ""),
+			text_color: "#"+color_texto.val().replace("#", ""),
+			bg_pattern: ($("#pattern_imagen_fondo").is(":checked")? 'si': 'no'),
+		}, img_prev = $(".img_move_preview");
+
+		if(params.bg_pattern == 'no'){ //si pattern esta desactivado se guardan las coordenadas
+			var tema_prev_yuppic = $("#tema_prev_yuppic");
+
+			params.bg_img_x = trunc2Dec( (parseInt(img_prev.css("left")) * 100 / (tema_prev_yuppic.width()) ));
+			params.bg_img_y = trunc2Dec( (parseInt(img_prev.css("top")) * 100 / (tema_prev_yuppic.height()) ));
+		}
 
 		$.post(base_url+"yuppics/theme_save", params, function(data){
 			if (data.frm_errors.ico == 'success') {
@@ -207,3 +294,7 @@ var yuppic_tema = (function($){
 
 	return objr;
 })(jQuery);
+
+function trunc2Dec(num) {
+	return Math.floor(num * 100) / 100;
+}

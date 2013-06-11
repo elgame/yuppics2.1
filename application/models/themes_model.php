@@ -10,7 +10,7 @@ class themes_model extends CI_Model{
 	/**
 	 * Obtiene la informacion de un cupon
 	 */
-	public function getThemes($search=null, $exist=false){
+	public function getThemes($search=null, $exist=false, $limit=null){
 		$this->db
 			->select('t.id_theme, t.name, tta.name AS autor, t.background_img, t.background_color, t.text_color')
 			->from('themes AS t')
@@ -23,8 +23,10 @@ class themes_model extends CI_Model{
 				->where("Lower(t.name) LIKE '%".$search."%' OR Lower(tta.name) LIKE '%".$search."%' OR Lower(ta.name) LIKE '%".$search."%'");
 		}
 		$this->db->group_by('t.id_theme');
+		if($limit != null)
+			$this->db->limit($limit);
 		$res = $this->db->order_by('t.name', 'asc')
-		->get();
+			->get();
 		if($res->num_rows() > 0){
 			if($exist){
 				$res->free_result();
@@ -39,9 +41,35 @@ class themes_model extends CI_Model{
 			return false;
 	}
 
+	public function getThemeDefault(){
+		$themes = $this->getThemes(null, null, 1);
+		
+		if($themes != false){
+			$response = new stdClass();
+			$response->id_yuppic        = '';
+			$response->title            = '—— TÍTULO ——';
+			$response->author           = 'Autor de Yuppic';
+			$response->background_img   = $themes[0]->background_img;
+			$response->background_color = $themes[0]->background_color;
+			$response->text_color       = $themes[0]->text_color;
+			$response->bg_pattern       = '0';
+			$response->bg_img_x         = '0';
+			$response->bg_img_y         = '0';
+			
+			$a = explode('/', $response->background_img);
+			$b = explode('.', $a[count($a)-1]);
+			unset($a[count($a)-1]);
+			$response->background_img_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
+
+			return $response;
+		}else
+			return false;
+	}
+
 	public function getYuppicTheme($id_yuppic){
 		$res = $this->db->query("SELECT 
-				y.id_yuppic, y.title, y.author, yt.background_img, yt.background_color, yt.text_color 
+				y.id_yuppic, y.title, y.author, yt.background_img, yt.background_color, yt.text_color, yt.bg_pattern, 
+				yt.bg_img_x, yt.bg_img_y 
 			FROM yuppics AS y 
 				INNER JOIN yuppics_theme AS yt ON y.id_yuppic = yt.id_yuppic 
 			WHERE y.id_yuppic = ".$id_yuppic);
@@ -66,16 +94,20 @@ class themes_model extends CI_Model{
 		$data_yuppic = array(
 			'id_customer' => $this->session->userdata('id_usuario'), 
 			'id_product'  => $produc->id_product,
-			'title'       => $this->input->post('title'),
+			'title'       => ($this->input->post('title')=="—— TÍTULO ——"? 'Yuppic sin título': $this->input->post('title')),
 			'author'      => $this->input->post('author'),
-			'quantity'    => 1
+			'quantity'    => 1,
 			);
 
+		$size_yuppic = array(145, 185);
 		$data_theme = array(
 			'id_yuppic'        => '', 
 			'background_img'   => $this->input->post('background_img'), 
 			'background_color' => $this->input->post('background_color'), 
-			'text_color'       => $this->input->post('text_color')
+			'text_color'       => $this->input->post('text_color'),
+			'bg_pattern'       => ($this->input->post('bg_pattern')=='si'? '1': '0'),
+			'bg_img_x'         => $this->input->post('bg_img_x'),
+			'bg_img_y'         => $this->input->post('bg_img_y'),
 			);
 
 		UploadFiles::validaDir($data_yuppic['id_customer'], APPPATH.'yuppics/');

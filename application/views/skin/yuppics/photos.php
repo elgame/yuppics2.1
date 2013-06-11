@@ -55,7 +55,7 @@
 
             <?php if(isset($albums)){
                 foreach ($albums as $k => $v) {?>
-                  <li><a href="javascript:album(<?php echo '\''.$v->id.'\''; ?>)"><i class="icon-album"></i><span><?php echo $v->name ?></span></a></li>
+                  <li><a href="javascript:album(<?php echo '\''.$v->id.'\''; ?>)" data-fbid="<?php echo $v->id; ?>"><i class="icon-album"></i><span><?php echo $v->name ?></span></a></li>
             <?php }} ?>
             <!-- <li><a href="javascript:album('all')">Mostrar todas las fotos</a></li> -->
           </ul>

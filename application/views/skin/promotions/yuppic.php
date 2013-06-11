@@ -100,20 +100,21 @@
 						if ($status->progress == 100) { 
 					?>
 							<div class="row-fluid">
-								<div style="background-color: #fff; padding: 3% 4% 1% 4%;">
-									<div class="span7">
-										<h4 style="color: #70727d;">Has ganado un cupón de descuento</h4>
-										<p class="muted">Con un valor de <?php echo String::formatoNumero($status->coupon->amount,2,''); ?>MXN valido en la compra de un yuppic.</p>
+								<div style="background-color: #ecf6fc; border-top: 1px #d5dee5 solid;">
+									<div class="span7" style="padding: 6% 6%; border-right: 1px #d5dee5 solid;">
+										<h4 style="color: #646a70; margin-bottom: 6px; font-size: 1.2em;">Has ganado un cupón de descuento</h4>
+										<p class="muted" style="color: #98a1aa;">Con un valor de <?php echo String::formatoNumero($status->coupon->amount,2,''); ?>MXN valido en la compra de un yuppic.</p>
 									</div><!--/span-->
 
-									<div class="span5 cupon">
-										<div class="span6 tacenter cupon_left">
+									<div class="span5" style="padding: 3% 6%;"> <!-- cupon -->
+										<!-- <div class="span6 tacenter cupon_left">
 											<span style="color: #999;"><?php echo $status->coupon->percentage; ?>%</span>
 											<p>De descuento</p>
-										</div>
-										<div class="span6">
-											<div class="muted cupon_code">Codigo <?php echo $status->coupon->code; ?></div>
-											<p>Valor del Cupón <?php echo String::formatoNumero($status->coupon->amount,2,''); ?>MXN</p>
+										</div> -->
+										<div class="span12">
+											<div class="cupon_code">Código <span id="cupon_ganado"><?php echo $status->coupon->code; ?></span></div>
+											<p class="cupinf">Valor del Cupón <span><?php echo String::formatoNumero($status->coupon->amount,2,''); ?>MXN</span></p>
+											<button type="button" id="btn_usecupon" data-clipboard-text="<?php echo $status->coupon->code; ?>" class="btn btn-large btn-info center">Utilizar Cupón</button>
 										</div>
 									</div><!--/span-->
 									<div class="clearfix"></div>

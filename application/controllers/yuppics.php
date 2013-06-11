@@ -28,14 +28,20 @@ class yuppics extends MY_Controller {
 	public function index(){
 		// $this->session->set_userdata('id_yuppics', 2);
 		$this->carabiner->css(array(
-			array('libs/jquery.minicolors.css', 'screen'),
+			// array('libs/jquery.minicolors.css', 'screen'),
+			array('libs/jquery.colorpicker2.css', 'screen'),
+			array('libs/jquery.colorpicker2_layout.css', 'screen'),
 			array('libs/jquery.jPages.css', 'screen'),
 			array('skin/dashboard/style.css', 'screen'),
 			array('skin/yuppics/style.css', 'screen')
 		));
 
 		$this->carabiner->js(array(
-			array('libs/jquery.minicolors.js'),
+			// array('libs/jquery.minicolors.js'),
+			array('libs/jquery.colorpicker2.js'),
+			array('libs/jquery.colorpicker2eye.js'),
+			array('libs/jquery.colorpicker2layout.js'),
+			array('libs/jquery.colorpicker2utils.js'),
 			array('libs/jquery.form.js'),
 			array('libs/jquery.jPages.min.js'),
 			array('general/loader.js'),
@@ -54,8 +60,13 @@ class yuppics extends MY_Controller {
 		$this->load->model('themes_model');
 		$params['themes'] = $this->themes_model->getThemes();
 
+		if($this->input->get('new')=='si')
+			$this->session->unset_userdata('id_yuppics');
+
 		if($this->session->userdata('id_yuppics')){
 			$params['theme_sel'] = $this->themes_model->getYuppicTheme($this->session->userdata('id_yuppics'));
+		}else{ //carga el primer tema
+			$params['theme_sel'] = $this->themes_model->getThemeDefault();
 		}
 
 
@@ -439,7 +450,7 @@ class yuppics extends MY_Controller {
 		$this->load->model('book_model');
 		$this->load->library('MYpdfgeneral');
 		// Creación del objeto de la clase heredada
-		$pdf = new MYpdfgeneral('P', 'mm', 'Letter');
+		$pdf = new MYpdfgeneral('P', 'mm', array(145, 185));
 
 		$yupic = $this->book_model->getYuppic($this->input->get('yuppic'));
 
@@ -454,10 +465,38 @@ class yuppics extends MY_Controller {
 			$pdf->SetTextColor($color[0], $color[1], $color[2]); //color de texto
 			$pdf->Rect(0, 0, $pdf->CurPageSize[0], $pdf->CurPageSize[1], 'F'); // rectangulo con color de fondo
 			$size = $pdf->getSizeImage($yupic->background_img, 0, 0);
-			$y = 0;
-			if ($size[1] < $pdf->CurPageSize[1]) // se centra la imagen a lo alto
-				$y = (($pdf->CurPageSize[1]-$size[1]) / 2);
-			$pdf->Image($yupic->background_img, 0, $y, 0); // se establece la imagen de fondo
+
+			if($yupic->bg_pattern == 1){ //si es un pattern se pone la imagen
+				$count_x = ceil($pdf->CurPageSize[0]/$size[0]);
+				$count_y = ceil($pdf->CurPageSize[1]/$size[1]);
+				for ($rows=0; $rows < $count_y; $rows++) { 
+					for ($cols=0; $cols < $count_x; $cols++) { 
+						$pdf->Image($yupic->background_img, ($cols*$size[0]), ($rows*$size[1]), 0);
+					}
+				}
+			}else{ //si no es pattern se redimenciona la imagen 
+
+				$info = array(
+						'x'     => 0,
+						'y'     => $yupic->bg_img_y,
+						'w'     => ($pdf->CurPageSize[0]),
+						'h'     => ($pdf->CurPageSize[1]),
+						'pos_x' => $yupic->bg_img_x,
+						'pos_y' => 0,
+						);
+
+				$size = $this->redimImgPhoto($size, $info);
+				$size['h'] -= $yupic->bg_img_y;
+
+				$name_file = explode('.', $yupic->background_img);
+				$name_file = $name_file[0].rand(1, 9999).'.'.$name_file[1];
+				$img_cortada = $this->cropImg($name_file, $yupic->background_img, $size, $info);
+
+				$pdf->Image($img_cortada, $info['x'], $info['y'], $info['w'], $info['h']); // imagen de fondo
+				unlink($img_cortada);
+			}
+
+
 
 			$pdf->SetFont('Arial', 'B', 30);
 			$pdf->SetXY(0, (($pdf->CurPageSize[1]-20) / 2));

@@ -28,6 +28,7 @@ class Promotions extends MY_Controller {
 		$this->carabiner->js(array(
 			array('http://connect.facebook.net/en_US/all.js'),
 			array('libs/jquery.form.js'),
+			array('libs/ZeroClipboard.min.js'),
 			array('skin/form_ajax.js'),
 			array('skin/contact.js'),
 			array('skin/newsletter.js'),

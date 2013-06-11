@@ -5,7 +5,7 @@
 					<div class="well well-small center create_yupps">
 						<div class="cy_body">
 							<h3 class="myriad brr_right">Comienza ahora!</h3>
-							<a href="<?php echo base_url('yuppics'); ?>" class="btn btn-large mtop">Crear tu propio yuppics</a><br>
+							<a href="<?php echo base_url('yuppics?new=si'); ?>" class="btn btn-large mtop">Crear tu propio yuppics</a><br>
 							<span class="cy_descrip">Imprime tus mejores recuerdos <br>
 								por tan sólo <strong><?php echo String::formatoNumero($product_yuppic->price); ?> MXM</strong>
 							</span>
