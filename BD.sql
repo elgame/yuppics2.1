@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-04-2013 a las 18:18:06
+-- Tiempo de generación: 12-06-2013 a las 20:04:35
 -- Versión del servidor: 5.1.30
 -- Versión de PHP: 5.2.8
 
@@ -27,21 +27,21 @@ USE `yuppics2`;
 -- Estructura de tabla para la tabla `accomodation_imgs`
 --
 
-DROP TABLE IF EXISTS `accomodation_imgs`;
 CREATE TABLE IF NOT EXISTS `accomodation_imgs` (
   `id_img` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `width` int(10) unsigned NOT NULL,
   `height` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_img`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcar la base de datos para la tabla `accomodation_imgs`
 --
 
 INSERT INTO `accomodation_imgs` (`id_img`, `width`, `height`) VALUES
-(1, 45, 35),
-(2, 35, 70);
+(1, 45, 36),
+(2, 35, 70),
+(3, 80, 35);
 
 -- --------------------------------------------------------
 
@@ -49,13 +49,12 @@ INSERT INTO `accomodation_imgs` (`id_img`, `width`, `height`) VALUES
 -- Estructura de tabla para la tabla `accomodation_page`
 --
 
-DROP TABLE IF EXISTS `accomodation_page`;
 CREATE TABLE IF NOT EXISTS `accomodation_page` (
   `id_page` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `num_imgs` int(10) unsigned NOT NULL,
   `url_preview` varchar(150) NOT NULL,
   PRIMARY KEY (`id_page`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcar la base de datos para la tabla `accomodation_page`
@@ -63,7 +62,9 @@ CREATE TABLE IF NOT EXISTS `accomodation_page` (
 
 INSERT INTO `accomodation_page` (`id_page`, `num_imgs`, `url_preview`) VALUES
 (1, 2, 'application/yuppics/pages/preview/pag1.png'),
-(2, 3, 'application/yuppics/pages/preview/pag2.png');
+(2, 3, 'application/yuppics/pages/preview/pag2.png'),
+(3, 2, 'application/yuppics/pages/preview/pag3.png'),
+(4, 2, 'application/yuppics/pages/preview/pag4.png');
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,6 @@ INSERT INTO `accomodation_page` (`id_page`, `num_imgs`, `url_preview`) VALUES
 -- Estructura de tabla para la tabla `accomodation_page_imgs`
 --
 
-DROP TABLE IF EXISTS `accomodation_page_imgs`;
 CREATE TABLE IF NOT EXISTS `accomodation_page_imgs` (
   `id_page_img` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_page` int(10) unsigned NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `accomodation_page_imgs` (
   PRIMARY KEY (`id_page_img`),
   KEY `id_page` (`id_page`),
   KEY `id_img` (`id_img`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcar la base de datos para la tabla `accomodation_page_imgs`
@@ -92,7 +92,11 @@ INSERT INTO `accomodation_page_imgs` (`id_page_img`, `id_page`, `id_img`, `coord
 (2, 1, 1, 50, 50),
 (3, 2, 1, 5, 5),
 (4, 2, 1, 5, 50),
-(5, 2, 2, 50, 10);
+(5, 2, 2, 55, 10),
+(6, 3, 2, 5, 10),
+(7, 3, 2, 55, 10),
+(8, 4, 3, 10, 10),
+(9, 4, 3, 10, 50);
 
 -- --------------------------------------------------------
 
@@ -100,7 +104,6 @@ INSERT INTO `accomodation_page_imgs` (`id_page_img`, `id_page`, `id_img`, `coord
 -- Estructura de tabla para la tabla `address_book`
 --
 
-DROP TABLE IF EXISTS `address_book`;
 CREATE TABLE IF NOT EXISTS `address_book` (
   `id_address` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_customer` bigint(20) unsigned NOT NULL,
@@ -121,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `address_book` (
   KEY `id_customer` (`id_customer`),
   KEY `id_country` (`id_country`),
   KEY `id_state` (`id_state`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcar la base de datos para la tabla `address_book`
@@ -131,7 +134,8 @@ INSERT INTO `address_book` (`id_address`, `id_customer`, `id_country`, `id_state
 (1, 2, 1, 2, 'Gamaliel', 'Mendoza', '0', '', '', 'Av Niños Heroes', '', 'Juan Jose 3', 'Villa de Alvarez', 0, 0),
 (2, 2, 1, 1, 'Gamaliel1', 'Mendoza', '0', 'Yuppics', 'FSA312343DD2', 'Av Niños Heroes', 'DDAsd', 'Pelisasd', 'Villa de Alvarez', 1, 1),
 (4, 1, 1, 4, 'Gamaliel', 'Mendoza Solis', '0', 'asd', 'asdasdasdasd', 'asd', 'as', 'asdasd', 'asd', 0, 0),
-(5, 1, 1, 2, 'Gamaliel', 'Mendoza Solis', '0', 'compañia', 'FSD223322DXX', 'AngularJSui.org', '', 'DAss', 'web', 1, 1);
+(5, 1, 1, 2, 'Gamaliel', 'Mendoza Solis', '0', 'compañia', 'FSD223322DXX', 'AngularJSui.org', '', 'DAss', 'web', 1, 1),
+(6, 10, 1, 2, 'Juancho', 'Perez', '0', '', 'Gamaess', 'Av Niños Heroes', 'AngularJSui.org', 'Juan Jose Rios III', 'Villa de Alvarez', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -139,7 +143,6 @@ INSERT INTO `address_book` (`id_address`, `id_customer`, `id_country`, `id_state
 -- Estructura de tabla para la tabla `ci_sessions`
 --
 
-DROP TABLE IF EXISTS `ci_sessions`;
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
   `ip_address` varchar(45) NOT NULL DEFAULT '0',
@@ -155,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('712dd63086cab520afcce343e2bb91d8', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31 AlexaToolba', 1366680553, 'a:7:{s:9:"user_data";s:0:"";s:10:"id_usuario";s:1:"2";s:6:"nombre";s:8:"Gamaliel";s:5:"email";s:21:"gamalielm@indieds.com";s:4:"type";s:8:"customer";s:7:"idunico";s:24:"l5175c60d7be4d0.11396918";s:10:"id_yuppics";s:1:"6";}');
+('2d2a964dc708a17117e69855f17cfcc9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36 AlexaToolb', 1370972344, 'a:7:{s:9:"user_data";s:0:"";s:10:"id_usuario";s:1:"2";s:6:"nombre";s:8:"Gamaliel";s:5:"email";s:21:"gamalielm@indieds.com";s:4:"type";s:8:"customer";s:7:"idunico";s:24:"l51b73bdf22c186.13211716";s:10:"id_yuppics";s:2:"10";}');
 
 -- --------------------------------------------------------
 
@@ -163,7 +166,6 @@ INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activ
 -- Estructura de tabla para la tabla `config`
 --
 
-DROP TABLE IF EXISTS `config`;
 CREATE TABLE IF NOT EXISTS `config` (
   `max_fotos` int(10) unsigned NOT NULL DEFAULT '48',
   `percentage` double unsigned NOT NULL COMMENT 'Porcentaje para los cupones'
@@ -174,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `config` (
 --
 
 INSERT INTO `config` (`max_fotos`, `percentage`) VALUES
-(48, 0);
+(48, 100);
 
 -- --------------------------------------------------------
 
@@ -182,7 +184,6 @@ INSERT INTO `config` (`max_fotos`, `percentage`) VALUES
 -- Estructura de tabla para la tabla `contact`
 --
 
-DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
   `id_message` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
@@ -206,7 +207,6 @@ INSERT INTO `contact` (`id_message`, `name`, `email`, `subject`, `message`, `sta
 -- Estructura de tabla para la tabla `countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
 CREATE TABLE IF NOT EXISTS `countries` (
   `id_country` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
@@ -226,7 +226,6 @@ INSERT INTO `countries` (`id_country`, `name`) VALUES
 -- Estructura de tabla para la tabla `coupons`
 --
 
-DROP TABLE IF EXISTS `coupons`;
 CREATE TABLE IF NOT EXISTS `coupons` (
   `id_coupon` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
@@ -239,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:utilizable, 1:canjeado',
   PRIMARY KEY (`id_coupon`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Volcar la base de datos para la tabla `coupons`
@@ -247,7 +246,8 @@ CREATE TABLE IF NOT EXISTS `coupons` (
 
 INSERT INTO `coupons` (`id_coupon`, `name`, `code`, `amount`, `percentage`, `uses_total`, `date_start`, `date_end`, `created`, `status`) VALUES
 (5, 'Cupon de regalo', 'MJW=wu#g', 100, 0, 1, NULL, NULL, '2012-12-24 18:44:10', 1),
-(6, 'calis', 'mes2', 0, 40, 5, NULL, NULL, '2013-04-19 10:22:08', 0);
+(6, 'calis', 'mes2', 0, 40, 5, NULL, NULL, '2013-04-19 10:22:08', 0),
+(7, 'Cupon de regalo', '*XjS$1U[', 0, 0, 1, NULL, NULL, '2013-06-11 10:08:36', 0);
 
 -- --------------------------------------------------------
 
@@ -255,7 +255,6 @@ INSERT INTO `coupons` (`id_coupon`, `name`, `code`, `amount`, `percentage`, `use
 -- Estructura de tabla para la tabla `coupons_history`
 --
 
-DROP TABLE IF EXISTS `coupons_history`;
 CREATE TABLE IF NOT EXISTS `coupons_history` (
   `id_history` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_coupon` bigint(20) unsigned NOT NULL,
@@ -286,7 +285,6 @@ INSERT INTO `coupons_history` (`id_history`, `id_coupon`, `id_customer`, `id_ord
 -- Estructura de tabla para la tabla `customer_promo`
 --
 
-DROP TABLE IF EXISTS `customer_promo`;
 CREATE TABLE IF NOT EXISTS `customer_promo` (
   `id_promo` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_customer` bigint(20) unsigned NOT NULL,
@@ -307,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `customer_promo` (
 
 INSERT INTO `customer_promo` (`id_promo`, `id_customer`, `id_coupon`, `link_facebook`, `invit_facebook`, `tweet`, `feedback`, `feedback_text`) VALUES
 (4, 4, NULL, 0, 0, 1, 0, NULL),
-(5, 2, NULL, 1, 1, 0, 1, 'ads as das das da sda sdasd');
+(5, 2, 7, 1, 1, 1, 1, 'ads as das das da sda sdasd');
 
 -- --------------------------------------------------------
 
@@ -315,7 +313,6 @@ INSERT INTO `customer_promo` (`id_promo`, `id_customer`, `id_coupon`, `link_face
 -- Estructura de tabla para la tabla `customers`
 --
 
-DROP TABLE IF EXISTS `customers`;
 CREATE TABLE IF NOT EXISTS `customers` (
   `id_customer` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(15) NOT NULL,
@@ -340,7 +337,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
 
 INSERT INTO `customers` (`id_customer`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`, `url_avatar`, `created`, `updated`, `status`, `facebook_id`, `twitter_id`, `newsletter`) VALUES
 (1, 'elgame', 'e10adc3949ba59abbe56e057f20f883e', 'Gamaliel', 'Mendoza Solis', 'gamameso@gmail.com', '', '', '2012-12-17 16:03:20', '2013-02-11 13:48:18', 'on', '', '', 0),
-(2, '', '', 'Gamaliel', 'Mendoza', 'gamalielm@indieds.com', '', 'application/images/avatars/100000678188027.jpg', '0000-00-00 00:00:00', '2013-02-19 15:43:33', 'on', '100000678188027', '', 0),
+(2, '', 'e10adc3949ba59abbe56e057f20f883e', 'Gamaliel', 'Mendoza', 'gamalielm@indieds.com', '', 'application/images/avatars/100000678188027.jpg', '0000-00-00 00:00:00', '2013-06-11 10:01:43', 'on', '100000678188027', '', 0),
 (3, 'furby', 'e10adc3949ba59abbe56e057f20f883e', 'oscar', 'furbya', 'furby@indieds.com', '', '', '2012-12-18 17:24:32', '2012-12-18 17:24:32', 'on', '', '', 0),
 (4, 'jorge', 'e10adc3949ba59abbe56e057f20f883e', 'jorge', 'palomera', 'jorge@gmail.com', '', '', '2012-12-18 17:40:33', '2012-12-18 17:40:33', 'on', '', '', 0),
 (5, 'jjdd', 'e10adc3949ba59abbe56e057f20f883e', 'jaja', 'jsjs', 'jsjs@dd.com', '', '', '2012-12-18 17:43:28', '2012-12-18 17:43:28', 'on', '', '', 0),
@@ -348,7 +345,7 @@ INSERT INTO `customers` (`id_customer`, `username`, `password`, `first_name`, `l
 (7, 'ddd', 'e10adc3949ba59abbe56e057f20f883e', 'asd', 'dd', 'ssas@dd.dd', '', '', '2012-12-18 18:51:10', '2012-12-18 18:51:10', 'on', '', '', 0),
 (8, 'pepe', '', 'pepe 12', 'perez', 'pepe@gmail.com', '', '', '2012-12-18 18:53:37', '2012-12-18 18:53:57', 'on', '', '', 0),
 (9, 'jorge1', '', 'jorge asdasd', 'nava', 'jorge1@gmail.com', '', '', '2012-12-18 19:18:16', '2012-12-18 19:18:34', 'on', '', '', 0),
-(10, '', '', 'Juancho', 'Perez', 'pruebadd@hotmail.com', '', '', '2012-12-24 12:54:48', '2012-12-24 12:54:48', 'on', '100002277694498', '', 0);
+(10, '', '', 'Juancho', 'Perez', 'pruebadd@hotmail.com', '', 'application/images/avatars/100002277694498.jpg', '2012-12-24 12:54:48', '2013-04-29 17:35:41', 'on', '100002277694498', '', 0);
 
 -- --------------------------------------------------------
 
@@ -356,7 +353,6 @@ INSERT INTO `customers` (`id_customer`, `username`, `password`, `first_name`, `l
 -- Estructura de tabla para la tabla `faqs`
 --
 
-DROP TABLE IF EXISTS `faqs`;
 CREATE TABLE IF NOT EXISTS `faqs` (
   `id_faq` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `question` varchar(200) NOT NULL,
@@ -383,13 +379,12 @@ INSERT INTO `faqs` (`id_faq`, `question`, `response`, `tags`, `popular`) VALUES
 -- Estructura de tabla para la tabla `frames`
 --
 
-DROP TABLE IF EXISTS `frames`;
 CREATE TABLE IF NOT EXISTS `frames` (
   `id_frame` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `url_preview` varchar(150) NOT NULL,
   PRIMARY KEY (`id_frame`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcar la base de datos para la tabla `frames`
@@ -397,7 +392,11 @@ CREATE TABLE IF NOT EXISTS `frames` (
 
 INSERT INTO `frames` (`id_frame`, `name`, `url_preview`) VALUES
 (1, 'Borde 1', 'application/yuppics/frames/preview/frame1.png'),
-(2, 'Border 2', 'application/yuppics/frames/preview/frame2.png');
+(2, 'Border 2', 'application/yuppics/frames/preview/frame2.png'),
+(3, 'Border 3', 'application/yuppics/frames/preview/frame3.png'),
+(4, 'Border 4', 'application/yuppics/frames/preview/frame4.png'),
+(5, 'Border 5', 'application/yuppics/frames/preview/frame5.png'),
+(6, 'Border 6', 'application/yuppics/frames/preview/frame6.png');
 
 -- --------------------------------------------------------
 
@@ -405,7 +404,6 @@ INSERT INTO `frames` (`id_frame`, `name`, `url_preview`) VALUES
 -- Estructura de tabla para la tabla `frames_imgs`
 --
 
-DROP TABLE IF EXISTS `frames_imgs`;
 CREATE TABLE IF NOT EXISTS `frames_imgs` (
   `id_frame` int(10) unsigned NOT NULL,
   `id_img` int(10) unsigned NOT NULL,
@@ -421,8 +419,22 @@ CREATE TABLE IF NOT EXISTS `frames_imgs` (
 INSERT INTO `frames_imgs` (`id_frame`, `id_img`, `url_frame`) VALUES
 (1, 1, 'application/yuppics/frames/frame11.png'),
 (1, 2, 'application/yuppics/frames/frame12.png'),
+(1, 3, 'application/yuppics/frames/frame13.png'),
 (2, 1, 'application/yuppics/frames/frame21.png'),
-(2, 2, 'application/yuppics/frames/frame22.png');
+(2, 2, 'application/yuppics/frames/frame22.png'),
+(2, 3, 'application/yuppics/frames/frame23.png'),
+(3, 1, 'application/yuppics/frames/frame31.png'),
+(3, 2, 'application/yuppics/frames/frame32.png'),
+(3, 3, 'application/yuppics/frames/frame33.png'),
+(4, 1, 'application/yuppics/frames/frame41.png'),
+(4, 2, 'application/yuppics/frames/frame42.png'),
+(4, 3, 'application/yuppics/frames/frame43.png'),
+(5, 1, 'application/yuppics/frames/frame51.png'),
+(5, 2, 'application/yuppics/frames/frame52.png'),
+(5, 3, 'application/yuppics/frames/frame53.png'),
+(6, 1, 'application/yuppics/frames/frame61.png'),
+(6, 2, 'application/yuppics/frames/frame62.png'),
+(6, 3, 'application/yuppics/frames/frame63.png');
 
 -- --------------------------------------------------------
 
@@ -430,7 +442,6 @@ INSERT INTO `frames_imgs` (`id_frame`, `id_img`, `url_frame`) VALUES
 -- Estructura de tabla para la tabla `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id_order` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_customer` bigint(20) unsigned NOT NULL,
@@ -470,7 +481,6 @@ INSERT INTO `orders` (`id_order`, `id_customer`, `id_address_billing`, `id_addre
 -- Estructura de tabla para la tabla `orders_yuppics`
 --
 
-DROP TABLE IF EXISTS `orders_yuppics`;
 CREATE TABLE IF NOT EXISTS `orders_yuppics` (
   `id_order` bigint(20) unsigned NOT NULL,
   `id_yuppics` bigint(20) unsigned NOT NULL,
@@ -500,7 +510,6 @@ INSERT INTO `orders_yuppics` (`id_order`, `id_yuppics`, `quantity`, `unitary_pri
 -- Estructura de tabla para la tabla `products`
 --
 
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id_product` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -521,7 +530,6 @@ INSERT INTO `products` (`id_product`, `name`, `price`) VALUES
 -- Estructura de tabla para la tabla `states`
 --
 
-DROP TABLE IF EXISTS `states`;
 CREATE TABLE IF NOT EXISTS `states` (
   `id_state` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_country` int(10) unsigned NOT NULL,
@@ -545,7 +553,6 @@ INSERT INTO `states` (`id_state`, `id_country`, `name`) VALUES
 -- Estructura de tabla para la tabla `tags`
 --
 
-DROP TABLE IF EXISTS `tags`;
 CREATE TABLE IF NOT EXISTS `tags` (
   `id_tag` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
@@ -573,27 +580,48 @@ INSERT INTO `tags` (`id_tag`, `name`) VALUES
 -- Estructura de tabla para la tabla `themes`
 --
 
-DROP TABLE IF EXISTS `themes`;
 CREATE TABLE IF NOT EXISTS `themes` (
   `id_theme` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_autor` int(10) unsigned DEFAULT NULL,
   `name` varchar(30) NOT NULL,
   `background_img` varchar(150) NOT NULL,
   `background_color` varchar(10) NOT NULL,
   `text_color` varchar(10) NOT NULL,
-  `autor` varchar(80) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id_theme`)
+  PRIMARY KEY (`id_theme`),
+  KEY `id_autor` (`id_autor`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcar la base de datos para la tabla `themes`
 --
 
-INSERT INTO `themes` (`id_theme`, `name`, `background_img`, `background_color`, `text_color`, `autor`, `status`) VALUES
-(1, 'Tema 1', 'application/yuppics/themes/026e7ec31302068a4e76bfffee7d544b.jpg', '#EBEBEB', '#FF2020', 'Johnson&Johnson', 1),
-(2, 'Tema 2', 'application/yuppics/themes/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#FF9326', '#FEFEDC', 'El camino', 1),
-(3, 'Tema 3', 'application/yuppics/themes/b3b6678e5fa11dfe1c8341c8bed1fe77.jpg', '#04FFFF', '#0404FE', 'El pepe', 1),
-(4, 'Tema 4', 'application/yuppics/themes/de0bf9af33c8d1c0d0070bc579b16c5b.jpg', '#FE0404', '#FFB6B6', 'Johnson&Johnson', 1);
+INSERT INTO `themes` (`id_theme`, `id_autor`, `name`, `background_img`, `background_color`, `text_color`, `status`) VALUES
+(1, 1, 'Tema 1', 'application/yuppics/themes/026e7ec31302068a4e76bfffee7d544b.jpg', '#EBEBEB', '#FF2020', 1),
+(2, 2, 'Tema 2', 'application/yuppics/themes/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#FF9326', '#FEFEDC', 1),
+(3, 2, 'Tema 3', 'application/yuppics/themes/b3b6678e5fa11dfe1c8341c8bed1fe77.jpg', '#04FFFF', '#0404FE', 1),
+(4, 3, 'Tema 4', 'application/yuppics/themes/de0bf9af33c8d1c0d0070bc579b16c5b.jpg', '#FE0404', '#FFB6B6', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `themes_autor`
+--
+
+CREATE TABLE IF NOT EXISTS `themes_autor` (
+  `id_autor` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_autor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Volcar la base de datos para la tabla `themes_autor`
+--
+
+INSERT INTO `themes_autor` (`id_autor`, `name`) VALUES
+(1, 'Gusanito'),
+(2, 'Johnson&johnson'),
+(3, 'Yuppics');
 
 -- --------------------------------------------------------
 
@@ -601,7 +629,6 @@ INSERT INTO `themes` (`id_theme`, `name`, `background_img`, `background_color`, 
 -- Estructura de tabla para la tabla `themes_tags`
 --
 
-DROP TABLE IF EXISTS `themes_tags`;
 CREATE TABLE IF NOT EXISTS `themes_tags` (
   `id_tag` bigint(20) unsigned NOT NULL,
   `id_theme` int(10) unsigned NOT NULL,
@@ -631,7 +658,6 @@ INSERT INTO `themes_tags` (`id_tag`, `id_theme`) VALUES
 -- Estructura de tabla para la tabla `vouchers`
 --
 
-DROP TABLE IF EXISTS `vouchers`;
 CREATE TABLE IF NOT EXISTS `vouchers` (
   `id_voucher` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
@@ -656,7 +682,6 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
 -- Estructura de tabla para la tabla `vouchers_history`
 --
 
-DROP TABLE IF EXISTS `vouchers_history`;
 CREATE TABLE IF NOT EXISTS `vouchers_history` (
   `id_history` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_voucher` bigint(20) unsigned NOT NULL,
@@ -681,7 +706,6 @@ CREATE TABLE IF NOT EXISTS `vouchers_history` (
 -- Estructura de tabla para la tabla `yuppics`
 --
 
-DROP TABLE IF EXISTS `yuppics`;
 CREATE TABLE IF NOT EXISTS `yuppics` (
   `id_yuppic` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_customer` bigint(20) unsigned NOT NULL,
@@ -694,7 +718,7 @@ CREATE TABLE IF NOT EXISTS `yuppics` (
   PRIMARY KEY (`id_yuppic`),
   KEY `id_customer` (`id_customer`),
   KEY `id_product` (`id_product`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Volcar la base de datos para la tabla `yuppics`
@@ -706,7 +730,15 @@ INSERT INTO `yuppics` (`id_yuppic`, `id_customer`, `id_product`, `title`, `autho
 (3, 2, 1, 'asd', 'asdasd', 1, '2013-01-10 00:00:00', 1),
 (4, 2, 1, 'dddas', 'Autor de Yuppic', 1, '2013-04-16 14:26:09', 0),
 (5, 2, 1, 'Calando titulo', 'Autor mio', 3, '2013-04-18 23:25:20', 1),
-(6, 2, 1, '—— TÍTULO ——', 'Autor de Yuppic', 1, '2013-04-19 10:53:36', 0);
+(6, 2, 1, '—— TÍTULO ——', 'Autor de Yuppic', 1, '2013-04-19 10:53:36', 0),
+(7, 10, 1, '—— 3==D ——', 'Autor de Yuppic', 1, '2013-04-29 17:36:03', 0),
+(8, 2, 1, '—— TÍTULO ——', 'Autor de Yuppic', 1, '2013-04-30 18:37:14', 0),
+(9, 2, 1, '—— TÍTULO ——', 'Autor de Yuppic', 1, '2013-04-30 18:46:03', 0),
+(10, 2, 1, '—— ssdasdas ——', 'autor', 1, '2013-04-30 20:48:33', 0),
+(11, 10, 1, 'Yuppic sin titulo', 'Autor de Yuppic', 1, '2013-05-25 18:25:56', 0),
+(12, 10, 1, 'Yuppic sin título', 'Autor de Yuppic', 1, '2013-06-05 13:10:45', 0),
+(13, 10, 1, 'My yy', 'Autor de Yuppic', 1, '2013-06-07 08:32:44', 0),
+(14, 10, 1, 'Otro yupp', 'Autor de Yuppic', 1, '2013-06-07 09:45:49', 0);
 
 -- --------------------------------------------------------
 
@@ -714,7 +746,6 @@ INSERT INTO `yuppics` (`id_yuppic`, `id_customer`, `id_product`, `title`, `autho
 -- Estructura de tabla para la tabla `yuppics_pages`
 --
 
-DROP TABLE IF EXISTS `yuppics_pages`;
 CREATE TABLE IF NOT EXISTS `yuppics_pages` (
   `id_ypage` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_yuppic` bigint(20) unsigned NOT NULL,
@@ -723,7 +754,7 @@ CREATE TABLE IF NOT EXISTS `yuppics_pages` (
   PRIMARY KEY (`id_ypage`),
   KEY `id_yuppic` (`id_yuppic`),
   KEY `id_page` (`id_page`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
 
 --
 -- Volcar la base de datos para la tabla `yuppics_pages`
@@ -754,7 +785,15 @@ INSERT INTO `yuppics_pages` (`id_ypage`, `id_yuppic`, `id_page`, `num_pag`) VALU
 (40, 5, 1, 3),
 (42, 6, 1, 1),
 (43, 6, 1, 2),
-(44, 6, 1, 3);
+(44, 6, 1, 3),
+(45, 11, 1, 1),
+(46, 11, 2, 2),
+(47, 11, 4, 3),
+(48, 13, 4, 1),
+(49, 13, 1, 2),
+(50, 14, 1, 1),
+(51, 14, 2, 2),
+(52, 14, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -762,7 +801,6 @@ INSERT INTO `yuppics_pages` (`id_ypage`, `id_yuppic`, `id_page`, `num_pag`) VALU
 -- Estructura de tabla para la tabla `yuppics_pages_photos`
 --
 
-DROP TABLE IF EXISTS `yuppics_pages_photos`;
 CREATE TABLE IF NOT EXISTS `yuppics_pages_photos` (
   `id_ypage` bigint(20) unsigned NOT NULL,
   `id_photo` bigint(20) unsigned DEFAULT NULL,
@@ -825,11 +863,29 @@ INSERT INTO `yuppics_pages_photos` (`id_ypage`, `id_photo`, `id_page_img`, `id_f
 (39, 63, 2, NULL, 0, 0),
 (40, 64, 1, NULL, 0, 0),
 (40, 65, 2, NULL, 0, 0),
-(42, 66, 1, NULL, 0, 0),
-(42, 67, 2, NULL, 0, 0),
-(43, 68, 1, NULL, 0, 0),
-(43, 69, 2, NULL, 0, 0),
-(44, 70, 1, NULL, 0, 0);
+(42, NULL, 1, NULL, 0, 0),
+(42, NULL, 2, NULL, 0, 0),
+(43, NULL, 1, NULL, 0, 0),
+(43, NULL, 2, NULL, 0, 0),
+(44, NULL, 1, NULL, 0, 0),
+(45, 82, 1, 2, 0, 0),
+(45, 83, 2, NULL, 0, 0),
+(46, 86, 3, NULL, 0, 0),
+(46, 85, 4, NULL, 0, 0),
+(46, 84, 5, NULL, -107.82, 0),
+(47, 81, 8, NULL, 0, 0),
+(47, 87, 9, NULL, 0.51, 0.4),
+(48, 91, 8, NULL, 0, 0),
+(48, 89, 9, NULL, 0, 0),
+(49, 88, 1, 1, 0, 0),
+(49, 90, 2, 2, -32.67, 0),
+(50, 93, 1, 5, 0, 0),
+(50, 94, 2, 1, 0, 0),
+(51, 97, 3, 1, 0, 0),
+(51, 95, 4, 2, 0, 0),
+(51, 96, 5, 2, 0, 0),
+(52, 97, 8, 2, 0, 0),
+(52, 98, 9, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -837,7 +893,6 @@ INSERT INTO `yuppics_pages_photos` (`id_ypage`, `id_photo`, `id_page_img`, `id_f
 -- Estructura de tabla para la tabla `yuppics_photos`
 --
 
-DROP TABLE IF EXISTS `yuppics_photos`;
 CREATE TABLE IF NOT EXISTS `yuppics_photos` (
   `id_photo` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_yuppic` bigint(20) unsigned NOT NULL,
@@ -845,7 +900,7 @@ CREATE TABLE IF NOT EXISTS `yuppics_photos` (
   `url_thumb` varchar(150) NOT NULL,
   PRIMARY KEY (`id_photo`),
   KEY `id_yuppic` (`id_yuppic`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=71 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=100 ;
 
 --
 -- Volcar la base de datos para la tabla `yuppics_photos`
@@ -902,11 +957,27 @@ INSERT INTO `yuppics_photos` (`id_photo`, `id_yuppic`, `url_img`, `url_thumb`) V
 (63, 5, 'application/yuppics/2/5/PHOTOS/36758_128223220541284_5567661_n.jpg', 'application/yuppics/2/5/PHOTOS/36758_128223220541284_5567661_n_thumb.jpg'),
 (64, 5, 'application/yuppics/2/5/PHOTOS/155800_172368772796460_2914455_n.jpg', 'application/yuppics/2/5/PHOTOS/155800_172368772796460_2914455_n_thumb.jpg'),
 (65, 5, 'application/yuppics/2/5/PHOTOS/257997_10150270828420676_832804_o.jpg', 'application/yuppics/2/5/PHOTOS/257997_10150270828420676_832804_o_thumb.jpg'),
-(66, 6, 'application/yuppics/2/6/PHOTOS/195177_10150156574170676_6649300_o.jpg', 'application/yuppics/2/6/PHOTOS/195177_10150156574170676_6649300_o_thumb.jpg'),
-(67, 6, 'application/yuppics/2/6/PHOTOS/24411_10150142513030387_5404514_n.jpg', 'application/yuppics/2/6/PHOTOS/24411_10150142513030387_5404514_n_thumb.jpg'),
-(68, 6, 'application/yuppics/2/6/PHOTOS/36758_128223220541284_5567661_n.jpg', 'application/yuppics/2/6/PHOTOS/36758_128223220541284_5567661_n_thumb.jpg'),
-(69, 6, 'application/yuppics/2/6/PHOTOS/257997_10150270828420676_832804_o.jpg', 'application/yuppics/2/6/PHOTOS/257997_10150270828420676_832804_o_thumb.jpg'),
-(70, 6, 'application/yuppics/2/6/PHOTOS/26181_10150173111215297_1330523_n.jpg', 'application/yuppics/2/6/PHOTOS/26181_10150173111215297_1330523_n_thumb.jpg');
+(79, 10, 'application/yuppics/2/10/PHOTOS/18058_100355766663696_5682913_n.jpg', 'application/yuppics/2/10/PHOTOS/18058_100355766663696_5682913_n_thumb.jpg'),
+(80, 10, 'application/yuppics/2/10/PHOTOS/17058_101084536590819_5471876_n.jpg', 'application/yuppics/2/10/PHOTOS/17058_101084536590819_5471876_n_thumb.jpg'),
+(81, 11, 'application/yuppics/10/11/PHOTOS/208905_103913899694533_5850768_n.jpg', 'application/yuppics/10/11/PHOTOS/208905_103913899694533_5850768_n_thumb.jpg'),
+(82, 11, 'application/yuppics/10/11/PHOTOS/941201_450223805063539_433435046_n.jpg', 'application/yuppics/10/11/PHOTOS/941201_450223805063539_433435046_n_thumb.jpg'),
+(83, 11, 'application/yuppics/10/11/PHOTOS/321429_450223838396869_1882947803_n.jpg', 'application/yuppics/10/11/PHOTOS/321429_450223838396869_1882947803_n_thumb.jpg'),
+(84, 11, 'application/yuppics/10/11/PHOTOS/422090_450223858396867_1544223754_n.jpg', 'application/yuppics/10/11/PHOTOS/422090_450223858396867_1544223754_n_thumb.jpg'),
+(85, 11, 'application/yuppics/10/11/PHOTOS/935011_450223865063533_2065011861_n.jpg', 'application/yuppics/10/11/PHOTOS/935011_450223865063533_2065011861_n_thumb.jpg'),
+(86, 11, 'application/yuppics/10/11/PHOTOS/538222_420667188019201_1248906307_n.jpg', 'application/yuppics/10/11/PHOTOS/538222_420667188019201_1248906307_n_thumb.jpg'),
+(87, 11, 'application/yuppics/10/11/PHOTOS/21763_420667198019200_647357193_n.jpg', 'application/yuppics/10/11/PHOTOS/21763_420667198019200_647357193_n_thumb.jpg'),
+(88, 13, 'application/yuppics/10/13/PHOTOS/379227_420666988019221_1904859086_n.jpg', 'application/yuppics/10/13/PHOTOS/379227_420666988019221_1904859086_n_thumb.jpg'),
+(89, 13, 'application/yuppics/10/13/PHOTOS/488115_420667168019203_447150257_n.jpg', 'application/yuppics/10/13/PHOTOS/488115_420667168019203_447150257_n_thumb.jpg'),
+(90, 13, 'application/yuppics/10/13/PHOTOS/538222_420667188019201_1248906307_n.jpg', 'application/yuppics/10/13/PHOTOS/538222_420667188019201_1248906307_n_thumb.jpg'),
+(91, 13, 'application/yuppics/10/13/PHOTOS/424037_256954851057103_974623539_n.jpg', 'application/yuppics/10/13/PHOTOS/424037_256954851057103_974623539_n_thumb.jpg'),
+(92, 13, 'application/yuppics/10/13/PHOTOS/205620_103945249691398_7198080_n.jpg', 'application/yuppics/10/13/PHOTOS/205620_103945249691398_7198080_n_thumb.jpg'),
+(93, 14, 'application/yuppics/10/14/PHOTOS/935011_450223865063533_2065011861_n.jpg', 'application/yuppics/10/14/PHOTOS/935011_450223865063533_2065011861_n_thumb.jpg'),
+(94, 14, 'application/yuppics/10/14/PHOTOS/422090_450223858396867_1544223754_n.jpg', 'application/yuppics/10/14/PHOTOS/422090_450223858396867_1544223754_n_thumb.jpg'),
+(95, 14, 'application/yuppics/10/14/PHOTOS/941201_450223805063539_433435046_n.jpg', 'application/yuppics/10/14/PHOTOS/941201_450223805063539_433435046_n_thumb.jpg'),
+(96, 14, 'application/yuppics/10/14/PHOTOS/321429_450223838396869_1882947803_n.jpg', 'application/yuppics/10/14/PHOTOS/321429_450223838396869_1882947803_n_thumb.jpg'),
+(97, 14, 'application/yuppics/10/14/PHOTOS/405963_450223931730193_1606611563_n.jpg', 'application/yuppics/10/14/PHOTOS/405963_450223931730193_1606611563_n_thumb.jpg'),
+(98, 14, 'application/yuppics/10/14/PHOTOS/603791_450223901730196_1875900939_n.jpg', 'application/yuppics/10/14/PHOTOS/603791_450223901730196_1875900939_n_thumb.jpg'),
+(99, 14, 'application/yuppics/10/14/PHOTOS/381429_450223891730197_405880802_n.jpg', 'application/yuppics/10/14/PHOTOS/381429_450223891730197_405880802_n_thumb.jpg');
 
 -- --------------------------------------------------------
 
@@ -914,28 +985,38 @@ INSERT INTO `yuppics_photos` (`id_photo`, `id_yuppic`, `url_img`, `url_thumb`) V
 -- Estructura de tabla para la tabla `yuppics_theme`
 --
 
-DROP TABLE IF EXISTS `yuppics_theme`;
 CREATE TABLE IF NOT EXISTS `yuppics_theme` (
   `id_ytheme` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_yuppic` bigint(20) unsigned NOT NULL,
   `background_img` varchar(150) NOT NULL,
   `background_color` varchar(10) NOT NULL,
   `text_color` varchar(10) NOT NULL,
+  `bg_pattern` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:no repetir, 1:repetir',
+  `bg_img_x` int(11) NOT NULL DEFAULT '0',
+  `bg_img_y` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_ytheme`),
   KEY `id_yuppic` (`id_yuppic`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Volcar la base de datos para la tabla `yuppics_theme`
 --
 
-INSERT INTO `yuppics_theme` (`id_ytheme`, `id_yuppic`, `background_img`, `background_color`, `text_color`) VALUES
-(1, 1, 'application/yuppics/2/1/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#ff9326', '#fefedc'),
-(2, 2, 'application/yuppics/2/2/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#ff9326', '#fefedc'),
-(3, 3, 'application/yuppics/2/3/b3b6678e5fa11dfe1c8341c8bed1fe77.jpg', '#04FFFF', '#0404FE'),
-(4, 4, 'application/yuppics/2/4/026e7ec31302068a4e76bfffee7d544b.jpg', '#ebebeb', '#ff2020'),
-(5, 5, 'application/yuppics/2/5/026e7ec31302068a4e76bfffee7d544b.jpg', '#ebebeb', '#ff2020'),
-(6, 6, 'application/yuppics/2/6/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#ff9326', '#fefedc');
+INSERT INTO `yuppics_theme` (`id_ytheme`, `id_yuppic`, `background_img`, `background_color`, `text_color`, `bg_pattern`, `bg_img_x`, `bg_img_y`) VALUES
+(1, 1, 'application/yuppics/2/1/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#ff9326', '#fefedc', 0, 0, 0),
+(2, 2, 'application/yuppics/2/2/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#ff9326', '#fefedc', 0, 0, 0),
+(3, 3, 'application/yuppics/2/3/b3b6678e5fa11dfe1c8341c8bed1fe77.jpg', '#04FFFF', '#0404FE', 0, 0, 0),
+(4, 4, 'application/yuppics/2/4/026e7ec31302068a4e76bfffee7d544b.jpg', '#ebebeb', '#ff2020', 0, 0, 0),
+(5, 5, 'application/yuppics/2/5/026e7ec31302068a4e76bfffee7d544b.jpg', '#ebebeb', '#ff2020', 0, 0, 0),
+(6, 6, 'application/yuppics/2/6/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#ff9326', '#fefedc', 0, 0, 0),
+(7, 7, 'application/yuppics/10/7/026e7ec31302068a4e76bfffee7d544b.jpg', '#ebebeb', '#e330a7', 0, 0, 0),
+(8, 8, 'application/yuppics/2/8/026e7ec31302068a4e76bfffee7d544b.jpg', '#ebebeb', '#ff2020', 0, 0, 0),
+(9, 9, 'application/yuppics/2/9/026e7ec31302068a4e76bfffee7d544b.jpg', '#ebebeb', '#ff2020', 0, 0, 0),
+(10, 10, 'application/yuppics/2/10/b0cba5bce1a7578a8ab5be0dab7f6a0a.jpg', '#ba9162', '#c7c76c', 0, 0, 0),
+(11, 11, 'application/yuppics/10/11/039f1120a496809987667d049750565d.jpg', '#c734c7', '#21ff25', 0, -31, -5),
+(12, 12, 'application/yuppics/10/12/b3b6678e5fa11dfe1c8341c8bed1fe77.jpg', '#db29d2', '#1de617', 0, 0, 0),
+(13, 13, 'application/yuppics/10/13/026e7ec31302068a4e76bfffee7d544b.jpg', '#EBEBEB', '#FF2020', 0, -40, 0),
+(14, 14, 'application/yuppics/10/14/0ce86299e1e0a1283ca2990e653652eb.png', '#EBEBEB', '#FF2020', 1, 0, 0);
 
 --
 -- Filtros para las tablas descargadas (dump)
@@ -998,6 +1079,12 @@ ALTER TABLE `orders_yuppics`
 --
 ALTER TABLE `states`
   ADD CONSTRAINT `states_ibfk_1` FOREIGN KEY (`id_country`) REFERENCES `countries` (`id_country`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `themes`
+--
+ALTER TABLE `themes`
+  ADD CONSTRAINT `themes_ibfk_1` FOREIGN KEY (`id_autor`) REFERENCES `themes_autor` (`id_autor`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `themes_tags`
