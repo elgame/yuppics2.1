@@ -1,0 +1,5 @@
+2013-06-19
+  Panel
+    ☐ En agregar cupon no manda letrero de que se agrego correctamente, tambien poner mas descriptivo a que se refiere la cantidad y el % por q el monto q pongan en cantidad tiene mas prioridad que el %, y si se pone cantidad 0 y un % ese % se aplica a toda la compra independientemente del numero de yuppics comprados (asi quedo en Resumen de compra no se si asi va a ser, ahorita poner mas descriptivos esos 2 campos)
+    ☐ en configuracion falta poder cambiar el precio de yuppic esta en la tabla "products"
+    ☐ Al agregar o modificar un tema la imagen tiene q crear un thumb de la imagen subida con el mismo nombre "_thumb" proporcional a lo ancho, y q se borre cuando se cambie como la imagen grande, los tagas no deja agregar mas solo los que ya tiene, tiene que dejar agregar nuevos tags el usaurio los escribiria
