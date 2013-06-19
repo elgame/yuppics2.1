@@ -33,7 +33,7 @@ var msb = {
 				callback.call(this, obj);
 			}
 		});
-		
+
 		return false;
 
 		$.msgbox(msg, {
@@ -65,11 +65,11 @@ var msb = {
 		var html="", footer="";
 
 		switch(type){
-			case 'confirm': 
+			case 'confirm':
 				footer = '<a href="#" class="btn cancel" data-dismiss="modal">No</a>'+
 							 '<a href="#" class="btn btn-success">Si</a>';
 			break;
-			case 'info': 
+			case 'info':
 				footer = '<a href="#" class="btn btn-success" data-dismiss="modal">Ok</a>';
 			break;
 		}

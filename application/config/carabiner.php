@@ -33,7 +33,7 @@ $config['style_dir'] = 'application/css/';
 | Cache Directory
 |--------------------------------------------------------------------------
 |
-| Path to the cache directory. Must be writable. Relative to the CI 
+| Path to the cache directory. Must be writable. Relative to the CI
 | front controller.
 |
 */
@@ -55,7 +55,7 @@ $config['cache_dir'] = 'application/cache/';
 | Base URI
 |--------------------------------------------------------------------------
 |
-|  Base uri of the site, like http://www.example.com/ Defaults to the CI 
+|  Base uri of the site, like http://www.example.com/ Defaults to the CI
 |  config value for base_url.
 |
 */
@@ -131,7 +131,7 @@ $config['force_curl'] = FALSE;
 | Any groups defined here will automatically be included.  Of course, they
 | won't be displayed unless you explicity display them ( like this: $this->carabiner->display('jquery') )
 | See docs for more.
-| 
+|
 | Currently created groups:
 |	> jQuery (latest in 1.xx version)
 |	> jQuery UI (latest in 1.xx version)
@@ -155,7 +155,7 @@ $config['groups']['base_panel'] = array(
 		array('bootstrap/charisma-app.css', 'screen'),
 		array('libs/jquery.noty.css', 'screen')
 	),
-	
+
 	'js' => array(
 		array('bootstrap/modernizr-2.6.1-respond-1.1.0.min.js'),
 		array('bootstrap/jquery-1.8.3.min.js'),
@@ -167,47 +167,98 @@ $config['groups']['base_panel'] = array(
 	)
 );
 
+$config['groups']['base_panel_simpliq'] = array(
+  'css' => array(
+    array('simpliq/bootstrap.min.css', 'screen'),
+    array('simpliq/bootstrap-responsive.min.css', 'screen'),
+    array('simpliq/style.min.css', 'screen'),
+    array('simpliq/style-responsive.min.css', 'screen'),
+    array('simpliq/retina.css', 'screen')
+  ),
+
+  'js' => array(
+    array("simpliq/jquery-1.9.1.min.js"),
+    array("simpliq/jquery-migrate-1.0.0.min.js"),
+    array("simpliq/jquery-ui-1.10.3.custom.min.js"),
+    array("simpliq/jquery.ui.touch-punch.js"),
+    array("simpliq/modernizr.js"),
+    array("simpliq/bootstrap.min.js"),
+    array("simpliq/jquery.cookie.js"),
+    array("simpliq/fullcalendar.min.js"),
+    array("simpliq/jquery.dataTables.min.js"),
+    array("simpliq/excanvas.js"),
+    array("simpliq/jquery.flot.js"),
+    array("simpliq/jquery.flot.pie.js"),
+    array("simpliq/jquery.flot.stack.js"),
+    array("simpliq/jquery.flot.resize.min.js"),
+    array("simpliq/jquery.flot.time.js"),
+    array("simpliq/gauge.min.js"),
+    array("simpliq/jquery.chosen.min.js"),
+    array("simpliq/jquery.uniform.min.js"),
+    array("simpliq/jquery.cleditor.min.js"),
+    array("simpliq/jquery.noty.js"),
+    array("simpliq/jquery.elfinder.min.js"),
+    array("simpliq/jquery.raty.min.js"),
+    array("simpliq/jquery.iphone.toggle.js"),
+    array("simpliq/jquery.uploadify-3.1.min.js"),
+    array("simpliq/jquery.gritter.min.js"),
+    array("simpliq/jquery.imagesloaded.js"),
+    array("simpliq/jquery.masonry.min.js"),
+    array("simpliq/jquery.knob.modified.js"),
+    array("simpliq/jquery.sparkline.min.js"),
+    array("simpliq/counter.min.js"),
+    array("simpliq/raphael.2.1.0.min.js"),
+    array("simpliq/justgage.1.0.1.min.js"),
+    array("simpliq/jquery.autosize.min.js"),
+    array("simpliq/retina.js"),
+    array("simpliq/jquery.placeholder.min.js"),
+    array("simpliq/wizard.min.js"),
+    array("simpliq/core.min.js"),
+    array("simpliq/charts.min.js"),
+    array("simpliq/custom.min.js"),
+  )
+);
 
 // jQuery (latest, as of 1.xx)
 $config['groups']['jquery'] = array(
-	
+
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', TRUE, FALSE)
-	
+
 	)
 );
 
 
 // jQuery UI (latest, as of 1.xx)
 $config['groups']['jqueryui'] = array(
-	
+
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', TRUE, FALSE),
 		array('http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js', TRUE, FALSE)
-	
+
 	)
 );
 
 
 // Ext Core (latest, as of 3.xx)
 $config['groups']['ext-core'] = array(
-	
+
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/ext-core/3.0.0/ext-core-debug.js', 'http://ajax.googleapis.com/ajax/libs/ext-core/3/ext-core.js', TRUE, FALSE)
-	
+
 	)
 );
 
 // Chrome Frame (latest, as of 1.xx)
 $config['groups']['chrome-frame'] = array(
-	
+
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/ext-core/3.0.0/ext-core-debug.js', 'http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js', TRUE, FALSE)
-	
+
 	)
 );
 
@@ -215,9 +266,9 @@ $config['groups']['chrome-frame'] = array(
 $config['groups']['prototype'] = array(
 
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js', 'http://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js', TRUE, FALSE)
-	
+
 	)
 );
 
@@ -226,33 +277,33 @@ $config['groups']['prototype'] = array(
 $config['groups']['scriptaculous'] = array(
 
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js', 'http://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js', TRUE , FALSE),
 		array('http://ajax.googleapis.com/ajax/libs/scriptaculous/1/scriptaculous.js', 'http://ajax.googleapis.com/ajax/libs/scriptaculous/1/scriptaculous.js', TRUE, FALSE)
-		
+
 	)
-	
+
 );
 
 
 // MooTools
 $config['groups']['mootools'] = array(
-	
+
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/mootools/1/mootools.js', 'http://ajax.googleapis.com/ajax/libs/mootools/1/mootools-yui-compressed.js', TRUE, FALSE)
-		
+
 	)
 );
 
 
 // Dojo (latest, as of 1.xx)
 $config['groups']['dojo'] = array(
-	
+
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/dojo/1/dojo/dojo.xd.js.uncompressed.js', 'http://ajax.googleapis.com/ajax/libs/dojo/1/dojo/dojo.xd.js', TRUE, FALSE)
-	
+
 	)
 );
 
@@ -261,24 +312,24 @@ $config['groups']['dojo'] = array(
 $config['groups']['swfobject'] = array(
 
 	'js' => array(
-	
+
 		array('http://ajax.googleapis.com/ajax/libs/swfobject/2/swfobject_src.js', 'http://ajax.googleapis.com/ajax/libs/swfobject/2/swfobject.js', TRUE, FALSE)
-	
+
 	)
-	
+
 );
 
 
 // YUI (latest, as of 2.x.x)
 $config['groups']['yui'] = array(
-	
+
 	'js' => array(
-	
+
 		// JS Core
 		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/yuiloader/yuiloader.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/yuiloader/yuiloader.js', TRUE, FALSE),
 		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/dom/dom.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/dom/dom-min.js', TRUE, FALSE),
 		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/event/event.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/event/event-min.js', TRUE, FALSE)
-		
+
 		// JS Utilities: Uncomment as needed
 		//,array('http://ajax.googleapis.com/ajax/libs/yui/2/build/animation/animation.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/animation/animation-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/connection/connection.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/connection/connection-min.js', TRUE, FALSE),
@@ -293,54 +344,54 @@ $config['groups']['yui'] = array(
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/resize/resize.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/resize/resize-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/selector/selector.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/selector/selector-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/stylesheet/stylesheet.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/stylesheet/stylesheet-min.js', TRUE, FALSE),
-		
+
 		// Widget JS Tools: Uncomment as needed
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/container/container.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/container/container-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/menu/menu.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/menu/menu-min.js', TRUE, FALSE),
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/autocomplete/autocomplete.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/autocomplete/autocomplete-min.js', TRUE, FALSE), 
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/autocomplete/autocomplete.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/autocomplete/autocomplete-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/button/button.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/button/button-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/calendar/calendar.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/calendar/calendar-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/charts/charts.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/charts/charts-min.js', TRUE, FALSE),
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/colorpicker/colorpicker.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/colorpicker/colorpicker-min.js', TRUE, FALSE), 
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/colorpicker/colorpicker.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/colorpicker/colorpicker-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/datatable/datatable.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/datatable/datatable-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/editor/editor.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/editor/editor-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/imagecropper/imagecropper.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/imagecropper/imagecropper-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/layout/layout.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/layout/layout-min.js', TRUE, FALSE),
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/paginator/paginator.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/paginator/paginator-min.js', TRUE, FALSE), 
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/paginator/paginator.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/paginator/paginator-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/slider/slider.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/slider/slider-min.js', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/tabview/tabview.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/tabview/tabview-min.js', TRUE, FALSE),
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/treeview/treeview.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/treeview/treeview-min.js', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/uploader/uploader.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/uploader/uploader-min.js', TRUE, FALSE),		
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/treeview/treeview.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/treeview/treeview-min.js', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/uploader/uploader.js', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/uploader/uploader-min.js', TRUE, FALSE),
 
 	),
-	
-	
+
+
 	'css' => array(
-	
+
 		// CSS Core
-		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/fonts/fonts.css', 'screen', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/fonts/fonts-min.css', TRUE, FALSE),	
+		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/fonts/fonts.css', 'screen', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/fonts/fonts-min.css', TRUE, FALSE),
 		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/reset/reset.css', 'screen', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/reset/reset-min.css', TRUE, FALSE),
 		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/grids/grids.css', 'screen', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/grids/grids-min.css', TRUE, FALSE),
 		array('http://ajax.googleapis.com/ajax/libs/yui/2/build/base/base.css', 'screen', 'http://ajax.googleapis.com/ajax/libs/yui/2/build/base/base-min.css', TRUE, FALSE)
 
 		//CSS for Controls: Uncomment as Needed
-		//,array('http://ajax.googleapis.com/ajax/libs/yui/2/build/autocomplete/assets/skins/sam/autocomplete.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/container/assets/skins/sam/container.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/menu/assets/skins/sam/menu.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/button/assets/skins/sam/button.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/calendar/assets/skins/sam/calendar.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/carousel/assets/skins/sam/carousel.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/slider/assets/skins/sam/slider.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/colorpicker/assets/skins/sam/colorpicker.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/datatable/assets/skins/sam/datatable.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/editor/assets/skins/sam/editor.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/resize/assets/skins/sam/resize.css', 'screen', TRUE, FALSE), 
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/imagecropper/assets/skins/sam/imagecropper.css', 'screen', TRUE, FALSE), 
+		//,array('http://ajax.googleapis.com/ajax/libs/yui/2/build/autocomplete/assets/skins/sam/autocomplete.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/container/assets/skins/sam/container.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/menu/assets/skins/sam/menu.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/button/assets/skins/sam/button.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/calendar/assets/skins/sam/calendar.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/carousel/assets/skins/sam/carousel.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/slider/assets/skins/sam/slider.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/colorpicker/assets/skins/sam/colorpicker.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/datatable/assets/skins/sam/datatable.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/editor/assets/skins/sam/editor.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/resize/assets/skins/sam/resize.css', 'screen', TRUE, FALSE),
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/imagecropper/assets/skins/sam/imagecropper.css', 'screen', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/layout/assets/skins/sam/layout.css', 'screen', TRUE, FALSE),
-		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/tabview/assets/skins/sam/tabview.css', 'screen', TRUE, FALSE), 
+		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/tabview/assets/skins/sam/tabview.css', 'screen', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/treeview/assets/skins/sam/treeview.css', 'screen', TRUE, FALSE),
 		//array('http://ajax.googleapis.com/ajax/libs/yui/2/build/editor/assets/skins/sam/simpleeditor.css', 'screen', TRUE, FALSE)
-	
+
 	)
 
 );

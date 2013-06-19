@@ -170,7 +170,15 @@ class customer extends MY_Controller {
 	 * cierra la sesion del usuario
 	 */
 	public function logout(){
-		$this->session->sess_destroy();
+		// $this->session->sess_destroy();
+
+    $user_data = array( 'id_usuario'=> '',
+                        'nombre'  => '',
+                        'email'   => '',
+                        'type'    => '',
+                        'idunico' => '');
+
+    $this->session->unset_userdata($user_data);
 		redirect(base_url());
 	}
 
