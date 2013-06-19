@@ -81,7 +81,8 @@ class themes_model extends CI_Model{
 			$a = explode('/', $response->background_img);
 			$b = explode('.', $a[count($a)-1]);
 			unset($a[count($a)-1]);
-			$response->background_img_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
+			if(isset($b[1]))
+				$response->background_img_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
 
 			return $response;
 		}else
