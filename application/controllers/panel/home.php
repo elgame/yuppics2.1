@@ -9,11 +9,11 @@ class home extends MY_Controller {
 	private $excepcion_privilegio = array('');
 
 	public function _remap($method){
-		
-		$this->load->model("empleados_model");
-		if($this->empleados_model->checkSession()){
-			$this->empleados_model->excepcion_privilegio = $this->excepcion_privilegio;
-			$this->info_empleado                         = $this->empleados_model->getInfoEmpleado($this->session->userdata('id_usuario'), true);
+
+		$this->load->model("panel_empleados_model");
+		if($this->panel_empleados_model->checkSession()){
+			$this->panel_empleados_model->excepcion_privilegio = $this->excepcion_privilegio;
+			$this->info_empleado                         = $this->panel_empleados_model->getInfoEmpleado($this->session->userdata('id_usuario_panel'), true);
 
 			$this->{$method}();
 		}else
@@ -26,7 +26,6 @@ class home extends MY_Controller {
 		$params['seo'] = array(
 			'titulo' => 'Panel de Administración'
 		);
-
 
 		$this->load->view('panel/header', $params);
 		$this->load->view('panel/general/menu', $params);
@@ -49,11 +48,11 @@ class home extends MY_Controller {
 		$this->load->library('form_validation');
 		$rules = array(
 			array('field'	=> 'usuario',
-				'label'		=> 'Usuario',
-				'rules'		=> 'required'),
+				'label'		=> 'Email',
+				'rules'		=> 'required|valid_email'),
 			array('field'	=> 'pass',
-				'label'		=> 'Contraseña',
-				'rules'		=> 'required')
+				'label'		=> 'Password',
+				'rules'		=> 'required|md5')
 		);
 		$this->form_validation->set_rules($rules);
 		if($this->form_validation->run() == FALSE){
@@ -63,8 +62,8 @@ class home extends MY_Controller {
 					'ico' => 'error');
 		}else{
 			$data = "email = '".$this->input->post('usuario')."' AND pass = '".$this->input->post('pass')."' AND status = '1' ";
-			$mdl_res = $this->empleados_model->setLogin($data);
-			if ($mdl_res[0] && $this->empleados_model->checkSession()) {
+			$mdl_res = $this->panel_empleados_model->setLogin($data);
+			if ($mdl_res[0] && $this->panel_empleados_model->checkSession()) {
 				redirect(base_url('panel/home'));
 			}
 			else{
@@ -84,9 +83,21 @@ class home extends MY_Controller {
 	 * cierra la sesion del usuario
 	 */
 	public function logout(){
-		$this->session->sess_destroy();
+		// $this->session->sess_destroy();
+    $user_data = array( 'id_usuario_panel'=> '',
+                        'nombre_panel'    => '',
+                        'email_panel'     => '',
+                        'acceso_panel'    => '',
+                        'idunico_panel'   => '');
+
+
+
+
+
+    $this->session->unset_userdata($user_data);
 		redirect(base_url('panel/home'));
 	}
+
 }
 
 ?>

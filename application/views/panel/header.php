@@ -14,7 +14,7 @@
 <?php
 	if(isset($this->carabiner)){
 		$this->carabiner->display('css');
-		$this->carabiner->display('base_panel');
+		$this->carabiner->display('base_panel_simpliq');
 		$this->carabiner->display('js');
 	}
 ?>
@@ -24,55 +24,27 @@
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
+  <!--[if IE 9]>
+    <link id="ie9style" href="<?php echo base_url('application/css/simpliq/ie9.css') ?>" rel="stylesheet">
+  <![endif]-->
+
+  <!-- start: Favicon and Touch Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url('application/images/simpliq/ico/apple-touch-icon-144-precomposed.png') ?>">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url('application/images/simpliq/ico/apple-touch-icon-114-precomposed.png') ?>">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url('application/images/simpliq/ico/apple-touch-icon-72-precomposed.png') ?>">
+  <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('application/images/simpliq/ico/apple-touch-icon-57-precomposed.png') ?>">
+  <link rel="shortcut icon" href="<?php echo base_url('application/images/simpliq/ico/favicon.png') ?>">
+  <!-- end: Favicon and Touch Icons -->
+
 <script type="text/javascript" charset="UTF-8">
 	var base_url = "<?php echo base_url();?>";
 </script>
 </head>
 <body>
 
-	<!-- topbar starts -->
-	<div class="navbar">
-		<div class="navbar-inner navinner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
+	<?php if ($this->session->userdata('acceso_panel')==='admin') {
+    echo $this->load->view('panel/header-menu', true);
+  } ?>
 
-				<a class="brand" href="<?php echo base_url('panel/home/'); ?>">
-					<img alt="logo" src="<?php echo base_url('application/images/logo.png'); ?>" width="67" height="67">
-					<span>
-						Panel
-					</span>
-				</a>
-
-		<?php if ($this->session->userdata('nombre')!='') { ?>
-				<!-- user dropdown starts -->
-				<div class="btn-group pull-right" >
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i><span class="hidden-phone"> <?php echo $this->session->userdata('nombre'); ?></span>
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Perfil</a></li>
-						<li class="divider"></li>
-						<li><a href="<?php echo base_url('panel/home/logout'); ?>">Cerrar sesión</a></li>
-					</ul>
-				</div>
-				<!-- user dropdown ends -->
-		<?php } ?>
-
-			</div>
-		</div>
-	</div>
-	<!-- topbar ends -->
-
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<!--[if lt IE 8]>
-        <div class="alert alert-info center alert-browser">
-					<button type="button" class="close" data-dismiss="alert">×</button>
-					<p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
-				</div>
-      <![endif]-->
+	<div class="container-fluid-full">
+    <div class="row-fluid">

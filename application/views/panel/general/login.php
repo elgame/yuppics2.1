@@ -1,51 +1,42 @@
-<div class="container-fluid">
-	<div class="row-fluid">
-			
-		<div class="row-fluid">
-			<div class="well span5 center login-box">
-				<div class="alert alert-info" style="font-size: 22px;font-weight: bold;">
-					Iniciar sesión
-				</div>
-				<form class="form-horizontal" action="<?php echo base_url('panel/home/login'); ?>" method="post">
-					<fieldset>
-						<div class="input-prepend" title="Usuario" data-rel="tooltip">
-							<span class="add-on"><i class="icon-user"></i>
-							</span><input autofocus class="input-large span10" name="usuario" id="usuario" type="text" placeholder="admin">
-						</div>
-						<div class="clearfix"></div>
+      <div class="row-fluid">
+        <div class="login-box">
+          <h2>Accede a tu cuenta</h2>
+          <form class="form-horizontal" action="<?php echo base_url('panel/home/login') ?>" method="post">
+            <fieldset>
 
-						<div class="input-prepend mtop" title="Contraseña" data-rel="tooltip">
-							<span class="add-on"><i class="icon-lock"></i>
-							</span><input class="input-large span10" name="pass" id="pass" type="password" placeholder="******">
-						</div>
-						<div class="clearfix"></div>
+              <input class="input-large span12" name="usuario" id="username" type="text" placeholder="email"/>
 
-						<div class="input-prepend mtop">
-						<label class="remember" for="remember"><input type="checkbox" name="remember" id="remember" />Remember me</label>
-						</div>
-						<div class="clearfix"></div>
+              <input class="input-large span12" name="pass" id="password" type="password" placeholder="password"/>
 
-						<p class="center span5 mtop">
-						<button type="submit" class="btn btn-primary">Iniciar sesión</button>
-						</p>
-					</fieldset>
-				</form>
-			</div><!--/span-->
-		</div><!--/row-->
+              <div class="clearfix"></div>
 
-	</div><!--/fluid-row-->
+              <!-- <label class="remember" for="remember"><input type="checkbox" id="remember" />Recordarme</label> -->
 
-</div><!--/.fluid-container-->
+              <div class="clearfix"></div>
 
+              <button type="submit" class="btn btn-primary span12">Login</button>
+
+          </form>
+          <!-- <hr>
+          <h3>Olvidaste tu password?</h3>
+          <p>
+            No hay problema, <a href="#">click aquí</a> para obtener un nuevo password.
+          </p> -->
+        </div><!--/span-->
+      </div><!--/row-->
 
 <!-- Bloque de alertas -->
 <?php if(isset($frm_errors)){
-	if($frm_errors['msg'] != ''){ 
+  if($frm_errors['msg'] != ''){
 ?>
 <script type="text/javascript" charset="UTF-8">
-	$(document).ready(function(){
-		noty({"text":"<?php echo $frm_errors['msg']; ?>", "layout":"topRight", "type":"<?php echo $frm_errors['ico']; ?>"});
-	});
+  $(document).ready(function(){
+    $.gritter.add({
+      title: "<?php echo $frm_errors['title']; ?>",
+      text: "<?php echo $frm_errors['msg']; ?>",
+      // image: 'img/avatar.jpg',
+    });
+  });
 </script>
 <?php }
 }?>

@@ -312,7 +312,7 @@ class empleados_model extends privilegios_model{
 													'idunico'		=> uniqid('l', true));
 				$this->crea_session($user_data);
 		}
-			
+
 			return array($fun_res, 'msg'=>'El correo electrónico y/o contraseña son incorrectos');
 		// return array($fun_res);
 	}
