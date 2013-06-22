@@ -95,7 +95,7 @@
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_img">Cambiar imagen de fondo</a>
 						</div>
-						<div id="collapse_img" class="accordion-body collapse in">
+						<div id="collapse_img" class="accordion-body collapse">
 							<div class="accordion-inner">
 								<form action="<?php echo base_url('yuppics/theme_image'); ?>" id="tema_frm_imagen" method="post" enctype="multipart/form-data">
 									<label for="pattern_imagen_fondo">Repetir imagen 
@@ -124,14 +124,14 @@
 									<div class="span6" style="text-align: left;color: #5c5c67;">Color de fondo</div>
 									<div class="span6">
 										<input type="text" id="color_fondo" name="color_fondo" value="<?php echo (isset($theme_sel->background_color)? str_replace('#', '', $theme_sel->background_color): 'cccccc'); ?>">
-										<span id="minibox_color_fondo" style="background-color: <?php echo (isset($theme_sel->background_color)? $theme_sel->background_color: '#cccccc'); ?>;"></span>
+										<span id="minibox_color_fondo" style="cursor: pointer; background-color: <?php echo (isset($theme_sel->background_color)? $theme_sel->background_color: '#cccccc'); ?>;"></span>
 									</div>
 								</div>
 								<div>
 									<div class="span6" style="text-align: left;color: #5c5c67;">Color de texto</div>
 									<div class="span6">
 										<input type="text" id="color_texto" name="color_texto" value="<?php echo (isset($theme_sel->text_color)? str_replace('#', '', $theme_sel->text_color): '555555'); ?>">
-										<span id="minibox_color_texto" style="background-color: <?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555555'); ?>;"></span>
+										<span id="minibox_color_texto" style="cursor: pointer; background-color: <?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555555'); ?>;"></span>
 									</div>
 								</div>
 							</div>

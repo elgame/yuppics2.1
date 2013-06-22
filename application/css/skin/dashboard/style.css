@@ -142,7 +142,7 @@ body{
 }
 
 .dropdown-menu.carrito_compra .car_item {
-  padding: 3%;
+  /*padding: 3%;*/
   background-color: #FCFCFC;
   border-bottom: 1px solid #F3F4F5;
 }
@@ -596,7 +596,8 @@ i.icon-mconta{
   margin-left: 0px !important;
 }
 
-.thumbnail .shopcar{
+.thumbnail .shopcar,
+.thumbnail .edityuppic{
   position: absolute;
   top: 0px;
   right: 0px;
@@ -604,6 +605,9 @@ i.icon-mconta{
   height: 40px;
   background: #77bf6c url(../../../images/shopcar.png) no-repeat center center;
   z-index: 100;
+}
+.thumbnail .edityuppic{
+  right: 41px;
 }
 
 /*box*/

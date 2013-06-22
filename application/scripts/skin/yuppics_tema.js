@@ -72,11 +72,19 @@ var yuppic_tema = (function($){
 			},
 			onBeforeShow: function () {
 				$(this).ColorPickerSetColor(this.value);
+			},
+			onChange: function (hsb, hex, rgb) {
+				tema_prev_yuppic.css("background-color", "#"+hex);
+				minibox_color_fondo.css("background-color", "#"+hex);
+				color_fondo.val(hex);
 			}
 		}).on('keyup', function(){
 			$(this).ColorPickerSetColor(this.value);
 			tema_prev_yuppic.css("background-color", "#"+this.value);
 			minibox_color_fondo.css("background-color", "#"+this.value);
+		});
+		minibox_color_fondo.on('click', function(){
+			color_fondo.click();
 		});
 		// color_fondo.minicolors();
 		
@@ -94,6 +102,13 @@ var yuppic_tema = (function($){
 			},
 			onBeforeShow: function () {
 				$(this).ColorPickerSetColor(this.value);
+			},
+			onChange: function (hsb, hex, rgb) {
+				tema_prev_yuppic.css("color", "#"+hex);
+				tema_prev_titulo.css("color", "#"+hex);
+				tema_prev_autor.css("color", "#"+hex);
+				minibox_color_texto.css("background-color", "#"+hex);
+				color_texto.val(hex);
 			}
 		}).on('keyup', function(){
 			$(this).ColorPickerSetColor(this.value);
@@ -101,6 +116,9 @@ var yuppic_tema = (function($){
 			tema_prev_titulo.css("color", "#"+this.value);
 			tema_prev_autor.css("color", "#"+this.value);
 			minibox_color_texto.css("background-color", "#"+this.value);
+		});
+		minibox_color_texto.on('click', function(){
+			color_texto.click();
 		});
 		// color_texto.minicolors();
 

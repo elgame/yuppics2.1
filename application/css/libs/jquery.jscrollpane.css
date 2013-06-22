@@ -35,11 +35,15 @@
 	height: 8px;
 	background: red;
 
-  border:1px solid #050506;
+  border:1px solid #DBDCDD;
   -moz-border-radius: 10px !important;
   -webkit-border-radius:10px !important;
   border-radius: 10px !important;
   margin: 0 0 0 0px; /*----*/
+}
+#accordion2 .jspHorizontalBar, 
+#accordion3 .jspHorizontalBar{
+	border:1px solid #050506;
 }
 
 .jspVerticalBar *,
@@ -61,7 +65,15 @@
 
 .jspTrack
 {
-	background: #1c1b1f; /*#dde*/
+	background: #dde; /*#dde*/
+	
+
+	position: relative;
+  width: 100% !important;
+}
+#accordion2 .jspTrack, 
+#accordion3 .jspTrack{
+	background: #1c1b1f;
 	/*background-image: -moz-linear-gradient(top, #77c0f4, #499cd7);
   background-image: -ms-linear-gradient(top, #77c0f4, #499cd7);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#77c0f4), to(#499cd7));
@@ -72,9 +84,6 @@
   -moz-box-shadow: inset 1px 1px 1px #030408;
   -webkit-box-shadow: inset 1px 1px 1px #030408;
   box-shadow: inset 1px 1px 1px #030408;
-
-	position: relative;
-  width: 100% !important;
 }
 
 .jspDrag
@@ -85,11 +94,16 @@
 	left: 0;
 	cursor: pointer;
 
-  border-top:1px solid #b7b9bc;
-  border-bottom:1px solid #727578;
+	border:1px solid #AEAEAF;
   -moz-border-radius: 10px !important;
   -webkit-border-radius:10px !important;
   border-radius: 10px !important;
+}
+#accordion2 .jspDrag, 
+#accordion3 .jspDrag{
+	border:none;
+	border-top:1px solid #b7b9bc;
+  border-bottom:1px solid #727578;
 
   background-image: -moz-linear-gradient(top, #969a9f, #8c8d92);
   background-image: -ms-linear-gradient(top, #969a9f, #8c8d92);

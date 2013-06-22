@@ -30,6 +30,7 @@ class customer extends MY_Controller {
 			array('libs/jquery.form.js'),
       array('libs/jquery.mousewheel.min.js'),
       array('libs/jquery.jscrollpane.min.js'),
+      array('libs/jquery.easypaginate.js'),
 			array('skin/form_ajax.js'),
 			array('skin/contact.js'),
 			array('skin/newsletter.js'),

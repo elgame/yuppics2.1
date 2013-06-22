@@ -83,22 +83,24 @@
 							<span id="carr_badge_success" class="badge badge-success"><?php echo count($carrito_compra); ?></span>
 							<i class="icon-shopping-cart visible-phone"></i> <span class="hidden-phone"> Carrito de compras</span>
 						</a>
-						<ul class="dropdown-menu carrito_compra">
-							<li class="secc-titulo"><span>Resumen de <strong>Compra</strong></span></li>
+						<div class="dropdown-menu carrito_compra">
+							<div class="secc-titulo"><span>Resumen de <strong>Compra</strong></span></div>
+						<ul style="max-height: 300px;overflow-y: auto;margin: 0px;overflow-x: hidden;">
+							
 							<!-- <li class="divider"></li> -->
 					<?php
 					$car_total = 0; $car_items = '';
 					foreach ($carrito_compra as $key => $value) {
-							$car_total += $value->price;
+							$car_total += $value->price*$value->quantity;
 						?>
 							<li class="car_item">
 								<div class="row-fluid" style="padding: 0px 5px;">
 									<div class="span3">
-                    <a href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic); ?>" style="padding: 8% 0; width: 35px; height: 37px;"><img src="<?php echo base_url($value->url_img); ?>" width="35" height="37"></a>
+                    <a href="<?php echo base_url('buy/order?y='.$value->id_yuppic); ?>" style="padding: 8% 0; width: 35px; height: 37px;"><img src="<?php echo base_url($value->url_img); ?>" width="35" height="37"></a>
 									</div>
 									<div class="span9">
                     <div class="span12">
-                      <a href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic); ?>" class="yp-title"><?php echo $value->title; ?></a>
+                      <a href="<?php echo base_url('buy/order?y='.$value->id_yuppic); ?>" class="yp-title"><?php echo $value->title; ?></a>
                     </div>
                     <div class="span12">
                       <input type="number" class="span8 car_quantity" value="<?php echo $value->quantity; ?>"
@@ -111,13 +113,15 @@
 							</li>
 					<?php } ?>
 <!-- 							<li class="divider"></li> -->
-							<li class="secc-total">
+						</ul>
+							<div class="secc-total">
 								<div class="row-fluid">
 									<div class="span7 carr_total"><strong>Total <span class="green-text" id="car_total_comp"><?php echo String::formatoNumero($car_total); ?> MXN</span></strong></div>
 									<div class="span5"><button type="button" id="car_btn_comprar" class="btn btn-success">Comprar</button></div>
 								</div>
-							</li>
-						</ul>
+							</div>
+						</div>
+
 					</div>
 				</div>
 				<!-- carrito dropdown ends -->

@@ -16,6 +16,9 @@
 */
 $config['base_url']	= 'http://localhost/yuppics2.1/';//localhost
 
+
+$config['carabiner_v'] = '1'; // version de los archivos de carabiner
+
 /*
 |--------------------------------------------------------------------------
 | Index File

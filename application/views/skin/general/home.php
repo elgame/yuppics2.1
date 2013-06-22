@@ -6,7 +6,8 @@
 					<div class="unit-body">
 						<h3 class="myriad">Bienvenido/a <?php echo $this->session->userdata('nombre'); ?>, estás viendo tu Dashboard</h3>
 						<div class="row-fluid" style="color:rgba(74,74,74, .45);">
-							<div class="span6">Total de Yuppics en envío: <?php echo $info_dash->purchases; ?></div>
+							<div class="span6">Total de Yuppics en envío: 
+                <a href="<?php echo base_url('history'); ?>" class="link_green bold"><?php echo $info_dash->purchases; ?></a></div>
 							<div class="span6">Total de descuentos activos: 5</div>
 						</div>
 					</div>
@@ -39,7 +40,7 @@
             <?php
               if (is_array($info_dash->listado2)) { ?>
                   <!-- 374 -->
-                  <ul class="thumbnails thumbnails_yuppics"> <!-- style="width: <?php echo count($info_dash->listado2)*374; ?>px;" -->
+                  <ul id="yppendientesp" class="thumbnails thumbnails_yuppics"> <!-- style="width: <?php echo count($info_dash->listado2)*374; ?>px;" -->
               <?php
                 foreach ($info_dash->listado2 as $key => $value) {
                   $style = '';
@@ -58,12 +59,19 @@
                           <h3><?php echo $value->title; ?></h3>
                           <p>Creado: <?php echo String::humanDate(strtotime($value->created)); ?></p>
                         </div>
-                        <a class="shopcar" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>"></a>
+                        <a class="shopcar" href="<?php echo base_url('buy/order?y='.$value->id_yuppic) ?>" title="Comprar"></a>
+                        <a class="edityuppic" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>" title="Editar"></a>
                       </div>
                     </li>
           <?php } ?>
                   </ul>
-        <?php } ?>
+        <?php }else{
+          ?>
+                <div class="alert alert-block">
+                  No hay Yuppics pendientes!
+                </div>
+          <?php 
+              } ?>
                 </div>
 
 
@@ -72,7 +80,7 @@
               <?php
               if (is_array($info_dash->listado1)) { ?>
                   <!-- 374 -->
-                  <ul class="thumbnails thumbnails_yuppics"> <!-- style="width: <?php echo count($info_dash->listado1)*374; ?>px;" -->
+                  <ul id="ypcompradosp" class="thumbnails thumbnails_yuppics"> <!-- style="width: <?php echo count($info_dash->listado1)*374; ?>px;" -->
               <?php
                 foreach ($info_dash->listado1 as $key => $value) {
               ?>
@@ -90,7 +98,13 @@
                     </li>
           <?php } ?>
                   </ul>
-        <?php } ?>
+        <?php }else{
+          ?>
+                <div class="alert alert-block">
+                  No hay Yuppics comprados!
+                </div>
+          <?php 
+              } ?>
 
                 </div>
 
