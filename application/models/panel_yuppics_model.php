@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Panel_temas_model extends CI_Model {
+class Panel_yuppics_model extends CI_Model {
 
 
-  public function getTemas($per_page='40', $orderby='name ASC'){
+  public function getAll($per_page='40', $orderby='created DESC'){
 
     $sql = '';
     //paginacion
@@ -16,29 +16,41 @@ class Panel_temas_model extends CI_Model {
       $params['result_page'] = ($params['result_page']/$params['result_items_per_page']);
 
     if ($this->input->get('fstatus') != '')
-      $sql = "WHERE t.status = " . $this->input->get('fstatus');
+      $sql = "WHERE y.comprado = " . $this->input->get('fstatus');
 
     if($this->input->get('fsearch') != '')
-      $sql .= " AND lower(t.name) LIKE '%" . mb_strtolower($this->input->get('fsearch'), 'UTF-8') . "%' ||
-                lower(ta.name) LIKE '%" . mb_strtolower($this->input->get('fsearch'), 'UTF-8') . "%'";
+      $sql .= " AND lower(c.first_name) LIKE '%" . mb_strtolower($this->input->get('fsearch'), 'UTF-8') . "%' ||
+                lower(c.last_name) LIKE '%" . mb_strtolower($this->input->get('fsearch'), 'UTF-8') . "%'";
 
     $query = BDUtil::pagination("
-        SELECT t.id_theme, ta.name as autor, t.name, t.background_img as imagen, t.background_color, t.text_color, t.status
-        FROM themes as t
-        INNER JOIN themes_autor as ta ON ta.id_autor = t.id_autor
+        SELECT y.id_yuppic,
+               y.id_customer,
+               c.first_name,
+               c.last_name,
+               c.email,
+               c.username,
+               c.phone,
+               y.id_product,
+               y.title,
+               y.author,
+               y.quantity,
+               y.created,
+               y.comprado
+        FROM yuppics AS y
+        INNER JOIN customers AS c ON c.id_customer = y.id_customer
         ".$sql."
         ORDER BY ".$orderby."
         ", $params, true);
     $res = $this->db->query($query['query']);
 
     $response = array(
-        'temas'        => array(),
+        'yuppics'        => array(),
         'total_rows'     => $query['total_rows'],
         'items_per_page' => $params['result_items_per_page'],
         'result_page'    => $params['result_page']
     );
     if($res->num_rows() > 0)
-      $response['temas'] = $res->result();
+      $response['yuppics'] = $res->result();
 
     return $response;
   }

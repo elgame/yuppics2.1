@@ -14,7 +14,14 @@
               <fieldset>
 
                 <div class="control-group">
-                  <label class="control-label" for="pFotosMax">Fotos Máximas</label>
+                  <label class="control-label" for="pprecio">Precio general de los Yuppics</label>
+                  <div class="controls">
+                    <input type="text" name="pprecio" value="<?php echo $configs[0]->price ?>" class="input-xlarge" id="pprecio">
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label" for="pFotosMax">Fotos Máximas que contendran los Yuppics</label>
                   <div class="controls">
                     <input type="text" name="pFotosMax" value="<?php echo $configs[0]->max_fotos ?>" class="input-xlarge" id="pFotosMax">
                   </div>

@@ -68,7 +68,7 @@ class cupones extends MY_Controller {
     } else  {
       $mdl_res = $this->panel_cupones_model->add();
       if ($mdl_res['passess']) {
-        redirect(base_url('panel/cupones/agregar'));
+        redirect(base_url('panel/cupones/agregar/?msg=3'));
       }
     }
 

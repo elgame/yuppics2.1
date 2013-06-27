@@ -173,7 +173,7 @@ class temas extends MY_Controller {
       $this->load->model('panel_temas_model');
       $this->panel_temas_model->activar($_GET['id']);
 
-      redirect(base_url('panel/temas/?msg=4'));
+      redirect(base_url('panel/temas/?msg=5'));
     }
     else
       redirect(base_url('panel/temas/?msg=1'));
@@ -199,8 +199,21 @@ class temas extends MY_Controller {
             'rules' => 'required|max_length[10]'),
       array('field' => 'ptags[]',
             'label' => 'Tags',
-            'rules' => 'required'),
+            'rules' => ''),
+      array('field' => 'pmastags',
+            'label' => 'Agregar mas tags',
+            'rules' => ''),
     );
+
+    if (isset($_POST))
+    {
+      if ( empty($_POST['pmastags']))
+      {
+        $rules[] = array('field' => 'ptags[]',
+                         'label' => 'Tags',
+                         'rules' => 'required');
+      }
+    }
 
     if ($accion === 'agregar')
     {

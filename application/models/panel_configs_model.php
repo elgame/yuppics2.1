@@ -5,7 +5,7 @@ class Panel_configs_model extends CI_Model {
 
   public function getConfigs()
   {
-    $res = $this->db->select("*")->from("config")->get();
+    $res = $this->db->select("*, (SELECT price FROM products WHERE id_product = 1) AS price")->from("config")->get();
 
     return $res->result();
   }
@@ -18,6 +18,9 @@ class Panel_configs_model extends CI_Model {
     );
 
     $this->db->update('config', $data);
+
+    $this->db->update('products', array('price' => $_POST['pprecio']), array('id_product'=>'1'));
+
 
     return array('passess' => true);
   }

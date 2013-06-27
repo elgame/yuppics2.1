@@ -65,6 +65,9 @@ class configs extends MY_Controller {
 
     $rules = array(
 
+      array('field' => 'pprecio',
+            'label' => 'Precio',
+            'rules' => 'required|numeric'),
       array('field' => 'pFotosMax',
             'label' => 'Fotos Máximas',
             'rules' => 'required|is_natural'),

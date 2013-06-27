@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="control-group">
-                  <label class="control-label" for="pcantidad">Cantidad</label>
+                  <label class="control-label" for="pcantidad">Cantidad ($) a descontar del costo real del Yuppic</label>
                   <div class="controls">
                     <input type="text" name="pcantidad" value="<?php echo set_value('pcantidad') ?>" class="input-xlarge" id="pcantidad">
                   </div>
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="control-group">
-                  <label class="control-label" for="pporcentaje">Porcentaje</label>
+                  <label class="control-label" for="pporcentaje">Porcentaje aplicado</label>
                   <div class="controls">
                     <input type="hidden" name="pporcentaje" value="<?php echo set_value('pporcentaje', 0) ?>" class="input-medium focused" id="pporcentaje">
                     <div class="slider sliderGreen input-xlarge" id="sliderPorcentage"></div>
