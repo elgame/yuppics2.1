@@ -125,7 +125,7 @@ class yuppics extends MY_Controller {
 	 */
 	public function theme_search(){
 		$this->load->model('themes_model');
-		
+
 		$params['themes'] = $this->themes_model->getThemes($this->input->get('qs'));
 
 		echo $this->load->view('skin/yuppics/themes_items', $params, true);
@@ -488,12 +488,12 @@ class yuppics extends MY_Controller {
 			if($yupic->bg_pattern == 1){ //si es un pattern se pone la imagen
 				$count_x = ceil($pdf->CurPageSize[0]/$size[0]);
 				$count_y = ceil($pdf->CurPageSize[1]/$size[1]);
-				for ($rows=0; $rows < $count_y; $rows++) { 
-					for ($cols=0; $cols < $count_x; $cols++) { 
+				for ($rows=0; $rows < $count_y; $rows++) {
+					for ($cols=0; $cols < $count_x; $cols++) {
 						$pdf->Image($yupic->background_img, ($cols*$size[0]), ($rows*$size[1]), 0);
 					}
 				}
-			}else{ //si no es pattern se redimenciona la imagen 
+			}else{ //si no es pattern se redimenciona la imagen
 
 				$info = array(
 						'x'     => 0,

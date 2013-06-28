@@ -28,6 +28,10 @@
  *      'maintain_ratio' => FALSE
  *    );
  *
+ *    Si a $config_resize se le pasa el key 'create_thumb' => TRUE
+ *    entonces en lugar de redimensionar la imagen fuente, crea un thumb
+ *    con la configuracion que se pase en $config_resize.
+ *
  *		$this->my_upload->change_upload_path(APPPATH.$path_imgs);
  *		$this->my_upload->do_resize     = TRUE;
  *		$this->my_upload->config_resize = $config_resize;

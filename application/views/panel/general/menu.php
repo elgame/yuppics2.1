@@ -10,6 +10,13 @@
         <div class="nav-collapse sidebar-nav">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <li><a href="<?php echo base_url('panel/home/') ?>"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+            <li>
+              <a class="dropmenu" href="#"><i class="icon-book"></i><span class="hidden-tablet"> Yuppics</span> <span class="label">2</span></a>
+              <ul>
+                <li><a class="submenu" href="<?php echo base_url('panel/yuppics/') ?>"><i class="icon-list"></i><span class="hidden-tablet"> Administrar</span></a></li>
+                <!-- <li><a class="submenu" href="<?php //echo base_url('panel/cupones/agregar/') ?>"><i class="icon-plus"></i><span class="hidden-tablet"> Agregar</span></a></li> -->
+              </ul>
+            </li>
             <li><a href="<?php echo base_url('panel/configs/') ?>"><i class="icon-cogs"></i><span class="hidden-tablet"> Configuraciones</span></a></li>
             <li>
               <a class="dropmenu" href="#"><i class="icon-barcode"></i><span class="hidden-tablet"> Cupones</span> <span class="label">2</span></a>
@@ -23,6 +30,13 @@
               <ul>
                 <li><a class="submenu" href="<?php echo base_url('panel/temas/') ?>"><i class="icon-list"></i><span class="hidden-tablet"> Administrar</span></a></li>
                 <li><a class="submenu" href="<?php echo base_url('panel/temas/agregar/') ?>"><i class="icon-plus"></i><span class="hidden-tablet"> Agregar</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="dropmenu" href="#"><i class="icon-group"></i><span class="hidden-tablet"> Autores</span> <span class="label">2</span></a>
+              <ul>
+                <li><a class="submenu" href="<?php echo base_url('panel/autores/') ?>"><i class="icon-list"></i><span class="hidden-tablet"> Administrar</span></a></li>
+                <li><a class="submenu" href="<?php echo base_url('panel/autores/agregar/') ?>"><i class="icon-plus"></i><span class="hidden-tablet"> Agregar</span></a></li>
               </ul>
             </li>
             <!--<li><a href="widgets.html"><i class="icon-dashboard"></i><span class="hidden-tablet"> Widgets</span></a></li>

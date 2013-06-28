@@ -3,7 +3,7 @@
       <div class="row-fluid">
         <div class="box span12">
           <div class="box-header" data-original-title>
-            <h2><i class="icon-picture"></i><span class="break"></span> Temas</h2>
+            <h2><i class="icon-group"></i><span class="break"></span> Autores</h2>
             <div class="box-icon">
               <!-- <a href="#" class="btn-setting"><i class="icon-wrench"></i></a> -->
               <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
@@ -14,17 +14,9 @@
 
             <div class="row-fluid">
               <div class="span12">
-                <form class="form-search" action="<?php echo base_url('panel/temas/') ?>" method="GET">
+                <form class="form-search" action="<?php echo base_url('panel/autores/') ?>" method="GET">
                   <label for="">Autor|Nombre</label>
                   <input type="text" name="fsearch" value="<?php echo set_value_get('fsearch')?>" id="fsearch" class="" placeholder="Autor, Nombre">
-
-                  <label>Status</label>
-                    <select name="fstatus">
-                      <option value="" <?php echo set_select('fstatus', '', false, $this->input->get('fstatus')) ?>>TODOS</option>
-                      <option value="1" <?php echo set_select('fstatus', '1', false, $this->input->get('fstatus')) ?>>ACTIVADOS</option>
-                      <option value="0" <?php echo set_select('fstatus', '0', false, $this->input->get('fstatus')) ?>>DESACTIVADOS</option>
-                    </select>
-
                   <button type="submit" class="btn">Buscar</button>
                 </form>
               </div>
@@ -34,51 +26,22 @@
               <thead>
                 <tr>
                   <th>Autor</th>
-                  <th>Nombre</th>
-                  <th>Imagen</th>
-                  <th>Status</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-              <?php foreach ($temas['temas'] as $key => $tema){ ?>
+              <?php foreach ($autores['autores'] as $key => $autor){ ?>
                 <tr>
-                  <td class="center"><?php echo $tema->autor ?></td>
-                  <td class="center"><?php echo $tema->name ?></td>
-                  <td style="text-align: center;">
-                    <img src="<?php echo base_url($tema->imagen) ?>" class="img-polaroid" style="width: 260px; height: 180px;">
-                  </td>
+                  <td class="center"><?php echo $autor->name ?></td>
                   <td class="center">
-                    <?php
-                      $lbl = '-success';
-                      $lblText = 'Activo';
-                      if ($tema->status == 0)
-                      {
-                        $lbl = '-important';
-                        $lblText = 'Inactivo';
-                      }
-                      $label = ''
-                     ?>
-                    <span class="label label<?php echo $lbl ?>"><?php echo $lblText ?></span>
-                  </td>
-                  <td class="center">
-                    <a href="<?php echo base_url('panel/temas/editar/?id='.$tema->id_theme) ?>" class="btn btn-info" >
+                    <a href="<?php echo base_url('panel/autores/editar/?id='.$autor->id_autor) ?>" class="btn btn-info" >
                       <i class="icon-edit "></i>
                     </a>
 
-                    <?php
-                      if ($tema->status == 0) {
-                     ?>
-                        <a href="<?php echo base_url('panel/temas/activar/?id='.$tema->id_theme) ?>" class="btn btn-success"
-                          onclick="msb.confirm('Estas seguro activar el tema?', 'Temas', this); return false;">
-                          <i class="icon-ok "></i>
-                        </a>
-                    <?php } else { ?>
-                        <a href="<?php echo base_url('panel/temas/desactivar/?id='.$tema->id_theme) ?>" class="btn btn-danger"
-                          onclick="msb.confirm('Estas seguro desactivar el tema?', 'Temas', this); return false;">
-                          <i class="icon-ban-circle "></i>
-                        </a>
-                    <?php } ?>
+                    <a href="<?php echo base_url('panel/autores/eliminar/?id='.$autor->id_autor) ?>" class="btn btn-danger"
+                      onclick="msb.confirm('Estas seguro eliminar al autor?', 'Autores', this); return false;">
+                      <i class="icon-trash "></i>
+                    </a>
 
                     <!-- 'onclick' => "msb.confirm('Estas seguro de activar la bascula?', 'bascula', this); return false;") -->
                   </td>
@@ -92,9 +55,9 @@
             //Paginacion
             $this->pagination->initialize(array(
                 'base_url'      => base_url($this->uri->uri_string()).'?'.String::getVarsLink(array('pag')).'&',
-                'total_rows'    => $temas['total_rows'],
-                'per_page'      => $temas['items_per_page'],
-                'cur_page'      => $temas['result_page']*$temas['items_per_page'],
+                'total_rows'    => $autores['total_rows'],
+                'per_page'      => $autores['items_per_page'],
+                'cur_page'      => $autores['result_page']*$autores['items_per_page'],
                 'page_query_string' => TRUE,
                 'num_links'     => 1,
                 'anchor_class'  => 'pags corner-all',

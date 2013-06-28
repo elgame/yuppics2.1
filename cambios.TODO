@@ -1,6 +1,15 @@
 2013-06-19
   Panel
-    ☐ En agregar cupon no manda letrero de que se agrego correctamente, tambien poner mas descriptivo a que se refiere la cantidad y el % por q el monto q pongan en cantidad tiene mas prioridad que el %, y si se pone cantidad 0 y un % ese % se aplica a toda la compra independientemente del numero de yuppics comprados (asi quedo en Resumen de compra no se si asi va a ser, ahorita poner mas descriptivos esos 2 campos)
-    ☐ en configuracion falta poder cambiar el precio de yuppic esta en la tabla "products"
-    ☐ Al agregar o modificar un tema la imagen tiene q crear un thumb de la imagen subida con el mismo nombre "_thumb" proporcional a lo ancho, y q se borre cuando se cambie como la imagen grande, los tagas no deja agregar mas solo los que ya tiene, tiene que dejar agregar nuevos tags el usaurio los escribiria.
-    ☐ We se me pasaba uno de los mas importantes, poder generar el pdf de un yuppic, el listado de yuppics y poder generar el pdf
+    ✔ En agregar cupon no manda letrero de que se agrego correctamente, tambien poner mas descriptivo a que se refiere la cantidad y el % por q el monto q pongan en cantidad tiene mas prioridad que el %, y si se pone cantidad 0 y un % ese % se aplica a toda la compra independientemente del numero de yuppics comprados (asi quedo en Resumen de compra no se si asi va a ser, ahorita poner mas descriptivos esos 2 campos) @done (13-06-27 11:35)
+    ✔ en configuracion falta poder cambiar el precio de yuppic esta en la tabla "products" @done (13-06-27 11:23)
+    ✔ Al agregar o modificar un tema la imagen tiene q crear un thumb de la imagen subida con el mismo nombre "_thumb" proporcional a lo ancho, y q se borre cuando se cambie como la imagen grande, los tagas no deja agregar mas solo los que ya tiene, tiene que dejar agregar nuevos tags el usaurio los escribiria. @done (13-06-27 13:06)
+    ✔ We se me pasaba uno de los mas importantes, poder generar el pdf de un yuppic, el listado de yuppics y poder generar el pdf @done (13-06-27 14:50)
+
+    ✔ No se pueden agregar más tags dentro de los temas en el área de administración. @done (13-06-27 13:21)
+    ✔ falta un módulo para agregar a más autores de temas. @done (13-06-27 14:05)
+    ☐ falta un campo de código de color para la franja donde aparece el nombre y el titulo del yuppics (para más referencia de esta fraja revisar esta otra task: https://basecamp.com/1819120/projects/737478-exotic-media-starke/todos/49225988-seleccion-de-temas)
+    ✔ cómo puedo desactivar un tema sin tener que borrarlo en el área de administración? @done (13-06-27 13:21)
+
+    Sólo en el área de administración se debe poder personalizar el tipo de fuente que se usará unicamente para cada cover de un theme, en este momento solo usaremos 3 variaciones:
+
+      Opens sans light, Times New Roman y Rockwell regular. anexo a esta task los archivos ttf de las fonts, menos de la times new roman :P
