@@ -345,6 +345,7 @@ class Buy_model extends CI_Model {
     $query = $this->db->query("SELECT id_yuppics
                                FROM orders_yuppics
                                WHERE id_order = ".$order);
+    $this->db->update('orders', array('status' => 'a'), array('id_order' => $order));
 
      // Cambia el status de comprado para que el o los Yuppics a comprados (1)
     $yuppics = $query->result();
@@ -359,7 +360,7 @@ class Buy_model extends CI_Model {
    *    @param   $order [id de la orden]
    *    @return [id de la orden eliminada|cancelada]
    */
-  public function cancelOrder($order)
+  public function cancel($order)
   {
     // $this->db->update('orders', array('status' => 'c'), array('id_order' => $order));
 

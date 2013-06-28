@@ -31,6 +31,7 @@ class customer extends MY_Controller {
       array('libs/jquery.mousewheel.min.js'),
       array('libs/jquery.jscrollpane.min.js'),
       array('libs/jquery.easypaginate.js'),
+			array('general/msgbox.js'),
 			array('skin/form_ajax.js'),
 			array('skin/contact.js'),
 			array('skin/newsletter.js'),
@@ -69,6 +70,12 @@ class customer extends MY_Controller {
       $params['info_dash']->listado2 = $this->yuppics_model->getYuppicsCP(0);
     }
 
+    //Obtiene la info getPromos
+    $params['promotions'] = $this->customer_model->getPromos();
+
+    if (isset($_GET['msg']))
+			$params['frm_errors'] = $this->showMsgs($_GET['msg']);
+
 		$this->load->view('skin/header', $params);
 		$this->load->view('skin/general/menu', $params);
 		$this->load->view('skin/general/home', $params);
@@ -80,10 +87,13 @@ class customer extends MY_Controller {
 	public function intro(){
 		$this->carabiner->css(array(
 			array('libs/jquery.pschecker.css', 'screen'),
+			array('libs/jquery.jscrollpane.css', 'screen'),
 			array('skin/intro/intro.css', 'screen')
 		));
 
 		$this->carabiner->js(array(
+			array('libs/jquery.parallax-1.1.3.js'),
+			array('libs/jquery.jscrollpane.min.js'),
 			array('libs/jquery.form.js'),
 			array('libs/jquery.pschecker.js'),
 			array('skin/login.js'),
@@ -216,7 +226,6 @@ class customer extends MY_Controller {
             'ico'   => $ico);
 		}
 
-    var_dump($_FILES);
     echo json_encode($params);
 	}
 
@@ -335,6 +344,7 @@ class customer extends MY_Controller {
 
 	private function showMsgs($tipo, $msg='', $title='Perfil')
 	{
+		$objs = 'msgyuppics_alert';
 		switch($tipo){
 			case 1:
 				$txt = 'El campo ID es requerido.';
@@ -348,6 +358,14 @@ class customer extends MY_Controller {
 				$txt = 'La direccion se eliminó correctamente.';
 				$objs = 'deleteaddress_alert';
 				$icono = 'success';
+				break;
+			case 4:
+				$txt = 'Se elimino el Photobook correctamente.';
+				$icono = 'success';
+				break;
+			case 5:
+				$txt = 'No es un Photobook tuyo, no lo puedes eliminar.';
+				$icono = 'error';
 				break;
 		}
 

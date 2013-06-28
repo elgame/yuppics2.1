@@ -443,6 +443,25 @@ class yuppics extends MY_Controller {
 		file_put_contents($_REQUEST['postdata'], $image_data);
 	}
 
+
+
+
+	/***********************************************************
+	 *Eliminar un yuppic definitivamente
+	 */
+	public function eliminar(){
+		if(isset($_GET['yuppic']{0})){
+			$this->load->model('yuppics_model');
+			$res = $this->yuppics_model->delete($_GET['yuppic']);
+
+			if($res == 1)
+				redirect(base_url('?msg=4'));
+			else
+				redirect(base_url('?msg=5'));
+		}else
+			redirect(base_url('?msg=1'));
+	}
+
 	/**************************************************************
 	 * Crea el pdf de un yuppic
 	 */

@@ -8,7 +8,8 @@
 						<div class="row-fluid" style="color:rgba(74,74,74, .45);">
 							<div class="span6">Total de Yuppics en envío: 
                 <a href="<?php echo base_url('history'); ?>" class="link_green bold"><?php echo $info_dash->purchases; ?></a></div>
-							<div class="span6">Total de descuentos activos: 5</div>
+							<div class="span6">Total de descuentos activos: 
+                <a href="<?php echo base_url('promotions'); ?>" class="link_green bold"><?php echo $promotions->c; ?></a></div>
 						</div>
 					</div>
 					<div class="unit-footer">
@@ -20,6 +21,10 @@
 
 			<h2 class="myriad" style="color:#464f55;">Tus Yuppis</h2>
 
+      <div id="msgyuppics_alert" class="alert hide alert-success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <span>Se actualizo los photobooks</span>
+      </div>
 			<div class="row-fluid">
 					<div class="span12">
 						<!-- <div class="btn-group btn-sstyle">
@@ -61,6 +66,8 @@
                         </div>
                         <a class="shopcar" href="<?php echo base_url('buy/order?y='.$value->id_yuppic) ?>" title="Comprar"></a>
                         <a class="edityuppic" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>" title="Editar"></a>
+                        <a class="removeyuppic" href="<?php echo base_url('yuppics/eliminar?yuppic='.$value->id_yuppic) ?>" title="Eliminar" 
+                            onclick="msb.confirm('Estas seguro de eliminar el photobook?', 'photobook', this); return false;"></a>
                       </div>
                     </li>
           <?php } ?>

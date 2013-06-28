@@ -36,5 +36,29 @@
       <p>Usted está usando un navegador desactualizado. <a href="http://browsehappy.com/">Actualice su navegador</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instale Google Chrome Frame</a> para experimentar mejor este sitio.</p>
     </div>
   <![endif]-->
-	<div class="container-fluid">
+
+  <!-- Navbar
+  ================================================== -->
+  <div id="navbartop" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+          <ul id="menunavbartop" class="nav pull-right">
+            <li class="active">
+              <a href="#intro">INICIO</a>
+            </li>
+            <li class="">
+              <a href="#second">ABOUT</a>
+            </li>
+            <li class="">
+              <a href="#third">¿CÓMO CREAR TU YUPPIC?</a>
+            </li>
+            <li class="">
+              <a href="#modal_contact" role="button" class="" data-toggle="modal">CONTACTO</a>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+
+	<div class="container-fluid nopadding">
 		<div class="row-fluid">

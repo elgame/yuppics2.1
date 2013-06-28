@@ -14,7 +14,7 @@ class history_model extends CI_Model{
 		$res = $this->db
 			->select('*')
 			->from('orders')
-			->where("id_customer = '".$id_customer."' AND status = 'p'")
+			->where("id_customer = '".$id_customer."' AND status IN('a','e')")
 		->get();
 		if($res->num_rows() > 0){
 			$response = $res->result();

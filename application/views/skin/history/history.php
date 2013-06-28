@@ -37,11 +37,16 @@
 
                             <div class="accordion-heading">
                               <a class="accordion-toggle" data-toggle="collapse" data-parent="#history-accordion" href="#collapse<?php echo $value->id_order; ?>">
-                                <span class="span2">Orden No <?php echo $value->id_order; ?></span>
+                                <span class="span3">Orden No <?php echo $value->id_order; 
+                                  $estado = 'Enviado';
+                                  if($value->status=='a')
+                                    $estado = 'Autorizado';
+                                  echo ' ('.$estado.')';
+                                ?></span>
                                 <span class="span3"><?php echo String::humanDate(strtotime($value->created)); ?></span>
                                 <span class="span2"><?php echo count($value->yuppics); ?></span>
                                 <span class="span2"><?php echo String::formatoNumero($value->total_discount); ?>MXN</span>
-                                <span class="span3"><?php echo String::formatoNumero($value->total); ?>MXN</span>
+                                <span class="span2"><?php echo String::formatoNumero($value->total); ?>MXN</span>
                                 <div class="clearfix"></div>
                                 <div class="clearfix"></div>
                               </a>

@@ -33,4 +33,34 @@ class yuppics_model extends CI_Model{
 			return false;
 	}
 
+	public function delete($id_yuppic){
+		$result = $this->db->query("SELECT Count(*) AS cont
+		                           FROM yuppics
+		                           WHERE id_yuppic = ".$id_yuppic." AND id_customer = ".$this->session->userdata('id_usuario'))->row();
+		if($result->cont > 0){
+			self::deleteDir(APPPATH.'/yuppics/'.$this->session->userdata('id_usuario').'/'.$id_yuppic.'/');
+			$this->db->delete('yuppics', 'id_yuppic = '.$id_yuppic);
+			return 1;
+		}else
+			return 2;
+	}
+
+	public static function deleteDir($dirPath) {
+	    if (! is_dir($dirPath)) {
+	        throw new InvalidArgumentException("$dirPath must be a directory");
+	    }
+	    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+	        $dirPath .= '/';
+	    }
+	    $files = glob($dirPath . '*', GLOB_MARK);
+	    foreach ($files as $file) {
+	        if (is_dir($file)) {
+	            self::deleteDir($file);
+	        } else {
+	            unlink($file);
+	        }
+	    }
+	    rmdir($dirPath);
+	}
+
 }

@@ -54,24 +54,24 @@ SERVICIOS APIs:
          site_status: active
 
 
-*2013-06-19
-  CREATE TABLE IF NOT EXISTS `panel_usuarios` (
-  `id_usuario` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(110) NOT NULL,
-  `email` varchar(70) NOT NULL,
-  `pass` varchar(35) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1:activo, 0:eliminado',
-  PRIMARY KEY (`id_usuario`)
-  ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-INSERT INTO  `panel_usuarios` (
-`nombre` ,
-`email` ,
-`pass` ,
-`status`
-)
-VALUES (
-NULL ,  'admin',  'admin@admin.com',  '12345',  '1'
-);
+☐ 2013-06-19
+    CREATE TABLE IF NOT EXISTS `panel_usuarios` (
+    `id_usuario` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `nombre` varchar(110) NOT NULL,
+    `email` varchar(70) NOT NULL,
+    `pass` varchar(35) NOT NULL,
+    `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1:activo, 0:eliminado',
+    PRIMARY KEY (`id_usuario`)
+    ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  INSERT INTO  `panel_usuarios` (
+  `nombre` ,
+  `email` ,
+  `pass` ,
+  `status`
+  )
+  VALUES (
+   'admin',  'admin@admin.com',  '12345',  '1'
+  );
 
 
 

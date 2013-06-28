@@ -219,6 +219,13 @@ class customer_model extends CI_Model{
 		return true;
 	}
 
+	public function getPromos(){
+		$result = $this->db->query("SELECT Count(*) AS c
+		                           FROM customer_promo AS cp INNER JOIN coupons AS c ON cp.id_coupon = c.id_coupon
+		                           WHERE cp.id_customer = ".$this->session->userdata('id_usuario')." AND c.status = 0 ")->row();
+		return $result;
+	}
+
 
 
 

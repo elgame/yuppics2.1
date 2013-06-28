@@ -16,8 +16,10 @@ class Contact extends MY_Controller
 			$this->info_empleado = $this->customer_model->getInfoCustomer($this->session->userdata('id_usuario'), true);
 
 			$this->{$method}();
-		}else
-			$this->{'index'}();
+		}elseif($method == 'send')
+			$this->{$method}();
+		else
+			$this->{'index'}(); //redirect(base_url());
 	}
 
 	public function index()

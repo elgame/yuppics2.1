@@ -597,7 +597,8 @@ i.icon-mconta{
 }
 
 .thumbnail .shopcar,
-.thumbnail .edityuppic{
+.thumbnail .edityuppic,
+.thumbnail .removeyuppic{
   position: absolute;
   top: 0px;
   right: 0px;
@@ -608,6 +609,9 @@ i.icon-mconta{
 }
 .thumbnail .edityuppic{
   right: 41px;
+}
+.thumbnail .removeyuppic{
+  right: 82px;
 }
 
 /*box*/
