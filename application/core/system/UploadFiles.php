@@ -159,7 +159,7 @@ class UploadFiles{
 	public static function deleteFile($path){
 		$path = str_replace(base_url(), '', $path);
 		try {
-			if(file_exists($path))
+			if(file_exists($path) && strpos($path, '.') !== false)
 				unlink($path);
 			return true;
 		}catch (Exception $e){}

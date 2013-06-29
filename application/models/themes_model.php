@@ -83,6 +83,8 @@ class themes_model extends CI_Model{
 			unset($a[count($a)-1]);
 			if(isset($b[1]))
 				$response->background_img_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
+			else
+				$response->background_img_thum = '';
 
 			return $response;
 		}else
@@ -118,9 +120,9 @@ class themes_model extends CI_Model{
 			$this->db->update('yuppics', $data_yuppic, "id_yuppic = ".$id_yuppic);
 			unset($data_theme['id_yuppic']);
 
-			if (strpos($data_theme['background_img'], 'yuppics/themes') !== false) {
+			// if (strpos($data_theme['background_img'], 'yuppics/themes') !== false) {
 				$data_theme['background_img'] = $this->getPathUrl($data_theme, $data_yuppic, $id_yuppic, true);
-			}
+			// }
 
 			$this->db->update('yuppics_theme', $data_theme, "id_yuppic = ".$id_yuppic);
 		}else{
@@ -142,27 +144,37 @@ class themes_model extends CI_Model{
 
 	private function getPathUrl($data_theme, $data_yuppic, $id_yuppic, $delte=false){
 		$a = explode('/', $data_theme['background_img']);
-		$b = explode('.', $a[count($a)-1]);
+		$path = '';
+		
+		if(isset($a[count($a)-1])){
+			$b = explode('.', $a[count($a)-1]);
 
-		$path = APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/'.$id_yuppic.'/'.$a[count($a)-1];
-		$path_thum = APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/'.$id_yuppic.'/'.$b[0].'_thumb.'.$b[1];
+			if(isset($b[1])){
+				$path = APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/'.$id_yuppic.'/'.$a[count($a)-1];
+				$path_thum = APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/'.$id_yuppic.'/'.$b[0].'_thumb.'.$b[1];
 
-		unset($a[count($a)-1]);
-		$source_path_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
+				unset($a[count($a)-1]);
+				$source_path_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
 
-		UploadFiles::validaDir($id_yuppic, APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/');
-		UploadFiles::copyFile($data_theme['background_img'], $path);
-		UploadFiles::copyFile($source_path_thum, $path_thum);
+				UploadFiles::validaDir($id_yuppic, APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/');
+				UploadFiles::copyFile($data_theme['background_img'], $path);
+				UploadFiles::copyFile($source_path_thum, $path_thum);
+			}
+		}
 
 		if ($delte) {
 			$info = $this->getYuppicTheme($id_yuppic);
 			UploadFiles::deleteFile($info->background_img);
 			
 			$a = explode('/', $info->background_img);
-			$b = explode('.', $a[count($a)-1]);
-			unset($a[count($a)-1]);
-			$source_path_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
-			UploadFiles::deleteFile($source_path_thum);
+			if(isset($a[count($a)-1])){
+				$b = explode('.', $a[count($a)-1]);
+				if(isset($b[1])){
+					unset($a[count($a)-1]);
+					$source_path_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
+					UploadFiles::deleteFile($source_path_thum);
+				}
+			}
 		}
 
 		return $path;

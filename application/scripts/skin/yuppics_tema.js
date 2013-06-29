@@ -175,7 +175,7 @@ var yuppic_tema = (function($){
 
 			// color_texto.minicolors('value', colortexto);
 			// colorpicker_texto.css("background-color", colortexto);
-			color_texto.ColorPickerSetColor(colortexto.replace("#", ""));
+			color_texto.val(colortexto.replace("#", ""));
 			tema_prev_yuppic.css("color", colortexto);
 			tema_prev_titulo.css("color", colortexto);
 			tema_prev_autor.css("color", colortexto);
@@ -184,7 +184,7 @@ var yuppic_tema = (function($){
 
 			// color_fondo.minicolors('value', colorfondo);
 			// colorpicker_fondo.css("background-color", colorfondo);
-			color_fondo.ColorPickerSetColor(colorfondo.replace("#", ""));
+			color_fondo.val(colorfondo.replace("#", ""));
 			tema_prev_yuppic.css("background-color", colorfondo);
 			minibox_color_fondo.css("background-color", colorfondo);
 

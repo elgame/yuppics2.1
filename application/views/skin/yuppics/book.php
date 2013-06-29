@@ -66,7 +66,7 @@
 						<div class="accordion-inner">
 							
 							<div class="scroll-pane frames">
-								<ul class="thumbnails" style="width: <?php echo (isset($pages)? count($pages)*83: 83); ?>px;">
+								<ul id="list_acomodacion_pages" class="thumbnails" style="width: <?php echo (isset($pages)? count($pages)*83: 83); ?>px;">
 							<?php
 							if (isset($pages)) {
 								foreach ($pages as $key => $value) {
@@ -100,7 +100,7 @@
 						<div class="accordion-inner">
 							
 							<div class="scroll-pane frames fborder">
-								<ul class="thumbnails" style="width: <?php echo (isset($frames)? count($frames)*90: 90); ?>px;">
+								<ul id="list_estilos_marcos" class="thumbnails" style="width: <?php echo (isset($frames)? count($frames)*90: 90); ?>px;">
 							<?php
 							if (isset($frames)) {
 								foreach ($frames as $key => $value) {
@@ -137,7 +137,7 @@
           <i class="big-arrow-right arrowbook"></i>
 
           <span id="barratop_album" style="margin-left: 30px;">Página: 
-          	<span id="barratop_pagina" class="badge badge-success badge-total-photos"><?php echo ($page!==false? $page->num_pag: '') ?></span></span>
+          	<span id="barratop_pagina" class="badge badge-success badge-total-photos"><?php echo ($page!==false? $page->num_pag: '1') ?></span></span>
           <!-- <span class="badge badge-success badge-total-photos" id="total-choose">0</span> -->
 
           <button type="button" class="btn pull-right btn-photos btn-pag-right" data-page="<?php echo ($page!==false? $page->num_pag+1: '') ?>" id="next_page_save"><i class="icon-right-type2 active"></i></button>
@@ -208,7 +208,7 @@
         <div class="span1"></div>
         <div class="span10 myClass photos-select" id="content-selected-photos" style="width: 85.6% !important;">
 
-          <ul class="thumbnails" style="margin-top: 8px">
+          <ul id="lista_fotos_usuario" class="thumbnails" style="margin-top: 8px">
             <?php if (isset($photos)){
                     foreach($photos as $k => $p) {?>
                       <li class="span2 relative">

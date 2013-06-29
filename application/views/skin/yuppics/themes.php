@@ -79,15 +79,15 @@
 		?>
 				<div id="tema_prev_yuppic" class="tema_prev_yuppic center" style="<?php echo $style; ?>">
 
-					<img src="<?php echo base_url($img_bg); ?>" class="img_move_preview" 
+					<img src="<?php echo ($img_bg != ''? base_url($img_bg): ''); ?>" class="img_move_preview" 
 						style="<?php echo $style_img; ?>">
 					
 					<br><br><br>
 					<div class="bgtitulo">
 						<input id="tema_prev_titulo" class="titulo center tacenter" value="<?php echo (isset($theme_sel->title)? $theme_sel->title: '—— TÍTULO ——'); ?>" style="<?php echo $txt_color; ?>">
+						<input id="tema_prev_autor" class="autor center tacenter" value="<?php echo (isset($theme_sel->author)? $theme_sel->author: 'Autor de Yuppic'); ?>" style="<?php echo $txt_color; ?>">
+						<span class="fecha center"><?php echo String::fechaATexto(date("Y-m-d")); ?></span>
 					</div>
-					<input id="tema_prev_autor" class="autor center tacenter" value="<?php echo (isset($theme_sel->author)? $theme_sel->author: 'Autor de Yuppic'); ?>" style="<?php echo $txt_color; ?>">
-					<span class="fecha center"><?php echo String::fechaATexto(date("Y-m-d")); ?></span>
 				</div>
 
 				<div class="accordion" id="accordion2">

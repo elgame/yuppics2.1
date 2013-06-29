@@ -152,30 +152,46 @@ $(function(){
 
 	// Evento para hacer el magic page
 	$("#magicPage").on("click", function(){
-		var vthis = $(this), img_sel = $(".img_in_page.active");
+		var items_pages = $("#list_acomodacion_pages .prevv a.prev_pag"), 
+		items_frames = $("#list_estilos_marcos .prevv a.frame_photo"),
+		items_fotos = $("#lista_fotos_usuario li .setphoto"),
+		num = Math.floor((Math.random()*items_pages.length)),
+		rand_frames, rand_fotos;
+		$(items_pages[num]).click(); //seleccionamos un tipo de pagina
 
-		if (img_sel.length > 0) {
-			$(".img_in_page:not(.active)").each(function(){
-				var vvthis = $(this);
-				vvthis.attr("data-idframe", img_sel.attr("data-idframe"));
-				$("#page_edited").val("true"); // se edito la pagina
+		$("#pag_active .img_in_page").each(function(){
+			$(this).click();
+			rand_frames = Math.floor((Math.random()*items_frames.length));
+			rand_fotos = Math.floor((Math.random()*items_fotos.length));
+			$(items_fotos[rand_fotos]).click(); //seleccionamos una foto
+			$(items_frames[rand_frames]).click(); //seleccionamos un estilo de marco
+		});
 
-				loader.create();
-				$.getJSON(base_url+"yuppics/getFrame", { id_frame: vvthis.attr("data-idframe"), id_img: vvthis.attr("data-idimg") },
-					function(data){
-						if (data.msg.ico == "success") {
-							$(".frame", vvthis).html('<img src="'+base_url+data.marco.url_frame+'">');
-							$(".frame img", vvthis).load(function(){
-								redimImgFrame(this, vvthis);
-							});
-						}else
-							noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
-				}).complete(function(){
-					loader.close();
-				});
-			});
-		}else
-			noty({"text": "Activa una imagen para copiar su estilo.", "layout":"topRight", "type": "error"});
+
+		// var vthis = $(this), img_sel = $(".img_in_page.active");
+
+		// if (img_sel.length > 0) {
+		// 	$(".img_in_page:not(.active)").each(function(){
+		// 		var vvthis = $(this);
+		// 		vvthis.attr("data-idframe", img_sel.attr("data-idframe"));
+		// 		$("#page_edited").val("true"); // se edito la pagina
+
+		// 		loader.create();
+		// 		$.getJSON(base_url+"yuppics/getFrame", { id_frame: vvthis.attr("data-idframe"), id_img: vvthis.attr("data-idimg") },
+		// 			function(data){
+		// 				if (data.msg.ico == "success") {
+		// 					$(".frame", vvthis).html('<img src="'+base_url+data.marco.url_frame+'">');
+		// 					$(".frame img", vvthis).load(function(){
+		// 						redimImgFrame(this, vvthis);
+		// 					});
+		// 				}else
+		// 					noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
+		// 		}).complete(function(){
+		// 			loader.close();
+		// 		});
+		// 	});
+		// }else
+		// 	noty({"text": "Activa una imagen para copiar su estilo.", "layout":"topRight", "type": "error"});
 	});
 
 	// Evento para hacer el magic book magic_book

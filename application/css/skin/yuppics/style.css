@@ -197,7 +197,7 @@ a#btn_select_theme{
 .tema_prev_yuppic .autor{
 	position: relative;
 	width: 90%;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	background-color: transparent;
 	border:none;
 	color: #fff;

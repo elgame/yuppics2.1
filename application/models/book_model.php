@@ -31,11 +31,12 @@ class book_model extends CI_Model{
 	// }
 
 	public function getShoppingCart(){
-		$res = $this->db->query("SELECT y.id_yuppic, y.title, y.quantity, p.price, yph.url_img
+		$res = $this->db->query("SELECT y.id_yuppic, y.title, y.quantity, p.price, yph.background_img AS url_img, yph.bg_pattern
 			FROM yuppics AS y
 				INNER JOIN products AS p ON p.id_product = y.id_product
-        INNER JOIN (SELECT * FROM yuppics_photos GROUP BY id_yuppic) AS yph ON yph.id_yuppic = y.id_yuppic
+        INNER JOIN (SELECT id_yuppic, background_img, bg_pattern FROM yuppics_theme GROUP BY id_yuppic) AS yph ON yph.id_yuppic = y.id_yuppic
 			WHERE comprado = 0 AND id_customer = ".$this->session->userdata('id_usuario'));
+		//INNER JOIN (SELECT * FROM yuppics_photos GROUP BY id_yuppic) AS yph ON yph.id_yuppic = y.id_yuppic
 		if ($res->num_rows() > 0) {
 			$response = $res->result();
 			$res->free_result();
