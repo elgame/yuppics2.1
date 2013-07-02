@@ -94,17 +94,17 @@ class Panel_yuppics_model extends CI_Model {
      'encrypt_name'    => true
     );
 
-    $config_resize = array(
+    $config_thumb = array(
       'image_library' => 'gd2',
       'source_image'  => '',
       'create_thumb' => TRUE,
-      'width'         => '350',
-      'height'        => '280',
+      'width'         => '400',
+      'height'        => '300',
       'maintain_ratio' => TRUE
     );
 
     $this->my_upload->do_resize     = TRUE;
-    $this->my_upload->config_resize = $config_resize;
+    $this->my_upload->config_resize = $config_thumb;
 
     $this->my_upload->initialize($config_upload);
     $theme = $this->my_upload->do_upload('pimg');

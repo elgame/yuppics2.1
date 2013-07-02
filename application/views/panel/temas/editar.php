@@ -54,6 +54,31 @@
                 </div>
 
                 <div class="control-group">
+                  <label class="control-label" for="pimg_franja">Imagen Franja</label>
+                  <div class="controls">
+                    <input type="file" name="pimg_franja" value="" class="input-xlarge">
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label" for="pbgcolor_franja">Background Color Franja</label>
+                  <div class="controls">
+                    <input type="text" name="pbgcolor_franja" value="<?php echo set_value('pbgcolor_franja', $tema['info'][0]->background_franja_color) ?>" class="input-xlarge" id="pbgcolor_franja" maxlength="10">
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label" for="pfuente_cover">Tipo de fuente para el cover</label>
+                  <div class="controls">
+                    <select name="pfuente_cover" class="input-xlarge" id="pfuente_cover">
+                      <option value="Opens sans light" <?php echo set_select('pfuente_cover', 'Opens sans light', false, $tema['info'][0]->font_cover) ?>>Opens sans light</option>
+                      <option value="Times New Roman" <?php echo set_select('pfuente_cover', 'Times New Roman', false, $tema['info'][0]->font_cover) ?>>Times New Roman</option>
+                      <option value="Rockwell regular" <?php echo set_select('pfuente_cover', 'Rockwell regular', false, $tema['info'][0]->font_cover) ?>>Rockwell regular</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="control-group">
                   <label class="control-label" for="ptags">Tags</label>
                   <div class="controls">
                     <select name="ptags[]" class="input-xlarge" id="ptags" multiple data-rel="chosen">

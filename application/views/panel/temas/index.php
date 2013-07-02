@@ -36,6 +36,7 @@
                   <th>Autor</th>
                   <th>Nombre</th>
                   <th>Imagen</th>
+                  <th>Franja Cover</th>
                   <th>Status</th>
                   <th>Acciones</th>
                 </tr>
@@ -47,6 +48,13 @@
                   <td class="center"><?php echo $tema->name ?></td>
                   <td style="text-align: center;">
                     <img src="<?php echo base_url($tema->imagen) ?>" class="img-polaroid" style="width: 260px; height: 180px;">
+                  </td>
+                  <td style="text-align: center;">
+                    <?php if ($tema->background_franja !== null) { ?>
+                      <img src="<?php echo base_url($tema->background_franja) ?>" class="img-polaroid" style="width: 260px; height: 180px;">
+                    <?php } else { ?>
+                      <span class="label label-warning">Sin Franja</span>
+                    <?php } ?>
                   </td>
                   <td class="center">
                     <?php

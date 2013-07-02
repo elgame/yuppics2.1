@@ -12,4 +12,12 @@
 
     Sólo en el área de administración se debe poder personalizar el tipo de fuente que se usará unicamente para cada cover de un theme, en este momento solo usaremos 3 variaciones:
 
-      Opens sans light, Times New Roman y Rockwell regular. anexo a esta task los archivos ttf de las fonts, menos de la times new roman :P
+      ✔ Opens sans light, Times New Roman y Rockwell regular. anexo a esta task los archivos ttf de las fonts, menos de la times new roman :P @done (13-07-02 14:09)
+
+
+SQL:
+
+  ALTER TABLE  `themes` ADD  `background_franja` VARCHAR( 150 ) NULL AFTER  `background_color` ,
+  ADD  `background_franja_color` VARCHAR( 10 ) NOT NULL DEFAULT  '' AFTER  `background_franja`
+
+  ALTER TABLE  `themes` ADD  `font_cover` VARCHAR( 50 ) NOT NULL COMMENT  'Tipo de fuente para el cover'

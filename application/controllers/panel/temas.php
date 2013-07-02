@@ -203,6 +203,12 @@ class temas extends MY_Controller {
       array('field' => 'pmastags',
             'label' => 'Agregar mas tags',
             'rules' => ''),
+      array('field' => 'pbgcolor_franja',
+            'label' => 'Background Color Franja',
+            'rules' => 'required|max_length[10]'),
+      array('field' => 'pfuente_cover',
+            'label' => 'Tipo de fuente',
+            'rules' => 'required'),
     );
 
     if (isset($_POST))

@@ -1,5 +1,5 @@
 $(function(){
-  $('#pbgcolor, #ptxtcolor').ColorPicker({
+  $('#pbgcolor, #ptxtcolor, #pbgcolor_franja').ColorPicker({
     onSubmit: function(hsb, hex, rgb, el) {
       $(el).val('#'+hex).css('background-color', hex);
       $(el).ColorPickerHide();
