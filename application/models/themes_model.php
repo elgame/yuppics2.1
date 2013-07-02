@@ -164,15 +164,17 @@ class themes_model extends CI_Model{
 
 		if ($delte) {
 			$info = $this->getYuppicTheme($id_yuppic);
-			UploadFiles::deleteFile($info->background_img);
-			
-			$a = explode('/', $info->background_img);
-			if(isset($a[count($a)-1])){
-				$b = explode('.', $a[count($a)-1]);
-				if(isset($b[1])){
-					unset($a[count($a)-1]);
-					$source_path_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
-					UploadFiles::deleteFile($source_path_thum);
+			if($data_theme['background_img'] != $info->background_img){
+				UploadFiles::deleteFile($info->background_img);
+				
+				$a = explode('/', $info->background_img);
+				if(isset($a[count($a)-1])){
+					$b = explode('.', $a[count($a)-1]);
+					if(isset($b[1])){
+						unset($a[count($a)-1]);
+						$source_path_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
+						UploadFiles::deleteFile($source_path_thum);
+					}
 				}
 			}
 		}

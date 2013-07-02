@@ -73,6 +73,7 @@ $(function(){
 
 			$("#page_edited").val("false"); // se edito la pagina - reset
 		}
+		
 	});
 	// Evento para guardar la pagina activa
 	$("#save_page_active").on("click", function(){
@@ -295,7 +296,10 @@ function save_page_event(direction){
 			loader.create();
 			$.post(base_url+"yuppics/save_page", params, function(data){
 				if(data.msg.ico = "success"){
-					build_load_page(data);
+					if( validaNumPages(parseFloat(params.num_pag)+1, false) || params.direction == "prev")
+						build_load_page(data);
+					else
+						load_page(parseFloat(params.num_pag));
 				}
 				noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
 			}, "json").complete(function(){
@@ -308,15 +312,27 @@ function save_page_event(direction){
 
 // Carga una pagina del book
 function load_page(num_pag){
-	loader.create();
-	$.getJSON(base_url+"yuppics/load_page", {"num_pag": num_pag}, function(data){
-		if(data.msg.ico = "success"){
-			build_load_page(data, num_pag);
-		}
-		// noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
-	}, "json").complete(function(){
-		loader.close();
-	});
+	if( validaNumPages(num_pag) ){
+		loader.create();
+		$.getJSON(base_url+"yuppics/load_page", {"num_pag": num_pag}, function(data){
+			if(data.msg.ico = "success"){
+				build_load_page(data, num_pag);
+			}
+			// noty({"text": data.msg.msg, "layout":"topRight", "type": data.msg.ico});
+		}, "json").complete(function(){
+			loader.close();
+		});
+	}
+}
+
+function validaNumPages(num_pag, show){
+	if( parseFloat(num_pag) <= 22){
+		return true;
+	}else{
+		if(show == undefined)
+			noty({"text": "No puedes agregar más de 22 páginas al yuppic", "layout":"topRight", "type": "error"});
+		return false;
+	}
 }
 
 // construlle los elementos de la pagina cargada
