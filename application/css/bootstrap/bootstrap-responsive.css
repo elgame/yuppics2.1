@@ -252,12 +252,12 @@
     width: 31.623931623931625%;
     *width: 31.570740134569924%;
   }
-  .row-fluid .span3 {
+  .row-fluid .span3,
+  .barra_menu_fix {
     width: 23.076923076923077%;
     *width: 23.023731587561375%;
   }
-  .row-fluid .span2,
-  .barra_menu_fix {
+  .row-fluid .span2 {
     width: 14.52991452991453%;
     *width: 14.476723040552828%;
   }

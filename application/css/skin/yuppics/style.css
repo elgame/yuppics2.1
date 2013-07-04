@@ -181,7 +181,7 @@ a#btn_select_theme{
 	z-index: 0;
 }
 .tema_prev_yuppic .bgtitulo{
-	position: relative;
+	position: absolute;
 	background-color: rgba(54, 98, 169, 0.6);
 	padding: 20px 0;
 	z-index: 10;
@@ -248,7 +248,8 @@ a.accordion-toggle:hover{
 	z-index: 300;
 }
 #color_fondo,
-#color_texto{
+#color_texto,
+#color_franja{
 	float: right;
 	margin: 0px;
 	font: 14px sans-serif;
@@ -265,7 +266,8 @@ a.accordion-toggle:hover{
 	text-align: center;
 }
 #minibox_color_fondo,
-#minibox_color_texto{
+#minibox_color_texto,
+#minibox_color_franja{
 	float: right;
 	display: inline-block;
 	margin-right: 8%;

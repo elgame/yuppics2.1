@@ -120,6 +120,36 @@ class yuppics extends MY_Controller {
 	}
 
 	/**
+	 * Carga la imagen de la franja al servidor
+	 * @return [type] [description]
+	 */
+	public function theme_franja_img(){
+		$this->load->library('my_upload');
+
+		ini_set('memory_limit', '64M');
+
+		$path_imgs = 'yuppics/themes/temp/';
+
+		$config_upload = array(
+			'upload_path'     => APPPATH.$path_imgs,
+			'allowed_types'   => 'jpg|png',
+			'max_size'        => '2048',
+			'encrypt_name'    => TRUE
+		 );
+
+		$this->my_upload->initialize($config_upload);
+		$this->my_upload->do_resize = false;
+		
+		$data = $this->my_upload->do_upload('imagen_franja');
+
+		$a = explode('/', $data['full_path']);
+		$b = explode('.', $a[count($a)-1]);
+		$data['path'] = APPPATH.$path_imgs.$b[0].'.'.$b[1];
+
+		echo json_encode(array('status'=>1, 'resp'=>$data));
+	}
+
+	/**
 	 * Busca temas en la bd y los regresa como html
 	 * @return [type] [description]
 	 */
@@ -453,6 +483,18 @@ class yuppics extends MY_Controller {
 		if(isset($_GET['yuppic']{0})){
 			$this->load->model('yuppics_model');
 			$res = $this->yuppics_model->delete($_GET['yuppic']);
+
+			if($res == 1)
+				redirect(base_url('?msg=4'));
+			else
+				redirect(base_url('?msg=5'));
+		}else
+			redirect(base_url('?msg=1'));
+	}
+	public function desactivar(){
+		if(isset($_GET['yuppic']{0})){
+			$this->load->model('yuppics_model');
+			$res = $this->yuppics_model->desactivar($_GET['yuppic']);
 
 			if($res == 1)
 				redirect(base_url('?msg=4'));

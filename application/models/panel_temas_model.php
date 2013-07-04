@@ -220,7 +220,7 @@ class Panel_temas_model extends CI_Model {
       'name'             => $this->input->post('pname'),
       'background_color' => $this->input->post('pbgcolor'),
       'text_color'       => $this->input->post('ptxtcolor'),
-      'font_cover'      => $this->input->post('pfuente_cover'),
+      'font_cover'       => $this->input->post('pfuente_cover'),
     );
 
     $this->load->library("my_upload");

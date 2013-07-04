@@ -1,4 +1,4 @@
-<div id="content" class="span7 ordercps mtop-content"> <!-- STAR SPAN8 -->
+<div id="content" class="span6 ordercps mtop-content"> <!-- STAR SPAN8 -->
 
   <div class="row-fluid"> <!-- START ROW-FLUID -->
     <div id="send_alert" class="alert hide">

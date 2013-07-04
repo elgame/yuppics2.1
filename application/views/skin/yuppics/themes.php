@@ -75,6 +75,18 @@
 			$txt_color = 'color: '.$theme_sel->text_color.';';
 
 			$style_img = 'top:'.$theme_sel->bg_img_y.'%; left:'.$theme_sel->bg_img_x.'%; display:'.($theme_sel->bg_pattern=='0'? 'block': 'none').';';
+
+			//franja
+			$style_franja = '';
+			if($theme_sel->background_franja != ''){
+				$style_franja = "background: url(".$theme_sel->background_franja.");";
+			}elseif($theme_sel->background_franja_color != ''){
+				$style_franja = "background-color: ".$theme_sel->background_franja_color.";";
+			}
+			switch($theme_sel->background_franja_position){
+				case 't': $style_franja .= 'top: 0px;'; break;
+				case 'b': $style_franja .= 'bottom: 0px'; break;
+			}
 		}
 		?>
 				<div id="tema_prev_yuppic" class="tema_prev_yuppic center" style="<?php echo $style; ?>">
@@ -83,7 +95,7 @@
 						style="<?php echo $style_img; ?>">
 					
 					<br><br><br>
-					<div class="bgtitulo">
+					<div class="bgtitulo" style="<?php echo $style_franja; ?>">
 						<input id="tema_prev_titulo" class="titulo center tacenter" value="<?php echo (isset($theme_sel->title)? $theme_sel->title: '—— TÍTULO ——'); ?>" style="<?php echo $txt_color; ?>">
 						<input id="tema_prev_autor" class="autor center tacenter" value="<?php echo (isset($theme_sel->author)? $theme_sel->author: 'Autor de Yuppic'); ?>" style="<?php echo $txt_color; ?>">
 						<span class="fecha center"><?php echo String::fechaATexto(date("Y-m-d")); ?></span>
@@ -97,6 +109,11 @@
 						</div>
 						<div id="collapse_img" class="accordion-body collapse">
 							<div class="accordion-inner">
+								<input type="hidden" name="font_cover" id="font_cover" value="<?php echo (isset($theme_sel->font_cover)? $theme_sel->font_cover: ''); ?>">
+								<input type="hidden" name="background_franja" id="background_franja" value="<?php echo (isset($theme_sel->background_franja)? $theme_sel->background_franja: ''); ?>">
+								<input type="hidden" name="background_franja_color" id="background_franja_color" value="<?php echo (isset($theme_sel->background_franja_color)? $theme_sel->background_franja_color: ''); ?>">
+								<input type="hidden" name="background_franja_position" id="background_franja_position" value="<?php echo (isset($theme_sel->background_franja_position)? $theme_sel->background_franja_position: ''); ?>">
+
 								<form action="<?php echo base_url('yuppics/theme_image'); ?>" id="tema_frm_imagen" method="post" enctype="multipart/form-data">
 									<label for="pattern_imagen_fondo">Repetir imagen 
 										<input type="checkbox" id="pattern_imagen_fondo" value="si" <?php echo (isset($theme_sel->bg_pattern)? ($theme_sel->bg_pattern=='1'? 'checked': ''): ''); ?>></label>
@@ -107,6 +124,21 @@
 									<button type="submit" class="btn btn-primary">Cargar</button>
 									<button type="button" id="remove_imagesel" class="btn btn-danger">Quitar</button>
 								</form>
+
+								<form action="<?php echo base_url('yuppics/theme_franja_img'); ?>" id="tema_frm_franja" method="post" enctype="multipart/form-data">
+									<label for="imagen_franja pull-left">Subir imagen de la franja</label>
+									<input type="file" name="imagen_franja" id="imagen_franja"><br>
+									<button type="submit" class="btn btn-primary">Cargar</button>
+									<button type="button" id="remove_image_franja" class="btn btn-danger">Quitar</button>
+								</form>
+
+								<label for="imagen_franja pull-left">Posición de la franja</label>
+								<select name="posicion_franja" id="posicion_franja">
+									<option value="c">Centrado</option>
+									<option value="t">Arriba</option>
+									<option value="b">Abajo</option>
+								</select>
+
 								<div id="progress_img_fondo" class="progress hide">
 									<div class="bar" style="width: 0%;"></div>
 								</div>
@@ -134,6 +166,14 @@
 										<span id="minibox_color_texto" style="cursor: pointer; background-color: <?php echo (isset($theme_sel->text_color)? $theme_sel->text_color: '#555555'); ?>;"></span>
 									</div>
 								</div>
+								<div>
+									<div class="span6" style="text-align: left;color: #5c5c67;">Color de la franja</div>
+									<div class="span6">
+										<input type="text" id="color_franja" name="color_franja" value="<?php echo (isset($theme_sel->background_franja_color)? str_replace('#', '', $theme_sel->background_franja_color): '555555'); ?>">
+										<span id="minibox_color_franja" style="cursor: pointer; background-color: <?php echo (isset($theme_sel->background_franja_color)? $theme_sel->background_franja_color: '#555555'); ?>;"></span>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>

@@ -16,8 +16,15 @@
 
 
 SQL:
+   ALTER TABLE  `yuppics` ADD  `no_show` BOOL NOT NULL DEFAULT  '0' COMMENT  'para los yuppics desactivados si es true';
+
 
   ALTER TABLE  `themes` ADD  `background_franja` VARCHAR( 150 ) NULL AFTER  `background_color` ,
-  ADD  `background_franja_color` VARCHAR( 10 ) NOT NULL DEFAULT  '' AFTER  `background_franja`
+  ADD  `background_franja_color` VARCHAR( 10 ) NOT NULL DEFAULT  '' AFTER  `background_franja`;
 
-  ALTER TABLE  `themes` ADD  `font_cover` VARCHAR( 50 ) NOT NULL COMMENT  'Tipo de fuente para el cover'
+  ALTER TABLE  `themes` ADD  `font_cover` VARCHAR( 50 ) NOT NULL COMMENT  'Tipo de fuente para el cover';
+
+  ALTER TABLE  `yuppics_theme` ADD  `font_cover` VARCHAR( 50 ) NOT NULL ,
+  ADD  `background_franja` VARCHAR( 150 ) NOT NULL ,
+  ADD  `background_franja_color` VARCHAR( 10 ) NOT NULL ,
+  ADD  `background_franja_position` ENUM(  't',  'c',  'b' ) NOT NULL DEFAULT  'c' COMMENT  't:top, c:center, b:bottom';

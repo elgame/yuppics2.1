@@ -303,12 +303,12 @@ a:hover {
   width: 31.914893614%;
   *width: 31.8617021246383%;
 }
-.row-fluid .span3 {
+.row-fluid .span3,
+.barra_menu_fix {
   width: 23.404255317%;
   *width: 23.3510638276383%;
 }
-.row-fluid .span2,
-.barra_menu_fix {
+.row-fluid .span2 {
   width: 14.89361702%;
   *width: 14.8404255306383%;
 }

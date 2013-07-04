@@ -20,14 +20,14 @@
 			step: 4,
 			delay: 100,
 			numeric: true,
-			nextprev: false,
+			nextprev: true,
 			auto:false,
 			loop:false,
 			pause:4000,
 			clickstop:true,
 			controls: 'pagination',
 			current: 'active',
-			randomstart: false
+			randomstart: false,
 		}; 
 		
 		var options = $.extend(defaults, options); 
@@ -79,7 +79,7 @@
 				ol = $('<ul id="'+ options.controls +'"></ul>');
 				
 				if(options.nextprev){
-					prev = $('<li class="prev">Previous</li>')
+					prev = $('<li class="prev"><a href="javascript:void(0);" class="prev">← previous</a></li>')
 						.hide()
 						.appendTo(ol)
 						.click(function(){
@@ -91,7 +91,7 @@
 				
 				if(options.numeric){
 					for(var i=1;i<=pages;i++){
-					$('<li data-index="'+ i +'"><a href="#">'+ i +'</a></li>')
+					$('<li data-index="'+ i +'"><a href="javascript:void(0);">'+ i +'</a></li>')
 						.appendTo(ol)
 						.click(function(){	
 							clicked = true;
@@ -102,7 +102,7 @@
 				};
 				
 				if(options.nextprev){
-					next = $('<li class="next">Next</li>')
+					next = $('<li class="next"><a href="javascript:void(0);" class="next">next →</a></li>')
 						.hide()
 						.appendTo(ol)
 						.click(function(){

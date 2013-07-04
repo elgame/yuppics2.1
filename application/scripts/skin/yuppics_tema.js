@@ -11,9 +11,10 @@ var yuppic_tema = (function($){
 	colorpicker_fondo, color_fondo, tema_prev_yuppic,
 	colorpicker_texto, color_texto,
 	tema_prev_titulo, tema_prev_autor,
-	tema_frm_imagen, progress_img_fondo,
+	tema_frm_imagen, progress_img_fondo, tema_frm_franja, 
 	titulo_yuppic, autor_yuppic,
-	minibox_color_fondo, minibox_color_texto;
+	minibox_color_fondo, minibox_color_texto,
+	color_franja, minibox_color_franja;
 
 	function init(){
 		pagination_themes();
@@ -122,6 +123,38 @@ var yuppic_tema = (function($){
 		});
 		// color_texto.minicolors();
 
+		// Objetos y eventos para cambiar el color de la franja
+		color_franja            = $("#color_franja"); //picker
+		background_franja_color = $("#background_franja_color");
+		minibox_color_franja    = $("#minibox_color_franja");
+		bgtitulo                = $(".bgtitulo");
+		color_franja.ColorPicker({  			//colorpicker del color de fondo
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+				bgtitulo.css("background-color", "#"+hex);
+				minibox_color_franja.css("background-color", "#"+hex);
+				background_franja_color.val("#"+hex);
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			},
+			onChange: function (hsb, hex, rgb) {
+				bgtitulo.css("background-color", "#"+hex);
+				minibox_color_franja.css("background-color", "#"+hex);
+				color_franja.val(hex);
+				background_franja_color.val("#"+hex);
+			}
+		}).on('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+			bgtitulo.css("background-color", "#"+this.value);
+			minibox_color_franja.css("background-color", "#"+this.value);
+			background_franja_color.val("#"+this.value);
+		});
+		minibox_color_franja.on('click', function(){
+			color_franja.click();
+		});
+
 
 		// Eventos para subir la imagen del tema
 		tema_frm_imagen    = $("#tema_frm_imagen");
@@ -150,13 +183,47 @@ var yuppic_tema = (function($){
 			preview_setImage("", "", true);
 		});
 
+		// Eventos para subir la imagen de la franja
+		tema_frm_franja    = $("#tema_frm_franja");
+		tema_frm_franja.ajaxForm({
+			beforeSend: function() {
+				tema_frm_franja.hide(300);
+				progress_img_fondo.show();
+				$(".bar", progress_img_fondo).width('0%');
+			},
+			uploadProgress: function(event, position, total, percentComplete) {
+				$(".bar", progress_img_fondo).width(percentComplete + '%');
+			},
+			complete: function(xhr){
+				var data = $.parseJSON(xhr.responseText);
+				tema_frm_franja.show(70);
+				progress_img_fondo.hide(70);
+
+				if (data.status){
+					$(".bgtitulo").css("background", "url('"+data.resp.path+"')");
+					$("#background_franja").val(data.resp.path);
+				}
+			}
+		});
+		// Evento para quitar la imagen seleccionada del yuppic
+		$("#remove_image_franja").on("click", function(){
+			$(".bgtitulo").css("background", "none");
+			$("#background_franja").val('');
+		});
+
 
 		// Evento para seleccionar uno de los temas predefinidos
 		$(document).on("click", ".use-theme", function(){
 			var use_theme = $(".use-theme");
 			var obj = $(this), img_quit = false,
 			img = obj.attr("data-img"), imgthum = obj.attr("data-imgthum"), 
-			colortexto = obj.attr("data-colortexto"), colorfondo = obj.attr("data-colorfondo");
+			colortexto = obj.attr("data-colortexto"), 
+			colorfondo = obj.attr("data-colorfondo"),
+			font_cover                 = obj.attr("data-fontcover"),
+			background_franja          = obj.attr("data-backgroundfranja"),
+			background_franja_color    = obj.attr("data-backgroundfranjacolor"),
+			background_franja_position = obj.attr("data-backgroundfranjaposition");
+			var bgtitulo = $(".bgtitulo");
 
 			//si es un tema seleccionado le quita la seleccion
 			if (obj.is(".btn-warning")) {
@@ -164,6 +231,7 @@ var yuppic_tema = (function($){
 				colorfondo = "#CCC";
 				img_quit = true;
 				img = "";
+				bgtitulo.css("background", "none");
 
 				obj.removeClass("btn-warning").text("Usar tema");
 			}else{
@@ -194,6 +262,41 @@ var yuppic_tema = (function($){
 			});
 			tema_prev_titulo.css("color", colortexto);
 			tema_prev_autor.css("color", colortexto);
+
+			// CONFIGURA LA FRANJA Y LA FUENTE
+			switch(background_franja_position){
+				case 't': bgtitulo.css('top', '0px'); break;
+				case 'b': bgtitulo.css('bottom', '0px'); break;
+				default: bgtitulo.css('top', ((tema_prev_yuppic.height()-bgtitulo.height())/2) )+"px";
+			}
+
+			font_cover = (font_cover!=''? "'"+font_cover+"'": 'Arial, Helvetica, sans-serif')
+			bgtitulo.css("font-family", font_cover);
+			bgtitulo.css("background", "none");
+			if(background_franja != ''){
+				bgtitulo.css("background", "url('"+background_franja+"')");
+			}else{
+				bgtitulo.css("background-color", ""+background_franja_color+"");
+			}
+			$("#font_cover").val(font_cover);
+			$("#background_franja_position").val(background_franja_position);
+			$("#background_franja").val(background_franja);
+			$("#background_franja_color").val(background_franja_color);
+
+		});
+
+		//evento para cambiar la posicion de la franja
+		$("#posicion_franja").on("change", function(){
+			// CONFIGURA LA FRANJA Y LA FUENTE
+			var poss = $(this).val(), 
+			bgtitulo = $(".bgtitulo");
+			bgtitulo.css('top', 'inherit').css('bottom', 'inherit');
+			switch(poss){
+				case 't': bgtitulo.css('top', '0px'); break;
+				case 'b': bgtitulo.css('bottom', '0px'); break;
+				default: bgtitulo.css('top', ((tema_prev_yuppic.height()-bgtitulo.height())/2) )+"px";
+			}
+			$("#background_franja_position").val(poss);
 		});
 
 		search_themes();
@@ -276,6 +379,11 @@ var yuppic_tema = (function($){
 			background_color: "#"+color_fondo.val().replace("#", ""),
 			text_color: "#"+color_texto.val().replace("#", ""),
 			bg_pattern: ($("#pattern_imagen_fondo").is(":checked")? 'si': 'no'),
+
+			font_cover: $("#font_cover").val(),
+			background_franja: $("#background_franja").val(),
+			background_franja_color: $("#background_franja_color").val(),
+			background_franja_position: $("#background_franja_position").val(),
 		}, img_prev = $(".img_move_preview");
 
 		if(params.bg_pattern == 'no'){ //si pattern esta desactivado se guardan las coordenadas

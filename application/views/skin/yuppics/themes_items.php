@@ -18,7 +18,11 @@
 									<button class="btn btn-success use-theme" data-img="<?php echo $value->background_img; ?>" 
 										data-imgthum="<?php echo $thume; ?>" 
 										data-colorfondo="<?php echo $value->background_color; ?>" 
-										data-colortexto="<?php echo $value->text_color; ?>">Usar tema</button>
+										data-colortexto="<?php echo $value->text_color; ?>" 
+										data-backgroundfranja="<?php echo $value->background_franja; ?>" 
+										data-backgroundfranjacolor="<?php echo $value->background_franja_color; ?>" 
+										data-backgroundfranjaposition="c" 
+										data-fontcover="<?php echo $value->font_cover; ?>">Usar tema</button>
 									<div class="them_autrr">
 										Creado por <strong><?php echo $value->autor; ?></strong>
 									</div>

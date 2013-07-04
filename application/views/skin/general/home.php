@@ -1,4 +1,4 @@
-		<div id="content" class="span7 mtop-content">
+		<div id="content" class="span6 mtop-content">
 			<!-- content starts -->
 
 			<div class="row-fluid">
@@ -42,6 +42,8 @@
               <div class="tab-content">
 
                 <div class="tab-pane active" id="tab-pendientes"> <!-- class="tab-pane active scroll-pane horizontal-only" -->
+                  <div id="yppendientesp_top" class=""></div>
+
             <?php
               if (is_array($info_dash->listado2)) { ?>
                   <!-- 374 -->
@@ -53,21 +55,26 @@
                     $style = "background: url('".base_url($value->url_img)."') repeat;";
                   }
               ?>
-                    <li class="span6" style="width: 360px;">
+                    <li class="span6" style="width: 315px;">
                       <div class="thumbnail">
-                        <div style="<?php echo $style; ?>width: 360px; height: 200px;overflow: hidden;">
+                        <div style="<?php echo $style; ?>width: 315px; height: 170px;overflow: hidden;">
                       <?php if ($value->bg_pattern == '0') { ?>
-                          <img alt="<?php echo $value->title; ?>" style="width: 360px; height: auto;" src="<?php echo base_url($value->url_img); ?>">
+                          <img alt="<?php echo $value->title; ?>" style="width: 315px; height: auto;" src="<?php echo base_url($value->url_img); ?>">
                       <?php } ?>
                         </div>
                         <div class="caption">
-                          <h3><?php echo $value->title; ?></h3>
-                          <p>Creado: <?php echo String::humanDate(strtotime($value->created)); ?></p>
+                          <div class="span88 pull-left">
+                            <h3><?php echo substr($value->title, 0, 24); ?></h3>
+                            <p>Creado: <?php echo String::humanDate(strtotime($value->created)); ?></p>
+                          </div>
+                          <div class="span44 pull-left">
+                            <a class="edityuppic span44 mleft0 pull-right" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>" title="Editar"></a>
+                            <a class="shopcar span44 mleft0 pull-right" href="<?php echo base_url('buy/order?y='.$value->id_yuppic) ?>" title="Comprar"></a>
+                            <a class="removeyuppic span44 mleft0 pull-right" href="<?php echo base_url('yuppics/eliminar?yuppic='.$value->id_yuppic) ?>" title="Eliminar" 
+                                onclick="msb.confirm('Estas seguro de eliminar el photobook?', 'photobook', this); return false;"></a>
+                          </div>
+                          <div class="clearfix"></div>
                         </div>
-                        <a class="shopcar" href="<?php echo base_url('buy/order?y='.$value->id_yuppic) ?>" title="Comprar"></a>
-                        <a class="edityuppic" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>" title="Editar"></a>
-                        <a class="removeyuppic" href="<?php echo base_url('yuppics/eliminar?yuppic='.$value->id_yuppic) ?>" title="Eliminar" 
-                            onclick="msb.confirm('Estas seguro de eliminar el photobook?', 'photobook', this); return false;"></a>
                       </div>
                     </li>
           <?php } ?>
@@ -91,16 +98,24 @@
               <?php
                 foreach ($info_dash->listado1 as $key => $value) {
               ?>
-                    <li class="span6" style="width: 360px;">
+                    <li class="span6" style="width: 315px;">
                       <div class="thumbnail">
-                        <div style="width: 360px; height: 200px;overflow: hidden;">
-                          <img alt="<?php echo $value->title; ?>" style="width: 360px; height: auto;" src="<?php echo base_url($value->url_img); ?>">
+                        <div style="width: 315px; height: 170px;overflow: hidden;">
+                          <img alt="<?php echo $value->title; ?>" style="width: 315px; height: auto;" src="<?php echo base_url($value->url_img); ?>">
                         </div>
                         <div class="caption">
-                          <h3><?php echo $value->title; ?></h3>
-                          <p>Creado: <?php echo String::humanDate(strtotime($value->created)); ?></p>
+                          <div class="span88 pull-left">
+                            <h3><?php echo substr($value->title, 0, 24); ?></h3>
+                            <p>Creado: <?php echo String::humanDate(strtotime($value->created)); ?></p>
+                          </div>
+                          <div class="span44 pull-left">
+                            <!-- <a class="edityuppic span44 mleft0 pull-right" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>" title="Editar"></a>
+                            <a class="shopcar span44 mleft0 pull-right" href="<?php echo base_url('buy/order?y='.$value->id_yuppic) ?>" title="Comprar"></a> -->
+                            <a class="removeyuppic span44 mleft0 pull-right" href="<?php echo base_url('yuppics/desactivar?yuppic='.$value->id_yuppic) ?>" title="Eliminar" 
+                                onclick="msb.confirm('Estas seguro de eliminar el photobook?', 'photobook', this); return false;"></a>
+                          </div>
+                          <div class="clearfix"></div>
                         </div>
-                        <a class="shopcar" href="<?php echo base_url('yuppics/set_yuppic?yuppic='.$value->id_yuppic) ?>"></a>
                       </div>
                     </li>
           <?php } ?>
@@ -108,7 +123,7 @@
         <?php }else{
           ?>
                 <div class="alert alert-block">
-                  No hay Yuppics comprados!
+                  No Existen Yuppics comprados, <a href="<?php echo base_url('yuppics?new=si'); ?>">¿Deseas Crear un Nuevo Yuppic?</a>
                 </div>
           <?php 
               } ?>

@@ -1,4 +1,4 @@
-		<div id="content" class="span7 mtop-content">
+		<div id="content" class="span6 mtop-content">
 			<!-- content starts -->
 
 			<div class="row-fluid">

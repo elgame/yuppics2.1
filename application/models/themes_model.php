@@ -12,7 +12,8 @@ class themes_model extends CI_Model{
 	 */
 	public function getThemes($search=null, $exist=false, $limit=null){
 		$this->db
-			->select('t.id_theme, t.name, tta.name AS autor, t.background_img, t.background_color, t.text_color')
+			->select("t.id_theme, t.name, tta.name AS autor, t.background_img, t.background_color, t.text_color, t.background_franja, 
+								t.background_franja_color, t.font_cover")
 			->from('themes AS t')
 			->join('themes_autor AS tta', 'tta.id_autor = t.id_autor', 'inner');
 		if ($search != null) {
@@ -55,6 +56,10 @@ class themes_model extends CI_Model{
 			$response->bg_pattern       = '0';
 			$response->bg_img_x         = '0';
 			$response->bg_img_y         = '0';
+			$response->background_franja          = $themes[0]->background_franja;
+			$response->background_franja_color    = $themes[0]->background_franja_color;
+			$response->font_cover                 = $themes[0]->font_cover;
+			$response->background_franja_position = 'c';
 			
 			$a = explode('/', $response->background_img);
 			$b = explode('.', $a[count($a)-1]);
@@ -69,7 +74,7 @@ class themes_model extends CI_Model{
 	public function getYuppicTheme($id_yuppic){
 		$res = $this->db->query("SELECT 
 				y.id_yuppic, y.title, y.author, yt.background_img, yt.background_color, yt.text_color, yt.bg_pattern, 
-				yt.bg_img_x, yt.bg_img_y 
+				yt.bg_img_x, yt.bg_img_y, yt.background_franja, yt.background_franja_color, yt.font_cover, yt.background_franja_position 
 			FROM yuppics AS y 
 				INNER JOIN yuppics_theme AS yt ON y.id_yuppic = yt.id_yuppic 
 			WHERE y.id_yuppic = ".$id_yuppic);
@@ -111,6 +116,11 @@ class themes_model extends CI_Model{
 			'bg_pattern'       => ($this->input->post('bg_pattern')=='si'? '1': '0'),
 			'bg_img_x'         => $this->input->post('bg_img_x'),
 			'bg_img_y'         => $this->input->post('bg_img_y'),
+
+			'font_cover'                 => $this->input->post('font_cover'),
+			'background_franja'          => $this->input->post('background_franja'),
+			'background_franja_color'    => $this->input->post('background_franja_color'),
+			'background_franja_position' => $this->input->post('background_franja_position'),
 			);
 
 		UploadFiles::validaDir($data_yuppic['id_customer'], APPPATH.'yuppics/');
@@ -121,7 +131,9 @@ class themes_model extends CI_Model{
 			unset($data_theme['id_yuppic']);
 
 			// if (strpos($data_theme['background_img'], 'yuppics/themes') !== false) {
-				$data_theme['background_img'] = $this->getPathUrl($data_theme, $data_yuppic, $id_yuppic, true);
+				$imgs_data = $this->getPathUrl($data_theme, $data_yuppic, $id_yuppic, true);
+				$data_theme['background_img']    = $imgs_data['cover'];
+				$data_theme['background_franja'] = $imgs_data['franja'];
 			// }
 
 			$this->db->update('yuppics_theme', $data_theme, "id_yuppic = ".$id_yuppic);
@@ -129,7 +141,9 @@ class themes_model extends CI_Model{
 			$this->db->insert('yuppics', $data_yuppic);
 			$id_yuppic = $this->db->insert_id();
 
-			$data_theme['background_img'] = $this->getPathUrl($data_theme, $data_yuppic, $id_yuppic);
+			$imgs_data = $this->getPathUrl($data_theme, $data_yuppic, $id_yuppic);
+			$data_theme['background_img']    = $imgs_data['cover'];
+			$data_theme['background_franja'] = $imgs_data['franja'];
 
 			$data_theme['id_yuppic']      = $id_yuppic;
 			$this->db->insert('yuppics_theme', $data_theme);
@@ -145,30 +159,45 @@ class themes_model extends CI_Model{
 	private function getPathUrl($data_theme, $data_yuppic, $id_yuppic, $delte=false){
 		$a = explode('/', $data_theme['background_img']);
 		$path = '';
+		$franja_path = '';
+		$path_base = APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/'.$id_yuppic.'/';
 		
+		UploadFiles::validaDir($id_yuppic, APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/');
+
 		if(isset($a[count($a)-1])){
 			$b = explode('.', $a[count($a)-1]);
 
 			if(isset($b[1])){
-				$path = APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/'.$id_yuppic.'/'.$a[count($a)-1];
-				$path_thum = APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/'.$id_yuppic.'/'.$b[0].'_thumb.'.$b[1];
+				$path = $path_base.$a[count($a)-1];
+				$path_thum = $path_base.$b[0].'_thumb.'.$b[1];
 
 				unset($a[count($a)-1]);
 				$source_path_thum = implode('/', $a).'/'.$b[0].'_thumb.'.$b[1];
 
-				UploadFiles::validaDir($id_yuppic, APPPATH.'yuppics/'.$data_yuppic['id_customer'].'/');
 				UploadFiles::copyFile($data_theme['background_img'], $path);
 				UploadFiles::copyFile($source_path_thum, $path_thum);
 			}
 		}
 
+		//copiar la imgen de la franja
+		$a = explode('/', $data_theme['background_franja']);
+		if(isset($a[count($a)-1])){
+			if($a[count($a)-1] != ''){
+				$franja_path = $path_base.$a[count($a)-1];
+				UploadFiles::copyFile($data_theme['background_franja'], $franja_path);
+			}
+		}
+
 		if ($delte) {
 			$info = $this->getYuppicTheme($id_yuppic);
-			if($data_theme['background_img'] != $info->background_img){
-				UploadFiles::deleteFile($info->background_img);
-				
-				$a = explode('/', $info->background_img);
-				if(isset($a[count($a)-1])){
+			//borrar imagen del cover
+			$aa = explode('/', $data_theme['background_img']);
+			$aa = isset($aa[count($aa)-1])? $aa[count($aa)-1]: '';
+			$a = explode('/', $info->background_img);
+			if(isset($a[count($a)-1])){
+				if($a[count($a)-1] != $aa){
+					UploadFiles::deleteFile($info->background_img);
+
 					$b = explode('.', $a[count($a)-1]);
 					if(isset($b[1])){
 						unset($a[count($a)-1]);
@@ -177,9 +206,18 @@ class themes_model extends CI_Model{
 					}
 				}
 			}
+			//borrar imagen de la franja
+			$aa = explode('/', $data_theme['background_franja']);
+			$aa = isset($aa[count($aa)-1])? $aa[count($aa)-1]: '';
+			$a = explode('/', $info->background_franja);
+			if(isset($a[count($a)-1])){
+				if($a[count($a)-1] != $aa){
+					UploadFiles::deleteFile($info->background_franja);
+				}
+			}
 		}
 
-		return $path;
+		return array('cover' => $path, 'franja' => $franja_path);
 	}
 
 }
