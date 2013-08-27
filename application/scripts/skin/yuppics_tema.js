@@ -19,6 +19,9 @@ var yuppic_tema = (function($){
 	function init(){
 		pagination_themes();
 
+		//size el fondeo madera
+		$(".row-fluid.contenido_crea_yupp").css("min-height", $(document).height()-185);
+
 		//si la imagen existe se asigna el evento para mover
 		$(".img_move_preview").draggable({
 			revert: false,

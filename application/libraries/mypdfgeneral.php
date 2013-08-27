@@ -101,6 +101,7 @@ class MYpdfgeneral extends FPDF {
     			$this->SetXY($x+$w,$y);
     		}
     		$this->Ln($h);
+        return $h;
     }
     
     function CheckPageBreak($h, $limit=0){

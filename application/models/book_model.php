@@ -48,7 +48,8 @@ class book_model extends CI_Model{
 
 	public function getYuppic($id_yuppic){
 		$res_yuppic = $this->db->query("SELECT y.id_yuppic, y.id_customer, y.id_product, y.title, y.author,
-				yt.background_img, yt.background_color, yt.text_color, yt.bg_pattern, yt.bg_img_x, yt.bg_img_y
+				yt.background_img, yt.background_color, yt.text_color, yt.bg_pattern, yt.bg_img_x, yt.bg_img_y, 
+				yt.font_cover, yt.background_franja, yt.background_franja_color, yt.background_franja_position
 			FROM yuppics AS y INNER JOIN yuppics_theme AS yt ON y.id_yuppic = yt.id_yuppic
 			WHERE y.id_yuppic = ".$id_yuppic);
 		if ($res_yuppic->num_rows() > 0) {
